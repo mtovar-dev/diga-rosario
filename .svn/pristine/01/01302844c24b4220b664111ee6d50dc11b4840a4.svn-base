@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<config>
+   <Server Name="DEV">
+      <server>
+         <serverName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/e9B7G4dxJNRidjjGPBmC8pJ0uyND52xAnsyaTvxxkxzOunfRhunYnjZuYKxO1NzVy</serverName>
+         <portNumber>1433</portNumber>
+         <databaseName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/ep35DTqS0zcWkuMvsxdaiNtn6Yw9+ukDK4WcLri2l0ZPjXgYPhraJ+TfV4UXqg7ze</databaseName>
+         <userName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/e9uRyMN6brhWL0q6sfPhUoINbj9a9ciMtqkL/pHxhYZDuxlKD4mzkZRyjyaWt5BKR</userName>
+         <password>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/ejwVy8aXWQLyj/Bc6G2G9FuDYMd0nVBOzKtXKbHmyM0hw8/cTlRFkaLNrDBvTUxpg</password>
+      </server>
+   </Server>    
+</config>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.System.Fxml_RoleController">
+  <children>
+    <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
+      <children>
+        <HBox prefHeight="39.0" prefWidth="774.0">
+          <children>
+            <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
+              <children>
+                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img63.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img64.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img49.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img07.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/im_1.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img03.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img04.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img11.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img56.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img59.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img60.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img32.png" />
+                  </image>
+                </ImageView>
+                <TextField fx:id="tf_buscar" prefWidth="150.0" />
+                <Label id="lb_Title" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Roles" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" fx:id="x1" />
+              </padding>
+            </HBox>
+          </children>
+        </HBox>
+        <Separator prefWidth="200.0" />
+      </children>
+    </VBox>
+    <VBox fx:id="vb_form" layoutX="84.0" layoutY="47.0" prefHeight="148.0" prefWidth="629.0" spacing="5.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" fx:id="hb_1" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="ID Rol:" visible="true" />
+                <TextField fx:id="tf_id" prefWidth="81.0" />
+                <ImageView fx:id="im_check" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" visible="true">
+                  <image>
+                    <Image url="@../../../Images/img32a.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="" fx:id="im_val" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image" visible="true">
+                  <image>
+                    <Image url="@../../../Images/img61a.png" />
+                  </image>
+                </ImageView>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" fx:id="hb_2" prefWidth="200.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Nombre:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField fx:id="tf_nombre" prefWidth="450.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" fx:id="hb_3" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Abreviatura:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField fx:id="tf_abrev" prefHeight="22.0" prefWidth="81.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0" />
+            <HBox id="usrLn01" fx:id="hb_7" alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="539.0" spacing="10.0">
+              <children>
+                <Label fx:id="lb_ocultar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="100.0" styleClass="lb-ocultar" text="Ocultar">
+                  <font>
+                    <Font name="System Bold" size="12.0" />
+                  </font>
+                  <stylesheets>
+                    <URL value="@Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+      </children>
+      <padding>
+        <Insets left="30.0" right="30.0" top="20.0" />
+      </padding>
+    </VBox>
+    <VBox fx:id="vb_table" layoutX="32.0" layoutY="195.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true">
+      <children>
+        <TableView fx:id="tb_table" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+      </children>
+    </VBox>
+    <Label fx:id="lb_Title" layoutX="16.0" layoutY="43.0" prefHeight="25.0" prefWidth="200.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@Screens.css" />
+      </stylesheets>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@Screens.css" />
+    <URL value="@../../Css.css" />
+  </stylesheets>
+</AnchorPane>

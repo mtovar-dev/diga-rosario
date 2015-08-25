@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_user" class="java.lang.String"/>
+	<parameter name="p_subtitulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="status" class="java.lang.String"/>
+	<field name="nro_ci" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
+	<field name="city.nombre" class="java.lang.String"/>
+	<field name="parish.nombre" class="java.lang.String"/>
+	<field name="municipality.nombre" class="java.lang.String"/>
+	<field name="state.nombre" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="correo" class="java.lang.String"/>
+	<field name="tpersonal.nombre" class="java.lang.String"/>
+	<field name="fec_lc" class="java.sql.Date"/>
+	<field name="fec_cm" class="java.sql.Date"/>
+	<field name="fec_cs" class="java.sql.Date"/>
+	<field name="fec_ma" class="java.sql.Date"/>
+	<sortField name="tpersonal.nombre"/>
+	<group name="tpersonal">
+		<groupExpression><![CDATA[$F{tpersonal.nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<rectangle>
+					<reportElement x="0" y="2" width="150" height="17" uuid="ce2ee8d6-70fc-4774-8085-2a41192a5b84"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="2" y="3" width="50" height="15" uuid="fb568379-6dd7-4a4d-8cd6-3722b9d610f7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Monospaced" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[T/Personal:]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="tpersonal">
+					<reportElement x="55" y="3" width="100" height="15" uuid="4d50f21e-37f9-473e-9311-dc3d78e2e6ac"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Monospaced" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tpersonal.nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="180" height="71" uuid="b37ee4eb-53bb-4607-8603-c87a6a5d03a8"/>
+				<imageExpression><![CDATA["C:\\diga_sys\\images\\logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="486" y="6" width="86" height="15" uuid="f2c2ce95-05f1-4ad7-933f-6b2f87d722c3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fecha / Hora:]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="431" y="21" width="141" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="514" y="36" width="58" height="15" uuid="280cadd4-4adc-48a8-8c73-08435b0d2b62"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="51" width="100" height="15" uuid="24c35829-3bbe-4b81-b0ab-2ebdf0d8da76"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_user}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="43" width="180" height="35" uuid="8e92cac2-d03c-4af3-bef7-bee89c5834df"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISTRIBUIDORA DE GALLETAS (DIGA), C.A.
+RIF: J075455525]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="51" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="-1" width="572" height="1" uuid="3583c343-ae35-47c8-857b-3eb60659ffad"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="482" y="6" width="70" height="15" uuid="9ba34049-357a-4cb2-ad61-3f93a40bfb42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PAG:  "+$V{PAGE_NUMBER} +"  de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="552" y="6" width="20" height="15" uuid="8d11264f-4629-485a-b364-8c621d664cfa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="26" width="572" height="1" uuid="ee4cb552-e2c4-4ce6-9c92-132ed62ce9a7"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="2" width="572" height="24" uuid="d1cedf56-af84-4b36-b4de-53b68c3d6e4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Personal (Logistica)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="29" width="552" height="20" uuid="9c804b4f-66e2-49a2-a15c-56dfd094cf25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="89" y="0" width="65" height="15" uuid="caa04887-da49-4049-85db-c29671eea6be"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nro de Cédula:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="0" width="62" height="15" uuid="ce9121e6-6df9-418a-9218-07bf503eeb4f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nro_ci}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="237" y="0" width="104" height="15" uuid="741efee7-d7db-4300-bd02-dfec8253ef2f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="343" y="0" width="218" height="15" uuid="f4e10b4b-e328-4edd-8319-cccdd7cb9706"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidos} + "," + $F{nombres}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="15" width="45" height="15" uuid="b79b6337-99c6-4429-80ec-d517c9b25d73"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="47" y="15" width="211" height="15" uuid="51841b17-2c7c-4d0b-b0b6-28d4299b2273"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="30" width="49" height="15" uuid="d7527406-1855-4373-b69e-6d9030f6f7c1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="463" y="30" width="102" height="15" uuid="8a78241a-3009-4fa6-aaf9-314255b024f8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{state.nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="15" width="49" height="15" uuid="ac9e7293-8593-46aa-a244-e24dbc7a5b89"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Municipio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="463" y="15" width="102" height="15" uuid="45631379-5835-4d9a-9da7-75cb447bddf7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipality.nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="266" y="15" width="34" height="15" uuid="d2ec9394-6a4c-4aa4-97c5-349637b52d6e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ciudad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="15" width="102" height="15" uuid="2baa5a6a-98a0-4533-9b12-5aaef2bea639"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{city.nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="45" height="15" uuid="069d08e5-72c4-4fa3-999b-945a89697c6d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="47" y="30" width="100" height="15" uuid="8ede422d-7ccb-40dd-91b5-315baa024785"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="266" y="30" width="34" height="15" uuid="4b28d4ef-f32e-4fd4-9577-73497498096b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="301" y="30" width="102" height="15" uuid="672301ea-965a-41b1-b390-6aca81b8cf99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="45" width="45" height="15" uuid="da543ce1-de13-43be-bcb5-bb44246e0fae"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Licencia:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="47" y="45" width="70" height="15" uuid="7642e355-1081-418e-94c6-fc8521f02a29"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fec_lc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="128" y="45" width="52" height="15" uuid="e2d31a4b-37c4-47c0-93c3-47f040197110"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cert. Medico:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="181" y="45" width="70" height="15" uuid="9fa53e26-94f8-400f-97af-765bc1bf4b12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fec_cm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="251" y="45" width="49" height="15" uuid="34d28318-2347-40c1-8e98-15eaa8b3afd7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cert. Salud:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="301" y="45" width="70" height="15" uuid="251cd17b-b807-4a94-85fd-31570ff51785"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fec_cs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="45" width="49" height="15" uuid="adfc510b-bbdf-45c0-8e4b-9e429d331269"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Man. Alim.:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="463" y="45" width="70" height="15" uuid="40a35498-45ab-4b65-a9c6-8f09f977d3c9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fec_ma}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="63" width="572" height="1" uuid="9b44f6dd-6041-4654-821a-e838bb300183"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

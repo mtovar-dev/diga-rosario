@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root1" prefHeight="316.0" prefWidth="460.0" styleClass="Pane, bordered-Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Dialogs.Fxml_VisorController">
+  <children>
+    <VBox alignment="TOP_RIGHT" layoutX="420.0" prefHeight="40.0" prefWidth="40.0" spacing="5.0">
+      <children>
+        <ImageView fx:id="im_close" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image preserveRatio="false" smooth="false" url="@../../Images/close_button.png" />
+          </image>
+        </ImageView>
+      </children>
+      <padding>
+        <Insets right="5.0" top="10.0" />
+      </padding>
+    </VBox><VBox fillWidth="false" layoutX="14.0" layoutY="36.0" prefHeight="260.0" prefWidth="436.0">
+<children>
+<ImageView fx:id="im_view" fitHeight="256.0" fitWidth="420.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

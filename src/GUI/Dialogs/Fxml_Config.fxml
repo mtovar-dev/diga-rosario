@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?scenebuilder-background-color 0x00000000?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.Dialogs.Fxml_ConfigController">
+  <children>
+    <Pane prefHeight="600.0" prefWidth="400.0">
+      <children>
+        <TabPane layoutX="4.0" prefHeight="595.0" prefWidth="390.0" styleClass="prueba" tabClosingPolicy="UNAVAILABLE">
+          <stylesheets>
+            <URL value="@../Css.css" />
+            <URL value="@Dialog.css" />
+          </stylesheets>
+          <tabs>
+            <Tab styleClass="Pane" text="Untitled Tab 1">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="393.0" styleClass="Pane, bordered-Pane, round-pane">
+                  <stylesheets>
+                    <URL value="@../Css.css" />
+                  </stylesheets>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab styleClass="Pane" text="Untitled Tab">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="Pane, bordered-Pane, round-pane">
+                  <stylesheets>
+                    <URL value="@../Css.css" />
+                  </stylesheets>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab styleClass="Pane" text="Untitled Tab">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="Pane, bordered-Pane, round-pane">
+                  <stylesheets>
+                    <URL value="@../Css.css" />
+                  </stylesheets>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab styleClass="Pane" text="Untitled Tab">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="Pane, bordered-Pane, round-pane">
+                  <stylesheets>
+                    <URL value="@../Css.css" />
+                  </stylesheets>
+                </AnchorPane>
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </children>
+      <stylesheets>
+        <URL value="@../Css.css" />
+        <URL value="@Dialog.css" />
+      </stylesheets>
+    </Pane>
+    <Label fx:id="bt_close" alignment="TOP_RIGHT" layoutX="370.0" layoutY="2.0">
+      <graphic>
+        <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../../images/close_button.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+  </stylesheets>
+</AnchorPane>

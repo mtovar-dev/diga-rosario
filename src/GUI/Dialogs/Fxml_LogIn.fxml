@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-background-color 0x00000000?>
+<?scenebuilder-stylesheet Dialog.css?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="200.0" prefWidth="300.0" styleClass="Pane, round-pane, bordered-Pane" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.Dialogs.Fxml_LogInController">
+  <children>
+    <VBox alignment="TOP_RIGHT" layoutX="200.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+      <children>
+        <Label fx:id="bt_close" alignment="TOP_RIGHT">
+          <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../../Images/close_button.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Label>
+      </children>
+      <padding>
+        <Insets right="5.0" top="10.0" />
+      </padding>
+    </VBox>
+    <VBox layoutX="40.0" prefHeight="200.0" prefWidth="230.0" spacing="15.0">
+      <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Label prefWidth="90.0" text="Usuario:" />
+            <TextField fx:id="usuario" prefWidth="150.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Label prefWidth="90.0" text="Contraseña:" />
+            <PasswordField fx:id="pswd" prefWidth="150.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Button fx:id="bt_login" contentDisplay="CENTER" mnemonicParsing="false" text="Acceder" textAlignment="CENTER" />
+          </children>
+        </HBox>
+      </children>
+      <padding>
+        <Insets top="50.0" />
+      </padding>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

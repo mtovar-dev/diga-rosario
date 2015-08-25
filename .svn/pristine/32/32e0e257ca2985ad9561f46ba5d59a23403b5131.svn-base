@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import Tools.*?>
+<?scenebuilder-background-color 0x00000000?>
+<?scenebuilder-stylesheet Dialog.css?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="200.0" prefWidth="300.0" styleClass="Pane, round-pane, bordered-Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Dialogs.Fxml_PassUpdController">
+  <children>
+    <VBox alignment="TOP_RIGHT" layoutX="200.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+      <children>
+        <Label fx:id="bt_close" alignment="TOP_RIGHT">
+          <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image preserveRatio="false" smooth="false" url="@../../Images/close_button.png" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Label>
+      </children>
+      <padding>
+        <Insets right="5.0" top="10.0" />
+      </padding>
+    </VBox>
+    <VBox layoutX="40.0" prefHeight="200.0" prefWidth="230.0" spacing="5.0">
+      <children>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="30.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lb_mensj" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="232.0" text="." textAlignment="CENTER" />
+               </children>
+            </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Label prefWidth="90.0" text="Actual:" />
+                  <PasswordField fx:id="pf_old" prefWidth="150.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Label prefWidth="90.0" text="Nueva:" />
+            <PasswordField fx:id="pf_new" prefWidth="150.0" />
+          </children>
+        </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="105.0" prefHeight="30.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="90.0" text="Confirmar:" />
+                  <PasswordField  fx:id="pf_confirm" prefWidth="150.0" />
+               </children>
+            </HBox>
+        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+          <children>
+            <Button fx:id="bt_passupd" contentDisplay="CENTER" mnemonicParsing="false" text="Actualizar" textAlignment="CENTER" />
+          </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+        </HBox>
+      </children>
+      <padding>
+        <Insets top="15.0" />
+      </padding>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

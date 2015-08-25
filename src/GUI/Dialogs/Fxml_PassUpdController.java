@@ -1,0 +1,185 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GUI.Dialogs;
+
+import GUI.Gui;
+import LN.Ln;
+import Listeners.FocusPropertyChangeListener;
+import Objects.System.Usuario;
+import Tools.Datos;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
+/**
+ *
+ * @author MITM
+ */
+public class Fxml_PassUpdController implements Initializable {
+    @FXML 
+    private AnchorPane ap_root; 
+    
+    @FXML 
+    private Label bt_close; 
+    
+    @FXML 
+    private Button bt_passupd; 
+
+    @FXML 
+    private PasswordField pf_old; 
+
+    @FXML 
+    private PasswordField pf_new; 
+
+    @FXML 
+    private PasswordField pf_confirm; 
+
+    
+    private static String[] tooltips;
+
+    /**
+     * Initializes the controller class.
+     * @param fxmlFileLocation
+     * @param resources
+     */     
+    @Override // This method is called by the FXMLLoader when initialization is complete
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_PassUpd.fxml'.";
+
+        init_bt_close();
+        init_bt_passupd();
+        init_FocusArray();
+        //Capturador de eventos de Teclado en toda la pantalla         
+        ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                nextFocusedField(ke);
+            }
+            if (ke.getCode().equals(KeyCode.ESCAPE)){
+                closeDialog();
+            }
+        });
+
+        tooltips = new String[]{
+            "Debe contener 6 caracteres (Mayúscula, Minúscula, Número y Carácter Especial"
+        };
+
+        Tooltip tip_tool = new Tooltip(tooltips[0]);
+        Tooltip.install(pf_new, tip_tool);
+        Tooltip.install(pf_confirm, tip_tool);
+
+    }    
+    /**
+     * 
+     */
+    private void closeDialog(){
+        Gui.getInstance().closeDialog();
+    }
+    /**
+     * 
+     */
+    private void init_bt_close(){
+        assert bt_close != null : "fx:id=\"bt_close\" was not injected: check your FXML file 'Fxml_PassUpd.fxml'.";
+         
+        bt_close.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Gui.getInstance().closeDialog();
+                }
+            }
+        });
+    }
+    
+    /**
+     * 
+     */
+    private void init_bt_passupd(){
+        assert bt_passupd != null : "fx:id=\"bt_close\" was not injected: check your FXML file 'Fxml_PassUpd.fxml'.";
+         
+        bt_passupd.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    boolean result; 
+                    result = updatePswd();
+                    if (result)
+                        Gui.getInstance().closeDialog();
+                }
+            }
+        });         
+    }
+
+    /**
+     * 
+     */
+    private void nextFocusedField(KeyEvent ke) {
+        Gui.sumFieldFocused();        
+        if(Gui.getFieldFocused() >= Gui.getFieldsSize()){
+//            if(usuario.getText() != null && pswd.getText() != null){
+//                Ln.getInstance().logIn(usuario.getText(), pswd.getText());
+//            }
+        }            
+        else{
+            Gui.getFields()[Gui.getFieldFocused()].requestFocus();                    
+        }
+            
+    }
+
+    /**
+     * 
+     * @param opc 
+     */
+    private void init_FocusArray(){
+        Node[] nodos;
+        nodos = new Node[]
+            {pf_old, pf_new, pf_confirm};
+        Gui.setFields(nodos); 
+        Gui.setFieldsSize(nodos.length);
+        Gui.setFieldFocused(0);
+        //
+        for(int i=0;i < Gui.getFields().length; i++){
+            FocusPropertyChangeListener fpcl = new FocusPropertyChangeListener(Gui.getFields()[i],i);
+            Gui.getFields()[i].focusedProperty().addListener(fpcl);                
+        }
+    }    
+    
+    /**
+     * Procedimiento que manda a guardar el cambio de contraseña del usuario
+     */
+    private boolean updatePswd() {        
+        String username = Datos.getSesion().getUsername();    //Se obtiene el nombre de usuario
+        //Si el nombre de usuario no esta en blanco
+        if(username != null && !username.equals("")){
+            //Se asignan los valores del objeto 
+            Usuario usuario = new Usuario();
+            usuario.setUsername(username);
+            usuario.setPswd_old(pf_old.getText());
+            usuario.setPswd_new(pf_confirm.getText());
+            Datos.setUsuario(usuario);
+            //Se llama al procedimiento que almacena los datos
+            boolean result = Ln.getInstance().update_UserPswd(usuario, pf_old.getText(), pf_confirm.getText());
+            //Si el resultado es correcto
+            if(result){
+                //Llamado a una Ventana de Mensaje
+                Gui.getInstance().showMessage("La Contraseña se ha Guardado Correctamente!", "I");
+                return true;
+            }     
+        }else{  //Si Existe algun error 
+            //Se levanta una ventana de Error
+            Gui.getInstance().showMessage("No Existe ningun Usuario para ser Modificado!", "E");
+        }
+        return false;
+    }   
+}

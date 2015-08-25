@@ -1,0 +1,29 @@
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+
+index                           = 1000000
+changeScreen                    = 1000001
+
+supplier                        = 1001000
+orders_new                      = 1002010
+orders_open                     = 1002020
+orders_close                    = 1002030
+guide_data                      = 2003010
+guide_print                     = 2003020
+guide_paydesk                   = 2003030
+guide_invoiceglomar             = 2003040
+personal                        = 2004000
+vehiculos                       = 2005000
+seniat_qry_rif                  = 6002010
+seniat_upfile_retenciones       = 6002020
+seniat_query_retenciones        = 6002030
+aud_gh_concepto                 = 7001010
+aud_gh_empleado                 = 7001020
+aud_gh_empresa                  = 7001030
+audit_rrhh                      = 7001040
+measure                         = 8001000
+groupsupplier                   = 8002000
+unit                            = 8003000
+reason                          = 8004000
+user                            = 9001000
+role                            = 9003000

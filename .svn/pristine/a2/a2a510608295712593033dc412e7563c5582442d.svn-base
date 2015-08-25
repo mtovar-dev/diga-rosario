@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns:fx="http://javafx.com/fxml" fx:controller="GUI.Screens.Fxml_MaterialController">
+  <children>
+    <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
+      <children>
+        <HBox prefHeight="39.0" prefWidth="774.0">
+          <children>
+            <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
+              <children>
+                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img63.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img64.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img49.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img07.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img11.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/im_1.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img03.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img04.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img56.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img59.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img60.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img32.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <TextField fx:id="tf_buscar" prefWidth="150.0" />
+                <Label id="lb_Title" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Materia Prima" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" fx:id="x1" />
+              </padding>
+            </HBox>
+          </children>
+        </HBox>
+        <Separator prefWidth="200.0" />
+      </children>
+    </VBox>
+    <VBox fx:id="vb_form" layoutX="84.0" layoutY="47.0" prefHeight="333.0" prefWidth="629.0" spacing="5.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" minHeight="16.0" prefHeight="22.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="ID Material:" />
+                <TextField id="usuario" prefWidth="81.0" />
+                <ImageView id="im_check" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../../Images/img32a.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefHeight="24.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Material:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" prefWidth="450.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" minHeight="16.0" prefHeight="22.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="RIF del Prov.:" />
+                <TextField id="usuario" fx:id="tf_rif" prefWidth="81.0" />
+                <ImageView fx:id="im_check" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../../Images/img32a.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+                <ImageView id="" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../Images/img61a.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </children>
+            </HBox>
+            <CheckBox id="cb" fx:id="ch_IvaAgent" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="140.0" text="Agente de Retención">
+              <HBox.margin>
+                <Insets left="38.0" />
+              </HBox.margin>
+            </CheckBox>
+            <CheckBox id="cbt75" fx:id="ch_t75" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="51.0" text="75%">
+              <HBox.margin>
+                <Insets left="8.0" fx:id="x2" />
+              </HBox.margin>
+            </CheckBox>
+            <CheckBox id="cb_t100" fx:id="ch_t100" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="51.0" text="100%" HBox.margin="$x2" />
+          </children>
+        </HBox>
+        <HBox id="usrLn01" fx:id="hb_2" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefHeight="24.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Proveedor:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_nombre" prefWidth="450.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" fx:id="hb_3" prefHeight="24.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefHeight="28.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Referencia:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_referencia" prefHeight="22.0" prefWidth="166.0" />
+              </children>
+            </HBox>
+            <Label prefHeight="22.0" prefWidth="85.0" text="Unid. Medida:">
+              <HBox.margin>
+                <Insets left="10.0" fx:id="x1" />
+              </HBox.margin>
+            </Label>
+            <ComboBox id="country" fx:id="cb_pais" minHeight="22.0" prefWidth="169.0" />
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefHeight="30.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefHeight="24.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.00009999999747" text="Medida 1:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_telefonos" prefHeight="22.0" prefWidth="169.0" />
+                <HBox id="HBox" alignment="CENTER" prefHeight="23.0" prefWidth="277.0" spacing="5.0">
+                  <children>
+                    <Label prefWidth="90.0" text="Medida 2:" HBox.margin="$x1" />
+                    <TextField id="usuario" fx:id="tf_fax" prefHeight="22.0" prefWidth="169.0" />
+                  </children>
+                </HBox>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefHeight="24.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.00009999999747" text="Medida 3:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_contacto" prefHeight="22.0" prefWidth="169.0" />
+              </children>
+            </HBox>
+            <HBox id="HBox" alignment="CENTER" prefWidth="277.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Medida 4:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_celular" prefHeight="22.0" prefWidth="169.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefHeight="30.0" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.00009999999747" text="Factor Empaque:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="usuario" fx:id="tf_correo" prefHeight="22.0" prefWidth="169.0" />
+              </children>
+            </HBox>
+            <HBox id="usrLn01" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="294.0" spacing="10.0">
+              <children>
+                <Label fx:id="lb_ocultar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="100.0" styleClass="lb-ocultar" text="Ocultar">
+                  <font>
+                    <Font name="System Bold" size="12.0" />
+                  </font>
+                  <stylesheets>
+                    <URL value="@Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+      </children>
+      <padding>
+        <Insets left="30.0" right="30.0" top="20.0" />
+      </padding>
+    </VBox>
+    <VBox layoutX="32.0" layoutY="380.0" prefHeight="192.0" prefWidth="710.0">
+      <children>
+        <TableView fx:id="tb_table" prefHeight="204.0" prefWidth="710.0" />
+      </children>
+    </VBox>
+    <Label fx:id="lb_Title" layoutX="16.0" layoutY="43.0" prefHeight="25.0" prefWidth="200.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@Screens.css" />
+      </stylesheets>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@Screens.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

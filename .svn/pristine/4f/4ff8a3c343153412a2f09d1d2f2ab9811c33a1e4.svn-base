@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import Tools.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Fxml_VehiculosController">
+  <children>
+    <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
+      <children>
+        <HBox prefHeight="39.0" prefWidth="774.0">
+          <children>
+            <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
+              <children>
+                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img63.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img64.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img49.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img07.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/im_1.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img03.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img04.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img11.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img56.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img59.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img60.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img32.png" />
+                  </image>
+                </ImageView>
+                <TextField fx:id="tf_buscar" prefWidth="150.0" />
+                <Label id="lb_Title" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Vehiculos" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" fx:id="x1" />
+              </padding>
+            </HBox>
+          </children>
+        </HBox>
+        <Separator prefWidth="200.0" />
+      </children>
+    </VBox>
+    <VBox fx:id="vb_form" layoutX="84.0" layoutY="47.0" prefHeight="423.0" prefWidth="629.0" spacing="5.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" fx:id="hb_1" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Nro de Placa:" />
+                <TextField fx:id="tf_placa" prefWidth="81.0" />
+                <ImageView fx:id="im_check" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img32a.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="" fx:id="im_val" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/img61a.png" />
+                  </image>
+                </ImageView>
+              </children>
+            </HBox><HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.0" text="Marca:" />
+            <ComboBox id="cb_marca" fx:id="cb_marca" minHeight="20.0" prefWidth="160.0">
+              <HBox.margin>
+                <Insets left="2.0" />
+              </HBox.margin>
+            </ComboBox>
+</children>
+<HBox.margin>
+<Insets left="57.0" />
+</HBox.margin>
+</HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" fx:id="hb_2" prefWidth="200.0" spacing="10.0">
+          <children>
+            <HBox id="usrLn01" prefWidth="569.0" spacing="10.0">
+              <children>
+                <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                  <children>
+                    <Label prefWidth="90.00009999999747" text="Modelo:">
+                      <HBox.margin>
+                        <Insets />
+                      </HBox.margin>
+                    </Label>
+                    <TextField id="tf_modelo" fx:id="tf_modelo" prefHeight="25.0" prefWidth="130.0" />
+                  </children>
+                </HBox>
+                    <HBox id="HBox" alignment="CENTER" prefHeight="23.0" prefWidth="180.0" spacing="5.0">
+                      <children>
+                        <Label prefWidth="80.0" text="Capacidad:">
+                          <HBox.margin>
+                            <Insets />
+                          </HBox.margin>
+                        </Label>
+                        <ValidateTextFieldNumber id="tf_capacidad" fx:id="tf_capacidad" prefHeight="25.0" prefWidth="50.0" /><Label prefWidth="30.0" text="KGS" textAlignment="CENTER">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<font>
+<Font size="11.0" />
+</font></Label>
+                      </children>
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin>
+                    </HBox>
+<HBox id="HBox" alignment="CENTER" layoutX="246.0" layoutY="10.0" prefHeight="23.0" prefWidth="126.0" spacing="5.0">
+<children>
+<Label prefWidth="40.0" text="Año:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<ValidateTextFieldNumber id="tf_ano" fx:id="tf_ano" prefHeight="25.0" prefWidth="45.0" />
+</children>
+</HBox>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefWidth="200.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefWidth="545.0" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Empresa:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="tf_empresa" fx:id="tf_empresa" prefHeight="25.0" prefWidth="300.0" />
+                        <Label layoutX="10.0" layoutY="14.0" prefWidth="30.0" text="Rif:">
+                           <HBox.margin>
+                              <Insets left="14.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField id="tf_empresa" fx:id="tf_rif" layoutX="133.0" layoutY="10.0" prefHeight="25.0" prefWidth="90.0" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <HBox id="usrLn01" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.00009999999747" text="Telef Cel.:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <ValidateTextFieldPhone id="tf_celular" fx:id="tf_celular" prefHeight="25.0" prefWidth="100.0" />
+              </children>
+            </HBox>
+            <HBox id="HBox" alignment="CENTER" prefWidth="277.0" spacing="5.0">
+              <children>
+                <Label prefWidth="70.0" text="Correo:">
+                  <HBox.margin>
+                    <Insets />
+                  </HBox.margin>
+                </Label>
+                <TextField id="tf_correo" fx:id="tf_correo" prefHeight="25.0" prefWidth="220.0" />
+              </children>
+<HBox.margin>
+<Insets left="62.0" />
+</HBox.margin>
+            </HBox>
+          </children>
+        </HBox>
+<HBox id="usrLn01" alignment="CENTER_LEFT" layoutX="40.0" layoutY="185.0" prefWidth="569.0" spacing="10.0">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.0" text="T / Transporte:" />
+<ComboBox id="cb_ttrans" fx:id="cb_ttrans" minHeight="20.0" prefWidth="169.0">
+<HBox.margin>
+<Insets left="2.0" />
+</HBox.margin>
+</ComboBox>
+</children>
+</HBox>
+<HBox id="HBox" alignment="CENTER" prefWidth="277.0" spacing="5.0">
+<children>
+<Label prefWidth="80.0" text="Clasificación:" /><RadioButton fx:id="rb_clasif1" mnemonicParsing="false" text="Peq" /><RadioButton fx:id="rb_clasif2" mnemonicParsing="false" text="Gra">
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin></RadioButton><RadioButton fx:id="rb_clasif3" mnemonicParsing="false" text="Gan">
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin></RadioButton>
+</children>
+<HBox.margin>
+<Insets left="2.0" />
+</HBox.margin>
+</HBox>
+</children>
+</HBox>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="569.0" spacing="10.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label prefWidth="90.0" text="Procedencia:" />
+                <ComboBox id="roles" fx:id="cb_proced" minHeight="20.0" prefWidth="169.0">
+<HBox.margin>
+<Insets left="2.0" />
+</HBox.margin></ComboBox>
+              </children>
+            </HBox>
+          </children>
+        </HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="Carnet de Circ.:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<TextField id="tf_cc" fx:id="tf_cc" prefHeight="25.0" prefWidth="236.0" />
+<Button fx:id="bt_cc" mnemonicParsing="false" text="..." />
+</children>
+</HBox>
+<HBox id="usrLn01" fx:id="hb_7" alignment="CENTER_RIGHT" prefWidth="128.0" spacing="10.0">
+<children>
+<Label fx:id="lb_ocultar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="100.0" styleClass="lb-ocultar" text="Ocultar">
+<font>
+<Font name="System Bold" size="12.0" />
+</font>
+<stylesheets>
+<URL value="@Screens.css" />
+</stylesheets>
+</Label>
+</children>
+</HBox>
+</children>
+</HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="Titulo:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<TextField id="tf_tt" fx:id="tf_tt" prefHeight="25.0" prefWidth="236.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</TextField>
+<Button id="bt_tt" fx:id="bt_tt" mnemonicParsing="false" text="...">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Button>
+</children>
+</HBox>
+</children>
+</HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="Poliza:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<TextField id="tf_rcv" fx:id="tf_rcv" prefHeight="25.0" prefWidth="236.0" />
+<Button id="bt_rcv" fx:id="bt_rcv" mnemonicParsing="false" text="..." />
+<DatePicker fx:id="dt_rcv" prefHeight="25.0" prefWidth="105.0">
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin>
+</DatePicker>
+<Label fx:id="lb_rcv" prefHeight="25.0" prefWidth="40.0">
+<HBox.margin>
+<Insets left="3.0" />
+</HBox.margin>
+</Label>
+<ImageView id="" fx:id="im_rcv" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+<image>
+<Image url="@../../Images/img57a.png" />
+</image>
+</ImageView>
+</children>
+</HBox>
+</children>
+</HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="Permiso San.:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<TextField id="tf_ps" fx:id="tf_ps" prefHeight="25.0" prefWidth="236.0" />
+<Button id="ruta" fx:id="bt_ps" mnemonicParsing="false" text="..." />
+<DatePicker fx:id="dt_ps" prefHeight="25.0" prefWidth="105.0">
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin>
+</DatePicker>
+<Label fx:id="lb_ps" prefHeight="25.0" prefWidth="40.0">
+<HBox.margin>
+<Insets left="3.0" />
+</HBox.margin>
+</Label>
+<ImageView id="" fx:id="im_ps" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+<image>
+<Image url="@../../Images/img57a.png" />
+</image>
+</ImageView>
+</children>
+</HBox>
+</children>
+</HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="RGT:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<TextField id="tf_rgt" fx:id="tf_rgt" prefHeight="25.0" prefWidth="236.0" />
+<Button id="bt_rgt" fx:id="bt_rgt" mnemonicParsing="false" text="..." />
+<DatePicker fx:id="dt_rgt" prefHeight="25.0" prefWidth="105.0">
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin>
+</DatePicker>
+<Label fx:id="lb_rgt" prefHeight="25.0" prefWidth="40.0">
+<HBox.margin>
+<Insets left="3.0" />
+</HBox.margin>
+</Label>
+<ImageView id="" fx:id="im_rgt" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+<image>
+<Image url="@../../Images/img57a.png" />
+</image>
+</ImageView>
+</children>
+</HBox>
+</children>
+</HBox>
+<HBox id="usrLn01" layoutX="40.0" layoutY="157.0" prefWidth="569.0" spacing="10.0">
+<children>
+<HBox id="HBox" alignment="CENTER" spacing="5.0">
+<children>
+<Label prefWidth="90.00009999999747" text="Nro de RGT:">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+</Label>
+<ValidateTextFieldNumber id="tf_nrorgt" fx:id="tf_nrorgt" prefHeight="25.0" prefWidth="60.0" />
+</children>
+</HBox>
+</children>
+</HBox>
+      </children>
+      <padding>
+        <Insets left="30.0" right="30.0" top="20.0" />
+      </padding>
+    </VBox>
+    <VBox fx:id="vb_table" layoutX="14.0" layoutY="568.0" prefHeight="93.0" prefWidth="272.0">
+<children>
+        <TableView fx:id="tb_table" />
+</children></VBox>
+    <Label fx:id="lb_Title" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="200.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@Screens.css" />
+      </stylesheets>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@Screens.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

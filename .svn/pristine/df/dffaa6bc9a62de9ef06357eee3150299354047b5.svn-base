@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Seniat.Fxml_UpFile_RetencionesController">
+  <children>
+    <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@../Screens.css" />
+      </stylesheets>
+    </Label>
+    <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
+      <children>
+        <HBox prefHeight="39.0" prefWidth="774.0">
+          <children>
+            <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
+              <children>
+                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img63.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img64.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img49.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img07.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/im_1.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img03.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img04.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img36.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img37.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img59.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img60.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img32.png" />
+                  </image>
+                </ImageView>
+                <TextField fx:id="tf_buscar" prefWidth="150.0" />
+                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Carga" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" fx:id="x1" />
+              </padding>
+            </HBox>
+          </children>
+        </HBox>
+        <Separator prefWidth="200.0" />
+      </children>
+    </VBox>
+    <VBox fx:id="vb_table" layoutX="8.0" layoutY="45.0" prefHeight="550.0" prefWidth="766.0" spacing="5.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="657.0" spacing="10.0">
+<VBox.margin>
+<Insets left="25.0" />
+</VBox.margin>
+               <children>
+                  <HBox id="HBox" fx:id="hb_11" alignment="CENTER" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/seniat.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label id="lb_mensj" fx:id="lb_mensj1" alignment="TOP_CENTER" prefWidth="580.0" styleClass="lb-mensj" stylesheets="@../../Dialogs/Dialog.css" text="Archivo del Seniat con Retenciones de Clientes" wrapText="true" />
+                     </children>
+                  </HBox>
+               </children>
+        </HBox><HBox prefHeight="500.0" prefWidth="606.0">
+<children><VBox layoutX="10.0" layoutY="10.0" prefHeight="330.0" prefWidth="180.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<padding>
+<Insets top="28.0" />
+</padding>
+                     <children>
+                        <HBox prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="30.0" prefWidth="140.0">
+                                 <children>
+                                    <Label prefWidth="50.0" text="Año:">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <ComboBox id="cb_ano" fx:id="cb_ano" minHeight="20.0" prefWidth="75.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox id="usrLn01" prefHeight="10.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox id="usrLn01" prefHeight="32.0" prefWidth="569.0" spacing="10.0">
+                                 <children>
+                                    <HBox id="HBox" alignment="CENTER" prefHeight="10.0" prefWidth="572.0" spacing="5.0">
+                                       <children>
+                                          <Separator prefWidth="600.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="68.0" prefHeight="400.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefWidth="100.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_jan" mnemonicParsing="false" text="Enero" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_feb" mnemonicParsing="false" text="Febrero" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_mar" mnemonicParsing="false" text="Marzo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_apr" mnemonicParsing="false" text="Abril" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="85.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_may" mnemonicParsing="false" text="Mayo" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_jun" mnemonicParsing="false" text="Junio" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="135.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_jul" mnemonicParsing="false" text="Julio" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="160.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_agu" mnemonicParsing="false" text="Agosto" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="185.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_sep" mnemonicParsing="false" text="Septiembre" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="210.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_oct" mnemonicParsing="false" text="Octubre" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="235.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_nov" mnemonicParsing="false" text="Noviembre" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" prefHeight="30.0" prefWidth="160.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_dec" mnemonicParsing="false" text="Diciembre" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+</VBox>
+<VBox layoutX="10.0" layoutY="10.0" prefHeight="499.0" prefWidth="580.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<padding>
+<Insets left="7.0" top="28.0" />
+</padding>
+                     <children>
+                        <HBox prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="30.0" prefWidth="540.0">
+                                 <children>
+                                    <Label prefWidth="100.0" text="Ruta del Archivo:">
+                                       <HBox.margin>
+                                          <Insets top="4.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField id="tf_cc" fx:id="tf_path" prefHeight="25.0" prefWidth="360.0" />
+                                    <Button fx:id="bt_path" mnemonicParsing="false" text="...">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox id="usrLn01" prefHeight="10.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox id="usrLn01" prefHeight="32.0" prefWidth="569.0" spacing="10.0">
+                                 <children>
+                                    <HBox id="HBox" alignment="CENTER" prefHeight="10.0" prefWidth="572.0" spacing="5.0">
+                                       <children>
+                                          <Separator prefWidth="600.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="400.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefWidth="550.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_jan" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_janr" alignment="CENTER">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_janf" alignment="CENTER">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lb_janc" alignment="CENTER">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lb_jand" alignment="CENTER">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_jan" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_feb" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_febr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_febf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_febc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_febd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_feb" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_mar" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_marr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_marf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_marc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_mard" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_mar" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_apr" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_aprr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_aprf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_aprc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_aprd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_apr" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="100.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_may" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_mayr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_mayf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_mayc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_mayd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_may" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="130.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_jun" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_junr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_junf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_junc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_jund" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_jun" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="160.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_jul" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_julr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_julf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_julc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_juld" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_jul" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="100.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_agu" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_agur" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_aguf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_aguc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_agud" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_agu" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_sep" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_sepr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_sepf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_sepc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_sepd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_sep" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="250.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_oct" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_octr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_octf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_octc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_octd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_oct" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="280.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_nov" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_novr" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_novf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_novc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_novd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_nov" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="310.0" prefHeight="30.0" prefWidth="170.0">
+                                       <children>
+                                          <HBox prefHeight="18.0" prefWidth="190.0">
+                                             <children>
+                                                <ProgressBar fx:id="pb_dec" prefWidth="150.0" progress="0.0" />
+                                                <Label fx:id="lb_decr" alignment="CENTER" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </HBox>
+                                          <HBox prefHeight="18.0" prefWidth="280.0">
+                                             <children>
+                                                <Label fx:id="lb_decf" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_decc" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="lb_decd" alignment="CENTER">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="80.0">
+                                             <children>
+                                                <Button fx:id="bt_dec" mnemonicParsing="false" text="Cargar">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+</VBox>
+</children></HBox>
+      </children>
+      <padding>
+        <Insets right="5.0" top="20.0" />
+      </padding>
+    </VBox><VBox fx:id="vb_form" layoutX="14.0" layoutY="50.0" prefHeight="80.0" prefWidth="100.0" spacing="5.0">
+<padding>
+<Insets left="30.0" right="30.0" top="20.0" />
+</padding>
+</VBox>
+  </children>
+</AnchorPane>

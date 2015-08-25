@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Seniat.Fxml_Query_RetencionesController">
+  <children>
+    <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@../Screens.css" />
+      </stylesheets>
+    </Label>
+    <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
+      <children>
+        <HBox prefHeight="39.0" prefWidth="774.0">
+          <children>
+            <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
+              <children>
+                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img63.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img64.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img49.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img07.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/im_1.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img03.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img04.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img36.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image url="@../../../Images/img37.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img59.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img60.png" />
+                  </image>
+                </ImageView>
+                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img32.png" />
+                  </image>
+                </ImageView>
+                <TextField fx:id="tf_buscar" prefWidth="150.0" />
+                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Consulta" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../Screens.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" fx:id="x1" />
+              </padding>
+            </HBox>
+          </children>
+        </HBox>
+        <Separator prefWidth="200.0" />
+      </children>
+    </VBox>
+    <VBox fx:id="vb_table" layoutX="8.0" layoutY="45.0" prefHeight="550.0" prefWidth="766.0" spacing="5.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="657.0" spacing="10.0">
+<VBox.margin>
+<Insets left="25.0" />
+</VBox.margin>
+               <children>
+                  <HBox id="HBox" fx:id="hb_11" alignment="CENTER" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Images/seniat.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label id="lb_mensj" fx:id="lb_mensj1" alignment="TOP_CENTER" prefWidth="580.0" styleClass="lb-mensj" stylesheets="@../../Dialogs/Dialog.css" text="Retenciones de Clientes declaradas al Seniat" wrapText="true" />
+                     </children>
+                  </HBox>
+               </children>
+        </HBox><HBox prefHeight="500.0" prefWidth="606.0">
+<children><VBox layoutX="10.0" layoutY="10.0" prefHeight="330.0" prefWidth="180.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<padding>
+<Insets top="28.0" />
+</padding>
+                     <children>
+                        <HBox prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="30.0" prefWidth="140.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefWidth="150.0" text="Parametros de Busqueda">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox id="usrLn01" prefHeight="10.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox id="usrLn01" prefHeight="32.0" prefWidth="569.0" spacing="10.0">
+                                 <children>
+                                    <HBox id="HBox" alignment="CENTER" prefHeight="10.0" prefWidth="572.0" spacing="5.0">
+                                       <children>
+                                          <Separator prefWidth="600.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="400.0" prefWidth="180.0">
+                           <children>
+                              <VBox prefWidth="200.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <ComboBox id="cb_ano" fx:id="cb_ano1" minHeight="20.0" prefWidth="75.0" />
+                                          <ComboBox id="cb_ano" fx:id="cb_ano2" layoutX="10.0" layoutY="13.0" minHeight="20.0" prefWidth="75.0">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_rif" prefWidth="160.0" promptText="Rif  del Cliente" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_nombre" prefWidth="160.0" promptText="Nombre del Cliente" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_documento" prefWidth="160.0" promptText="Nro. de Documento" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_control" prefWidth="160.0" promptText="Nro. de Control" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <DatePicker fx:id="dp_fecha1" prefWidth="158.0" promptText="Fecha Documento" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="130.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <DatePicker fx:id="dp_fecha2" prefWidth="158.0" promptText="Fecha Documento" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="100.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_mtomay" prefWidth="75.0" promptText="Mto Doc &gt;" />
+                                          <TextField fx:id="tf_mtomen" layoutX="10.0" layoutY="13.0" prefWidth="75.0" promptText="Mto Doc &lt;">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="160.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <TextField fx:id="tf_retmay" prefWidth="75.0" promptText="Mto Ret &gt;" />
+                                          <TextField fx:id="tf_retmen" prefWidth="75.0" promptText="Mto Ret &lt;">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_comprob" mnemonicParsing="false" text="Sin Comprobante" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="250.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_difmonto" mnemonicParsing="false" prefWidth="110.0" text="Dif. en Monto" />
+                                          <TextField fx:id="tf_difmto" prefWidth="50.0" promptText="Monto" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="280.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <CheckBox fx:id="cb_difnrodoc" disable="true" mnemonicParsing="false" text="Dif. en Nro. de Documento" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <Button fx:id="bt_aceptar" contentDisplay="CENTER" mnemonicParsing="false" text="Aplicar" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+</VBox>
+<VBox layoutX="10.0" layoutY="10.0" prefHeight="499.0" prefWidth="580.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<padding>
+<Insets left="7.0" top="28.0" />
+</padding>
+                     <children>
+                        <HBox prefHeight="468.0">
+                           <children>
+                              <TableView fx:id="tb_query" prefWidth="580.0" styleClass="defaultTableStyle" />
+                           </children>
+                        </HBox>
+                     </children>
+</VBox>
+</children></HBox>
+      </children>
+      <padding>
+        <Insets right="5.0" top="20.0" />
+      </padding>
+    </VBox><VBox fx:id="vb_form" layoutX="14.0" layoutY="50.0" prefHeight="80.0" prefWidth="100.0" spacing="5.0">
+<padding>
+<Insets left="30.0" right="30.0" top="20.0" />
+</padding>
+</VBox>
+  </children>
+</AnchorPane>

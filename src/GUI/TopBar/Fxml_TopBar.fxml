@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_topbar" prefHeight="100.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.TopBar.TopBarController">
+  <children>
+    <Pane prefHeight="100.0" prefWidth="1024.0" styleClass="Pane, tb-Pane">
+      <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="512.0" styleClass="tb-hbox">
+          <children>
+            <ImageView fitHeight="70.0" fitWidth="250.0" pickOnBounds="true">
+              <image>
+                <Image preserveRatio="false" smooth="false" url="@../../Images/logo.png" />
+              </image>
+            </ImageView>
+          </children>
+          <padding>
+            <Insets left="25.0" />
+          </padding>
+          <stylesheets>
+            <URL value="@TopBar.css" />
+          </stylesheets>
+        </HBox>
+        <VBox alignment="TOP_RIGHT" layoutX="924.0" prefHeight="50.0" prefWidth="100.0">
+          <children>
+            <Label fx:id="bt_close" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="20.0" styleClass="tb-close-button" translateX="-4.0" translateY="-2.0">
+              <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/close_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <stylesheets>
+                <URL value="@TopBar.css" />
+              </stylesheets>
+            </Label>
+            <Label fx:id="bt_min" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="20.0" styleClass="tb-close-button" translateX="-4.0" translateY="-2.0">
+              <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image preserveRatio="false" smooth="false" url="@../../Images/min_button.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <stylesheets>
+                <URL value="@TopBar.css" />
+              </stylesheets>
+            </Label>
+          </children>
+          <padding>
+            <Insets right="10.0" top="10.0" />
+          </padding>
+        </VBox>
+        <HBox fx:id="hbox" alignment="CENTER_RIGHT" layoutX="983.0" layoutY="59.0" prefHeight="40.0" prefWidth="40.0" translateX="-2.0" translateY="-3.0">
+          <children>
+            <ImageView fx:id="im_logout" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../../Images/img22.png" />
+              </image>
+            </ImageView>
+            <ImageView fx:id="im_login" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../../Images/img19.png" />
+              </image>
+            </ImageView>
+          </children>
+          <padding>
+            <Insets right="2.0" />
+          </padding>
+        </HBox>
+        <Label fx:id="lb_sesion" alignment="CENTER_RIGHT" layoutX="830.0" layoutY="75.0" prefHeight="20.0" prefWidth="150.0" styleClass="lb-sesion">
+          <stylesheets>
+            <URL value="@TopBar.css" />
+          </stylesheets>
+        </Label>
+      </children>
+      <stylesheets>
+        <URL value="@TopBar.css" />
+        <URL value="@../Css.css" />
+      </stylesheets>
+    </Pane>
+  </children>
+  <stylesheets>
+    <URL value="@TopBar.css" />
+  </stylesheets>
+</AnchorPane>

@@ -1,0 +1,32 @@
+/* 
+    Document   : TopBar
+    Created on : 02/10/2013, 02:30:44 PM
+    Author     : ARMGARCES
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.tb-Pane{
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.tb-title{
+    -fx-font-size: 50;
+    -fx-font-family: Verdana;
+    -fx-effect: dropshadow(gaussian,#ced3da,1.5,1.0,2,2);
+}
+
+.tb-close-button{
+    -fx-background-color: transparent;
+    -fx-width:  20px; 
+    -fx-height: 20px; 
+}
+
+.lb-sesion{
+    -fx-font-size: 14px;
+    -fx-text-align: CENTER;
+    
+    -fx-text-fill: black;
+    -fx-width: 125px;
+    -fx-height: 20px;    
+}

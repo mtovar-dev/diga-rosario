@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<config>
+   <Server Name="QAS">
+      <server>
+         <serverName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/e9B7G4dxJNRidjjGPBmC8pOR8c6o8VhjsLxjLKqwsjMCpetKMj/4jq0D4uMw29SvZ</serverName>
+         <portNumber>1433</portNumber>
+         <databaseName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/ep35DTqS0zcWkuMvsxdaiNqOJ3M8CzUa/ePTNvKHfuj6v1F593XtovGlSetkrm2KL</databaseName>
+         <userName>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/eInlY7fD13rfzlMM8TZ6l+BiiI5ER1fdLVAIxCRlsPVQLvukv+uJvW5jPmzmnUhR1</userName>
+         <password>iooqIg2MEG9AzuQDFDylBzdtUkOLX7+G85pb3x5DaEeRLgk66MoGPXWXH0ErFu/eZdUa0kZUlSzxzRebxjj3HcmzvwS4uOflvxWh23aeWTed6eVuxTYygGesJlcuABKI</password>
+      </server>
+   </Server>    
+</config>

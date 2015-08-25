@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="log_guia_rela_chof" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="p_user" class="java.lang.String"/>
+	<parameter name="p_subtitulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numrela" class="java.lang.String"/>
+	<field name="numorden" class="java.lang.String"/>
+	<field name="numguia" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="numpuerta" class="java.lang.Integer"/>
+	<field name="chofer" class="java.lang.String"/>
+	<field name="veh1" class="java.lang.String"/>
+	<field name="veh2" class="java.lang.String"/>
+	<field name="ayud1" class="java.lang.String"/>
+	<field name="ayud2" class="java.lang.String"/>
+	<field name="cheq_pta" class="java.lang.String"/>
+	<field name="tcheq_pta" class="java.lang.Integer"/>
+	<field name="idsupruta" class="java.lang.String"/>
+	<field name="numfact" class="java.lang.Integer"/>
+	<field name="numclie" class="java.lang.Integer"/>
+	<field name="stat_guia" class="java.lang.String"/>
+	<field name="schofer" class="java.lang.String"/>
+	<field name="sayud1" class="java.lang.String"/>
+	<field name="scheq_pta" class="java.lang.String"/>
+	<field name="ssup_ruta" class="java.lang.String"/>
+	<field name="anulada" class="java.lang.Integer"/>
+	<field name="faltc" class="java.lang.String"/>
+	<field name="guiac" class="java.lang.String"/>
+	<field name="prodc" class="java.lang.String"/>
+	<field name="descrip" class="java.lang.String"/>
+	<field name="numcaja" class="java.lang.String"/>
+	<field name="feccaja" class="java.util.Date"/>
+	<variable name="v_tguias" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{numguia}]]></variableExpression>
+	</variable>
+	<group name="chofer">
+		<groupExpression><![CDATA[$F{schofer}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="9" y="0" width="171" height="15" uuid="11bbba0a-4774-4057-bf89-e7f5c9ad8fd0"/>
+					<textElement>
+						<font fontName="Monospaced" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{schofer}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="192" y="0" width="87" height="15" uuid="89bbfb09-404c-4fe4-a4a2-ca3dfe63f0ac"/>
+					<textElement>
+						<font fontName="Monospaced" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="180" height="71" uuid="b37ee4eb-53bb-4607-8603-c87a6a5d03a8"/>
+				<imageExpression><![CDATA["C:\\diga_sys\\images\\logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="497" y="6" width="75" height="12" uuid="f2c2ce95-05f1-4ad7-933f-6b2f87d722c3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fecha / Hora:]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="431" y="18" width="141" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="514" y="36" width="58" height="12" uuid="280cadd4-4adc-48a8-8c73-08435b0d2b62"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="49" width="100" height="15" uuid="24c35829-3bbe-4b81-b0ab-2ebdf0d8da76"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_user}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="180" height="28" uuid="8e92cac2-d03c-4af3-bef7-bee89c5834df"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISTRIBUIDORA DE GALLETAS (DIGA), C.A.
+RIF: J075455525]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="-1" width="572" height="1" uuid="3583c343-ae35-47c8-857b-3eb60659ffad"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="482" y="6" width="70" height="15" uuid="9ba34049-357a-4cb2-ad61-3f93a40bfb42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PAG:  "+$V{PAGE_NUMBER} +"  de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="552" y="6" width="20" height="15" uuid="8d11264f-4629-485a-b364-8c621d664cfa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="26" width="572" height="1" uuid="ee4cb552-e2c4-4ce6-9c92-132ed62ce9a7"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="2" width="572" height="24" uuid="d1cedf56-af84-4b36-b4de-53b68c3d6e4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Guias (Logistica)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="29" width="552" height="20" uuid="9c804b4f-66e2-49a2-a15c-56dfd094cf25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_subtitulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="58" width="171" height="15" uuid="59b3daef-e433-4677-8d9d-432f5c45e25e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Chofer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="58" width="87" height="15" uuid="bf9d7428-9619-4ac9-86da-fcdd00f9c1bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha de Carga]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="74" width="572" height="1" uuid="2f83f60f-c0ed-49f5-b046-652a42e9078c"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="292" y="58" width="87" height="15" uuid="741efee7-d7db-4300-bd02-dfec8253ef2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nro de Guia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="58" width="78" height="15" uuid="450d80b5-6032-40df-840f-eb41995b3025"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Guias:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="524" y="58" width="37" height="15" uuid="43e14cb1-a106-477e-a447-0b01d9ff93b2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tguias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="292" y="0" width="87" height="15" uuid="1f7d1912-a227-43c2-be3b-dc25cada3caf"/>
+				<textElement>
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numguia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

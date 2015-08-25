@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-background-color 0x002d33ff?>
+
+<AnchorPane id="LeftAnchorPane" prefHeight="600.0" prefWidth="246.0" styleClass="lb-Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="GUI.LeftBar.LeftBarController">
+  <children>
+    <VBox fx:id="box" prefHeight="600.0" prefWidth="246.0">
+      <children>
+        <Pane prefHeight="39.0" prefWidth="242.0" styleClass="TopLeftBar">
+          <stylesheets>
+            <URL value="@LeftBar.css" />
+          </stylesheets>
+        </Pane>
+        <Separator prefWidth="212.0" />
+        <Pane prefHeight="560.0" prefWidth="244.0">
+          <children>
+            <Separator layoutX="244.0" layoutY="-41.0" orientation="VERTICAL" prefHeight="600.0" />
+            <TreeView fx:id="tv_tree" focusTraversable="false" pickOnBounds="true" prefHeight="559.0" prefWidth="243.0">
+              <stylesheets>
+                <URL value="@../Css.css" />
+                <URL value="@LeftBar.css" />
+              </stylesheets>
+            </TreeView>
+          </children>
+          <stylesheets>
+            <URL value="@LeftBar.css" />
+          </stylesheets>
+        </Pane>
+      </children>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@LeftBar.css" />
+  </stylesheets>
+</AnchorPane>

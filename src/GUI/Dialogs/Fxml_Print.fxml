@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="264.0" prefWidth="495.0" styleClass="Pane, bordered-Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Dialogs.Fxml_PrintController">
+  <children>
+    <VBox layoutX="16.0" layoutY="16.0" prefHeight="67.0" prefWidth="62.0">
+      <children>
+        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../../Images/img74.png" />
+          </image>
+        </ImageView>
+      </children>
+    </VBox>
+    <VBox layoutX="394.0" layoutY="10.0" prefHeight="64.0" prefWidth="80.0">
+      <children>
+            <Button fx:id="bt_aceptar" mnemonicParsing="false" prefWidth="80.0" text="Aceptar">
+<VBox.margin>
+<Insets bottom="6.0" top="5.0" />
+</VBox.margin></Button>
+            <Button fx:id="bt_cancelar" mnemonicParsing="false" prefWidth="80.0" text="Cerrar">
+<VBox.margin>
+<Insets bottom="5.0" top="6.0" />
+</VBox.margin></Button>
+      </children>
+      <padding>
+        <Insets bottom="10.0" top="10.0" />
+      </padding>
+    </VBox>
+    <HBox layoutX="98.0" layoutY="10.0" prefHeight="25.0" prefWidth="282.0">
+      <children>
+        <Label id="lb_mensj" fx:id="lb_mensj" alignment="TOP_CENTER" prefWidth="395.0" styleClass="lb-mensj" stylesheets="@Dialog.css" text="Construcción" wrapText="true" />
+      </children>
+    </HBox><VBox fx:id="vb_b" layoutX="98.0" layoutY="45.0" prefHeight="60.0" prefWidth="274.0">
+<children>
+<Label fx:id="lb_b" layoutX="34.0" layoutY="86.0" text="Busquedas:" />
+<Separator prefWidth="120.0" />
+            <TextField fx:id="tf_buscar" prefWidth="138.0">
+<VBox.margin>
+<Insets bottom="5.0" top="5.0" />
+</VBox.margin></TextField>
+</children>
+</VBox><VBox fx:id="vb_1" layoutX="16.0" layoutY="100.0" prefHeight="125.0" prefWidth="150.0">
+<children><Label fx:id="lb_imp11" layoutX="34.0" layoutY="86.0" text="." /><Separator prefWidth="120.0" /><ComboBox fx:id="cb_imp11" prefWidth="150.0">
+<VBox.margin>
+<Insets bottom="5.0" top="5.0" />
+</VBox.margin></ComboBox><RadioButton fx:id="rb_imp11" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="." /><RadioButton fx:id="rb_imp12" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="." />
+<RadioButton fx:id="rb_imp13" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="." />
+            <Hyperlink fx:id="hp_imp11" text="Hyperlink" translateY="-85.0" />
+            <Hyperlink fx:id="hp_imp12" layoutX="10.0" layoutY="116.0" text="Hyperlink" translateY="-85.0" />
+            <Hyperlink fx:id="hp_imp13" layoutX="10.0" layoutY="139.0" text="Hyperlink" translateY="-85.0" />
+            <Hyperlink fx:id="hp_imp14" layoutX="10.0" layoutY="162.0" text="Hyperlink" translateY="-85.0" />
+            <Hyperlink fx:id="hp_imp15" layoutX="10.0" layoutY="185.0" text="Hyperlink" translateY="-85.0" />
+            <Hyperlink fx:id="hp_imp16" text="Hyperlink" translateY="-85.0" />
+</children></VBox><VBox fx:id="vb_2" layoutX="173.0" layoutY="100.0" prefHeight="125.0" prefWidth="150.0">
+<children><Label fx:id="lb_imp21" layoutX="34.0" layoutY="86.0" text="." /><Separator prefWidth="120.0" /><ComboBox fx:id="cb_imp21" prefWidth="150.0">
+<VBox.margin>
+<Insets bottom="5.0" top="5.0" />
+</VBox.margin></ComboBox><ComboBox fx:id="cb_imp22" prefWidth="150.0">
+<VBox.margin>
+<Insets top="2.0" />
+</VBox.margin></ComboBox>
+            <Hyperlink fx:id="hp_imp21" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp22" layoutX="10.0" layoutY="92.0" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp23" layoutX="10.0" layoutY="115.0" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp24" layoutX="10.0" layoutY="138.0" text="Hyperlink" translateY="-60.0" />
+</children>
+</VBox><VBox fx:id="vb_3" layoutX="331.0" layoutY="100.0" prefHeight="86.0" prefWidth="150.0">
+<children>
+<Label fx:id="lb_imp31" layoutX="34.0" layoutY="86.0" text="." />
+<Separator prefWidth="120.0" />
+<ComboBox fx:id="cb_imp31" prefWidth="150.0">
+<VBox.margin>
+<Insets bottom="5.0" top="5.0" />
+</VBox.margin>
+</ComboBox>
+            <DatePicker fx:id="dp_fecha" translateY="58.0" />
+            <Hyperlink fx:id="hp_imp31" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp32" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp33" text="Hyperlink" translateY="-60.0" />
+            <Hyperlink fx:id="hp_imp34" text="Hyperlink" translateY="-60.0" />
+</children>
+</VBox>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

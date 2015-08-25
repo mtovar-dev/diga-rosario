@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="275.0" prefWidth="505.0" styleClass="Pane, bordered-Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Dialogs.Fxml_EmailSendController">
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+   <children>
+      <VBox prefHeight="260.0" prefWidth="435.0" spacing="5.0">
+         <children>
+            <HBox spacing="5.0" visible="false">
+               <children>
+                  <RadioButton fx:id="rb_email1" mnemonicParsing="false" prefWidth="130.0" text="Agenda de Recepción">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="rb_email2" layoutX="16.0" layoutY="10.0" mnemonicParsing="false" prefWidth="130.0" text="Orden de Compra">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="100.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="26.0" spacing="5.0">
+               <children>
+                  <Label prefWidth="55.0" text="Para:" />
+                  <TextArea fx:id="ta_para" prefHeight="75.0" prefWidth="315.0" wrapText="true" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="26.0" spacing="5.0">
+               <children>
+                  <Label prefWidth="55.0" text="CC:" />
+                  <TextArea fx:id="ta_cc" prefHeight="75.0" prefWidth="315.0" text="enarvaez@grupodiga.com, ydeoliveira@grupodiga.com, fmanzano@grupodiga.com" wrapText="true" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0">
+               <children>
+                  <Label prefWidth="55.0" text="Asunto:" />
+                  <TextField fx:id="tf_asunto" prefWidth="315.0" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="56.0" spacing="5.0">
+               <children>
+                  <Label prefWidth="55.0" text="Mensaje:" translateY="-5.0" />
+                  <TextArea fx:id="ta_mensaje" prefHeight="130.0" prefWidth="315.0" wrapText="true" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets right="30.0" top="16.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="410.0" prefHeight="64.0" prefWidth="80.0">
+         <children>
+            <Button fx:id="bt_enviar" mnemonicParsing="false" prefWidth="80.0" text="Enviar">
+               <VBox.margin>
+                  <Insets bottom="6.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="bt_cancelar" mnemonicParsing="false" prefWidth="80.0" text="Cancelar">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="6.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" top="38.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

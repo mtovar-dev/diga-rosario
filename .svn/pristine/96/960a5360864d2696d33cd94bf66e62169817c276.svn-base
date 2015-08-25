@@ -1,0 +1,16 @@
+/* 
+    Document   : Css
+    Created on : 01/10/2013, 05:41:47 PM
+    Author     : ARMGARCES
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.Pane{
+    -fx-background-color: #333333,linear-gradient(#f3f3f3 0%, #ced3da 100%);    
+}
+
+.round-pane{
+    //-fx-background-radius:15;
+}
+
