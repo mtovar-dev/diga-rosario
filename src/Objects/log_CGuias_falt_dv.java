@@ -54,6 +54,7 @@ public class log_CGuias_falt_dv {
     private int hor_mov;      
     private Double pre_fact;
     private Double pre_marc;
+    private int id_almacen;
     
     
     /**
@@ -107,6 +108,7 @@ public class log_CGuias_falt_dv {
             hor_mov              = rs.getInt(36);
             pre_fact             = rs.getDouble(37);
             pre_marc             = rs.getDouble(38);
+            id_almacen            = rs.getInt(39);
             
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
@@ -643,6 +645,20 @@ public class log_CGuias_falt_dv {
      */
     public void setPre_marc(Double pre_marc) {
         this.pre_marc = pre_marc;
+    }
+
+    /**
+     * @return the id_almacen
+     */
+    public int getId_almacen() {
+        return id_almacen;
+    }
+
+    /**
+     * @param id_almacen the id_almacen to set
+     */
+    public void setId_almacen(int id_almacen) {
+        this.id_almacen = id_almacen;
     }
 
 }

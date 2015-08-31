@@ -1292,9 +1292,9 @@ public class Fxml_VehiculosController implements Initializable {
             change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL VEHICULO                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getLog_vehiculos().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getLog_vehiculos().getIdPlaca() + " ?";

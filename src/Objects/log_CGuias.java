@@ -46,13 +46,21 @@ public class log_CGuias extends xy {
     private Date feccaja;
     private Date fecsalida;
     private String cheq_r1;
+    private String scheq_r1;
     private String cheq_r2;
+    private String scheq_r2;
     private String cheq_r3;
+    private String scheq_r3;
     private String cheq_r4;
+    private String scheq_r4;
     private String cheq_r5;
+    private String scheq_r5;
     private String cheq_r6;
+    private String scheq_r6;
     private String cheq_r7;
+    private String scheq_r7;
     private String cheq_pq;
+    private String scheq_pq;
     
     /**
      * 
@@ -90,14 +98,22 @@ public class log_CGuias extends xy {
             numcaja             = rs.getString(21);
             feccaja             = rs.getDate(22);
             fecsalida           = rs.getDate(23);
-//            cheq_r1             = rs.getString(24);
-//            cheq_r2             = rs.getString(25);
-//            cheq_r3             = rs.getString(26);
-//            cheq_r4             = rs.getString(27);
-//            cheq_r5             = rs.getString(28);
-//            cheq_r6             = rs.getString(29);
-//            cheq_r7             = rs.getString(30);
-//            cheq_pq             = rs.getString(31);
+            cheq_r1             = rs.getString(24);
+            scheq_r1            = rs.getString(25);
+            cheq_r2             = rs.getString(26);
+            scheq_r2            = rs.getString(27);
+            cheq_r3             = rs.getString(28);
+            scheq_r3            = rs.getString(29);
+            cheq_r4             = rs.getString(30);
+            scheq_r4            = rs.getString(31);
+            cheq_r5             = rs.getString(32);
+            scheq_r5            = rs.getString(33);
+            cheq_r6             = rs.getString(34);
+            scheq_r6            = rs.getString(35);
+            cheq_r7             = rs.getString(36);
+            scheq_r7            = rs.getString(37);
+            cheq_pq             = rs.getString(38);
+            scheq_pq            = rs.getString(39);
             
             super.setNumorden(numorden);
             super.setGuias(numguia);
@@ -518,6 +534,20 @@ public class log_CGuias extends xy {
     }
 
     /**
+     * @return the scheq_r1
+     */
+    public String getScheq_r1() {
+        return scheq_r1;
+    }
+
+    /**
+     * @param scheq_r1 the scheq_r1 to set
+     */
+    public void setScheq_r1(String scheq_r1) {
+        this.scheq_r1 = scheq_r1;
+    }
+
+    /**
      * @return the cheq_r2
      */
     public String getCheq_r2() {
@@ -529,6 +559,20 @@ public class log_CGuias extends xy {
      */
     public void setCheq_r2(String cheq_r2) {
         this.cheq_r2 = cheq_r2;
+    }
+
+    /**
+     * @return the scheq_r2
+     */
+    public String getScheq_r2() {
+        return scheq_r2;
+    }
+
+    /**
+     * @param scheq_r2 the scheq_r2 to set
+     */
+    public void setScheq_r2(String scheq_r2) {
+        this.scheq_r2 = scheq_r2;
     }
 
     /**
@@ -546,6 +590,20 @@ public class log_CGuias extends xy {
     }
 
     /**
+     * @return the scheq_r3
+     */
+    public String getScheq_r3() {
+        return scheq_r3;
+    }
+
+    /**
+     * @param scheq_r3 the scheq_r3 to set
+     */
+    public void setScheq_r3(String scheq_r3) {
+        this.scheq_r3 = scheq_r3;
+    }
+
+    /**
      * @return the cheq_r4
      */
     public String getCheq_r4() {
@@ -557,6 +615,20 @@ public class log_CGuias extends xy {
      */
     public void setCheq_r4(String cheq_r4) {
         this.cheq_r4 = cheq_r4;
+    }
+
+    /**
+     * @return the scheq_r4
+     */
+    public String getScheq_r4() {
+        return scheq_r4;
+    }
+
+    /**
+     * @param scheq_r4 the scheq_r4 to set
+     */
+    public void setScheq_r4(String scheq_r4) {
+        this.scheq_r4 = scheq_r4;
     }
 
     /**
@@ -574,6 +646,20 @@ public class log_CGuias extends xy {
     }
 
     /**
+     * @return the scheq_r5
+     */
+    public String getScheq_r5() {
+        return scheq_r5;
+    }
+
+    /**
+     * @param scheq_r5 the scheq_r5 to set
+     */
+    public void setScheq_r5(String scheq_r5) {
+        this.scheq_r5 = scheq_r5;
+    }
+
+    /**
      * @return the cheq_r6
      */
     public String getCheq_r6() {
@@ -585,6 +671,20 @@ public class log_CGuias extends xy {
      */
     public void setCheq_r6(String cheq_r6) {
         this.cheq_r6 = cheq_r6;
+    }
+
+    /**
+     * @return the scheq_r6
+     */
+    public String getScheq_r6() {
+        return scheq_r6;
+    }
+
+    /**
+     * @param scheq_r6 the scheq_r6 to set
+     */
+    public void setScheq_r6(String scheq_r6) {
+        this.scheq_r6 = scheq_r6;
     }
 
     /**
@@ -602,6 +702,20 @@ public class log_CGuias extends xy {
     }
 
     /**
+     * @return the scheq_r7
+     */
+    public String getScheq_r7() {
+        return scheq_r7;
+    }
+
+    /**
+     * @param scheq_r7 the scheq_r7 to set
+     */
+    public void setScheq_r7(String scheq_r7) {
+        this.scheq_r7 = scheq_r7;
+    }
+
+    /**
      * @return the cheq_pq
      */
     public String getCheq_pq() {
@@ -615,5 +729,18 @@ public class log_CGuias extends xy {
         this.cheq_pq = cheq_pq;
     }
 
-    
+    /**
+     * @return the scheq_pq
+     */
+    public String getScheq_pq() {
+        return scheq_pq;
+    }
+
+    /**
+     * @param scheq_pq the scheq_pq to set
+     */
+    public void setScheq_pq(String scheq_pq) {
+        this.scheq_pq = scheq_pq;
+    }
+
 }

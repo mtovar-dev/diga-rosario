@@ -918,9 +918,9 @@ public class Fxml_UserController implements Initializable{
             refreshForm();         
             setPswdVisible(false,false);
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getUsuario().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getUsuario().getUsername()+ " ?";

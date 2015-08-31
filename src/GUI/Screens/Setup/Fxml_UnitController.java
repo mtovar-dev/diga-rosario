@@ -743,9 +743,9 @@ public class Fxml_UnitController implements Initializable {
             //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL UNIT                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getUnit().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " la " + ScreenName + " " + Datos.getUnit().getIdUnit() + " ?";

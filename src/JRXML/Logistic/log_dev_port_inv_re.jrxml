@@ -110,8 +110,12 @@
 	<field name="clasif_motivo" class="java.lang.String"/>
 	<field name="rif_emp" class="java.lang.String"/>
 	<field name="fec_dev" class="java.util.Date"/>
+	<field name="stat_reg" class="java.lang.String"/>
+	<field name="fec_mov" class="java.util.Date"/>
 	<field name="hor_mov" class="java.lang.Integer"/>
 	<field name="pre_fact" class="java.lang.Double"/>
+	<field name="pre_marc" class="java.lang.Double"/>
+	<field name="id_almacen" class="java.lang.Integer"/>
 	<variable name="v_tcant" class="java.lang.Integer" resetType="Group" resetGroup="producto" calculation="Sum">
 		<variableExpression><![CDATA[$F{cantdev}]]></variableExpression>
 	</variable>
@@ -244,6 +248,20 @@ RIF: J075455525]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_fecrecupera}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="391" y="47" width="57" height="15" uuid="672f0fae-c279-45be-92ed-a8120271a134"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[P.Marcado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="47" width="102" height="15" uuid="5084d42f-84a1-41c7-b14c-8111b8215be8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cant. Recuperada]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
@@ -277,15 +295,17 @@ RIF: J075455525]]></text>
 				<textFieldExpression><![CDATA[$V{v_tcant}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="474" y="2" width="15" height="13" uuid="7f8777a7-5760-4171-84f5-a635ba9a3d30"/>
+				<reportElement x="470" y="2" width="15" height="13" uuid="7f8777a7-5760-4171-84f5-a635ba9a3d30"/>
 			</rectangle>
-			<staticText>
-				<reportElement x="490" y="0" width="72" height="17" uuid="ee0cd746-6ac6-4cff-b6c2-7a126fcb9732"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="8" isBold="false"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="391" y="0" width="57" height="17" uuid="0a657733-0918-4e68-94ea-37fdeb24f9e3">
+					<printWhenExpression><![CDATA[$F{pre_marc} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
 				</textElement>
-				<text><![CDATA[Recuperado]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{pre_marc}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<lastPageFooter>

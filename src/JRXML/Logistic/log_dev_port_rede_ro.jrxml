@@ -113,6 +113,8 @@
 	<field name="fec_mov" class="java.util.Date"/>
 	<field name="hor_mov" class="java.lang.Integer"/>
 	<field name="pre_fact" class="java.lang.Double"/>
+	<field name="pre_marc" class="java.lang.Double"/>
+	<field name="id_almacen" class="java.lang.Integer"/>
 	<variable name="v_monto" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{subfac} + $F{ivafac}]]></variableExpression>
 	</variable>
@@ -153,14 +155,14 @@
 					<text><![CDATA[Producto]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="105" y="40" width="63" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
+					<reportElement x="99" y="40" width="59" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Cantidad]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="259" y="40" width="287" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
+					<reportElement x="245" y="40" width="255" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10" isBold="false"/>
 					</textElement>
@@ -244,11 +246,18 @@
 					<textFieldExpression><![CDATA[$F{sucursal}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="177" y="40" width="71" height="15" uuid="2414eb03-3457-442b-b528-324acf5a7483"/>
+					<reportElement x="166" y="40" width="71" height="15" uuid="2414eb03-3457-442b-b528-324acf5a7483"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="510" y="40" width="57" height="15" uuid="2ffc52e7-a810-4585-b366-ca6e101926ff"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Monospaced" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[P.Marcado]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -302,7 +311,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Facturas para Redespacho El Rosario]]></text>
+				<text><![CDATA[Facturas para Redespacho Rosario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="108" width="68" height="15" uuid="59b3daef-e433-4677-8d9d-432f5c45e25e"/>
@@ -509,32 +518,41 @@ RIF: J075455525]]></text>
 				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="0" width="22" height="15" uuid="843a3ecf-74a6-44f4-ba8b-223c25280df1"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cantdev}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="132" y="0" width="35" height="15" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
+				<reportElement x="123" y="0" width="35" height="15" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="259" y="0" width="287" height="15" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
+				<reportElement x="245" y="0" width="255" height="15" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descrip}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="175" y="0" width="76" height="15" uuid="2aabb027-1a75-42bc-8539-d2ae3baf6e74"/>
+				<reportElement x="166" y="0" width="71" height="15" uuid="2aabb027-1a75-42bc-8539-d2ae3baf6e74"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{produnid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="0" width="22" height="15" uuid="843a3ecf-74a6-44f4-ba8b-223c25280df1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantdev}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="508" y="0" width="60" height="15" uuid="e3e92cd0-12ff-4bd1-9ef6-36b4a9a69137">
+					<printWhenExpression><![CDATA[$F{pre_marc} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pre_marc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

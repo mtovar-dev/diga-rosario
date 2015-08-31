@@ -724,158 +724,158 @@
 </HBox>
 </children>
 </HBox>
-                                                <HBox layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="620.0">
-                                                   <children>
-                                                      <HBox id="HBox" alignment="CENTER" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R1:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr1" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr1" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets top="5.0" />
-                                                         </VBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R2:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr2" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr2" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="172.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R3:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr3" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr3" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="324.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R4:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr4" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr4" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox layoutX="10.0" layoutY="250.0" prefHeight="30.0" prefWidth="620.0">
-                                                   <children>
-                                                      <HBox id="HBox" alignment="CENTER" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R5:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr5" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr5" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets top="5.0" />
-                                                         </VBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R6:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr6" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr6" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="172.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="R7:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqr7" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cr7" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                      <HBox id="HBox" alignment="CENTER" layoutX="324.0" layoutY="10.0" spacing="5.0">
-                                                         <children>
-                                                            <Label prefWidth="25.0" text="PQ:">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </Label>
-                                                            <TextField id="tf_supruta" fx:id="tf_cheqpq" prefHeight="25.0" prefWidth="76.0">
-                                                               <HBox.margin>
-                                                                  <Insets />
-                                                               </HBox.margin>
-                                                            </TextField>
-                                                            <Button id="bt_c7" fx:id="bt_cpq" mnemonicParsing="false" text="..." />
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets left="20.0" />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
+<HBox layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="620.0">
+   <children>
+      <HBox id="HBox" alignment="CENTER" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R1:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr1" fx:id="tf_cheqr1" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr1" fx:id="bt_cr1" mnemonicParsing="false" text="..." />
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R2:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr2" fx:id="tf_cheqr2" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr2" fx:id="bt_cr2" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="172.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R3:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr3" fx:id="tf_cheqr3" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr3" fx:id="bt_cr3" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="324.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R4:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr4" fx:id="tf_cheqr4" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr4" fx:id="bt_cr4" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+   </children>
+</HBox>
+<HBox layoutX="10.0" layoutY="250.0" prefHeight="30.0" prefWidth="620.0">
+   <children>
+      <HBox id="HBox" alignment="CENTER" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R5:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr5" fx:id="tf_cheqr5" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr5" fx:id="bt_cr5" mnemonicParsing="false" text="..." />
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R6:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr6" fx:id="tf_cheqr6" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr6" fx:id="bt_cr6" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="172.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="R7:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqr7" fx:id="tf_cheqr7" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cr7" fx:id="bt_cr7" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+      <HBox id="HBox" alignment="CENTER" layoutX="324.0" layoutY="10.0" spacing="5.0">
+         <children>
+            <Label prefWidth="25.0" text="PQ:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField id="tf_cheqpq" fx:id="tf_cheqpq" prefHeight="25.0" prefWidth="76.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+            <Button id="bt_cpq" fx:id="bt_cpq" mnemonicParsing="false" text="..." />
+         </children>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </HBox>
+   </children>
+</HBox>
 </children>
 </VBox>
 </children>

@@ -531,8 +531,10 @@ public class Fxml_GuideController implements Initializable {
     
     private static int tipoOperacion;    
     private static ImageView[] tools;    
+    private static TextField[] cheqs;    
     private static Integer[] toolsConfig;    
     private static String[] tooltips;
+    private static String[] cheqtips;
 
     private static int numGuias         = 0; 
     
@@ -551,7 +553,9 @@ public class Fxml_GuideController implements Initializable {
     private static int numUnidMin       = 0;
     private static int numCantDesp      = 0;
     private static int numIdMotivo      = 0;
+    private static int numAlmacen       = 0;
 
+    private static double dblPvp        = 0;
     
     private static final ObservableList<xy> log_guide_guia = FXCollections.observableArrayList();
     private static final ObservableList<log_Guide_sada> log_guide_sada = FXCollections.observableArrayList();
@@ -3908,7 +3912,7 @@ public class Fxml_GuideController implements Initializable {
                 }
             });
 
-            final MenuItem removeMenuItem = new MenuItem("Eliminar");
+            final MenuItem removeMenuItem = new MenuItem("Desactivar");
             
             contextMenu.getItems().add(removeMenuItem);
             removeMenuItem.setOnAction((ActionEvent event) -> {
@@ -4429,6 +4433,8 @@ public class Fxml_GuideController implements Initializable {
                 }
                 log_cguias_dev.setId_unidad(tb_almr.getItems().get(j).getUnidfalt());
                 log_cguias_dev.setPre_marc(tb_almr.getItems().get(j).getPre_marc());
+                log_cguias_dev.setPre_fact(tb_almr.getItems().get(j).getPre_fact());
+                log_cguias_dev.setId_almacen(tb_almr.getItems().get(j).getIdAlmacen());
                 log_cguias_dev.setObserv(tb_almr.getItems().get(j).getObserv());
                 log_cguias_dev.setStat_reg(tb_almr.getItems().get(j).getStat_reg());
 
@@ -4562,14 +4568,14 @@ public class Fxml_GuideController implements Initializable {
                 tf_ayud2.setEditable(true);
                 tf_cheqp.setEditable(true);
                 tf_supruta.setEditable(true);
-                tf_cheqr1.setEditable(false);
-                tf_cheqr2.setEditable(false);
-                tf_cheqr3.setEditable(false);
-                tf_cheqr4.setEditable(false);
-                tf_cheqr5.setEditable(false);
-                tf_cheqr6.setEditable(false);
-                tf_cheqr7.setEditable(false);
-                tf_cheqpq.setEditable(false);
+                tf_cheqr1.setEditable(true);
+                tf_cheqr2.setEditable(true);
+                tf_cheqr3.setEditable(true);
+                tf_cheqr4.setEditable(true);
+                tf_cheqr5.setEditable(true);
+                tf_cheqr6.setEditable(true);
+                tf_cheqr7.setEditable(true);
+                tf_cheqpq.setEditable(true);
 
                 tf_sada.setEditable(true);
                 tf_insopesca.setEditable(true);
@@ -5164,7 +5170,6 @@ public class Fxml_GuideController implements Initializable {
                     Datos.setNumRel_Dev(data_fdev.get(i).getNumdev());
                     tf_cheqpdv.setText(data_fdev.get(i).getCheq_pta());
                     lb_cheqpdv.setText(data_fdev.get(i).getScheq_pta());
-//                    dt_faltdv.setValue(data_fdev.get(i).getFec_dev().toLocalDate());
                 }
 
                 log_cguias_dev.setOrden(data_fdev.get(i).getNumorden());
@@ -5181,6 +5186,8 @@ public class Fxml_GuideController implements Initializable {
                 log_cguias_dev.setSmotivo(data_fdev.get(i).getMotivo());
                 log_cguias_dev.setUnidfalt(data_fdev.get(i).getId_unidad());
                 log_cguias_dev.setPre_marc(data_fdev.get(i).getPre_marc());
+                log_cguias_dev.setPre_fact(data_fdev.get(i).getPre_fact());
+                log_cguias_dev.setIdAlmacen(data_fdev.get(i).getId_almacen());
                 log_cguias_dev.setObserv(data_fdev.get(i).getObserv());
                 log_cguias_dev.setStat_reg(data_fdev.get(i).getStat_reg());
                 log_guide_refund.add(log_cguias_dev);
@@ -5224,19 +5231,84 @@ public class Fxml_GuideController implements Initializable {
             else{
                 tf_ayud2.setText(log_cguias[0].getAyud2());
             }
-            tf_cheqp.setText(log_cguias[0].getCheq_pta());
-            if (log_cguias[0].getIdsupruta() != null){
-                tf_supruta.setText(log_cguias[0].getIdsupruta());
+            if (log_cguias[0].getIdsupruta() == null){
+                tf_supruta.setText("");
             }
             else{
-                tf_supruta.setText("");
+                tf_supruta.setText(log_cguias[0].getIdsupruta());
+            }
+            tf_cheqp.setText(log_cguias[0].getCheq_pta());
+            if (log_cguias[0].getCheq_r1()== null){
+                tf_cheqr1.setText("");
+            }
+            else{
+                tf_cheqr1.setText(log_cguias[0].getCheq_r1());
+            }
+            if (log_cguias[0].getCheq_r2()== null){
+                tf_cheqr2.setText("");
+            }
+            else{
+                tf_cheqr2.setText(log_cguias[0].getCheq_r2());
+            }
+            if (log_cguias[0].getCheq_r3()== null){
+                tf_cheqr3.setText("");
+            }
+            else{
+                tf_cheqr3.setText(log_cguias[0].getCheq_r3());
+            }
+            if (log_cguias[0].getCheq_r4()== null){
+                tf_cheqr4.setText("");
+            }
+            else{
+                tf_cheqr4.setText(log_cguias[0].getCheq_r4());
+            }
+            if (log_cguias[0].getCheq_r5()== null){
+                tf_cheqr5.setText("");
+            }
+            else{
+                tf_cheqr5.setText(log_cguias[0].getCheq_r5());
+            }
+            if (log_cguias[0].getCheq_r6()== null){
+                tf_cheqr6.setText("");
+            }
+            else{
+                tf_cheqr6.setText(log_cguias[0].getCheq_r6());
+            }
+            if (log_cguias[0].getCheq_r7()== null){
+                tf_cheqr7.setText("");
+            }
+            else{
+                tf_cheqr7.setText(log_cguias[0].getCheq_r7());
+            }
+            if (log_cguias[0].getCheq_pq()== null){
+                tf_cheqpq.setText("");
+            }
+            else{
+                tf_cheqpq.setText(log_cguias[0].getCheq_pq());
             }
             lb_chofer.setText(log_cguias[0].getSchofer());
             lb_ayud1.setText(log_cguias[0].getSayud1());
-            lb_cheqp.setText(log_cguias[0].getScheq_pta());
             lb_supruta.setText(log_cguias[0].getSsup_ruta());
+            lb_cheqp.setText(log_cguias[0].getScheq_pta());
             
-            tp_carga.setExpanded(true);
+            cheqs = new TextField[]{tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, tf_cheqr6, tf_cheqr7, tf_cheqpq};        
+            cheqtips = new String[]{
+                log_cguias[0].getScheq_r1() + " ",
+                log_cguias[0].getScheq_r2() + " ",
+                log_cguias[0].getScheq_r3() + " ",
+                log_cguias[0].getScheq_r4() + " ",
+                log_cguias[0].getScheq_r5() + " ",
+                log_cguias[0].getScheq_r6() + " ",
+                log_cguias[0].getScheq_r7() + " ",
+                log_cguias[0].getScheq_pq() + " "
+                };
+            //se asigna la etiqueta a su respectivo textfield
+            for (int i = 0; i < cheqs.length; i++) {            
+                Tooltip tip_tool = new Tooltip(cheqtips[i]);
+                Tooltip.install(cheqs[i], tip_tool);
+            }
+
+        tp_carga.setExpanded(true);
         }
         else {
             botonInicio();
@@ -5721,6 +5793,8 @@ public class Fxml_GuideController implements Initializable {
         numClieDev  = 0; 
         numGuias = 0;
         numNotaDev = 0;
+        numAlmacen = 0;
+        dblPvp = 0;
                 
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
@@ -5793,7 +5867,6 @@ public class Fxml_GuideController implements Initializable {
         cb_uniddv.setValue(null);
 
         tp_factura.setText("Relación de Guia / Facturas / Clientes ");
-        //tp_fdevolucion.setText("Relación de Faltante - Devolución ");
 
         Datos.setLog_cguias(new log_CGuias());                           
         Datos.setLog_guide_rel_inv(new log_Guide_rel_inv());
@@ -5808,6 +5881,24 @@ public class Fxml_GuideController implements Initializable {
         loadTableMissing();
         loadTableRefund();
         loadTables("");
+        
+        cheqs = new TextField[]{tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, tf_cheqr6, tf_cheqr7, tf_cheqpq};        
+        cheqtips = new String[]{
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            };
+        //se asigna la etiqueta a su respectivo textfield
+        for (int i = 0; i < cheqs.length; i++) {            
+            Tooltip tip_tool = new Tooltip(cheqtips[i]);
+            Tooltip.install(cheqs[i], tip_tool);
+        }
+        
         
         tp_factura.setExpanded(false);
         tp_almacen.setExpanded(false);
@@ -5941,9 +6032,9 @@ public class Fxml_GuideController implements Initializable {
             change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getLog_cguias().getAnulada()== 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getLog_cguias().getNumguia()+"?";
@@ -6316,11 +6407,6 @@ public class Fxml_GuideController implements Initializable {
                             }
 
                             // manipulacion de alimentación NO tiene Vencimiento
-    //                        changeIconDate("vencido", 0, im_mac);          
-    //                        if (data.get(0).getStat_ma() != null) {
-    //                            im_mac.setVisible(true);
-    //                           changeIconDate(data.get(0).getStat_ma(), data.get(0).getDias_ma(), im_mac);
-    //                        }
 
                             tf_veh1.requestFocus();
                           }
@@ -6551,7 +6637,7 @@ public class Fxml_GuideController implements Initializable {
                             lb_ayud2.setText(
                                 data.get(0).getNombres() + ", " + data.get(0).getApellidos() + " " );
 
-                            tf_cheqp.requestFocus();
+                            tf_supruta.requestFocus();
                         }
                         else{
                             Gui.getInstance().showMessage("El Ayudante No existe!", "A");
@@ -6587,6 +6673,52 @@ public class Fxml_GuideController implements Initializable {
          * metodo para mostrar buscar el nro de guia
          * param: ENTER 
          */
+        tf_supruta.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_supruta.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_supruta") &&
+                            (tf_supruta.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_supruta.getText(), 7, 7));
+                        if(!data.isEmpty()){
+                            lb_supruta.setText(
+                                data.get(0).getNombres() + ", " + data.get(0).getApellidos() + " " );
+
+                            tf_cheqp.requestFocus();
+                        }
+                        else{
+                            Gui.getInstance().showMessage("El Sup. de Ruta No existe!", "A");
+                            tf_supruta.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Sup. de Ruta No existe!", "A");
+                        tf_supruta.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Sup. de Ruta!", "A");
+                    tf_supruta.requestFocus();
+                }
+            }
+            if (ke.getCode().equals(KeyCode.BACK_SPACE)){
+                lb_supruta.setText("" );
+            }
+        });
+        /**
+         * BOTON SUPERVISOR DE RUTA
+         */
+        bt_c7.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003042);
+                    Gui.getInstance().showBusqueda("Sup. de Ruta");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
         tf_cheqp.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)){
                 if (!tf_cheqp.getText().isEmpty()){
@@ -6596,6 +6728,8 @@ public class Fxml_GuideController implements Initializable {
                         if(!data.isEmpty()){
                             lb_cheqp.setText(
                                 data.get(0).getNombres() + ", " + data.get(0).getApellidos() + " " );
+
+                            tf_cheqr1.requestFocus();
                         }
                         else{
                             Gui.getInstance().showMessage("El Cheq. Puerta No existe!", "A");
@@ -6631,43 +6765,319 @@ public class Fxml_GuideController implements Initializable {
          * metodo para mostrar buscar el nro de guia
          * param: ENTER 
          */
-        tf_supruta.setOnKeyReleased((KeyEvent ke) -> {
+        tf_cheqr1.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)){
-                if(!tf_supruta.getText().isEmpty()){
-                    if(((Node)ke.getSource()).getId().equals("tf_supruta") &&
-                            (tf_supruta.getText().length() > 6)){
-                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_supruta.getText(), 7, 7));
+                if(!tf_cheqr1.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr1") &&
+                            (tf_cheqr1.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr1.getText(), 1, 2));
                         if(!data.isEmpty()){
-                            lb_supruta.setText(
-                                data.get(0).getNombres() + ", " + data.get(0).getApellidos() + " " );
+                            tf_cheqr2.requestFocus();
                         }
-                        else{
-                            Gui.getInstance().showMessage("El Sup. de Ruta No existe!", "A");
-                            tf_supruta.requestFocus();
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr1.requestFocus();
                         }
                     }
                     else{
-                        Gui.getInstance().showMessage("El Sup. de Ruta No existe!", "A");
-                        tf_supruta.requestFocus();
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr1.requestFocus();
                     }
                 }
                 else{
-                    Gui.getInstance().showMessage("Indicar Sup. de Ruta!", "A");
-                    tf_supruta.requestFocus();
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr1.requestFocus();
                 }
-            }
-            if (ke.getCode().equals(KeyCode.BACK_SPACE)){
-                lb_supruta.setText("" );
             }
         });
         /**
-         * BOTON SUPERVISOR DE RUTA
+         * BOTON CHEQUEADOR DE ALMANCEN 1
          */
-        bt_c7.setOnMouseClicked((MouseEvent mouseEvent) -> {
+        bt_cr1.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    Datos.setIdButton(2003042);
-                    Gui.getInstance().showBusqueda("Sup. de Ruta");  
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr2.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr2.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr2") &&
+                            (tf_cheqr2.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr2.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqr3.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr2.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr2.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr2.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 2
+         */
+        bt_cr2.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr3.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr3.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr3") &&
+                            (tf_cheqr3.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr3.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqr4.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr3.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr3.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr3.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 3
+         */
+        bt_cr3.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr4.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr4.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr4") &&
+                            (tf_cheqr4.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr4.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqr5.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr4.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr4.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr4.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 4
+         */
+        bt_cr4.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr5.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr5.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr5") &&
+                            (tf_cheqr5.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr5.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqr6.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr5.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr5.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr5.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 5
+         */
+        bt_cr5.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr6.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr6.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr6") &&
+                            (tf_cheqr6.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr6.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqr7.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr6.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr6.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr6.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 6
+         */
+        bt_cr6.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqr7.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqr7.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqr7") &&
+                            (tf_cheqr7.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqr7.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            tf_cheqpq.requestFocus();
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqr7.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqr7.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqr7.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN 7
+         */
+        bt_cr7.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
+                }
+            }
+        });
+         /**
+         * metodo para mostrar buscar el nro de guia
+         * param: ENTER 
+         */
+        tf_cheqpq.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(!tf_cheqpq.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_cheqpq") &&
+                            (tf_cheqpq.getText().length() > 6)){
+                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_cheqpq.getText(), 1, 2));
+                        if(!data.isEmpty()){
+                            //
+                        }
+                        else{  
+                            Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                            tf_cheqpq.requestFocus();
+                        }
+                    }
+                    else{
+                        Gui.getInstance().showMessage("El Cheq. Interno No existe!", "A");
+                        tf_cheqpq.requestFocus();
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar Cheq. Interno!", "A");
+                    tf_cheqpq.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON CHEQUEADOR DE ALMANCEN PQ
+         */
+        bt_cpq.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003036);
+                    Gui.getInstance().showBusqueda("Chequeadores");  
                 }
             }
         });
@@ -7296,6 +7706,8 @@ public class Fxml_GuideController implements Initializable {
                     numClieDev = Integer.parseInt(archguip_pro[0].getNumcli());
                     numUnidMin = archguip_pro[0].getUniporem();
                     numCantDesp = archguip_pro[0].getiCantDesp();
+                    dblPvp = archguip_pro[0].getPre_fact();
+                    numAlmacen = archguip_pro[0].getIdAlmacen();
                     
                     change_im_val(200, im_checkdp); 
                     tf_proddv.setText(tf_proddv.getText().toUpperCase()); 
@@ -7417,26 +7829,21 @@ public class Fxml_GuideController implements Initializable {
          */
         tf_pmarcado.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
-//                if(!tf_pmarcado.getText().isEmpty()){
-                    if(((Node)ke.getSource()).getId().equals("tf_pmarcado") &&
-                            !tf_pmarcado.getText().isEmpty()){
-                        boolean boo = 
-                                Ln.getInstance().check_log_cguias_check_fdev_prod(tf_proddv.getText()); 
+                if(((Node)ke.getSource()).getId().equals("tf_pmarcado") &&
+                        !tf_pmarcado.getText().isEmpty()){
+                    boolean boo = 
+                            Ln.getInstance().check_log_cguias_check_fdev_prod(tf_proddv.getText()); 
 
-                        if(boo){
-                            if (Double.parseDouble(tf_pmarcado.getText()) == 0){
-                                Gui.getInstance().ventanaError("Indicar el Precio del Producto!");
-                                tf_pmarcado.requestFocus();
-                            }
-                        }
-                        else{
-                            tf_pmarcado.setText("0");
+                    if(boo){
+                        if (Double.parseDouble(tf_pmarcado.getText()) == 0){
+                            Gui.getInstance().ventanaError("Indicar el Precio del Producto!");
+                            tf_pmarcado.requestFocus();
                         }
                     }
-//                }
-//                else{
-//                    tf_pmarcado.setText("0");
-//                }
+                    else{
+                        tf_pmarcado.setText("0");
+                    }
+                }
             }
         });
          /**
@@ -7520,28 +7927,13 @@ public class Fxml_GuideController implements Initializable {
                                                 break;
                                             default:
                                                 if (numStatDev == 0){
-                                                    cantDesp = numUnidMin * (numCantDesp - tb_almr.getItems().get(i).getICantFalt());
+                                                    cantDesp = ((numUnidMin * numCantDesp) - tb_almr.getItems().get(i).getICantFalt());
                                                     if (Integer.parseInt(tf_cantdv.getText()) > cantDesp){
                                                         bou = true; 
                                                         Gui.getInstance().showMessage("La Cant. Faltante no puede ser mayor a la Cant. en Factura!", "A");
                                                         tf_cantdv.requestFocus();
                                                     }
                                                 }
-
-//                                                if(numUnidMin == 1){
-//                                                    if (Integer.parseInt(tf_cantdv.getText()) > tb_almr.getItems().get(i).getICantDesp()){
-//                                                        bou = true; 
-//                                                        Gui.getInstance().showMessage("La Cant. Faltante no puede ser mayor a la Cant. en Factura!", "A");
-//                                                        tf_cantdv.requestFocus();
-//                                                    } 
-//                                                } 
-//                                                else{
-//                                                    if (Integer.parseInt(tf_cantdv.getText()) > (numUnidMin - tb_almr.getItems().get(i).getICantFalt())){
-//                                                        bou = true; 
-//                                                        Gui.getInstance().showMessage("La Cant. Faltante no puede ser mayor a la Cant. en Factura!", "A");
-//                                                        tf_cantdv.requestFocus();
-//                                                    } 
-//                                                }
                                                 break;
                                         }
 
@@ -7575,6 +7967,8 @@ public class Fxml_GuideController implements Initializable {
                                         }
                                         archguip_pro_dv[0].setSCantFalt(tf_cantdv.getText() + " " + cb_uniddv.getValue());
                                         archguip_pro_dv[0].setPre_marc(Double.parseDouble(tf_pmarcado.getText()));
+                                        archguip_pro_dv[0].setPre_fact(dblPvp);
+                                        archguip_pro_dv[0].setIdAlmacen(numAlmacen);
                                         archguip_pro_dv[0].setObserv(tf_obserdv.getText().toUpperCase().trim());
 
                                          //Se obtiene Motivo
@@ -7613,7 +8007,6 @@ public class Fxml_GuideController implements Initializable {
                                 Fxp_Renglon[] renglon = 
                                     Ln.getInstance().find_Renglon(tf_factdv.getText());
 
-//                                Fxp_Archguip_pro_dv[] archguip_pro_dv = null;
                                 for (int i = 0; i < renglon.length; i++) {
                                     if (numStatDev == 0){
                                         archguip_pro_dv = 
@@ -7646,6 +8039,8 @@ public class Fxml_GuideController implements Initializable {
                                     }
                                     archguip_pro_dv[0].setICantDesp(renglon[i].getCantdesp());
                                     archguip_pro_dv[0].setPre_marc(Double.parseDouble(tf_pmarcado.getText()));
+                                    archguip_pro_dv[0].setPre_fact(dblPvp);
+                                    archguip_pro_dv[0].setIdAlmacen(numAlmacen);
                                     archguip_pro_dv[0].setObserv(tf_obserdv.getText().toUpperCase().trim());
 
                                      //Se obtiene Motivo
@@ -7688,6 +8083,8 @@ public class Fxml_GuideController implements Initializable {
 
                             numNotaDev = 0;
                             numStatDev = 0;
+                            numAlmacen = 0;
+                            dblPvp = 0;
                             switch (Datos.getReason().getValobserv()){
                                 case 0:
                                     break;
@@ -7768,13 +8165,6 @@ public class Fxml_GuideController implements Initializable {
      */
     private void setFormVisible(boolean value){
         vb_form.setVisible(value);  //Establece el estado grafico del formulario
-//        if(value){  //Si el estado es visible entonces 
-//            vb_table.relocate(30, 439);
-//            vb_table.setPrefHeight(133);
-//        }else{
-//            vb_table.relocate(30, 64);
-//            vb_table.setPrefHeight(508);
-//        }
     }           
     /**
      * Metodo que establece el valor maximo y minimo de cada columna una tabla

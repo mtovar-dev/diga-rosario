@@ -741,9 +741,9 @@ public class Fxml_GroupSupplierController implements Initializable {
             //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL GROUP SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getGroupSupplier().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getGroupSupplier().getIdGroupSupplier() + " ?";

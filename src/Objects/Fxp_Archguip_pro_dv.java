@@ -39,6 +39,8 @@ public class Fxp_Archguip_pro_dv {
     private int uniporem;
     private String stat_reg;
     private Double pre_marc;
+    private Double pre_fact;
+    private int idAlmacen;
     
     /**
      * 
@@ -391,6 +393,32 @@ public class Fxp_Archguip_pro_dv {
         this.pre_marc = pre_marc;
     }
 
+    /**
+     * @return the pre_fact
+     */
+    public Double getPre_fact() {
+        return pre_fact;
+    }
 
+    /**
+     * @param pre_fact the pre_fact to set
+     */
+    public void setPre_fact(Double pre_fact) {
+        this.pre_fact = pre_fact;
+    }
+
+    /**
+     * @return the idAlmacen
+     */
+    public int getIdAlmacen() {
+        return idAlmacen;
+    }
+
+    /**
+     * @param idAlmacen the idAlmacen to set
+     */
+    public void setIdAlmacen(int idAlmacen) {
+        this.idAlmacen = idAlmacen;
+    }
 
 }

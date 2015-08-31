@@ -5092,23 +5092,21 @@ public class Bd implements BdInterface{
                 switch(operacion){
                     case 1:
                         sql_rela.append("{call sp_ins_log_cguias_numrela(?)}");
-                        sql_data.append("{call sp_ins_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_ins_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_ins_log_cguias_chof(?, ?, ?)}");
                         sql_vehi.append("{call sp_ins_log_cguias_vehi(?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_ins_log_cguias_ayud(?, ?, ?, ?)}");
-                        sql_cheq.append("{call sp_ins_log_cguias_cheq(?, ?, ?, ?)}");
-                        sql_perm.append("{call sp_ins_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_cheq.append("{call sp_ins_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva log_CGuias:";
                         break;
                     case 2:
                         log_cguias.setNumrela(String.valueOf(Datos.getNumRela()));
 
-                        sql_data.append("{call sp_upd_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_upd_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_upd_log_cguias_chof(?, ?, ?)}");
                         sql_vehi.append("{call sp_upd_log_cguias_vehi(?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_upd_log_cguias_ayud(?, ?, ?, ?)}");
-                        sql_cheq.append("{call sp_upd_log_cguias_cheq(?, ?, ?, ?)}");
-                        sql_perm.append("{call sp_upd_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_cheq.append("{call sp_upd_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando log_CGuias:";
                         break;
                 }
@@ -5163,22 +5161,21 @@ public class Bd implements BdInterface{
 
 
                     /**
-                     * Chequeador Interno y Puerta
+                     * Chequeador Sup. Ruta, Puerta e Interno
                      */
                     cstmt = connection.prepareCall(sql_cheq.toString());
                     cstmt.setString("@numrela"         , log_cguias.getNumrela());
                     cstmt.setDate("@fecha"             , log_cguias.getFecha());
-                    cstmt.setString("@id_cheqpa"       , log_cguias.getCheq_pta());
-                    cstmt.setInt("@id_tcheqext"        , 2); 
-                    cstmt.setString("@id_cheqr1"       , log_cguias.getCheq_r1());
-                    cstmt.setString("@id_cheqr2"       , log_cguias.getCheq_r2());
-                    cstmt.setString("@id_cheqr3"       , log_cguias.getCheq_r3());
-                    cstmt.setString("@id_cheqr4"       , log_cguias.getCheq_r4());
-                    cstmt.setString("@id_cheqr5"       , log_cguias.getCheq_r5());
-                    cstmt.setString("@id_cheqr6"       , log_cguias.getCheq_r6());
-                    cstmt.setString("@id_cheqr7"       , log_cguias.getCheq_r7());
-                    cstmt.setString("@id_cheqpq"       , log_cguias.getCheq_pq());
-                    cstmt.setInt("@id_tcheqint"        , 1);
+                    cstmt.setString("@id_supruta"      , log_cguias.getIdsupruta());
+                    cstmt.setString("@id_cheqext"      , log_cguias.getCheq_pta());
+                    cstmt.setString("@id_cheqa1"       , log_cguias.getCheq_r1());
+                    cstmt.setString("@id_cheqa2"       , log_cguias.getCheq_r2());
+                    cstmt.setString("@id_cheqa3"       , log_cguias.getCheq_r3());
+                    cstmt.setString("@id_cheqa4"       , log_cguias.getCheq_r4());
+                    cstmt.setString("@id_cheqa5"       , log_cguias.getCheq_r5());
+                    cstmt.setString("@id_cheqa6"       , log_cguias.getCheq_r6());
+                    cstmt.setString("@id_cheqa7"       , log_cguias.getCheq_r7());
+                    cstmt.setString("@id_cheqap"       , log_cguias.getCheq_pq());
                     cstmt.execute();
                 }
 
@@ -5191,7 +5188,6 @@ public class Bd implements BdInterface{
                 cstmt.setDouble("@numorden"             , pos + 1);
                 cstmt.setString("@numguia"              , log_cguias.getNumguia());
                 cstmt.setInt("@numpuerta"               , log_cguias.getNumpuerta());
-                cstmt.setString("@id_supruta"           , log_cguias.getIdsupruta());
                 cstmt.setInt("@numfacturas"             , log_cguias.getNumfact());
                 cstmt.setInt("@numclientes"             , log_cguias.getNumclie());
                 cstmt.setString("@status"               , log_cguias.getStat_guia());
@@ -5368,13 +5364,13 @@ public class Bd implements BdInterface{
                 switch (operacion) {
                     case 1:
                         sql_rela.append("{call sp_ins_log_cguias_numrela_dev(?)}");
-                        sql_data.append("{call sp_ins_log_cguias_dev(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_ins_log_cguias_dev(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva log_CGuias_dev:";
                         break;
                     case 2:
                         log_cguias_dev.setNumdev(String.valueOf(Datos.getNumRel_Dev()));
 
-                        sql_data.append("{call sp_upd_log_cguias_dev(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_upd_log_cguias_dev(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando log_CGuias_dev:";
                         break;
                 }
@@ -5405,8 +5401,11 @@ public class Bd implements BdInterface{
                 cstmt.setInt("@cantdesp",           log_cguias_dev.getCantdesp());
                 cstmt.setInt("@id_unidad",          log_cguias_dev.getId_unidad());
                 cstmt.setDouble("@pmarcado",        log_cguias_dev.getPre_marc());
+                cstmt.setDouble("@pfacturado",      log_cguias_dev.getPre_fact());
+                cstmt.setInt("@id_almacen",         log_cguias_dev.getId_almacen());
                 cstmt.setString("@observ",          log_cguias_dev.getObserv());
                 cstmt.setString("@anulada",         log_cguias_dev.getStat_reg());
+
                 cstmt.execute();
 
                 // Auditar el proceso

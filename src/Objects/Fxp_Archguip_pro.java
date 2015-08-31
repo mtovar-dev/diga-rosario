@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Fxp_Archguip_pro {
     private int     orden;
@@ -43,6 +43,9 @@ public class Fxp_Archguip_pro {
     private double  ivafac;
     private double  totfac;
     private int     anulada;
+    private Double  pre_marc;
+    private Double  pre_fact;
+    private int     idAlmacen;
     
     /**
      * 
@@ -92,6 +95,8 @@ public class Fxp_Archguip_pro {
             ivafac          = rs.getDouble(26);
             totfac          = rs.getDouble(27);
             anulada         = rs.getInt(28);
+            pre_fact        = rs.getDouble(29);
+            idAlmacen       = rs.getInt(30);
 
             
         }catch(SQLException e){
@@ -461,6 +466,48 @@ public class Fxp_Archguip_pro {
      */
     public void setAnulada(int anulada) {
         this.anulada = anulada;
+    }
+
+    /**
+     * @return the pre_marc
+     */
+    public Double getPre_marc() {
+        return pre_marc;
+    }
+
+    /**
+     * @param pre_marc the pre_marc to set
+     */
+    public void setPre_marc(Double pre_marc) {
+        this.pre_marc = pre_marc;
+    }
+
+    /**
+     * @return the pre_fact
+     */
+    public Double getPre_fact() {
+        return pre_fact;
+    }
+
+    /**
+     * @param pre_fact the pre_fact to set
+     */
+    public void setPre_fact(Double pre_fact) {
+        this.pre_fact = pre_fact;
+    }
+
+    /**
+     * @return the idAlmacen
+     */
+    public int getIdAlmacen() {
+        return idAlmacen;
+    }
+
+    /**
+     * @param idAlmacen the idAlmacen to set
+     */
+    public void setIdAlmacen(int idAlmacen) {
+        this.idAlmacen = idAlmacen;
     }
 
     

@@ -745,9 +745,9 @@ public class Fxml_MeasureController implements Initializable {
             //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL MEASURE                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getMeasure().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " la " + ScreenName + " " + Datos.getMeasure().getIdMeasure() + " ?";

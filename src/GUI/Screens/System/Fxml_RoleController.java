@@ -744,9 +744,9 @@ public class Fxml_RoleController implements Initializable {
             //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL ROLE                   
             refreshForm();         
             setFormVisible(true);  
-            String verbo = "eliminar";
+            String verbo = "desactivar";
             if(Datos.getRole().getStatus() == 1){
-                verbo = "habilitar";
+                verbo = "activar";
             }
             String mensj = 
                 "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getRole().getIdRol() + " ?";

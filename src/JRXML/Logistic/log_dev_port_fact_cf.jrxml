@@ -113,6 +113,8 @@
 	<field name="fec_mov" class="java.util.Date"/>
 	<field name="hor_mov" class="java.lang.Integer"/>
 	<field name="pre_fact" class="java.lang.Double"/>
+	<field name="pre_marc" class="java.lang.Double"/>
+	<field name="id_almacen" class="java.lang.Integer"/>
 	<variable name="v_tguias" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{numrela}]]></variableExpression>
 	</variable>

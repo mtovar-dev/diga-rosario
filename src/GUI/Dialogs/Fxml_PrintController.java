@@ -694,6 +694,28 @@ public class Fxml_PrintController implements Initializable {
             }
         });        
         /**
+         * Des. Rosario
+         */
+        hp_imp24.setOnAction((ActionEvent e) -> {
+            numHyperlink = 7;
+            imprimir(Datos.getIdScreen());
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_dm.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                jview = new JasperViewer(jPrint, false);
+                jview.setTitle("DIGA - Listado de Desgloce de Productos (Devolución) ");
+
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+
+            if (print){
+                jview.setVisible(true);
+                jview.setResizable(false);
+            }
+        });        
+        /**
          * Falt. y/o Sobr.
          */
         hp_imp31.setOnAction((ActionEvent e) -> {
@@ -841,7 +863,7 @@ public class Fxml_PrintController implements Initializable {
                 hp_imp21.setText("Red. Camion");
                 hp_imp22.setText("Red. Rosario");
                 hp_imp23.setText("Trans. Camion");
-//                hp_imp24.setText("Sal. de Mercancia");
+//                hp_imp24.setText("Des. Rosario");
                 hp_imp24.setVisible(false);
                 
                 vb_3.setVisible(true);

@@ -133,6 +133,8 @@
 	<field name="fec_mov" class="java.util.Date"/>
 	<field name="hor_mov" class="java.lang.Integer"/>
 	<field name="pre_fact" class="java.lang.Double"/>
+	<field name="pre_marc" class="java.lang.Double"/>
+	<field name="id_almacen" class="java.lang.Integer"/>
 	<variable name="v_monto" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{subfac} + $F{ivafac}]]></variableExpression>
 	</variable>
@@ -366,7 +368,7 @@
 				</textElement>
 				<text><![CDATA[Fecha / Hora:]]></text>
 			</staticText>
-			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+			<textField pattern="d MMM yyyy HH:mm:ss">
 				<reportElement x="397" y="18" width="170" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="9" isBold="false"/>
@@ -463,7 +465,7 @@ RIF: J075455525]]></text>
 				<text><![CDATA[Chofer]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="205" y="39" width="150" height="15" uuid="5508b79c-092a-4e1d-b2d1-f93e29e66977"/>
+				<reportElement x="190" y="39" width="180" height="15" uuid="5508b79c-092a-4e1d-b2d1-f93e29e66977"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>

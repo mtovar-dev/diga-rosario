@@ -113,6 +113,8 @@
 	<field name="fec_mov" class="java.util.Date"/>
 	<field name="hor_mov" class="java.lang.Integer"/>
 	<field name="pre_fact" class="java.lang.Double"/>
+	<field name="pre_marc" class="java.lang.Double"/>
+	<field name="id_almacen" class="java.lang.Integer"/>
 	<variable name="v_tcant" class="java.lang.Integer" resetType="Group" resetGroup="producto" calculation="Sum">
 		<variableExpression><![CDATA[$F{cantdev}]]></variableExpression>
 	</variable>
@@ -131,33 +133,36 @@
 	<group name="unidad">
 		<groupExpression><![CDATA[$F{unidad}]]></groupExpression>
 	</group>
+	<group name="pmarcado">
+		<groupExpression><![CDATA[$F{pre_marc}]]></groupExpression>
+	</group>
 	<group name="producto">
 		<groupExpression><![CDATA[$F{producto}]]></groupExpression>
 		<groupHeader>
-			<band height="15">
+			<band height="17">
 				<textField>
-					<reportElement x="14" y="0" width="53" height="15" uuid="c21c801a-86d9-4dc6-9873-b01f595a5dcb"/>
+					<reportElement x="12" y="0" width="53" height="17" uuid="c21c801a-86d9-4dc6-9873-b01f595a5dcb"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Monospaced" size="10"/>
+						<font fontName="Monospaced" size="11" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="91" y="0" width="25" height="15" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
+					<reportElement x="91" y="0" width="25" height="17" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Monospaced" size="8"/>
+						<font fontName="Monospaced" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="184" y="0" width="214" height="15" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
+					<reportElement x="185" y="0" width="190" height="17" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{descrip}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-					<reportElement x="402" y="0" width="170" height="15" uuid="b18e9d35-0817-4025-bc5d-3108b8e7bb79">
+					<reportElement x="440" y="0" width="132" height="17" uuid="b18e9d35-0817-4025-bc5d-3108b8e7bb79">
 						<printWhenExpression><![CDATA[$F{id_motivo}.equals( 122 ) || $F{id_motivo}.equals( 212 )]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -166,18 +171,27 @@
 					<textFieldExpression><![CDATA[$F{observ}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="115" y="0" width="60" height="15" uuid="75af3644-8707-4615-aaca-4f39be84af46"/>
+					<reportElement x="118" y="0" width="60" height="17" uuid="75af3644-8707-4615-aaca-4f39be84af46"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{produnid}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="producto" isBlankWhenNull="true">
-					<reportElement x="68" y="0" width="21" height="15" uuid="8a3a8965-83d5-446d-abd2-244335be6234"/>
+					<reportElement x="64" y="0" width="25" height="17" uuid="8a3a8965-83d5-446d-abd2-244335be6234"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Monospaced" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{v_tcant}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="377" y="0" width="60" height="17" uuid="6e3c05fd-4acf-4eee-a703-868ced66f272">
+						<printWhenExpression><![CDATA[$F{pre_marc} > 0]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_tcant}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pre_marc}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -276,28 +290,28 @@
 				<text><![CDATA[Rif:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="192" width="53" height="15" uuid="18f828c3-f089-4607-9c64-16f3d6435370"/>
+				<reportElement x="12" y="192" width="53" height="15" uuid="18f828c3-f089-4607-9c64-16f3d6435370"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="72" y="192" width="46" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
+				<reportElement x="68" y="192" width="49" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cant.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="183" y="192" width="216" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
+				<reportElement x="183" y="192" width="195" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descripción del Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="192" width="59" height="15" uuid="3caaf9fe-bf1f-4d19-bf59-f48588a932d2"/>
+				<reportElement x="120" y="192" width="60" height="15" uuid="3caaf9fe-bf1f-4d19-bf59-f48588a932d2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
@@ -339,7 +353,7 @@
 				<textFieldExpression><![CDATA[$F{fec_carga}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="402" y="192" width="170" height="15" uuid="6bc21ad8-e6b7-4dbc-845c-8c74af4459cf"/>
+				<reportElement x="444" y="192" width="128" height="15" uuid="6bc21ad8-e6b7-4dbc-845c-8c74af4459cf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
@@ -401,7 +415,7 @@
 			<textField pattern="d MMM yyyy HH:mm:ss">
 				<reportElement x="402" y="18" width="170" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="8" isBold="false"/>
+					<font fontName="Monospaced" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -434,12 +448,19 @@ RIF: J075455525]]></text>
 				</textElement>
 				<text><![CDATA[Departamento de Devoluciones]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="381" y="192" width="57" height="15" uuid="fd066f61-18c3-4a95-90cb-3738aa9f65ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[P.Marcado]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<pageFooter>
-		<band height="70">
+		<band height="145">
 			<staticText>
-				<reportElement x="0" y="24" width="130" height="15" uuid="59872394-f63c-4046-85f6-186f8ef16a92"/>
+				<reportElement x="222" y="60" width="130" height="15" uuid="59872394-f63c-4046-85f6-186f8ef16a92"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Dotted"/>
 				</box>
@@ -449,21 +470,21 @@ RIF: J075455525]]></text>
 				<text><![CDATA[Firma Autorizada]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="422" y="54" width="150" height="15" uuid="662c2f90-c9f5-4823-9fd0-4c02e5b7aa2c"/>
+				<reportElement x="2" y="90" width="150" height="15" uuid="662c2f90-c9f5-4823-9fd0-4c02e5b7aa2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cheq_pta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="422" y="39" width="150" height="15" uuid="f6c32459-056d-42eb-9732-e66193ba594f"/>
+				<reportElement x="2" y="75" width="150" height="15" uuid="f6c32459-056d-42eb-9732-e66193ba594f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{scheq_pta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="148" y="24" width="130" height="15" uuid="efa3d40a-7714-4275-818a-0c4195ffa558"/>
+				<reportElement x="427" y="60" width="130" height="15" uuid="efa3d40a-7714-4275-818a-0c4195ffa558"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineWidth="0.25" lineStyle="Dotted"/>
@@ -477,7 +498,7 @@ RIF: J075455525]]></text>
 				<text><![CDATA[Enviado por]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="442" y="24" width="130" height="15" uuid="abe66a5c-31df-43d0-b507-6eae6243fba6"/>
+				<reportElement x="12" y="60" width="130" height="15" uuid="abe66a5c-31df-43d0-b507-6eae6243fba6"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineWidth="0.25" lineStyle="Dotted"/>
@@ -488,24 +509,24 @@ RIF: J075455525]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Chequeador]]></text>
+				<text><![CDATA[Chequeador Puerta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="39" width="422" height="15" uuid="e144f340-3ebc-4dc8-b237-f1e5f01c1a8d"/>
+				<reportElement x="68" y="0" width="422" height="15" uuid="e144f340-3ebc-4dc8-b237-f1e5f01c1a8d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10" isBold="false"/>
+					<font fontName="Monospaced" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EL MOVIMIENTO VA SIN TACHADURAS NI ENMIENDAS.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="54" width="422" height="15" uuid="68720367-7e7c-4530-9cca-82bbf097ae0a"/>
+				<reportElement x="68" y="14" width="422" height="15" uuid="68720367-7e7c-4530-9cca-82bbf097ae0a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10" isBold="false"/>
+					<font fontName="Monospaced" size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[LAS CORRECCIONES REALIZARLAS EN LA LINEA DE OBSERVACIONES O AL DORSO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="24" width="130" height="15" uuid="75029067-4c01-4f7d-88a4-5152d6d102bb"/>
+				<reportElement x="12" y="130" width="130" height="15" uuid="75029067-4c01-4f7d-88a4-5152d6d102bb"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineWidth="0.25" lineStyle="Dotted"/>
@@ -517,6 +538,34 @@ RIF: J075455525]]></text>
 					<font fontName="Monospaced" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Recibido por]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="130" width="130" height="15" uuid="4ca167a2-4036-4975-9564-e87057d0478d"/>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jefe de Almacen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="130" width="130" height="15" uuid="fcf5aa13-8d7c-45c5-b8db-8971a5773484"/>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ingreso al Sistema]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
