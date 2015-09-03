@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Objects;
 
 import Tools.Tools;
@@ -14,8 +13,8 @@ import java.sql.SQLException;
  *
  * @author MITM
  */
-public class log_TPersonal {
-    private int idTPersonal;
+public class log_TSeguros {
+    private int idTSeguro;
     private String nombre;
     private String abrev;     
     private int status;
@@ -23,7 +22,7 @@ public class log_TPersonal {
     /**
      * 
      */
-    public log_TPersonal(){
+    public log_TSeguros(){
         
     }    
 
@@ -31,9 +30,9 @@ public class log_TPersonal {
      * 
      * @param rs 
      */
-    public log_TPersonal(ResultSet rs){
+    public log_TSeguros(ResultSet rs){
         try{
-            idTPersonal     = rs.getInt(1);
+            idTSeguro       = rs.getInt(1);
             nombre          = rs.getString(2);
             abrev           = rs.getString(3);
             status          = rs.getInt(4);
@@ -44,17 +43,17 @@ public class log_TPersonal {
     }
 
     /**
-     * @return the idlog_TPersonal
+     * @return the idTSeguro
      */
-    public int getIdTPersonal() {
-        return idTPersonal;
+    public int getIdTSeguro() {
+        return idTSeguro;
     }
 
     /**
-     * @param idTPersonal the idlog_TPersonal to set
+     * @param idTSeguro the idTSeguro to set
      */
-    public void setIdTPersonal(int idTPersonal) {
-        this.idTPersonal = idTPersonal;
+    public void setIdTSeguro(int idTSeguro) {
+        this.idTSeguro = idTSeguro;
     }
 
     /**
@@ -107,5 +106,6 @@ public class log_TPersonal {
     public String toString(){
         return this.nombre;
     }
+    
     
 }

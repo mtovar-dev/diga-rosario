@@ -274,7 +274,7 @@
 <Insets />
 </HBox.margin>
 </Label>
-<DatePicker fx:id="dt_fcarga" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_fcarga" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets />
 </HBox.margin>
@@ -301,7 +301,7 @@
                                                                   <Insets />
                                                                </HBox.margin>
                                                             </Label>
-                                                            <DatePicker fx:id="dt_fsalida" prefHeight="25.0" prefWidth="105.0">
+                                                            <DatePicker fx:id="dp_fsalida" prefHeight="25.0" prefWidth="105.0">
                                                                <HBox.margin>
                                                                   <Insets />
                                                                </HBox.margin>
@@ -952,7 +952,7 @@
 <Insets />
 </HBox.margin>
 </Label>
-<DatePicker fx:id="dt_faltc" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_faltcg" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets />
 </HBox.margin>
@@ -1065,7 +1065,7 @@
 <Insets />
 </HBox.margin>
 </Label>
-<DatePicker fx:id="dt_faltdv" prefWidth="105.0">
+<DatePicker fx:id="dp_faltdv" prefWidth="105.0">
 <HBox.margin>
 <Insets />
 </HBox.margin>

@@ -36,6 +36,7 @@ import Objects.log_Personal;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
+import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
 import java.net.InetAddress;
@@ -73,6 +74,7 @@ public class Datos {
     private static log_Personal                 log_personal;
     private static log_TPersonal                log_tpersonal;
     private static log_TProced                  log_tproced;
+    private static log_TSeguros                 log_tseguros;
     private static log_TTransp                  log_ttransp;
     private static log_Vehiculos                log_vehiculos;
     private static Measure                      measure;
@@ -118,6 +120,7 @@ public class Datos {
     private static log_Guide_rel_inv[]          rep_log_guide_rel_inv;
     private static log_Personal[]               rep_log_personal;
     private static log_TPersonal[]              rep_log_tpersonal;
+    private static log_TSeguros[]               rep_log_tseguros;
     private static log_Vehiculos[]              rep_log_vehiculo;
     private static Orders[]                     rep_orders;
     private static Reason[]                     rep_reason;
@@ -1078,6 +1081,34 @@ public class Datos {
      */
     public static void setNumOrd_comp(String aNumOrd_comp) {
         numOrd_comp = aNumOrd_comp;
+    }
+
+    /**
+     * @return the log_tseguros
+     */
+    public static log_TSeguros getLog_tseguros() {
+        return log_tseguros;
+    }
+
+    /**
+     * @param aLog_tseguros the log_tseguros to set
+     */
+    public static void setLog_tseguros(log_TSeguros aLog_tseguros) {
+        log_tseguros = aLog_tseguros;
+    }
+
+    /**
+     * @return the rep_log_tseguros
+     */
+    public static log_TSeguros[] getRep_log_tseguros() {
+        return rep_log_tseguros;
+    }
+
+    /**
+     * @param aRep_log_tseguros the rep_log_tseguros to set
+     */
+    public static void setRep_log_tseguros(log_TSeguros[] aRep_log_tseguros) {
+        rep_log_tseguros = aRep_log_tseguros;
     }
 
 }

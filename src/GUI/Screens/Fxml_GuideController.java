@@ -168,16 +168,16 @@ public class Fxml_GuideController implements Initializable {
     private ComboBox<Reason> cb_motivodv;
 
     @FXML
-    private DatePicker dt_fcarga;
+    private DatePicker dp_fcarga;
     
     @FXML
-    private DatePicker dt_fsalida;
+    private DatePicker dp_fsalida;
     
     @FXML
-    private DatePicker dt_faltc;
+    private DatePicker dp_faltcg;
     
     @FXML
-    private DatePicker dt_faltdv;
+    private DatePicker dp_faltdv;
     
     @FXML
     private HBox hb_1;
@@ -599,10 +599,10 @@ public class Fxml_GuideController implements Initializable {
         assert cb_unidcg != null : "fx:id=\"cb_unidcg\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert cb_uniddv != null : "fx:id=\"cb_uniddv\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert cb_motivodv != null : "fx:id=\"cb_motivodv\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
-        assert dt_fcarga != null : "fx:id=\"dt_fcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
-        assert dt_fsalida != null : "fx:id=\"dt_fsalida\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
-        assert dt_faltc != null : "fx:id=\"dt_faltc\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
-        assert dt_faltdv != null : "fx:id=\"dt_faltd\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert dp_fcarga != null : "fx:id=\"dt_fcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert dp_fsalida != null : "fx:id=\"dt_fsalida\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert dp_faltcg != null : "fx:id=\"dt_faltc\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert dp_faltdv != null : "fx:id=\"dt_faltd\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert im_check != null : "fx:id=\"im_check\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
@@ -745,7 +745,7 @@ public class Fxml_GuideController implements Initializable {
         createTableStockPs();
 
         createTableSada();      //Crea e Inicializa la Tabla de Datos   
-        createTableIsopesca();  //Crea e Inicializa la Tabla de Datos   
+        createTableInsopesca();  //Crea e Inicializa la Tabla de Datos   
 
         createTableStockM1();   //Crea e Inicializa la Tabla de Datos                    
         createTableStockMs();
@@ -3570,7 +3570,7 @@ public class Fxml_GuideController implements Initializable {
         this.objectWidth(col_descrip    , 230, 250);
         this.objectWidth(col_cant       , 55,  55);
         this.objectWidth(col_falt       , 55,  55);
-        this.objectWidth(col_motivo     , 55,  55);
+        this.objectWidth(col_motivo     , 60,  60);
         this.objectWidth(col_observ     , 300, 380);
         /**
          * Sobreescritura de un metodo de la Columna, para sustituir el valor numerico 
@@ -3782,37 +3782,55 @@ public class Fxml_GuideController implements Initializable {
 
                     switch (numIdMotivo){
                         case 111:
+                        case 112:
+                        case 113:
                             tf_motivodv.setText("110");
                             break;
                         case 121:
+                        case 122:
+                        case 123:
                             tf_motivodv.setText("120");
                             break;
                         case 131:
+                        case 132:
+                        case 133:
                             tf_motivodv.setText("130");
                             break;
                         case 141:
+                        case 142:
+                        case 143:
                             tf_motivodv.setText("140");
                             break;
                         case 151:
+                        case 152:
+                        case 153:
                             tf_motivodv.setText("150");
                             break;
                         case 211:
+                        case 212:
+                        case 213:
                             tf_motivodv.setText("210");
                             break;
                         case 221:
+                        case 222:
+                        case 223:
                             tf_motivodv.setText("220");
                             break;
                         case 231:
+                        case 232:
+                        case 233:
                             tf_motivodv.setText("230");
                             break;
                         case 411:
+                        case 412:
+                        case 414:
                             tf_motivodv.setText("410");
                             break;
-                        case 413:
-                            tf_motivodv.setText("412");
+                        case 511:
+                            tf_motivodv.setText("510");
                             break;
-                        case 415:
-                            tf_motivodv.setText("414");
+                        case 521:
+                            tf_motivodv.setText("520");
                             break;
                     }
                     numStatDev = Integer.parseInt(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getOrden());
@@ -3825,9 +3843,9 @@ public class Fxml_GuideController implements Initializable {
                 }
             });
 
-            final MenuItem changeMenuItemME = new MenuItem("Mal Estado");
-            contextMenu.getItems().add(changeMenuItemME);
-            changeMenuItemME.setOnAction((ActionEvent event) -> {
+            final MenuItem changeMenuItemME_RE = new MenuItem("ME - Recuperación");
+            contextMenu.getItems().add(changeMenuItemME_RE);
+            changeMenuItemME_RE.setOnAction((ActionEvent event) -> {
                 if (tipoOperacion == 9){
                     numIdMotivo = (((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getIdMotivo());
 
@@ -3859,11 +3877,50 @@ public class Fxml_GuideController implements Initializable {
                         case 410:
                             tf_motivodv.setText("411");
                             break;
-                        case 412:
-                            tf_motivodv.setText("413");
+                    }
+                    numStatDev = Integer.parseInt(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getOrden());
+                    tf_factdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getNumfact()));
+                    tf_proddv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getCodigo()));
+                    tf_cantdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getICantFalt()));
+                    tf_obserdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getObserv()));
+
+                    tf_motivodv.requestFocus();
+                }
+            });
+
+            final MenuItem changeMenuItemME_VE = new MenuItem("ME - Vencido");
+            contextMenu.getItems().add(changeMenuItemME_VE);
+            changeMenuItemME_VE.setOnAction((ActionEvent event) -> {
+                if (tipoOperacion == 9){
+                    numIdMotivo = (((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getIdMotivo());
+
+                    switch (numIdMotivo){
+                        case 110:
+                            tf_motivodv.setText("112");
                             break;
-                        case 414:
-                            tf_motivodv.setText("415");
+                        case 120:
+                            tf_motivodv.setText("122");
+                            break;
+                        case 130:
+                            tf_motivodv.setText("132");
+                            break;
+                        case 140:
+                            tf_motivodv.setText("142");
+                            break;
+                        case 150:
+                            tf_motivodv.setText("152");
+                            break;
+                        case 210:
+                            tf_motivodv.setText("212");
+                            break;
+                        case 220:
+                            tf_motivodv.setText("222");
+                            break;
+                        case 230:
+                            tf_motivodv.setText("232");
+                            break;
+                        case 410:
+                            tf_motivodv.setText("412");
                             break;
                     }
                     numStatDev = Integer.parseInt(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getOrden());
@@ -3876,28 +3933,51 @@ public class Fxml_GuideController implements Initializable {
                 }
             });
 
-//            final MenuItem changeMenuItemRE = new MenuItem("Redespacho");
-//            contextMenu.getItems().add(changeMenuItemRE);
-//            changeMenuItemRE.setOnAction((ActionEvent event) -> {
-//                if (tipoOperacion == 9){
-//                    numIdMotivo = (((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getIdMotivo());
-//
-//                    switch (numIdMotivo){
-//                        case 310:
-//                            tf_motivodv.setText("311");
-//                            break;
-//                        case 311:
-//                            tf_motivodv.setText("310");
-//                            break;
-//                    }
-//                    numStatDev = Integer.parseInt(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getOrden());
-//                    tf_factdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getNumfact()));
-//                    tf_obserdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getObserv()));
-//
-//                    tf_motivodv.requestFocus();
-//                }
-//            });
-//
+            final MenuItem changeMenuItemME_IR = new MenuItem("ME - Irrecuperable");
+            contextMenu.getItems().add(changeMenuItemME_IR);
+            changeMenuItemME_IR.setOnAction((ActionEvent event) -> {
+                if (tipoOperacion == 9){
+                    numIdMotivo = (((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getIdMotivo());
+
+                    switch (numIdMotivo){
+                        case 110:
+                            tf_motivodv.setText("113");
+                            break;
+                        case 120:
+                            tf_motivodv.setText("123");
+                            break;
+                        case 130:
+                            tf_motivodv.setText("133");
+                            break;
+                        case 140:
+                            tf_motivodv.setText("143");
+                            break;
+                        case 150:
+                            tf_motivodv.setText("153");
+                            break;
+                        case 210:
+                            tf_motivodv.setText("213");
+                            break;
+                        case 220:
+                            tf_motivodv.setText("223");
+                            break;
+                        case 230:
+                            tf_motivodv.setText("233");
+                            break;
+                        case 410:
+                            tf_motivodv.setText("413");
+                            break;
+                    }
+                    numStatDev = Integer.parseInt(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getOrden());
+                    tf_factdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getNumfact()));
+                    tf_proddv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getCodigo()));
+                    tf_cantdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getICantFalt()));
+                    tf_obserdv.setText(String.valueOf(((Fxp_Archguip_pro_dv) tb_almr.getItems().get(tb_almr.getSelectionModel().getSelectedIndex())).getObserv()));
+
+                    tf_motivodv.requestFocus();
+                }
+            });
+
             final MenuItem changeMenuItem = new MenuItem("Cambiar otros");
             contextMenu.getItems().add(changeMenuItem);
             changeMenuItem.setOnAction((ActionEvent event) -> {
@@ -3913,7 +3993,6 @@ public class Fxml_GuideController implements Initializable {
             });
 
             final MenuItem removeMenuItem = new MenuItem("Desactivar");
-            
             contextMenu.getItems().add(removeMenuItem);
             removeMenuItem.setOnAction((ActionEvent event) -> {
                 if (tipoOperacion == 9){
@@ -4120,7 +4199,7 @@ public class Fxml_GuideController implements Initializable {
     /**
     * Metodo encargado de Crear e inicializar la Tabla de Datos
     */
-    private void createTableIsopesca(){
+    private void createTableInsopesca(){
         //Se crean y definen las columnas de la Tabla
         TableColumn col_orden       = new TableColumn("#");        
         TableColumn col_guide       = new TableColumn("Guia");
@@ -4216,8 +4295,8 @@ public class Fxml_GuideController implements Initializable {
 
             for (int i = 0; i < log_guide_guia.size(); i++) {
                 log_cguias.setNumguia(tb_guias.getItems().get(i).getGuias());      
-                log_cguias.setFecha(Date.valueOf(dt_fcarga.getValue()));
-                log_cguias.setFecsalida(Date.valueOf(dt_fsalida.getValue()));
+                log_cguias.setFecha(Date.valueOf(dp_fcarga.getValue()));
+                log_cguias.setFecsalida(Date.valueOf(dp_fsalida.getValue()));
                 log_cguias.setNumpuerta(Integer.parseInt(tf_pcarga.getText()));
                 log_cguias.setIdsupruta(tf_supruta.getText());
                 log_cguias.setNumfact(tb_guias.getItems().get(i).getNumfact());
@@ -4273,7 +4352,7 @@ public class Fxml_GuideController implements Initializable {
 
                     for (int j = 0; j < log_guide_sada.size(); j++) {
                         log_cguias_perm.setNumrela(Datos.getNumRela());
-                        log_cguias_perm.setFecha(Date.valueOf(dt_fcarga.getValue()));
+                        log_cguias_perm.setFecha(Date.valueOf(dp_fcarga.getValue()));
                         log_cguias_perm.setGuias(tb_sada.getItems().get(j).getGuias());
                         log_cguias_perm.setTpermiso(1);
 
@@ -4289,7 +4368,7 @@ public class Fxml_GuideController implements Initializable {
 
                     for (int j = 0; j < log_guide_insopesca.size(); j++) {
                         log_cguias_perm.setNumrela(Datos.getNumRela());
-                        log_cguias_perm.setFecha(Date.valueOf(dt_fcarga.getValue()));
+                        log_cguias_perm.setFecha(Date.valueOf(dp_fcarga.getValue()));
                         log_cguias_perm.setGuias(tb_insopesca.getItems().get(j).getGuias());
                         log_cguias_perm.setTpermiso(2);
 
@@ -4347,7 +4426,7 @@ public class Fxml_GuideController implements Initializable {
         
             for (int j = 0; j < log_guide_missing.size(); j++) {
                 log_cguias_falt.setNumrela(Datos.getNumRela());
-                log_cguias_falt.setFecha(Date.valueOf(dt_faltc.getValue()));
+                log_cguias_falt.setFecha(Date.valueOf(dp_faltcg.getValue()));
                 log_cguias_falt.setNumguiac(tb_almm.getItems().get(j).getNumguia());
                 log_cguias_falt.setNumguiaf(tb_almm.getItems().get(j).getNumfalt());
                 log_cguias_falt.setProducto(tb_almm.getItems().get(j).getCodigo());
@@ -4408,10 +4487,10 @@ public class Fxml_GuideController implements Initializable {
             log_CGuias_falt_dv log_cguias_dev = new log_CGuias_falt_dv();
 
             // Guia Fecha Salida
-            if(dt_fsalida.getValue() != null){
+            if(dp_fsalida.getValue() != null){
                 log_CGuias log_cguias = new log_CGuias();
                 log_cguias.setNumguia("0");
-                log_cguias.setFecsalida(Date.valueOf(dt_faltdv.getValue()));
+                log_cguias.setFecsalida(Date.valueOf(dp_faltdv.getValue()));
                 result = Ln.getInstance().save_log_CGuias(log_cguias, 2, 2);
             }
 
@@ -4519,10 +4598,10 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(true);
                 cb_uniddv.setDisable(true);
                 
-                dt_fcarga.setDisable(true);
-                dt_fsalida.setDisable(true);
-                dt_faltc.setDisable(true);
-                dt_faltdv.setDisable(true);
+                dp_fcarga.setDisable(true);
+                dp_fsalida.setDisable(true);
+                dp_faltcg.setDisable(true);
+                dp_faltdv.setDisable(true);
                        
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -4596,10 +4675,10 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(false);
                 cb_uniddv.setDisable(false);
                 
-                dt_fcarga.setDisable(false);
-                dt_fsalida.setDisable(false);
-                dt_faltc.setDisable(false);
-                dt_faltdv.setDisable(false);
+                dp_fcarga.setDisable(false);
+                dp_fsalida.setDisable(false);
+                dp_faltcg.setDisable(false);
+                dp_faltdv.setDisable(false);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -4670,10 +4749,10 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(false);
                 cb_uniddv.setDisable(false);
                 
-                dt_fcarga.setDisable(false);
-                dt_fsalida.setDisable(false);
-                dt_faltc.setDisable(false);
-                dt_faltdv.setDisable(false);
+                dp_fcarga.setDisable(false);
+                dp_fsalida.setDisable(false);
+                dp_faltcg.setDisable(false);
+                dp_faltdv.setDisable(false);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -4743,10 +4822,10 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(true);
                 cb_uniddv.setDisable(true);
                 
-                dt_fcarga.setDisable(true);
-                dt_fsalida.setDisable(true);
-                dt_faltc.setDisable(true);
-                dt_faltdv.setDisable(true);
+                dp_fcarga.setDisable(true);
+                dp_fsalida.setDisable(true);
+                dp_faltcg.setDisable(true);
+                dp_faltdv.setDisable(true);
                 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -4816,10 +4895,10 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(true);
                 cb_uniddv.setDisable(true);
                 
-                dt_fcarga.setDisable(true);
-                dt_fsalida.setDisable(true);
-                dt_faltc.setDisable(true);
-                dt_faltdv.setDisable(true);
+                dp_fcarga.setDisable(true);
+                dp_fsalida.setDisable(true);
+                dp_faltcg.setDisable(true);
+                dp_faltdv.setDisable(true);
                 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -4890,9 +4969,9 @@ public class Fxml_GuideController implements Initializable {
                 cb_motivodv.setDisable(true);
                 cb_uniddv.setDisable(true);
                 
-                dt_fcarga.setDisable(true);
-                dt_faltc.setDisable(false);
-                dt_faltdv.setDisable(false);
+                dp_fcarga.setDisable(true);
+                dp_faltcg.setDisable(false);
+                dp_faltdv.setDisable(false);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -4958,13 +5037,13 @@ public class Fxml_GuideController implements Initializable {
                 tf_pmarcado.setEditable(true);
                 tf_obserdv.setEditable(true);
 
-                dt_fcarga.setDisable(true);
+                dp_fcarga.setDisable(true);
                 cb_motivodv.setDisable(false);
                 cb_uniddv.setDisable(false);
                 
-                dt_fcarga.setDisable(true);
-                dt_faltc.setDisable(false);
-                dt_faltdv.setDisable(false);
+                dp_fcarga.setDisable(true);
+                dp_faltcg.setDisable(false);
+                dp_faltdv.setDisable(false);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -5125,7 +5204,7 @@ public class Fxml_GuideController implements Initializable {
             numInsoCarga = log_guide_insopesca.size();
             
            
-            dt_faltc.setValue(log_cguias[0].getFecha().toLocalDate());
+            dp_faltcg.setValue(log_cguias[0].getFecha().toLocalDate());
             log_guide_missing.clear();
             Datos.setRep_log_cguias_fcar(Ln.getInstance().find_log_CGuias_fcar(Datos.getNumRela()));
             ObservableList<log_CGuias_falt_cg> data_fcar = FXCollections.observableArrayList();
@@ -5136,7 +5215,7 @@ public class Fxml_GuideController implements Initializable {
                 Fxp_Archguip_pro_cg log_cguias_falt = new Fxp_Archguip_pro_cg();
                 
                 if (i == 0){
-                    dt_faltc.setValue(data_fcar.get(i).getFecha().toLocalDate());
+                    dp_faltcg.setValue(data_fcar.get(i).getFecha().toLocalDate());
                 }
 
                 log_cguias_falt.setOrden(data_fcar.get(i).getNumorden());
@@ -5156,7 +5235,7 @@ public class Fxml_GuideController implements Initializable {
             tb_almm.scrollTo(0);
             
             
-            dt_faltdv.setValue(LocalDate.now());
+            dp_faltdv.setValue(LocalDate.now());
             log_guide_refund.clear();
             Datos.setRep_log_cguias_fdev(Ln.getInstance().find_log_CGuias_fdev(Datos.getNumRela()));
             ObservableList<log_CGuias_falt_dv> data_fdev = FXCollections.observableArrayList();
@@ -5199,18 +5278,18 @@ public class Fxml_GuideController implements Initializable {
             numCompDevCar = 0;
             tf_nroguia.setText(String.valueOf(log_cguias[0].getNumrela()));
             if(log_cguias[0].getFecha() == null){
-                dt_fcarga.setValue(LocalDate.now());
+                dp_fcarga.setValue(LocalDate.now());
             }
             else{
-                dt_fcarga.setValue(log_cguias[0].getFecha().toLocalDate());
+                dp_fcarga.setValue(log_cguias[0].getFecha().toLocalDate());
             }
             if(log_cguias[0].getFecsalida() == null){
-                dt_fsalida.setValue(LocalDate.now());
-                dt_faltdv.setValue(LocalDate.now());
+                dp_fsalida.setValue(LocalDate.now());
+                dp_faltdv.setValue(LocalDate.now());
             }
             else{
-                dt_fsalida.setValue(log_cguias[0].getFecsalida().toLocalDate());
-                dt_faltdv.setValue(log_cguias[0].getFecsalida().toLocalDate());
+                dp_fsalida.setValue(log_cguias[0].getFecsalida().toLocalDate());
+                dp_faltdv.setValue(log_cguias[0].getFecsalida().toLocalDate());
             }
             if (log_cguias[0].getAyud1() == null){
                 numCompDevCar +=1;
@@ -5293,14 +5372,14 @@ public class Fxml_GuideController implements Initializable {
             
             cheqs = new TextField[]{tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, tf_cheqr6, tf_cheqr7, tf_cheqpq};        
             cheqtips = new String[]{
-                log_cguias[0].getScheq_r1() + " ",
-                log_cguias[0].getScheq_r2() + " ",
-                log_cguias[0].getScheq_r3() + " ",
-                log_cguias[0].getScheq_r4() + " ",
-                log_cguias[0].getScheq_r5() + " ",
-                log_cguias[0].getScheq_r6() + " ",
-                log_cguias[0].getScheq_r7() + " ",
-                log_cguias[0].getScheq_pq() + " "
+                tf_cheqr1.getText() + " ",
+                tf_cheqr2.getText() + " ",
+                tf_cheqr3.getText() + " ",
+                tf_cheqr4.getText() + " ",
+                tf_cheqr5.getText() + " ",
+                tf_cheqr6.getText() + " ",
+                tf_cheqr7.getText() + " ",
+                tf_cheqpq.getText() + " "
                 };
             //se asigna la etiqueta a su respectivo textfield
             for (int i = 0; i < cheqs.length; i++) {            
@@ -5563,51 +5642,51 @@ public class Fxml_GuideController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    dt_fcarga, tf_pcarga, dt_fsalida, tf_chofer, tf_veh1, tf_veh2, 
+                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, tf_veh1, tf_veh2, 
                     tf_ayud1, tf_ayud2, tf_supruta, tf_cheqp, 
                     tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, 
                     tf_cheqr6, tf_cheqr7, tf_cheqpq, 
-                    dt_faltc, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
-                    dt_faltdv, tf_cheqpdv, tf_factdv, cb_motivodv,
+                    dp_faltdv, tf_cheqpdv, tf_factdv, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_obserdv};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    dt_fcarga, tf_pcarga, dt_fsalida, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
                     tf_cheqr4, bt_cr4, tf_cheqr5, bt_cr5, tf_cheqr6, bt_cr6, 
                     tf_cheqr7, bt_cr7, tf_cheqpq, bt_cpq, 
-                    dt_faltc, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
-                    dt_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
+                    dp_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_pmarcado, tf_obserdv};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    dt_fcarga, tf_pcarga, dt_fsalida, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
                     tf_cheqr4, bt_cr4, tf_cheqr5, bt_cr5, tf_cheqr6, bt_cr6, 
                     tf_cheqr7, bt_cr7, tf_cheqpq, bt_cpq, 
-                    dt_faltc, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
-                    dt_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
+                    dp_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_pmarcado, tf_obserdv};
                 break;
             case 8:     //Faltante en Carga
                 nodos = new Node[]{
-                    dt_faltc, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
                     tf_cantcg, cb_unidcg};
                 break;
             case 9:     //Faltante en Devolucion 
                 nodos = new Node[]{
-                    dt_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, tf_motivodv, 
+                    dp_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, tf_motivodv, 
                     cb_motivodv, tf_proddv, tf_cantdv, cb_uniddv, tf_pmarcado, 
-                    tf_obserdv, dt_faltc, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    tf_obserdv, dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
                     tf_cantcg, cb_unidcg};
                 break;
         }             
@@ -5857,10 +5936,10 @@ public class Fxml_GuideController implements Initializable {
         im_ps2.setVisible(false);
         im_rgt2.setVisible(false);
         
-        dt_fcarga.setValue(LocalDate.now());
-        dt_fsalida.setValue(LocalDate.now());
-        dt_faltc.setValue(LocalDate.now());
-        dt_faltdv.setValue(LocalDate.now());
+        dp_fcarga.setValue(LocalDate.now());
+        dp_fsalida.setValue(LocalDate.now());
+        dp_faltcg.setValue(LocalDate.now());
+        dp_faltdv.setValue(LocalDate.now());
 
         cb_unidcg.setValue(null);
         cb_motivodv.setValue(null);
@@ -5967,7 +6046,7 @@ public class Fxml_GuideController implements Initializable {
                     break;
                 default:
                     tp_fdevolucion.setExpanded(true);
-                    dt_faltdv.setValue(dt_fcarga.getValue());
+                    dp_faltdv.setValue(dp_fcarga.getValue());
                     break;
             }
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
@@ -5982,12 +6061,12 @@ public class Fxml_GuideController implements Initializable {
             switch (tipoOperacion){
                 case 1:
                     if(toolsConfig[4]==1){
-                        if (!dt_fcarga.getValue().isAfter(LocalDate.now())){
+                        if (!dp_fcarga.getValue().isAfter(LocalDate.now())){
                             result = saveCGuias();
                         }
                         else{
                             Gui.getInstance().showMessage("La Fecha de Carga no puede ser mayor a la Fecha Actual!", "A");            
-                            dt_fcarga.requestFocus();
+                            dp_fcarga.requestFocus();
                         }
                     }
                     break;
@@ -5998,23 +6077,23 @@ public class Fxml_GuideController implements Initializable {
                     break;
                 case 8:
                     if(toolsConfig[9]==1){
-                        if (!dt_faltc.getValue().isAfter(LocalDate.now())){
+                        if (!dp_faltcg.getValue().isAfter(LocalDate.now())){
                             result = saveMissing();
                         }
                         else{
                             Gui.getInstance().showMessage("La Fecha de Faltante - Carga no puede ser mayor a la Fecha Actual!", "A");            
-                            dt_faltc.requestFocus();
+                            dp_faltcg.requestFocus();
                         }
                     }
                     break;
                 case 9:
                     if(toolsConfig[10]==1){
-                        if (!dt_faltdv.getValue().isAfter(LocalDate.now())){
+                        if (!dp_faltdv.getValue().isAfter(LocalDate.now())){
                             result = saveRefund();
                         }
                         else{
                             Gui.getInstance().showMessage("La Fecha de Faltante - Devolución no puede ser mayor a la Fecha Actual!", "A");            
-                            dt_faltdv.requestFocus();
+                            dp_faltdv.requestFocus();
                         }
                     }
                     break;
@@ -7951,7 +8030,7 @@ public class Fxml_GuideController implements Initializable {
                                     if (Integer.parseInt(tf_cantdv.getText()) <= numCantDesp ||
                                             Integer.parseInt(tf_cantdv.getText()) <= (numUnidMin * numCantDesp)){
 
-                                        archguip_pro_dv[0].setFecha(Date.valueOf(dt_faltdv.getValue()));
+                                        archguip_pro_dv[0].setFecha(Date.valueOf(dp_faltdv.getValue()));
                                         archguip_pro_dv[0].setIdChequeador(tf_cheqpdv.getText().trim());
                                         archguip_pro_dv[0].setNumfact(tf_factdv.getText().trim());
                                         archguip_pro_dv[0].setCodigo(tf_proddv.getText().trim());
@@ -8019,7 +8098,7 @@ public class Fxml_GuideController implements Initializable {
                                         boo = false;
                                     }
 
-                                    archguip_pro_dv[0].setFecha(Date.valueOf(dt_faltdv.getValue()));
+                                    archguip_pro_dv[0].setFecha(Date.valueOf(dp_faltdv.getValue()));
                                     archguip_pro_dv[0].setIdChequeador(tf_cheqpdv.getText().trim());
                                     archguip_pro_dv[0].setNumfact(tf_factdv.getText().trim());
                                     if (numStatDev == 0){
@@ -8040,7 +8119,7 @@ public class Fxml_GuideController implements Initializable {
                                     archguip_pro_dv[0].setICantDesp(renglon[i].getCantdesp());
                                     archguip_pro_dv[0].setPre_marc(Double.parseDouble(tf_pmarcado.getText()));
                                     archguip_pro_dv[0].setPre_fact(dblPvp);
-                                    archguip_pro_dv[0].setIdAlmacen(numAlmacen);
+                                    archguip_pro_dv[0].setIdAlmacen(renglon[i].getId_almacen());
                                     archguip_pro_dv[0].setObserv(tf_obserdv.getText().toUpperCase().trim());
 
                                      //Se obtiene Motivo

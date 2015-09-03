@@ -289,7 +289,7 @@
 <HBox.margin>
 <Insets />
 </HBox.margin></Button>
-<DatePicker fx:id="dt_lc" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_lc" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin></DatePicker><Label fx:id="lb_lc" prefHeight="25.0" prefWidth="40.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -317,7 +317,7 @@
 </Label>
 <TextField id="tf_cm" fx:id="tf_cm" prefHeight="25.0" prefWidth="236.0" />
 <Button id="bt_cm" fx:id="bt_cm" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_cm" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_cm" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin></DatePicker><Label fx:id="lb_cm" prefHeight="25.0" prefWidth="40.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -342,7 +342,7 @@
 </Label>
 <TextField id="tf_cs" fx:id="tf_cs" prefHeight="25.0" prefWidth="236.0" />
 <Button id="bt_cs" fx:id="bt_cs" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_cs" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_cs" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin></DatePicker><Label fx:id="lb_cs" prefHeight="25.0" prefWidth="40.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -367,7 +367,7 @@
 </Label>
 <TextField id="tf_ma" fx:id="tf_ma" prefHeight="25.0" prefWidth="236.0" />
 <Button id="bt_ma" fx:id="bt_ma" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_ma" prefHeight="25.0" prefWidth="105.0" visible="false">
+<DatePicker fx:id="dp_ma" prefHeight="25.0" prefWidth="105.0" visible="false">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin></DatePicker><Label fx:id="lb_ma" prefHeight="25.0" prefWidth="40.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

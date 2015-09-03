@@ -20,11 +20,14 @@ import Objects.log_TPersonal;
 import Tools.Datos;
 import Tools.ValidateTextFieldNumber;
 import Tools.ValidateTextFieldPhone;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -103,16 +106,16 @@ public class Fxml_PersonalController implements Initializable {
     private ComboBox<log_TPersonal> cb_tpersonal;
 
     @FXML
-    private DatePicker dt_lc;
+    private DatePicker dp_lc;
     
     @FXML
-    private DatePicker dt_cm;
+    private DatePicker dp_cm;
 
     @FXML
-    private DatePicker dt_cs;
+    private DatePicker dp_cs;
     
     @FXML
-    private DatePicker dt_ma;
+    private DatePicker dp_ma;
     
     @FXML
     private HBox hb_1;
@@ -291,10 +294,10 @@ public class Fxml_PersonalController implements Initializable {
         assert cb_parroquia != null : "fx:id=\"cb_parroquia\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
         assert cb_sexo != null : "fx:id=\"cb_sexo\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
         assert cb_tpersonal != null : "fx:id=\"cb_tpersonal\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
-        assert dt_lc != null : "fx:id=\"dt_lc\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
-        assert dt_cm != null : "fx:id=\"dt_cm\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
-        assert dt_cs != null : "fx:id=\"dt_cs\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
-        assert dt_ma != null : "fx:id=\"dt_ma\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
+        assert dp_lc != null : "fx:id=\"dt_lc\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
+        assert dp_cm != null : "fx:id=\"dt_cm\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
+        assert dp_cs != null : "fx:id=\"dt_cs\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
+        assert dp_ma != null : "fx:id=\"dt_ma\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
         assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
         assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
         assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_Personal.fxml'.";
@@ -705,10 +708,10 @@ public class Fxml_PersonalController implements Initializable {
             log_personal.setRuta_cm(tf_cm.getText());
             log_personal.setRuta_cs(tf_cs.getText());
             log_personal.setRuta_ma(tf_ma.getText());
-            log_personal.setFec_lc(Date.valueOf(dt_lc.getValue()));
-            log_personal.setFec_cm(Date.valueOf(dt_cm.getValue()));
-            log_personal.setFec_cs(Date.valueOf(dt_cs.getValue()));
-            log_personal.setFec_ma(Date.valueOf(dt_ma.getValue()));
+            log_personal.setFec_lc(Date.valueOf(dp_lc.getValue()));
+            log_personal.setFec_cm(Date.valueOf(dp_cm.getValue()));
+            log_personal.setFec_cs(Date.valueOf(dp_cs.getValue()));
+            log_personal.setFec_ma(Date.valueOf(dp_ma.getValue()));
             log_personal.setCountry(1);
             log_personal.setStatus(Datos.getLog_personal().getStatus());      //Se asigna el STATUS del personal
 
@@ -800,27 +803,27 @@ public class Fxml_PersonalController implements Initializable {
         tf_ma.setText(Datos.getLog_personal().getRuta_ma());
 
         if(Datos.getLog_personal().getFec_lc() != null)
-            dt_lc.setValue(Datos.getLog_personal().getFec_lc().toLocalDate());
+            dp_lc.setValue(Datos.getLog_personal().getFec_lc().toLocalDate());
         else
-            dt_lc.setValue(LocalDate.now());
+            dp_lc.setValue(LocalDate.now());
         lb_lc.setText(Integer.toString(Datos.getLog_personal().getDias_lc()) + " D");
         changeIconDate("vencido", 0, im_lc);          
         if (Datos.getLog_personal().getStat_lc()!= null) 
             changeIconDate(Datos.getLog_personal().getStat_lc(), Datos.getLog_personal().getDias_lc(), im_lc);          
         
         if(Datos.getLog_personal().getFec_cm() != null)
-            dt_cm.setValue(Datos.getLog_personal().getFec_cm().toLocalDate());
+            dp_cm.setValue(Datos.getLog_personal().getFec_cm().toLocalDate());
         else
-            dt_cm.setValue(LocalDate.now());
+            dp_cm.setValue(LocalDate.now());
         lb_cm.setText(Integer.toString(Datos.getLog_personal().getDias_cm()) + " D");
         changeIconDate("vencido", 0, im_cm);          
         if (Datos.getLog_personal().getStat_cm()!= null) 
             changeIconDate(Datos.getLog_personal().getStat_cm(), Datos.getLog_personal().getDias_cm(), im_cm);
         
         if(Datos.getLog_personal().getFec_cs() != null)
-            dt_cs.setValue(Datos.getLog_personal().getFec_cs().toLocalDate());
+            dp_cs.setValue(Datos.getLog_personal().getFec_cs().toLocalDate());
         else
-            dt_cs.setValue(LocalDate.now());
+            dp_cs.setValue(LocalDate.now());
         lb_cs.setText(Integer.toString(Datos.getLog_personal().getDias_cs()) + " D");
         changeIconDate("vencido", 0, im_cs);          
         if (Datos.getLog_personal().getStat_cs()!= null) 
@@ -828,9 +831,9 @@ public class Fxml_PersonalController implements Initializable {
         
         // manipulacion de alimentación NO tiene Vencimiento
 //        if(Datos.getLog_personal().getFec_ma() != null)
-//            dt_ma.setValue(Datos.getLog_personal().getFec_ma().toLocalDate());
+//            dp_ma.setValue(Datos.getLog_personal().getFec_ma().toLocalDate());
 //        else
-            dt_ma.setValue(LocalDate.now());
+            dp_ma.setValue(LocalDate.now());
 //        lb_ma.setText(Integer.toString(Datos.getLog_personal().getDias_ma()) + " D");
 //        changeIconDate("vencido", 0, im_ma);          
 //        if (Datos.getLog_personal().getStat_ma()!= null) 
@@ -865,10 +868,10 @@ public class Fxml_PersonalController implements Initializable {
                 tf_cs.setEditable(false);
                 tf_ma.setEditable(false);
 
-                dt_lc.setDisable(true);
-                dt_cm.setDisable(true);
-                dt_cs.setDisable(true);
-                dt_ma.setDisable(true);
+                dp_lc.setDisable(true);
+                dp_cm.setDisable(true);
+                dp_cs.setDisable(true);
+                dp_ma.setDisable(true);
 
                 lb_lc.setVisible(true);
                 lb_cm.setVisible(true);
@@ -904,10 +907,10 @@ public class Fxml_PersonalController implements Initializable {
                 tf_cs.setEditable(true);
                 tf_ma.setEditable(true);
 
-                dt_lc.setDisable(false);
-                dt_cm.setDisable(false);
-                dt_cs.setDisable(false);
-                dt_ma.setDisable(false);
+                dp_lc.setDisable(false);
+                dp_cm.setDisable(false);
+                dp_cs.setDisable(false);
+                dp_ma.setDisable(false);
                 
                 lb_lc.setVisible(false);
                 lb_cm.setVisible(false);
@@ -942,10 +945,10 @@ public class Fxml_PersonalController implements Initializable {
                 tf_cs.setEditable(true);
                 tf_ma.setEditable(true);
 
-                dt_lc.setDisable(false);
-                dt_cm.setDisable(false);
-                dt_cs.setDisable(false);
-                dt_ma.setDisable(false);
+                dp_lc.setDisable(false);
+                dp_cm.setDisable(false);
+                dp_cs.setDisable(false);
+                dp_ma.setDisable(false);
                 
                 lb_lc.setVisible(false);
                 lb_cm.setVisible(false);
@@ -973,10 +976,10 @@ public class Fxml_PersonalController implements Initializable {
                 tf_cs.setEditable(false);
                 tf_ma.setEditable(false);
 
-                dt_lc.setDisable(true);
-                dt_cm.setDisable(true);
-                dt_cs.setDisable(true);
-                dt_ma.setDisable(true);
+                dp_lc.setDisable(true);
+                dp_cm.setDisable(true);
+                dp_cs.setDisable(true);
+                dp_ma.setDisable(true);
                 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -999,10 +1002,10 @@ public class Fxml_PersonalController implements Initializable {
                 tf_cs.setEditable(false);
                 tf_ma.setEditable(false);
 
-                dt_lc.setDisable(true);
-                dt_cm.setDisable(true);
-                dt_cs.setDisable(true);
-                dt_ma.setDisable(true);
+                dp_lc.setDisable(true);
+                dp_cm.setDisable(true);
+                dp_cs.setDisable(true);
+                dp_ma.setDisable(true);
                 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -1161,22 +1164,22 @@ public class Fxml_PersonalController implements Initializable {
                 nodos = new Node[]{
                     tf_nroci,cb_sexo,tf_nombres,tf_apellidos,cb_estado,cb_localidad,
                     cb_municipio,cb_parroquia,tf_direccion,tf_thab,tf_celular,tf_correo,
-                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dt_lc,tf_cm,bt_cm,dt_cm,
-                    tf_cs,bt_cs,dt_cs,tf_ma,bt_ma,dt_ma};
+                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dp_lc,tf_cm,bt_cm,dp_cm,
+                    tf_cs,bt_cs,dp_cs,tf_ma,bt_ma,dp_ma};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
                     tf_nroci,im_check,cb_sexo,tf_nombres,tf_apellidos,cb_estado,cb_localidad,
                     cb_municipio,cb_parroquia,tf_direccion,tf_thab,tf_celular,tf_correo,
-                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dt_lc,tf_cm,bt_cm,dt_cm,
-                    tf_cs,bt_cs,dt_cs,tf_ma,bt_ma,dt_ma};
+                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dp_lc,tf_cm,bt_cm,dp_cm,
+                    tf_cs,bt_cs,dp_cs,tf_ma,bt_ma,dp_ma};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
                     tf_nroci,im_check,cb_sexo,tf_nombres,tf_apellidos,cb_estado,cb_localidad,
                     cb_municipio,cb_parroquia,tf_direccion,tf_thab,tf_celular,tf_correo,
-                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dt_lc,tf_cm,bt_cm,dt_cm,
-                    tf_cs,bt_cs,dt_cs,tf_ma,bt_ma,dt_ma};
+                    cb_tpersonal,tf_ci, bt_ci,tf_lc,bt_lc,dp_lc,tf_cm,bt_cm,dp_cm,
+                    tf_cs,bt_cs,dp_cs,tf_ma,bt_ma,dp_ma};
                 break;
         }             
         switch (opc){
@@ -1623,11 +1626,23 @@ public class Fxml_PersonalController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_ci.getText() != null){
-                    Datos.setPath_im_view(tf_ci.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_ci.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1650,11 +1665,23 @@ public class Fxml_PersonalController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_lc.getText() != null){
-                    Datos.setPath_im_view(tf_lc.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_lc.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1671,17 +1698,58 @@ public class Fxml_PersonalController implements Initializable {
             }
         });
         /**
+         * Fecha LC
+         */
+        dp_lc.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_lc") &&
+                        dp_lc.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_lc.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_lc.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_lc);          
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_lc);          
+                    }
+                }
+            }
+        });
+        /**
          * BOTON CM
          */
         bt_cm.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_cm.getText() != null){
-                    Datos.setPath_im_view(tf_cm.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_cm.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1698,17 +1766,58 @@ public class Fxml_PersonalController implements Initializable {
             }
         });
         /**
+         * Fecha CM
+         */
+        dp_cm.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_cm") &&
+                        dp_cm.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_cm.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_cm.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_cm);
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_cm);
+                    }
+                }
+            }
+        });
+        /**
          * BOTON CS
          */
         bt_cs.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_cs.getText() != null){
-                    Datos.setPath_im_view(tf_cs.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_cs.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1725,17 +1834,58 @@ public class Fxml_PersonalController implements Initializable {
             }
         });
         /**
+         * Fecha CM
+         */
+        dp_cs.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_cs") &&
+                        dp_cs.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_cs.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_cs.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_cs);
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_cs);
+                    }
+                }
+            }
+        });
+        /**
          * BOTON MA
          */
         bt_ma.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_ma.getText() != null){
-                    Datos.setPath_im_view(tf_ma.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_ma.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{

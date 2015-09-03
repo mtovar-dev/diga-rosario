@@ -10,6 +10,8 @@ import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
 import Listeners.SelectKeyComboBoxListener;
+import Objects.Orders.Orders;
+import Objects.log_CGuias;
 import Objects.log_TMarca;
 import Objects.log_TProced;
 import Objects.log_TTransp;
@@ -17,12 +19,17 @@ import Objects.log_Vehiculos;
 import Tools.Datos;
 import Tools.ValidateTextFieldNumber;
 import Tools.ValidateTextFieldPhone;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -57,6 +64,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -77,6 +91,9 @@ public class Fxml_VehiculosController implements Initializable {
     private Button bt_rcv;
     
     @FXML
+    private Button bt_se;
+    
+    @FXML
     private Button bt_rgt;
     
     @FXML
@@ -92,13 +109,13 @@ public class Fxml_VehiculosController implements Initializable {
     private ComboBox<log_TTransp> cb_ttrans;
 
     @FXML
-    private DatePicker dt_ps;
+    private DatePicker dp_ps;
     
     @FXML
-    private DatePicker dt_rcv;
+    private DatePicker dp_rcv;
 
     @FXML
-    private DatePicker dt_rgt;
+    private DatePicker dp_rgt;
     
     @FXML
     private HBox hb_1;
@@ -227,6 +244,9 @@ public class Fxml_VehiculosController implements Initializable {
     private TextField tf_rcv;
     
     @FXML
+    private TextField tf_seguro;
+    
+    @FXML
     private TextField tf_ps;
     
     @FXML
@@ -278,17 +298,18 @@ public class Fxml_VehiculosController implements Initializable {
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_cc != null : "fx:id=\"bt_ci\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_tt != null : "fx:id=\"bt_lc\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_rcv != null : "fx:id=\"bt_cm\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_ps != null : "fx:id=\"bt_cs\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_rgt != null : "fx:id=\"bt_ma\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_cc != null : "fx:id=\"bt_cc\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_tt != null : "fx:id=\"bt_tt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_rcv != null : "fx:id=\"bt_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_se != null : "fx:id=\"bt_se\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_ps != null : "fx:id=\"bt_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert bt_rgt != null : "fx:id=\"bt_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_marca != null : "fx:id=\"cb_marca\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_proced != null : "fx:id=\"cb_proced\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_ttrans != null : "fx:id=\"cb_ttrans\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert dt_rcv != null : "fx:id=\"dt_cm\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert dt_ps != null : "fx:id=\"dt_cs\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert dt_rgt != null : "fx:id=\"dt_ma\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert dp_rcv != null : "fx:id=\"dp_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert dp_ps != null : "fx:id=\"dt_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert dp_rgt != null : "fx:id=\"dt_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
@@ -307,9 +328,9 @@ public class Fxml_VehiculosController implements Initializable {
         assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert im_val != null : "fx:id=\"im_val\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert im_rcv != null : "fx:id=\"im_cm\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert lb_ps != null : "fx:id=\"lb_lc\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert lb_rgt != null : "fx:id=\"lb_cm\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert im_rcv != null : "fx:id=\"im_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert lb_ps != null : "fx:id=\"lb_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert lb_rgt != null : "fx:id=\"lb_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_Supplier.fxml'.";
         assert lb_ocultar != null : "fx:id=\"lb_ocultar\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert rb_clasif1 != null : "fx:id=\"rb_clasif1\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
@@ -320,6 +341,7 @@ public class Fxml_VehiculosController implements Initializable {
         assert tf_capacidad != null : "fx:id=\"tf_capacidad\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_celular != null : "fx:id=\"tf_celular\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_rcv != null : "fx:id=\"tf_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert tf_seguro != null : "fx:id=\"tf_seguro\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_ps != null : "fx:id=\"tf_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_rgt != null : "fx:id=\"tf_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_nrorgt != null : "fx:id=\"tf_nrorgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
@@ -646,11 +668,15 @@ public class Fxml_VehiculosController implements Initializable {
             log_vehiculos.setRuta_cc(tf_cc.getText());
             log_vehiculos.setRuta_tt(tf_tt.getText());
             log_vehiculos.setRuta_rcv(tf_rcv.getText());
+            log_vehiculos.setId_tseguro(Integer.parseInt(tf_seguro.getText()));
             log_vehiculos.setRuta_ps(tf_ps.getText());
             log_vehiculos.setRuta_rgt(tf_rgt.getText());
-            log_vehiculos.setFec_rcv(Date.valueOf(dt_rcv.getValue()));
-            log_vehiculos.setFec_ps(Date.valueOf(dt_ps.getValue()));
-            log_vehiculos.setFec_rgt(Date.valueOf(dt_rgt.getValue()));
+            if(dp_rcv.getValue() != null)
+                log_vehiculos.setFec_rcv(Date.valueOf(dp_rcv.getValue()));
+            if(dp_ps.getValue() != null)
+                log_vehiculos.setFec_ps(Date.valueOf(dp_ps.getValue()));
+            if(dp_rgt.getValue() != null)
+                log_vehiculos.setFec_rgt(Date.valueOf(dp_rgt.getValue()));
             log_vehiculos.setNro_rgt(tf_nrorgt.getText());
             log_vehiculos.setStatus(Datos.getLog_vehiculos().getStatus());      //Se asigna el STATUS del personal
 
@@ -745,29 +771,38 @@ public class Fxml_VehiculosController implements Initializable {
                 break;
         }
             
-        
         if(Datos.getLog_vehiculos().getFec_rcv() != null)
-            dt_rcv.setValue(Datos.getLog_vehiculos().getFec_rcv().toLocalDate());
+            dp_rcv.setValue(Datos.getLog_vehiculos().getFec_rcv().toLocalDate());
         else
-            dt_rcv.setValue(LocalDate.now());
+            dp_rcv.setValue(null);
         lb_rcv.setText(Integer.toString(Datos.getLog_vehiculos().getDias_rcv()) + " D");
         changeIconDate("vencido", 0, im_rcv);          
         if (Datos.getLog_vehiculos().getStat_rcv()!= null) 
             changeIconDate(Datos.getLog_vehiculos().getStat_rcv(), Datos.getLog_vehiculos().getDias_rcv(), im_rcv);
 
+        tf_seguro.setText(String.valueOf(Datos.getLog_vehiculos().getId_tseguro()));
+        Tooltip tip_tool = new Tooltip();
+        if(Datos.getLog_vehiculos().getTseguro() == null){
+            tip_tool.setText("");
+        }
+        else{
+            tip_tool.setText(Datos.getLog_vehiculos().getTseguro());
+        }
+        tf_seguro.setTooltip(tip_tool);
+        
         if(Datos.getLog_vehiculos().getFec_ps() != null)
-            dt_ps.setValue(Datos.getLog_vehiculos().getFec_ps().toLocalDate());
+            dp_ps.setValue(Datos.getLog_vehiculos().getFec_ps().toLocalDate());
         else
-            dt_ps.setValue(LocalDate.now());
+            dp_ps.setValue(null);
         lb_ps.setText(Integer.toString(Datos.getLog_vehiculos().getDias_ps()) + " D");
         changeIconDate("vencido", 0, im_ps);          
         if (Datos.getLog_vehiculos().getStat_ps()!= null) 
             changeIconDate(Datos.getLog_vehiculos().getStat_ps(), Datos.getLog_vehiculos().getDias_ps(), im_ps);          
 
         if(Datos.getLog_vehiculos().getFec_rgt() != null)
-            dt_rgt.setValue(Datos.getLog_vehiculos().getFec_rgt().toLocalDate());
+            dp_rgt.setValue(Datos.getLog_vehiculos().getFec_rgt().toLocalDate());
         else
-            dt_rgt.setValue(LocalDate.now());
+            dp_rgt.setValue(null);
         lb_rgt.setText(Integer.toString(Datos.getLog_vehiculos().getDias_rgt()) + " D");
         changeIconDate("vencido", 0, im_rgt);          
         if (Datos.getLog_vehiculos().getStat_rgt()!= null) 
@@ -804,9 +839,9 @@ public class Fxml_VehiculosController implements Initializable {
                 tf_rgt.setEditable(false);
                 tf_nrorgt.setEditable(false);
 
-                dt_rcv.setDisable(true);
-                dt_ps.setDisable(true);
-                dt_rgt.setDisable(true);
+                dp_rcv.setDisable(true);
+                dp_ps.setDisable(true);
+                dp_rgt.setDisable(true);
 
                 lb_rcv.setVisible(true);
                 lb_ps.setVisible(true);
@@ -842,17 +877,17 @@ public class Fxml_VehiculosController implements Initializable {
                 tf_rgt.setEditable(true);
                 tf_nrorgt.setEditable(true);
 
-                dt_rcv.setDisable(false);
-                dt_ps.setDisable(false);
-                dt_rgt.setDisable(false);
+                dp_rcv.setDisable(false);
+                dp_ps.setDisable(false);
+                dp_rgt.setDisable(false);
 
-                lb_rcv.setVisible(false);
-                lb_ps.setVisible(false);
-                lb_rgt.setVisible(false);
-
-                im_rcv.setVisible(false);
-                im_ps.setVisible(false);
-                im_rgt.setVisible(false);
+//                lb_rcv.setVisible(false);
+//                lb_ps.setVisible(false);
+//                lb_rgt.setVisible(false);
+//
+//                im_rcv.setVisible(false);
+//                im_ps.setVisible(false);
+//                im_rgt.setVisible(false);
 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -879,13 +914,13 @@ public class Fxml_VehiculosController implements Initializable {
                 tf_rgt.setEditable(true);
                 tf_nrorgt.setEditable(true);
 
-                dt_rcv.setDisable(false);
-                dt_ps.setDisable(false);
-                dt_rgt.setDisable(false);
+                dp_rcv.setDisable(false);
+                dp_ps.setDisable(false);
+                dp_rgt.setDisable(false);
 
-                lb_rcv.setVisible(false);
-                lb_ps.setVisible(false);
-                lb_rgt.setVisible(false);
+//                lb_rcv.setVisible(false);
+//                lb_ps.setVisible(false);
+//                lb_rgt.setVisible(false);
 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -916,9 +951,9 @@ public class Fxml_VehiculosController implements Initializable {
                 bt_ps.setDisable(true);
                 bt_rgt.setDisable(true);
                 
-                dt_rcv.setDisable(true);
-                dt_ps.setDisable(true);
-                dt_rgt.setDisable(true);
+                dp_rcv.setDisable(true);
+                dp_ps.setDisable(true);
+                dp_rgt.setDisable(true);
 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -943,9 +978,9 @@ public class Fxml_VehiculosController implements Initializable {
                 tf_rgt.setEditable(false);
                 tf_nrorgt.setEditable(false);
 
-                dt_rcv.setDisable(true);
-                dt_ps.setDisable(true);
-                dt_rgt.setDisable(true);
+                dp_rcv.setDisable(true);
+                dp_ps.setDisable(true);
+                dp_rgt.setDisable(true);
 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -1056,19 +1091,19 @@ public class Fxml_VehiculosController implements Initializable {
                 nodos = new Node[]{
                     tf_placa,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
                     tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dt_rcv,tf_ps,bt_ps,dt_ps,tf_rgt,bt_rgt,dt_rgt,tf_nrorgt};
+                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
                     tf_placa,im_check,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
                     tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dt_rcv,tf_ps,bt_ps,dt_ps,tf_rgt,bt_rgt,dt_rgt,tf_nrorgt};
+                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
                     tf_placa,im_check,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
                     tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dt_rcv,tf_ps,bt_ps,dt_ps,tf_rgt,bt_rgt,dt_rgt,tf_nrorgt};
+                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
                 break;
         }             
         switch (opc){
@@ -1236,6 +1271,11 @@ public class Fxml_VehiculosController implements Initializable {
      */
     private void botonInicio() {
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
+
+        dp_ps.setValue(null);
+        dp_rcv.setValue(null);
+        dp_rgt.setValue(null);
+        
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setText("");
@@ -1333,7 +1373,32 @@ public class Fxml_VehiculosController implements Initializable {
      */
     private void botonImprimir(){
         tipoOperacion = 5;                  //OPERACION SOLO LECTURA
-        Gui.getInstance().showPrint(ScreenName + " en Construcción");  
+
+        JasperReport jReport = null;
+        JasperViewer jview = null;
+        JasperPrint jPrint = null;
+
+        //Datos
+        ObservableList<log_Vehiculos> data = FXCollections.observableArrayList();
+        data.addAll(Arrays.asList(Ln.getInstance().print_log_Vehiculos("", "")));   
+        JRBeanCollectionDataSource JRDs = new JRBeanCollectionDataSource(data, true);
+        
+        //Parametros
+        JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+        JrxmlParam.put("p_subtitulo", "");
+
+        try{
+            jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_veh_port_vehi.jasper");
+            jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+            jview = new JasperViewer(jPrint, false);
+            jview.setTitle("DIGA - Listado de Vehiculo (Logistica) ");
+
+        } catch (JRException ee){
+            Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+        }
+
+        jview.setVisible(true);
+        jview.setResizable(false);
     }    
     /**
      * Procedimiento que define los comportamientos en diversos Eventos 
@@ -1522,11 +1587,23 @@ public class Fxml_VehiculosController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_cc.getText() != null){
-                    Datos.setPath_im_view(tf_cc.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_cc.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1549,16 +1626,28 @@ public class Fxml_VehiculosController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_tt.getText() != null){
-                    Datos.setPath_im_view(tf_tt.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_tt.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
                 //Set extension filter
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (*.jpg) (*.png)", "*.jpg", "*.png");
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("pdf files (*.pdf)", "*.pdf");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 fileChooser.setInitialDirectory(new File(path + path_dat + "/logistica/vehiculos/"));
@@ -1576,11 +1665,23 @@ public class Fxml_VehiculosController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_rcv.getText() != null){
-                    Datos.setPath_im_view(tf_rcv.getText());
-                    //Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_rcv.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1597,22 +1698,74 @@ public class Fxml_VehiculosController implements Initializable {
             }
         });
         /**
+         * Fecha RCV
+         */
+        dp_rcv.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_rcv") &&
+                        dp_rcv.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_rcv.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_rcv.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_rcv);          
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_rcv);          
+                    }
+                }
+            }
+        });
+        /**
+         * BOTON PRODUCTO
+         */
+        bt_se.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2005011);
+                    Gui.getInstance().showBusqueda("Empresa de Seguro");  
+                }
+            }
+        });
+        /**
          * BOTON PS
          */
         bt_ps.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_ps.getText() != null){
-                    Datos.setPath_im_view(tf_ps.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_ps.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
                 //Set extension filter
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (*.jpg) (*.png)", "*.jpg", "*.png");
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("pdf files (*.pdf)", "*.pdf");
                 fileChooser.getExtensionFilters().add(extFilter);
 
                 fileChooser.setInitialDirectory(new File(path + path_dat + "/logistica/vehiculos/"));
@@ -1624,17 +1777,58 @@ public class Fxml_VehiculosController implements Initializable {
             }
         });
         /**
+         * Fecha PS
+         */
+        dp_ps.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_ps") &&
+                        dp_ps.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_ps.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_ps.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_ps);
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_ps);
+                    }
+                }
+            }
+        });
+        /**
          * BOTON RGT
          */
         bt_rgt.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
             if (tipoOperacion == 0){
                 if(tf_rgt.getText() != null){
-                    Datos.setPath_im_view(tf_rgt.getText());
-                    Gui.getInstance().showVisor(ScreenName);
+                    file = new File(tf_rgt.getText());
+                    if (file != null) {  
+                        new Thread(new Runnable() {  
+                            @Override  
+                            public void run() {  
+                                try {  
+                                    Desktop.getDesktop().open(file);  
+                                } catch (IOException e) {  
+                                    // TODO Auto-generated catch block  
+                                    e.printStackTrace();  
+                                }  
+                            }  
+                        }).start();  
+                    }  
                 }
                 else{
-                    Gui.getInstance().showMessage("No hay imagen disponible", "A");
+                    Gui.getInstance().showMessage("No hay archivo/imagen disponible", "A");
                 }
             }
             else{
@@ -1648,6 +1842,35 @@ public class Fxml_VehiculosController implements Initializable {
                 file = fileChooser.showOpenDialog(null);
                 if (file != null)
                     tf_rgt.setText(file.getPath());
+            }
+        });
+        /**
+         * Fecha RGT
+         */
+        dp_rgt.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("dp_rgt") &&
+                        dp_rgt.getValue() != null){
+                    
+                    Calendar calendar1 = Calendar.getInstance();
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar1.setTime(Date.valueOf(dp_rgt.getValue()));
+                    calendar2.setTime(Date.valueOf(LocalDate.now())); 
+ 
+                    long milliseconds1 = calendar1.getTimeInMillis();
+                    long milliseconds2 = calendar2.getTimeInMillis();
+                    long diff = milliseconds2 - milliseconds1;
+                    long diffDays = diff / (24 * 60 * 60 * 1000);
+        
+                    lb_rgt.setText(String.valueOf(Math.abs(diffDays)) + " D");
+                    if(diffDays < 0){
+                        changeIconDate("x vencer", (int) Math.abs(diffDays), im_rgt);
+                    }
+                    else{
+                        changeIconDate("vencido", (int) Math.abs(diffDays), im_rgt);
+                    }
+                }
             }
         });
     }   
@@ -1717,8 +1940,8 @@ public class Fxml_VehiculosController implements Initializable {
     private void setFormVisible(boolean value){
         vb_form.setVisible(value);  //Establece el estado grafico del formulario
         if(value){  //Si el estado es visible entonces 
-            vb_table.relocate(30, 439);
-            vb_table.setPrefHeight(133);
+            vb_table.relocate(30, 375);
+            vb_table.setPrefHeight(208);
         }else{
             vb_table.relocate(30, 64);
             vb_table.setPrefHeight(508);

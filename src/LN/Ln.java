@@ -54,6 +54,7 @@ import Objects.log_Personal;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
+import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
 import Tools.Datos;
@@ -63,7 +64,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -1375,6 +1375,21 @@ public class Ln {
         }
         return false;
     }    
+    /**
+     * @author MITM
+     * @param param1
+     * @param param2
+     * @return 
+     */
+    public log_Vehiculos[] print_log_Vehiculos(String param1, String param2) {
+        try{
+            log_Vehiculos[] log_vehiculos = Bd.getInstance().print_log_Vehiculos(param1, param2);      
+            return log_vehiculos;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Vehiculo: \n"+e.getMessage()); 
+        }
+        return null;
+    }        
     /***************************************************************************/
     /****************************** log_TMarca *********************************/
     /***************************************************************************/    
@@ -1626,7 +1641,93 @@ public class Ln {
         try{
             return Bd.getInstance().change_log_TTransp(log_ttransp);                
         }catch(Exception e){       
-            Gui.getInstance().ventanaError("Error Deshabilitando El Tipo de Transporte: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Deshabilitando Tipo de Transporte: \n"+e.getMessage()); 
+        }
+        return false;
+    }    
+    /***************************************************************************/
+    /***************************** log_TSeguros ********************************/
+    /***************************************************************************/    
+    /**
+     * @author MITM
+     * @lista para generar el reporte
+     * @param log_tseguros
+     * @return 
+     */
+    public static List<log_TSeguros> getList_log_TSeguros(log_TSeguros[] log_tseguros){
+        List<log_TSeguros> list = new ArrayList<>();        
+        list.addAll(Arrays.asList(log_tseguros));        
+        return list;
+    }
+    /**
+     * @author MITM
+     * @return 
+     */
+    public log_TSeguros[] load_log_TSeguros() {
+        try{
+            log_TSeguros[] log_tseguros = Bd.getInstance().load_log_TSeguros();      
+            return log_tseguros;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Aseguradora: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
+    public log_TSeguros[] find_log_TSeguros(String find) {
+        try{
+            log_TSeguros[] log_tseguros = Bd.getInstance().find_log_TSeguros(find);      
+            return log_tseguros;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Aseguradora: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param log_tseguros
+     * @param operacion
+     * @param ScreenName
+     * @return 
+     */
+    public boolean save_log_TSeguros(log_TSeguros log_tseguros, int operacion, String ScreenName) {
+        boolean boo = Validar.validar_Save_log_TSeguros(log_tseguros);
+        if (boo){
+            try{                
+                boolean result = Bd.getInstance().save_log_TSeguros(operacion, log_tseguros);
+
+                return result;
+            }catch(Exception e){
+                Gui.getInstance().showMessage("Error guardando " + ScreenName +": \n" + e.getMessage(), "E");
+            }
+        }        
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_ttranspname
+     * @return 
+     */
+    public boolean check_log_TSeguros(String log_ttranspname) {
+        try{
+            return Bd.getInstance().check_log_TSeguros(log_ttranspname);                
+        }catch(SQLException e){             
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_tseguros
+     * @return 
+     */
+    public boolean change_log_TSeguros(log_TSeguros log_tseguros) {
+        try{
+            return Bd.getInstance().change_log_TSeguros(log_tseguros);                
+        }catch(Exception e){       
+            Gui.getInstance().ventanaError("Error Deshabilitando Aseguradora: \n"+e.getMessage()); 
         }
         return false;
     }    
@@ -2078,7 +2179,7 @@ public class Ln {
             log_CGuias[] log_cguias = Bd.getInstance().load_log_CGuias();      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Tipo de Transporte: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -2095,7 +2196,7 @@ public class Ln {
             log_CGuias[] log_cguias = Bd.getInstance().find_log_CGuias(find1, find2, param, rows);      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Proveedor: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -2109,7 +2210,7 @@ public class Ln {
             log_CGuias_perm[] log_cguias = Bd.getInstance().find_log_CGuias_perm(numrela);      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Proveedor: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -2123,7 +2224,7 @@ public class Ln {
             log_CGuias_falt_cg[] log_cguias = Bd.getInstance().find_log_CGuias_fcar(numrela);      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Proveedor: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -2137,7 +2238,7 @@ public class Ln {
             log_CGuias_falt_dv[] log_cguias = Bd.getInstance().find_log_CGuias_fdev(numrela);      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Proveedor: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -2152,7 +2253,7 @@ public class Ln {
             log_CGuias_falt_dv[] log_cguias = Bd.getInstance().print_log_CGuias_fdev(numrela, param);      
             return log_cguias;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Proveedor: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Guia: \n"+e.getMessage()); 
         }
         return null;
     }    

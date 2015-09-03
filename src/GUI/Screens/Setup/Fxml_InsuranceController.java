@@ -7,7 +7,7 @@ package GUI.Screens.Setup;
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
-import Objects.Setup.GroupSupplier;
+import Objects.log_TSeguros;
 import Tools.Datos;
 import java.net.URL;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ import javafx.util.Callback;
  *
  * @author MITM
  */
-public class Fxml_GroupSupplierController implements Initializable {
+public class Fxml_InsuranceController implements Initializable {
     
     @FXML //  fx:id="ap_root"
     private AnchorPane ap_root; // Value injected by FXMLLoader
@@ -113,7 +113,7 @@ public class Fxml_GroupSupplierController implements Initializable {
     private Label lb_ocultar; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tb_table"
-    private TableView<GroupSupplier> tb_table; // Value injected by FXMLLoader
+    private TableView<log_TSeguros> tb_table; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tf_abrev"
     private TextField tf_abrev; // Value injected by FXMLLoader
@@ -157,7 +157,7 @@ public class Fxml_GroupSupplierController implements Initializable {
     private static Integer[] toolsConfig; 
     private static String[] tooltips;
     
-    private static final String ScreenName = "Grupo de Proveedor";
+    private static final String ScreenName = "Aseguradora";
 
     /**
      * Initializes the controller class.
@@ -166,35 +166,35 @@ public class Fxml_GroupSupplierController implements Initializable {
      */     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert hb_3 != null : "fx:id=\"hb_3\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_check != null : "fx:id=\"im_check\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_val != null : "fx:id=\"im_val\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert lb_ocultar != null : "fx:id=\"lb_ocultar\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert tf_abrev != null : "fx:id=\"tf_abrev\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert tf_id != null : "fx:id=\"tf_id\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
-        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_GroupSupplier.fxml'.";
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert hb_3 != null : "fx:id=\"hb_3\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_check != null : "fx:id=\"im_check\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_val != null : "fx:id=\"im_val\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert lb_ocultar != null : "fx:id=\"lb_ocultar\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert tf_abrev != null : "fx:id=\"tf_abrev\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert tf_id != null : "fx:id=\"tf_id\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
+        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_InsuranceController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
         defineToolBar();         
@@ -241,10 +241,10 @@ public class Fxml_GroupSupplierController implements Initializable {
     */
     private void createTable(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn<GroupSupplier, Object> col_status      = new TableColumn<>("");
-        TableColumn<GroupSupplier, Object> col_gprov       = new TableColumn<>("Grupo/Prov.");                
-        TableColumn<GroupSupplier, Object> col_nombre      = new TableColumn<>("Nombre");        
-        TableColumn<GroupSupplier, Object> col_abrev       = new TableColumn<>("Abreviatura");        
+        TableColumn<log_TSeguros, Object> col_status      = new TableColumn<>("");
+        TableColumn<log_TSeguros, Object> col_gprov       = new TableColumn<>("Aseguradora");                
+        TableColumn<log_TSeguros, Object> col_nombre      = new TableColumn<>("Nombre");        
+        TableColumn<log_TSeguros, Object> col_abrev       = new TableColumn<>("Abreviatura");        
         
         //Se establece el ancho de cada columna
         this.objectWidth(col_status     , 25 , 25);
@@ -257,10 +257,10 @@ public class Fxml_GroupSupplierController implements Initializable {
          * 1 - VERDE (HABILITADO)
          * 2 - ROJO  (DESHABILITADO)
          */
-        col_status.setCellFactory(new Callback<TableColumn<GroupSupplier, Object>, TableCell<GroupSupplier, Object>>() {
+        col_status.setCellFactory(new Callback<TableColumn<log_TSeguros, Object>, TableCell<log_TSeguros, Object>>() {
             @Override
-            public TableCell<GroupSupplier, Object> call(TableColumn<GroupSupplier, Object> param) {
-                return new TableCell<GroupSupplier, Object>() {
+            public TableCell<log_TSeguros, Object> call(TableColumn<log_TSeguros, Object> param) {
+                return new TableCell<log_TSeguros, Object>() {
                     @Override
                     public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
@@ -285,7 +285,7 @@ public class Fxml_GroupSupplierController implements Initializable {
         col_status.setCellValueFactory( 
                 new PropertyValueFactory<>("status") );
         col_gprov.setCellValueFactory( 
-                new PropertyValueFactory<>("idGroupSupplier") );
+                new PropertyValueFactory<>("idTSeguro") );
         col_nombre.setCellValueFactory( 
                 new PropertyValueFactory<>("nombre") );
         col_abrev.setCellValueFactory( 
@@ -314,7 +314,7 @@ public class Fxml_GroupSupplierController implements Initializable {
      * Metodo encargado de guardar los datos de un nuevo usuario o de un 
      * usuario modificado
      */
-    private boolean saveGroupSupplier() {
+    private boolean savelog_TSeguros() {
         //Se asigna el valor del tipo de procedimiento que viene de ser ejecutado,
         // 1 si es un NUEVO usuario - 2 si es un usuario MODIFICADO
         int proceso = tipoOperacion;    
@@ -328,23 +328,23 @@ public class Fxml_GroupSupplierController implements Initializable {
             //Ejecuta los procesos predeterminados para el guardado del usuario
             setCurrentOperation();
             //Se asignan los valores del objeto 
-            GroupSupplier groupsupplier = new GroupSupplier();
-            groupsupplier.setIdGroupSupplier(Integer.parseInt(tf_id.getText()));
-            groupsupplier.setNombre(tf_nombre.getText());
-            groupsupplier.setAbrev(tf_abrev.getText());
-            groupsupplier.setStatus(Datos.getGroupSupplier().getStatus());      //Se asigna el STATUS del usuario
+            log_TSeguros log_tseguros = new log_TSeguros();
+            log_tseguros.setIdTSeguro(Integer.parseInt(tf_id.getText()));
+            log_tseguros.setNombre(tf_nombre.getText());
+            log_tseguros.setAbrev(tf_abrev.getText());
+            log_tseguros.setStatus(Datos.getLog_tseguros().getStatus());      //Se asigna el STATUS del usuario
             //Se llama al proceso de Guardado
             boolean result = 
-                    Ln.getInstance().save_GroupSupplier(groupsupplier, proceso, ScreenName);
+                    Ln.getInstance().save_log_TSeguros(log_tseguros, proceso, ScreenName);
             //Si el Resultado es correcto
             if(result){
                 //Se Notifica al usuario
-                Gui.getInstance().showMessage("El " + ScreenName + " se ha Guardado Correctamente!", "I");
-                loadGroupSuppliers();            //Se Recarga la tabla de usuarios existentes
+                Gui.getInstance().showMessage("La " + ScreenName + " se ha Guardado Correctamente!", "I");
+                loadlog_TSeguros();            //Se Recarga la tabla de usuarios existentes
                 return true;
             }     
         }else{                            
-            Gui.getInstance().showMessage("No Existe ningun " + ScreenName + " para ser Guardado!", "A");
+            Gui.getInstance().showMessage("No Existe ninguna " + ScreenName + " para ser Guardado!", "A");
         }
         return false;
     }
@@ -353,9 +353,9 @@ public class Fxml_GroupSupplierController implements Initializable {
      * establece nuevos valores a cada campo de Texto
      */
     private void refreshForm(){        
-        tf_id.setText(String.valueOf(Datos.getGroupSupplier().getIdGroupSupplier()));
-        tf_nombre.setText(Datos.getGroupSupplier().getNombre());
-        tf_abrev.setText(Datos.getGroupSupplier().getAbrev());
+        tf_id.setText(String.valueOf(Datos.getLog_tseguros().getIdTSeguro()));
+        tf_nombre.setText(Datos.getLog_tseguros().getNombre());
+        tf_abrev.setText(Datos.getLog_tseguros().getAbrev());
         //Ejecuta el metodo que define el formulario segun el tipo de operacion que fue ejecutada
         setCurrentOperation();
     }  
@@ -446,17 +446,17 @@ public class Fxml_GroupSupplierController implements Initializable {
      * Procedimiento que busca en BD la lista de usuarios
      * y los envia a cargar en la tabla
      */
-    private void loadGroupSuppliers(){        
-        Datos.setRep_grp_supplier(Ln.getInstance().load_GroupSupplier());
-        loadTable( Datos.getRep_grp_supplier());     
+    private void loadlog_TSeguros(){        
+        Datos.setRep_log_tseguros(Ln.getInstance().load_log_TSeguros());
+        loadTable( Datos.getRep_log_tseguros());     
     }
     /**
      * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadTable(GroupSupplier[] groupsuppliers){    
-        if(groupsuppliers != null){
-            ObservableList<GroupSupplier> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(groupsuppliers));        
+    private void loadTable(log_TSeguros[] log_tseguros){    
+        if(log_tseguros != null){
+            ObservableList<log_TSeguros> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(log_tseguros));        
             tb_table.setItems(data);        
         }
     } 
@@ -467,10 +467,10 @@ public class Fxml_GroupSupplierController implements Initializable {
     private void selectedRow(){
         tipoOperacion = 0;      //SOLO LECTURA
         //Selecciona el usuario enfocado
-        GroupSupplier groupsupplier = tb_table.getSelectionModel().getSelectedItem();          
-        if(groupsupplier != null){
-            Datos.setGroupSupplier(groupsupplier);          //Asigno el Usuario a la Clase de Datos Globales
-            change_im_tool4(groupsupplier.getStatus());   //Se define el valor del Boton de Cambio se Status
+        log_TSeguros log_tseguros = tb_table.getSelectionModel().getSelectedItem();          
+        if(log_tseguros != null){
+            Datos.setLog_tseguros(log_tseguros);          //Asigno el Usuario a la Clase de Datos Globales
+            change_im_tool4(log_tseguros.getStatus());   //Se define el valor del Boton de Cambio se Status
             refreshForm();                      //Refresca el Formulario
             setFormVisible(true);               //Coloca Visible el formulario
         }
@@ -534,7 +534,7 @@ public class Fxml_GroupSupplierController implements Initializable {
                             if(tipoOperacion == 1){ //NUEVO
                                 boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());    
                                 if (boo){
-                                    Gui.getInstance().showMessage("Ya existe el " + ScreenName + ", no puede ser Guardado!", "E");
+                                    Gui.getInstance().showMessage("Ya existe la " + ScreenName + ", no puede ser Guardado!", "E");
                                     botonInicio();
                                 }
                             }
@@ -662,10 +662,10 @@ public class Fxml_GroupSupplierController implements Initializable {
                 //Valida que el evento se haya generado en el campo de busqueda
                 if(((Node)ke.getSource()).getId().equals("tf_buscar")){
                     try{
-                        Datos.setRep_grp_supplier(Ln.getInstance().find_GroupSupplier(tf_buscar.getText()));
-                        loadTable(Datos.getRep_grp_supplier());     
+                        Datos.setRep_log_tseguros(Ln.getInstance().find_log_TSeguros(tf_buscar.getText()));
+                        loadTable(Datos.getRep_log_tseguros());     
                     } catch(Exception e){
-                        Gui.getInstance().showMessage("El " + ScreenName + " NO existe!", "A");
+                        Gui.getInstance().showMessage("La " + ScreenName + " NO existe!", "A");
                     }
                     tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
                 }
@@ -683,12 +683,12 @@ public class Fxml_GroupSupplierController implements Initializable {
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
-        Datos.setGroupSupplier(new GroupSupplier());                           
+        Datos.setLog_tseguros(new log_TSeguros());                           
         refreshForm();                      
-        Datos.setGroupSupplier(null);             //RESET DE LA VARIABLE
+        Datos.setLog_tseguros(null);             //RESET DE LA VARIABLE
         setFormVisible(false);              //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
-        loadGroupSuppliers();
+        loadlog_TSeguros();
     }
     /**
      * 
@@ -697,8 +697,8 @@ public class Fxml_GroupSupplierController implements Initializable {
         if(toolsConfig[2]==1){
             tipoOperacion = 1;
             //changeIcon(false);
-            loadGroupSuppliers();
-            Datos.setGroupSupplier(new GroupSupplier());
+            loadlog_TSeguros();
+            Datos.setLog_tseguros(new log_TSeguros());
             refreshForm();
             setFormVisible(true);
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
@@ -711,7 +711,7 @@ public class Fxml_GroupSupplierController implements Initializable {
         if(Datos.getGroupSupplier()!= null && toolsConfig[3]==1){
             tipoOperacion = 2;
             //changeIcon(true); 
-            change_im_tool4(Datos.getGroupSupplier().getStatus());
+            change_im_tool4(Datos.getLog_tseguros().getStatus());
             refreshForm();
             setFormVisible(true);     
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
@@ -721,8 +721,8 @@ public class Fxml_GroupSupplierController implements Initializable {
      * 
      */
     private void botonGuardar(){        
-        if(Datos.getGroupSupplier()!= null && toolsConfig[4]==1){
-            boolean result = saveGroupSupplier();
+        if(Datos.getLog_tseguros()!= null && toolsConfig[4]==1){
+            boolean result = savelog_TSeguros();
             if (result)
                 botonInicio();
         }
@@ -731,17 +731,17 @@ public class Fxml_GroupSupplierController implements Initializable {
      * 
      */
     private void botonEliminar() {
-        if(Datos.getGroupSupplier()!= null && toolsConfig[5]==1){
+        if(Datos.getLog_tseguros()!= null && toolsConfig[5]==1){
             tipoOperacion = 4;      //OPERACION DE BORRADO
             //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL GROUP SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
             String verbo = "desactivar";
-            if(Datos.getGroupSupplier().getStatus() == 1){
+            if(Datos.getLog_tseguros().getStatus() == 1){
                 verbo = "activar";
             }
             String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getGroupSupplier().getIdGroupSupplier() + " ?";
+                "¿Seguro que desea " + verbo + " la " + ScreenName + " " + Datos.getLog_tseguros().getIdTSeguro()+ " ?";
             Gui.getInstance().showConfirmar(mensj);  
         }
     }
@@ -753,9 +753,9 @@ public class Fxml_GroupSupplierController implements Initializable {
             tipoOperacion = 0;                  //OPERACION SOLO LECTURA
             //SE LIMPIA EL FORMULARIO
             tf_buscar.setVisible(true);
-            Datos.setGroupSupplier(new GroupSupplier());                           
+            Datos.setLog_tseguros(new log_TSeguros());                           
             refreshForm();                      
-            Datos.setGroupSupplier(null);             //RESET DE LA VARIABLE
+            Datos.setLog_tseguros(null);             //RESET DE LA VARIABLE
             setFormVisible(false);              //OCULTA EL FORMULARIO     
             tf_buscar.requestFocus();
         }
@@ -767,9 +767,9 @@ public class Fxml_GroupSupplierController implements Initializable {
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setVisible(false);
-        Datos.setGroupSupplier(new GroupSupplier());                           
+        Datos.setLog_tseguros(new log_TSeguros());                           
         refreshForm();                      
-        Datos.setGroupSupplier(new GroupSupplier());    //RESET DE LA VARIABLE
+        Datos.setLog_tseguros(new log_TSeguros());    //RESET DE LA VARIABLE
         setFormVisible(false);              //OCULTA EL FORMULARIO
     }
     /**
@@ -927,7 +927,7 @@ public class Fxml_GroupSupplierController implements Initializable {
                     //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
                     boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());
                     if(boo){
-                        Gui.getInstance().showMessage("Ya existe el " + ScreenName + "!", "E");
+                        Gui.getInstance().showMessage("Ya existe la " + ScreenName + "!", "E");
                         botonInicio();
                     }
                 }

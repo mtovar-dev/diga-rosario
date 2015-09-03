@@ -20,6 +20,8 @@ public class Fxp_Renglon {
     private int turmero;
     private int id_unidad;     
     private String unidad;     
+    private int id_almacen;
+
     /**
      * 
      */
@@ -38,6 +40,7 @@ public class Fxp_Renglon {
             cantdesp        = rs.getInt(3);
             id_unidad       = rs.getInt(6);
             unidad          = rs.getString(7);
+            id_almacen      = rs.getInt(8);
 
         }catch(Exception e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
@@ -140,6 +143,20 @@ public class Fxp_Renglon {
      */
     public void setUnidad(String unidad) {
         this.unidad = unidad;
+    }
+
+    /**
+     * @return the id_almacen
+     */
+    public int getId_almacen() {
+        return id_almacen;
+    }
+
+    /**
+     * @param id_almacen the id_almacen to set
+     */
+    public void setId_almacen(int id_almacen) {
+        this.id_almacen = id_almacen;
     }
 
     

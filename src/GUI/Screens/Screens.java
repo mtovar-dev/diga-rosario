@@ -411,6 +411,58 @@ public class Screens {
      * 
      * @author MITM
      */
+    public void startInsurance(){
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("insurance");
+        Datos.setIdScreen(Integer.parseInt(id));
+        
+        Stage stage = new Stage();
+        //GENERAL
+        BorderPane root = new BorderPane();       
+        Scene scene = new Scene(root, 1024, 700,Color.BEIGE);
+        scene.getStylesheets().addAll("GUI/Css.css");
+        
+        //TOP BAR                
+        root.setTop(Gui.getAp_topbar());       
+        //LEFT BAR                     
+        root.setLeft(Gui.getAp_leftbar());
+        
+        //RIGHT BAR
+        root.setRight(null);
+        
+        // CENTER
+        Gui.setAp_center(gui.loadFxml("Screens/Setup/Fxml_Insurance.fxml"));
+        root.setCenter(Gui.getAp_center());
+        
+        //GENERAL   
+        Stage aux = gui.getStage();
+        gui.setStage(stage);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();    
+        aux.close();
+
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = stage.getX() - event.getScreenX();
+                yOffset = stage.getY() - event.getScreenY();
+            }
+        });
+
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() + xOffset);
+                stage.setY(event.getScreenY() + yOffset);
+            }
+        });
+    }
+    
+    /**
+     * 
+     * @author MITM
+     */
     public void startGroupSupplier(){
         String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("groupsupplier");
         Datos.setIdScreen(Integer.parseInt(id));
@@ -828,7 +880,7 @@ public class Screens {
      * @author MITM
      */
     public void startVehicles(){
-        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("vehiculos");
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("vehiculo");
         Datos.setIdScreen(Integer.parseInt(id));
         
         Stage stage = new Stage();

@@ -142,7 +142,7 @@ public class Fxml_EmailSendController implements Initializable{
                 );
                 break;
             case 1002013: // button agenda
-                ta_para.setText("descargas@grupodiga.com, emontero@grupodiga.com");
+                ta_para.setText("descargas@grupodiga.com, morita@grupodiga.com, emontero@grupodiga.com");
                 ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com, fmanzano@grupodiga.com");
                 tf_asunto.setText("Agenda de Recepcion");
                 ta_mensaje.setText(

@@ -79,6 +79,7 @@ public class Fxp_Archguip_pro_dv {
             unidDespCont = objUnitCont;
             
             uniporem        = rs.getInt(16);
+            idAlmacen       = rs.getInt(17);
             
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());

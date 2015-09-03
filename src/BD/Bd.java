@@ -44,6 +44,7 @@ import Objects.log_Personal;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
+import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
 import Tools.Datos;
@@ -3418,21 +3419,9 @@ public class Bd implements BdInterface{
             else
                 cstmt.setString("@ruta_rgt"          , log_vehiculos.getRuta_rgt());
             
-            if(log_vehiculos.getFec_rcv().toString().equals(LocalDate.now().toString())) 
-                cstmt.setDate("@fec_rcv"         , null);
-            else
-                cstmt.setDate("@fec_rcv"         , log_vehiculos.getFec_rcv());
-
-            if(log_vehiculos.getFec_ps().toString().equals(LocalDate.now().toString())) 
-                cstmt.setDate("@fec_ps"         , null);
-            else
-                cstmt.setDate("@fec_ps"         , log_vehiculos.getFec_ps());
-
-            if(log_vehiculos.getFec_rgt().toString().equals(LocalDate.now().toString())) 
-                cstmt.setDate("@fec_rgt"         , null);
-            else
-                cstmt.setDate("@fec_rgt"         , log_vehiculos.getFec_rgt());
-
+            cstmt.setDate("@fec_rcv"         , log_vehiculos.getFec_rcv());
+            cstmt.setDate("@fec_ps"         , log_vehiculos.getFec_ps());
+            cstmt.setDate("@fec_rgt"         , log_vehiculos.getFec_rgt());
             cstmt.setString("@nro_rgt"             , log_vehiculos.getNro_rgt());
                 
             cstmt.execute();            
@@ -3529,6 +3518,50 @@ public class Bd implements BdInterface{
         }finally{
             connection.close();
         }
+    }
+    /**
+     * @author MITM
+     * @param param1
+     * @param param2
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public log_Vehiculos[] print_log_Vehiculos(String param1, String param2) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_vehiculo_print(?,?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@param1"  , param1 );
+               cstmt.setString("@param2"  , param2 );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<log_Vehiculos> vector = new Vector<>();
+               
+               while(result.next()) {
+                   log_Vehiculos log_vehiculos = new log_Vehiculos(result);
+                   vector.add(log_vehiculos);
+               }
+               
+               log_Vehiculos[] log_vehiculos = new log_Vehiculos[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   log_vehiculos[i] = vector.elementAt(i);                    
+               }
+               
+               return log_vehiculos;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
     }
     
    
@@ -4188,6 +4221,231 @@ public class Bd implements BdInterface{
             cstmt.execute();            
             // Auditar el proceso
             auditar(log_ttransp.getIdTTransp()+ "","deletelog_ttransp:");
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+
+
+    /***************************************************************************/
+    /****************************** log_TSeguros *******************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public log_TSeguros[] load_log_TSeguros() throws SQLException {
+         try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tseguro_all}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               ResultSet result = cstmt.executeQuery();            
+               
+               Vector<log_TSeguros> vector = new Vector<>();
+               
+               while(result.next()) {
+                   log_TSeguros log_tseguros = new log_TSeguros(result);
+                   vector.add(log_tseguros);
+               }
+               
+               log_TSeguros[] log_tseguros = new log_TSeguros[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   log_tseguros[i] = vector.elementAt(i);                    
+               }
+               return log_tseguros;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public log_TSeguros[] find_log_TSeguros(String find) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tseguro_find(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@find"  , find );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<log_TSeguros> vector = new Vector<>();
+               
+               while(result.next()) {
+                   log_TSeguros log_tseguros = new log_TSeguros(result);
+                   vector.add(log_tseguros);
+               }
+               
+               log_TSeguros[] log_tseguros = new log_TSeguros[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   log_tseguros[i] = vector.elementAt(i);                    
+               }
+               
+               return log_tseguros;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param operacion Determina el Proceso que se va a ejecutar 1 INSERT, 2 UPDATE
+     * @param log_tseguros
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
+    public boolean save_log_TSeguros(int operacion, log_TSeguros log_tseguros) throws SQLException, Exception {
+        
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            StringBuilder sql = new StringBuilder();            
+            String mensj = "";
+            
+            switch(operacion){
+                case 1:
+                    sql.append("{call sp_ins_log_tseguro(?, ?)}");
+                    mensj = "Nuevo Tipo Transp:";
+                    break;
+                case 2:
+                    sql.append("{call sp_upd_log_tseguro_basic(?, ?, ?)}");
+                    mensj = "Actualizando Tipo Transp:";
+                    break;
+            }
+            CallableStatement cstmt = connection.prepareCall(sql.toString());
+            switch(operacion){
+                case 1:
+                    cstmt.setString("@nombre"       , log_tseguros.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , log_tseguros.getAbrev().toUpperCase());
+                    break;
+                case 2:
+                    cstmt.setInt("@id_tseguro"       , log_tseguros.getIdTSeguro());
+                    cstmt.setString("@nombre"        , log_tseguros.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"         , log_tseguros.getAbrev().toUpperCase());
+                    break;
+            }
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(log_tseguros.getIdTSeguro()+ "",mensj);
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();   
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+    /**
+     * @author MITM
+     * Valida si el groupsuppliername generado ya se encuentra asignado a un grupo en la BD
+     * @param ttranspname valor a ser chequeado en la BD
+     * @return true si el groupsupplier esta en uso, false si esta disponible el grupo
+     * @throws java.sql.SQLException
+     */
+    public boolean check_log_TSeguros(String log_tsegurosname) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tseguro_check(?,?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
+               cstmt.setString("@log_tseguro", log_tsegurosname);
+               cstmt.registerOutParameter("result", java.sql.Types.INTEGER);               
+               cstmt.execute();
+               if(cstmt.getInt("result") == 1) return true;               
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_tseguros
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public boolean change_log_TSeguros(log_TSeguros log_tseguros) throws Exception {
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();
+        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_upd_log_ttransp_status(?,?)}");
+            CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                 
+            cstmt.setInt("@id_tproced", log_tseguros.getIdTSeguro());
+            int value = 0;
+            if(log_tseguros.getStatus()== 0){
+                value = 1;
+            }            
+            cstmt.setInt("@status", value );
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(log_tseguros.getIdTSeguro()+ "","deletelog_tseguros:");
             
             connection.commit();
             

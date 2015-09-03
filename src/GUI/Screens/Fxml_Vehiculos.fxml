@@ -93,7 +93,7 @@
         <Separator prefWidth="200.0" />
       </children>
     </VBox>
-    <VBox fx:id="vb_form" layoutX="84.0" layoutY="47.0" prefHeight="423.0" prefWidth="629.0" spacing="5.0">
+    <VBox fx:id="vb_form" layoutX="84.0" layoutY="47.0" prefHeight="403.0" prefWidth="629.0" spacing="5.0">
       <children>
         <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="569.0" spacing="10.0">
           <children>
@@ -260,6 +260,21 @@
 </HBox.margin></ComboBox>
               </children>
             </HBox>
+                  <HBox id="usrLn01" fx:id="hb_7" alignment="CENTER_RIGHT" prefWidth="128.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lb_ocultar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="100.0" styleClass="lb-ocultar" text="Ocultar">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <stylesheets>
+                              <URL value="@Screens.css" />
+                           </stylesheets>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="130.0" />
+                     </HBox.margin>
+                  </HBox>
           </children>
         </HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
@@ -270,44 +285,29 @@
 <Insets />
 </HBox.margin>
 </Label>
-<TextField id="tf_cc" fx:id="tf_cc" prefHeight="25.0" prefWidth="236.0" />
+<TextField id="tf_cc" fx:id="tf_cc" prefHeight="25.0" prefWidth="150.0" />
 <Button fx:id="bt_cc" mnemonicParsing="false" text="..." />
 </children>
 </HBox>
-<HBox id="usrLn01" fx:id="hb_7" alignment="CENTER_RIGHT" prefWidth="128.0" spacing="10.0">
-<children>
-<Label fx:id="lb_ocultar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="100.0" styleClass="lb-ocultar" text="Ocultar">
-<font>
-<Font name="System Bold" size="12.0" />
-</font>
-<stylesheets>
-<URL value="@Screens.css" />
-</stylesheets>
-</Label>
-</children>
-</HBox>
-</children>
-</HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<children>
-<HBox id="HBox" alignment="CENTER" spacing="5.0">
-<children>
-<Label prefWidth="90.00009999999747" text="Titulo:">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-</Label>
-<TextField id="tf_tt" fx:id="tf_tt" prefHeight="25.0" prefWidth="236.0">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-</TextField>
-<Button id="bt_tt" fx:id="bt_tt" mnemonicParsing="false" text="...">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-</Button>
-</children>
-</HBox>
+                  <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label prefWidth="60.0" text="Titulo:">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField id="tf_tt" fx:id="tf_tt" prefHeight="25.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                        <Button id="bt_tt" fx:id="bt_tt" mnemonicParsing="false" text="...">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
 </children>
 </HBox><HBox id="usrLn01" prefWidth="569.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
@@ -318,9 +318,9 @@
 <Insets />
 </HBox.margin>
 </Label>
-<TextField id="tf_rcv" fx:id="tf_rcv" prefHeight="25.0" prefWidth="236.0" />
+<TextField id="tf_rcv" fx:id="tf_rcv" prefHeight="25.0" prefWidth="150.0" />
 <Button id="bt_rcv" fx:id="bt_rcv" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_rcv" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_rcv" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin>
@@ -335,6 +335,8 @@
 <Image url="@../../Images/img57a.png" />
 </image>
 </ImageView>
+                        <TextField id="tf_empresa" fx:id="tf_seguro" prefHeight="25.0" prefWidth="40.0" />
+                        <Button id="bt_tt" fx:id="bt_se" mnemonicParsing="false" text="..." />
 </children>
 </HBox>
 </children>
@@ -347,9 +349,9 @@
 <Insets />
 </HBox.margin>
 </Label>
-<TextField id="tf_ps" fx:id="tf_ps" prefHeight="25.0" prefWidth="236.0" />
-<Button id="ruta" fx:id="bt_ps" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_ps" prefHeight="25.0" prefWidth="105.0">
+<TextField id="tf_ps" fx:id="tf_ps" prefHeight="25.0" prefWidth="150.0" />
+<Button id="bt_ps" fx:id="bt_ps" mnemonicParsing="false" text="..." />
+<DatePicker fx:id="dp_ps" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin>
@@ -376,9 +378,9 @@
 <Insets />
 </HBox.margin>
 </Label>
-<TextField id="tf_rgt" fx:id="tf_rgt" prefHeight="25.0" prefWidth="236.0" />
+<TextField id="tf_rgt" fx:id="tf_rgt" prefHeight="25.0" prefWidth="150.0" />
 <Button id="bt_rgt" fx:id="bt_rgt" mnemonicParsing="false" text="..." />
-<DatePicker fx:id="dt_rgt" prefHeight="25.0" prefWidth="105.0">
+<DatePicker fx:id="dp_rgt" prefHeight="25.0" prefWidth="105.0">
 <HBox.margin>
 <Insets left="10.0" />
 </HBox.margin>
@@ -395,20 +397,11 @@
 </ImageView>
 </children>
 </HBox>
-</children>
-</HBox>
-<HBox id="usrLn01" layoutX="40.0" layoutY="157.0" prefWidth="569.0" spacing="10.0">
-<children>
-<HBox id="HBox" alignment="CENTER" spacing="5.0">
-<children>
-<Label prefWidth="90.00009999999747" text="Nro de RGT:">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-</Label>
-<ValidateTextFieldNumber id="tf_nrorgt" fx:id="tf_nrorgt" prefHeight="25.0" prefWidth="60.0" />
-</children>
-</HBox>
+                  <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                     <children>
+                        <ValidateTextFieldNumber id="tf_nrorgt" fx:id="tf_nrorgt" prefHeight="25.0" prefWidth="60.0" />
+                     </children>
+                  </HBox>
 </children>
 </HBox>
       </children>
@@ -416,11 +409,11 @@
         <Insets left="30.0" right="30.0" top="20.0" />
       </padding>
     </VBox>
-    <VBox fx:id="vb_table" layoutX="14.0" layoutY="568.0" prefHeight="93.0" prefWidth="272.0">
+    <VBox fx:id="vb_table" layoutX="14.0" layoutY="468.0" prefHeight="93.0" prefWidth="272.0">
 <children>
         <TableView fx:id="tb_table" />
 </children></VBox>
-    <Label fx:id="lb_Title" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="200.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
+    <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
       <stylesheets>
         <URL value="@Screens.css" />
       </stylesheets>

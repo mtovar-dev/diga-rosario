@@ -1377,7 +1377,6 @@ public class Fxml_Guide_paydeskController implements Initializable {
 
             //Parametros
             JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-
             JrxmlParam.put("p_subtitulo", 
                     "Relación Nro: " + data.get(0).getNumcaja() + "         Fecha: " + sdf.format(data.get(0).getFeccaja()));
 

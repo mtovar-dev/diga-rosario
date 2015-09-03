@@ -186,20 +186,23 @@ public class LeftBar {
             case "Personal":
                 Screens.getInstance().startPersonal();
                 break;
-            case "Vehiculos":
+            case "Vehiculo":
                 Screens.getInstance().startVehicles();
                 break;
-            case "Medidas":
-                Screens.getInstance().startMeasure();
+            case "Aseguradora":
+                Screens.getInstance().startInsurance();
                 break;
             case "Grupo de Proveedores":
                 Screens.getInstance().startGroupSupplier();
                 break;
-            case "Unidades":
-                Screens.getInstance().startUnit();
+            case "Medidas":
+                Screens.getInstance().startMeasure();
                 break;
             case "Motivos":
                 Screens.getInstance().startReason();
+                break;
+            case "Unidades":
+                Screens.getInstance().startUnit();
                 break;
             case "Usuarios":
                 Screens.getInstance().startUser();

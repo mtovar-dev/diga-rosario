@@ -534,7 +534,6 @@ public class Fxml_ReasonController  implements Initializable {
         switch (opc){
             case 1: 
             case 2: 
-            case 3:
                 Gui.setFields(nodos); 
                 Gui.setFieldFocused(0);
                 Gui.setFieldsSize(nodos.length);

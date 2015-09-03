@@ -610,6 +610,9 @@ public class Gui {
             case 2003042: // screen sup. de ruta
                 node = Tools.getNode(Gui.getAp_center(), "#tf_supruta");
                 break;
+            case 2005011: // screen Aseguradora
+                node = Tools.getNode(Gui.getAp_center(), "#tf_seguro");
+                break;
             case 7001021: // screen Aud. x empleado
                 node = Tools.getNode(Gui.getAp_center(), "#tf_nroci");
                 break;

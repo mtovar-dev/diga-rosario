@@ -13,8 +13,10 @@ import Objects.log_CGuias_Glomar_price;
 import Tools.Datos;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -1208,6 +1211,70 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
                         Gui.getInstance().showBusqueda("Busqueda");  
                         break;
                 }
+            }
+        });
+        /**
+         * CB_MES
+         */
+        cb_mes.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> arg0, String arg1, String arg2) -> {
+            if (arg2 != null){
+                Integer idayi = 01;
+                Integer idayf = 30;
+                Integer imonth = 0;
+                Integer iyear = LocalDate.now().getYear();
+
+                switch (cb_mes.getValue()){
+                    case "Enero":
+                        imonth = 1;
+                        idayf = 31;
+                        break;
+                    case "Febrero":
+                        imonth = 2;
+                        idayf = 28;
+                        break;
+                    case "Marzo":
+                        imonth = 3;
+                        idayf = 31;
+                        break;
+                    case "Abril":
+                        imonth = 4;
+                        break;
+                    case "Mayo":
+                        imonth = 5;
+                        idayf = 31;
+                        break;
+                    case "Junio":
+                        imonth = 6;
+                        break;
+                    case "Julio":
+                        imonth = 7;
+                        idayf = 31;
+                        break;
+                    case "Agosto":
+                        imonth = 8;
+                        idayf = 31;
+                        break;
+                    case "Septiembre":
+                        imonth = 9;
+                        break;
+                    case "Octubre":
+                        imonth = 10;
+                        idayf = 31;
+                        break;
+                    case "Noviembre":
+                        imonth = 11;
+                        break;
+                    case "Diciembre":
+                        imonth = 12;
+                        idayf = 31;
+                        iyear = iyear - 1;
+                        break;
+                }
+                dp_fecha1.setValue(LocalDate.of(iyear, imonth, idayi));
+                if(LocalDate.now().getMonth().getValue() == imonth){
+                    idayf = LocalDate.now().getDayOfMonth();
+                }
+                dp_fecha2.setValue(LocalDate.of(iyear, imonth, idayf));
             }
         });
         /**

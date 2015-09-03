@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="log_per_port_pers" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -29,22 +29,16 @@
 	<group name="tpersonal">
 		<groupExpression><![CDATA[$F{tpersonal.nombre}]]></groupExpression>
 		<groupHeader>
-			<band height="21">
-				<rectangle>
-					<reportElement x="0" y="2" width="150" height="17" uuid="ce2ee8d6-70fc-4774-8085-2a41192a5b84"/>
-					<graphicElement>
-						<pen lineStyle="Dotted"/>
-					</graphicElement>
-				</rectangle>
+			<band height="19">
 				<staticText>
-					<reportElement x="2" y="3" width="50" height="15" uuid="fb568379-6dd7-4a4d-8cd6-3722b9d610f7"/>
+					<reportElement x="2" y="2" width="50" height="15" uuid="fb568379-6dd7-4a4d-8cd6-3722b9d610f7"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Monospaced" size="8" isBold="true"/>
+						<font fontName="Monospaced" size="8" isBold="false"/>
 					</textElement>
 					<text><![CDATA[T/Personal:]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="tpersonal">
-					<reportElement x="55" y="3" width="100" height="15" uuid="4d50f21e-37f9-473e-9311-dc3d78e2e6ac"/>
+					<reportElement x="55" y="2" width="200" height="15" uuid="4d50f21e-37f9-473e-9311-dc3d78e2e6ac"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10" isBold="true"/>
 					</textElement>
@@ -56,92 +50,95 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="78" splitType="Stretch">
+	<pageHeader>
+		<band height="125" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="79" width="572" height="1" uuid="3583c343-ae35-47c8-857b-3eb60659ffad"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="474" y="85" width="70" height="15" uuid="9ba34049-357a-4cb2-ad61-3f93a40bfb42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PAG:  "+$V{PAGE_NUMBER} +"  de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="544" y="85" width="20" height="15" uuid="8d11264f-4629-485a-b364-8c621d664cfa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="104" width="572" height="1" uuid="ee4cb552-e2c4-4ce6-9c92-132ed62ce9a7"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="80" width="572" height="24" uuid="d1cedf56-af84-4b36-b4de-53b68c3d6e4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Personal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="105" width="572" height="20" uuid="9c804b4f-66e2-49a2-a15c-56dfd094cf25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_subtitulo}]]></textFieldExpression>
+			</textField>
 			<image>
 				<reportElement x="0" y="0" width="180" height="71" uuid="b37ee4eb-53bb-4607-8603-c87a6a5d03a8"/>
 				<imageExpression><![CDATA["C:\\diga_sys\\images\\logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="486" y="6" width="86" height="15" uuid="f2c2ce95-05f1-4ad7-933f-6b2f87d722c3"/>
+				<reportElement x="472" y="0" width="100" height="18" uuid="f2c2ce95-05f1-4ad7-933f-6b2f87d722c3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Fecha / Hora:]]></text>
 			</staticText>
-			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="431" y="21" width="141" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
+			<textField pattern="d MMM yyyy HH:mm:ss">
+				<reportElement x="402" y="18" width="170" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="514" y="36" width="58" height="15" uuid="280cadd4-4adc-48a8-8c73-08435b0d2b62"/>
+				<reportElement x="472" y="33" width="100" height="18" uuid="280cadd4-4adc-48a8-8c73-08435b0d2b62"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="472" y="51" width="100" height="15" uuid="24c35829-3bbe-4b81-b0ab-2ebdf0d8da76"/>
+				<reportElement x="472" y="49" width="100" height="15" uuid="24c35829-3bbe-4b81-b0ab-2ebdf0d8da76"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_user}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="43" width="180" height="35" uuid="8e92cac2-d03c-4af3-bef7-bee89c5834df"/>
+				<reportElement x="0" y="49" width="180" height="28" uuid="8e92cac2-d03c-4af3-bef7-bee89c5834df"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DISTRIBUIDORA DE GALLETAS (DIGA), C.A.
 RIF: J075455525]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="51" splitType="Stretch">
-			<line>
-				<reportElement x="0" y="-1" width="572" height="1" uuid="3583c343-ae35-47c8-857b-3eb60659ffad"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
-			<textField>
-				<reportElement x="482" y="6" width="70" height="15" uuid="9ba34049-357a-4cb2-ad61-3f93a40bfb42"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA["PAG:  "+$V{PAGE_NUMBER} +"  de "]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="552" y="6" width="20" height="15" uuid="8d11264f-4629-485a-b364-8c621d664cfa"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="26" width="572" height="1" uuid="ee4cb552-e2c4-4ce6-9c92-132ed62ce9a7"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
 			<staticText>
-				<reportElement x="0" y="2" width="572" height="24" uuid="d1cedf56-af84-4b36-b4de-53b68c3d6e4e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+				<reportElement x="0" y="59" width="572" height="18" uuid="ee9e6827-12eb-45a8-bb49-2db6cfc06e85"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Listado de Personal (Logistica)]]></text>
+				<text><![CDATA[Departamento de Logistica]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="9" y="29" width="552" height="20" uuid="9c804b4f-66e2-49a2-a15c-56dfd094cf25"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{p_subtitulo}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<detail>

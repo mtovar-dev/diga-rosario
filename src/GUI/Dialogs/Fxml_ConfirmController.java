@@ -152,8 +152,8 @@ public class Fxml_ConfirmController implements Initializable {
                     Screens.getInstance().startVehicles();
                 }
                 break;
-            case 8001000: // screen measure
-                result = Ln.getInstance().change_Measure(Datos.getMeasure());                                                  
+            case 8001000: // screen insurance
+                result = Ln.getInstance().change_log_TSeguros(Datos.getLog_tseguros());                                                  
                 if(result){
                     Datos.setMeasure(null);
                     Screens.getInstance().startMeasure();
@@ -166,7 +166,28 @@ public class Fxml_ConfirmController implements Initializable {
                     Screens.getInstance().startGroupSupplier();
                 }
                 break;
-            case 9001001: // screen user
+            case 8003000: // screen measure
+                result = Ln.getInstance().change_Measure(Datos.getMeasure());                                                  
+                if(result){
+                    Datos.setMeasure(null);
+                    Screens.getInstance().startMeasure();
+                }
+                break;
+            case 8004000: // screen reason
+                result = Ln.getInstance().change_Reason(Datos.getReason());                                                  
+                if(result){
+                    Datos.setMeasure(null);
+                    Screens.getInstance().startMeasure();
+                }
+                break;
+            case 8005000: // screen unit
+                result = Ln.getInstance().change_Unit(Datos.getUnit());                                                  
+                if(result){
+                    Datos.setMeasure(null);
+                    Screens.getInstance().startMeasure();
+                }
+                break;
+            case 9001000: // screen user
                 result = Ln.getInstance().change_UserStatus(Datos.getUsuario());                                                  
                 if(result){
                     Datos.setUsuario(null);

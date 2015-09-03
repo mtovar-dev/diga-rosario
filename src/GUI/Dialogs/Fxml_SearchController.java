@@ -15,6 +15,7 @@ import Objects.Orders.Orders;
 import Objects.Orders.Supplier;
 import Objects.log_CGuias;
 import Objects.log_Personal;
+import Objects.log_TSeguros;
 import Objects.log_Vehiculos;
 import Tools.Datos;
 import java.math.RoundingMode;
@@ -1024,6 +1025,85 @@ public class Fxml_SearchController implements Initializable {
                     return row ;  
                 });
                 break;
+            case 2005011: // screen Cliente 
+                TableColumn<Object, Object> col_statseg      = new TableColumn<>("Act");
+                TableColumn<Object, Object> col_codigos      = new TableColumn<>("Código");                
+                TableColumn<Object, Object> col_seguro       = new TableColumn<>("Empresa de Seguro");        
+
+                //Se establece el ancho de cada columna
+                this.objectWidth(col_statseg     , 30,  30);
+                this.objectWidth(col_codigos     , 100, 100);
+                this.objectWidth(col_seguro      , 320, 320);
+                /**
+                 * Sobreescritura de un metodo de la Columna, para sustituir el valor numerico 
+                 * del STATUS del usuario por una Imagen segun el valor
+                 * 1 - VERDE (HABILITADO)
+                 * 2 - ROJO  (DESHABILITADO)
+                 */
+                col_statseg.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                        return new TableCell<Object, Object>() {
+                            @Override
+                            public void updateItem(Object item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if(!empty){
+                                    switch(item.toString()){  
+                                        case "A":     //DESHABILITADO
+                                            setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Images/img57.png"), 15, 15, false,false))); 
+                                            break;
+                                        case "I":     //HABILITADO
+                                            setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Images/img61.png"), 15, 15, false,false))); 
+                                            break;   
+                                    }                            
+                                    setAlignment(Pos.CENTER);
+                                }
+                                else
+                                    setGraphic(null);
+                            }
+                        };
+                    }
+                });        
+
+                col_codigos.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                        return new TableCell<Object, Object>() {
+                            @Override
+                            public void updateItem(Object item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(empty ? null : getString());
+                                setAlignment(Pos.CENTER);
+                            }
+
+                            private String getString() {
+                                String ret = "";
+                                if (getItem() != null) {
+                                    ret = getItem().toString();
+                                    if (ret.equals("0"))
+                                        ret = "";
+                                } else {
+                                    ret = "";
+                                }
+                                return ret;
+                            }                
+                        };
+                    }
+                });        
+
+                //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
+                col_statseg.setCellValueFactory( 
+                        new PropertyValueFactory<>("status") );
+                col_codigos.setCellValueFactory( 
+                        new PropertyValueFactory<>("idTSeguro") );
+                col_seguro.setCellValueFactory( 
+                        new PropertyValueFactory<>("nombre") );
+
+                //Se Asigna ordenadamente las columnas de la tabla
+                tb_table.getColumns().addAll(
+                        col_statseg, col_codigos, col_seguro
+                        );                
+                break;
             case 7001021: // button empleados
                 //Se crean y definen las columnas de la Tabla
                 TableColumn<Object, Object> col_inroci       = new TableColumn<>("Nro CI");                
@@ -1224,6 +1304,8 @@ public class Fxml_SearchController implements Initializable {
                         case 2003041: // screen Guia Avanzada
                             Gui.setIdBusqueda(((log_CGuias) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumrela());
                             break;
+                        case 2005011: // screen Aseguradora
+                            Gui.setIdBusqueda(String.valueOf(((log_TSeguros) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getIdTSeguro()));
                         case 7001021: // screen Guia Avanzada
                             Gui.setIdBusqueda(((Empleado) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getCedula());
                             break;
@@ -1469,6 +1551,9 @@ public class Fxml_SearchController implements Initializable {
             case 2003042: // button sup de ruta
                 loadTablePer( Ln.getInstance().find_log_Personal_tp(tf_buscar.getText(), 7, 7));  
                 break;
+            case 2005011: // screen Aseguradora
+                loadTableEmpSeg( Ln.getInstance().find_log_TSeguros(tf_buscar.getText()));  
+                break;
             case 7001021: // screen Guia Avanzada
                 loadTableEmpInfocent( Ln.getInstance().find_Empelado(tf_buscar.getText().toUpperCase()));  
                 break;
@@ -1549,6 +1634,9 @@ public class Fxml_SearchController implements Initializable {
                 vb_2.setVisible(true);
                 
                 tf_producto.setVisible(true);
+                break;
+            case 2005011: // screen Aseguradora
+                lb_b.setText("Buscar Seguro:");
                 break;
         }
         tf_buscar.setText("");
@@ -1632,6 +1720,16 @@ public class Fxml_SearchController implements Initializable {
         if(empleado != null){
             ObservableList<Object> data = FXCollections.observableArrayList();        
             data.addAll(Arrays.asList(empleado));   
+            tb_table.setItems(data);        
+        }
+    } 
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadTableEmpSeg(log_TSeguros[] log_tseguros){  
+        if(log_tseguros != null){
+            ObservableList<Object> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(log_tseguros));   
             tb_table.setItems(data);        
         }
     } 

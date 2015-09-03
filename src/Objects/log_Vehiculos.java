@@ -44,7 +44,10 @@ public class log_Vehiculos {
     private int status;     
     private int ano;     
     private int clasif;     
-    private String rif_empresa;     
+    private String rif_empresa;
+    private int id_tseguro;
+    private String tseguro;
+    private String abrevseg;
 
     /**
      * 
@@ -111,8 +114,12 @@ public class log_Vehiculos {
             status              = rs.getInt(29);
             ano                 = rs.getInt(30);
             clasif              = rs.getInt(31);
-            rif_empresa             = rs.getString(32);
+            rif_empresa         = rs.getString(32);
+            id_tseguro          = rs.getInt(33);
+            tseguro             = rs.getString(34);
+            abrevseg            = rs.getString(35);
 
+            
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
         }
@@ -522,6 +529,48 @@ public class log_Vehiculos {
      */
     public void setRif_empresa(String rif_empresa) {
         this.rif_empresa = rif_empresa;
+    }
+
+    /**
+     * @return the id_tseguro
+     */
+    public int getId_tseguro() {
+        return id_tseguro;
+    }
+
+    /**
+     * @param id_tseguro the id_tseguro to set
+     */
+    public void setId_tseguro(int id_tseguro) {
+        this.id_tseguro = id_tseguro;
+    }
+
+    /**
+     * @return the tseguro
+     */
+    public String getTseguro() {
+        return tseguro;
+    }
+
+    /**
+     * @param tseguro the tseguro to set
+     */
+    public void setTseguro(String tseguro) {
+        this.tseguro = tseguro;
+    }
+
+    /**
+     * @return the abrevseg
+     */
+    public String getAbrevseg() {
+        return abrevseg;
+    }
+
+    /**
+     * @param abrevseg the abrevseg to set
+     */
+    public void setAbrevseg(String abrevseg) {
+        this.abrevseg = abrevseg;
     }
 
 

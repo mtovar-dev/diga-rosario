@@ -18,6 +18,7 @@ import Objects.log_Personal;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
+import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
 
@@ -714,6 +715,28 @@ import Objects.log_Vehiculos;
     public static boolean validar_Save_log_TTransp(log_TTransp log_ttransp) {
         boolean opc1 = validarTexto(log_ttransp.getNombre(),150,soloLetras,false);
         boolean opc2 = validarTexto(log_ttransp.getAbrev(),5,soloLetras,true);
+        
+        if(!opc1 || !opc2){
+            Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+
+    /***************************************************************************/
+    /****************************** LOG_TSEGUROS *******************************/
+    /***************************************************************************/
+    
+     /**
+     * @author MITM
+     * @param log_tseguros
+     * @return 
+     */
+    public static boolean validar_Save_log_TSeguros(log_TSeguros log_tseguros) {
+        boolean opc1 = validarTexto(log_tseguros.getNombre(),150,soloLetras,false);
+        boolean opc2 = validarTexto(log_tseguros.getAbrev(),5,soloLetras,true);
         
         if(!opc1 || !opc2){
             Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");

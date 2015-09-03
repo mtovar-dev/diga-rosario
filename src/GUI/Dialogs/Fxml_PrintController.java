@@ -19,7 +19,6 @@ import Objects.log_TPersonal;
 import Tools.Datos;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -318,13 +317,15 @@ public class Fxml_PrintController implements Initializable {
                 List<log_CGuias> datag = Ln.getList_log_CGuias(Datos.getRep_log_cguias());
 
                 ObservableList<log_CGuias_falt_dv> data_fdev = FXCollections.observableArrayList();
-                if (numHyperlink == 9){
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(dp_fecha.getValue().format(formatter), numHyperlink)));   
-                }
-                else{
-                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(Datos.getNumRela(), numHyperlink)));   
-                }
+                data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(Datos.getNumRela(), numHyperlink)));   
+
+//                if (numHyperlink == 9){
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(dp_fecha.getValue().format(formatter), numHyperlink)));   
+//                }
+//                else{
+//                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(Datos.getNumRela(), numHyperlink)));   
+//                }
 
                 JRDs = new JRBeanCollectionDataSource(data_fdev, true);
 
@@ -352,11 +353,11 @@ public class Fxml_PrintController implements Initializable {
                     JrxmlParam.put("p_fecsalida", 
                         datag.get(0).getFecsalida());
                     
-                    if (numHyperlink == 9){
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        JrxmlParam.put("p_fecrecupera", 
-                            "de fecha: " + dp_fecha.getValue().format(formatter));
-                    }
+//                    if (numHyperlink == 9){
+//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//                        JrxmlParam.put("p_fecrecupera", 
+//                            "de fecha: " + dp_fecha.getValue().format(formatter));
+//                    }
                 }
 
                 break;
@@ -451,7 +452,7 @@ public class Fxml_PrintController implements Initializable {
                 JrxmlParam.put("p_user", Datos.getSesion().getUsername());
 
                 try{
-                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_personal.jasper");
+                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_per_port_pers.jasper");
                     jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
                     jview = new JasperViewer(jPrint, false);
                     jview.setTitle("DIGA - Listado de Personal (Logistica) ");
@@ -628,6 +629,28 @@ public class Fxml_PrintController implements Initializable {
             }
         });        
         /**
+         * Falt. y/o Sobr.
+         */
+        hp_imp15.setOnAction((ActionEvent e) -> {
+            numHyperlink = 8;
+            imprimir(Datos.getIdScreen());
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_fs.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                jview = new JasperViewer(jPrint, false);
+                jview.setTitle("DIGA - Listado de Falt. y/o Sobr. (Devolución) ");
+
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+
+            if (print){
+                jview.setVisible(true);
+                jview.setResizable(false);
+            }
+        });        
+        /**
          * Red. Camión
          */
         hp_imp21.setOnAction((ActionEvent e) -> {
@@ -697,50 +720,28 @@ public class Fxml_PrintController implements Initializable {
          * Des. Rosario
          */
         hp_imp24.setOnAction((ActionEvent e) -> {
-            numHyperlink = 7;
-            imprimir(Datos.getIdScreen());
-
-            try{ 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_dm.jasper");
-                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
-                jview = new JasperViewer(jPrint, false);
-                jview.setTitle("DIGA - Listado de Desgloce de Productos (Devolución) ");
-
-            } catch (JRException ee){
-                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
-            }
-
-            if (print){
-                jview.setVisible(true);
-                jview.setResizable(false);
-            }
-        });        
-        /**
-         * Falt. y/o Sobr.
-         */
-        hp_imp31.setOnAction((ActionEvent e) -> {
-            numHyperlink = 8;
-            imprimir(Datos.getIdScreen());
-
-            try{ 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_fs.jasper");
-                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
-                jview = new JasperViewer(jPrint, false);
-                jview.setTitle("DIGA - Listado de Falt. y/o Sobr. (Devolución) ");
-
-            } catch (JRException ee){
-                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
-            }
-
-            if (print){
-                jview.setVisible(true);
-                jview.setResizable(false);
-            }
+//            numHyperlink = 7;
+//            imprimir(Datos.getIdScreen());
+//
+//            try{ 
+//                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_dm.jasper");
+//                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+//                jview = new JasperViewer(jPrint, false);
+//                jview.setTitle("DIGA - Listado de Desgloce de Productos (Devolución) ");
+//
+//            } catch (JRException ee){
+//                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+//            }
+//
+//            if (print){
+//                jview.setVisible(true);
+//                jview.setResizable(false);
+//            }
         });        
         /**
          * Ent. de Mercancia
          */
-        hp_imp32.setOnAction((ActionEvent e) -> {
+        hp_imp31.setOnAction((ActionEvent e) -> {
             numHyperlink = 7;
             imprimir(Datos.getIdScreen());
 
@@ -760,18 +761,17 @@ public class Fxml_PrintController implements Initializable {
             }
         });        
         /**
-         * Sal. de Mercancia
+         * Sal. de Mercancia Recuperacion
          */
-        hp_imp33.setOnAction((ActionEvent e) -> {
-            numHyperlink = 10;
+        hp_imp32.setOnAction((ActionEvent e) -> {
+            numHyperlink = 9;
             imprimir(Datos.getIdScreen());
 
             try{ 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_tran_ca.jasper");
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_re.jasper");
                 jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
                 jview = new JasperViewer(jPrint, false);
-                jview.setTitle("DIGA - Listado de Transborod Camión (Devolución) ");
-//                jview.setTitle("DIGA - Listad de Salida de Productos (Devolución) ");
+                jview.setTitle("DIGA - Listado de Salida de Productos (Recuperación) ");
 
             } catch (JRException ee){
                 Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
@@ -783,17 +783,39 @@ public class Fxml_PrintController implements Initializable {
             }
         });        
         /**
-         * Recuperacion
+         * Sal. de Mercancia Vencida
          */
-        hp_imp34.setOnAction((ActionEvent e) -> {
-            numHyperlink = 9;
+        hp_imp33.setOnAction((ActionEvent e) -> {
+            numHyperlink = 11;
             imprimir(Datos.getIdScreen());
 
             try{ 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_re.jasper");
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_ve.jasper");
                 jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
                 jview = new JasperViewer(jPrint, false);
-                jview.setTitle("DIGA - Listado de Recuperación de Productos (Devolución) ");
+                jview.setTitle("DIGA - Listado de Salida de Productos (Vencido) ");
+
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+
+            if (print){
+                jview.setVisible(true);
+                jview.setResizable(false);
+            }
+        });        
+        /**
+         * Sal. de Mercancia Irrecuperable
+         */
+        hp_imp34.setOnAction((ActionEvent e) -> {
+            numHyperlink = 12;
+            imprimir(Datos.getIdScreen());
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_inv_ir.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                jview = new JasperViewer(jPrint, false);
+                jview.setTitle("DIGA - Listado de Recuperación de Productos (Irrecuperable) ");
 
             } catch (JRException ee){
                 Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
@@ -849,9 +871,8 @@ public class Fxml_PrintController implements Initializable {
                 hp_imp12.setText("Notas de Cambio");
                 hp_imp13.setText("Facturas Anular");
                 hp_imp14.setText("Cambio de Factura");
-//                hp_imp15.setText("Red. Camion");
+                hp_imp15.setText("Falt. y/o Sobr.");
 //                hp_imp16.setText("Red. Rosario");
-                hp_imp15.setVisible(false);
                 hp_imp16.setVisible(false);
 
 
@@ -868,10 +889,11 @@ public class Fxml_PrintController implements Initializable {
                 
                 vb_3.setVisible(true);
                 lb_imp31.setText("Inventario");
-                hp_imp31.setText("Falt. y/o Sobr.");
-                hp_imp32.setText("Ent. de Mercancia");
-                hp_imp33.setText("Sal. de Mercancia");
-                hp_imp34.setText("Recuperación");
+                hp_imp31.setText("Ent. de Mercancia");
+                hp_imp32.setText("Merc. Recuperación");
+                hp_imp33.setText("Merc. Vencida");
+                hp_imp34.setText("Merc. Irrecuperable");
+                dp_fecha.setVisible(false);
 
                 vb_3.setVisible(true);
                 cb_imp31.setVisible(false);
@@ -1001,9 +1023,6 @@ public class Fxml_PrintController implements Initializable {
 }
 
 //// exporting process
-//
-//// 1- export to PDF
-//JasperExportManager.exportReportToPdfFile(jasperPrint, "C://sample_report.pdf");
 // 
 //// 2- export to HTML
 //JasperExportManager.exportReportToHtmlFile(jasperPrint, "C://sample_report.html" );
