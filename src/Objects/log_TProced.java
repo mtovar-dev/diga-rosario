@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class log_TProced {
     private int idTProced;
@@ -99,7 +99,6 @@ public class log_TProced {
     }
     
     /**
-     * 
      * @return 
      */
     @Override

@@ -125,38 +125,73 @@ public class Fxml_EmailSendController implements Initializable{
                 data.addAll(Datos.getRep_orders());   
 
                 ta_para.setText(data.get(0).getCorreo());
-                ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com");
                 tf_asunto.setText("Orden de Compra (Diga) - " + Datos.getNumOrd_comp());
-                ta_mensaje.setText(
-                    "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\">Anexo envi&oacute; una nueva orden de compra para ser despachada en la fecha requerida.</span></p>" +
-                    "<p><span style=\"font-size: small;\">Favor confirmar la recepci&oacute;n de este correo</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
-                );
+                if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
+                    ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com");
+                    ta_mensaje.setText(
+                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\">Anexo envi&oacute; una nueva orden de compra para ser despachada en la fecha requerida.</span></p>" +
+                        "<p><span style=\"font-size: small;\">Favor confirmar la recepci&oacute;n de este correo</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                    );
+                }
+                else{
+                    ta_cc.setText("descalante@grupodiga.com, armgarces@gmail.com");
+                    ta_mensaje.setText(
+                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\">Anexo envi&oacute; una nueva orden de compra.</span></p>" +
+                        "<p><span style=\"font-size: small;\">Favor confirmar la recepci&oacute;n de este correo</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\"><strong>ING. Dahize Escalante</strong></span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Importaciones</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 588.89.78</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                    );
+                }
                 break;
             case 1002013: // button agenda
                 ta_para.setText("descargas@grupodiga.com, morita@grupodiga.com, emontero@grupodiga.com");
-                ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com, fmanzano@grupodiga.com");
                 tf_asunto.setText("Agenda de Recepcion");
-                ta_mensaje.setText(
-                    "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
-                );
+                if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
+                    ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com, fmanzano@grupodiga.com");
+                    ta_mensaje.setText(
+                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                    );
+                }
+                else{
+                    ta_cc.setText("descalante@grupodiga.com, armgarces@gmail.com, fmanzano@grupodiga.com");
+                    ta_mensaje.setText(
+                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                        "<p><span style=\"font-size: small;\"><strong>ING. Dahize Escalante</strong></span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Importaciones</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 588.89.78</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                    );
+                }
                 break;
         }
                 
@@ -245,7 +280,12 @@ public class Fxml_EmailSendController implements Initializable{
                 JrxmlParam.put("p_user", Datos.getSesion().getUsername());
                 JrxmlParam.put("p_orden", "ORDEN DE COMPRA:  " + data.get(0).getIdOrden());
                 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_ord.jasper");
+                if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
+                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_ord_nac.jasper");
+                }
+                else{
+                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_ord_imp.jasper");
+                }
                 jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
 
                 JasperExportManager.exportReportToPdfFile(jPrint, path + path_exp + "/orden_compra-" + Datos.getNumOrd_comp() + ".pdf");

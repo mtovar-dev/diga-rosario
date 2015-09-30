@@ -111,6 +111,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -163,6 +164,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -215,6 +217,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+        
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -267,6 +270,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -319,6 +323,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -371,6 +376,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -423,6 +429,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -475,6 +482,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -515,7 +523,7 @@ public class Screens {
      * 
      * @author MITM
      */
-    public void startOrdersNew(){
+    public void startOrders_new(){
         String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("orders_new");
         Datos.setIdScreen(Integer.parseInt(id));
         
@@ -527,6 +535,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -534,7 +543,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Orders/Fxml_PurchaseOrderNew.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Orders/Fxml_PurchaseOrder_New.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -567,7 +576,7 @@ public class Screens {
      * 
      * @author MITM
      */
-    public void startOrdersOpen(){
+    public void startOrders_open(){
         String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("orders_open");
         Datos.setIdScreen(Integer.parseInt(id));
         
@@ -579,6 +588,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -586,7 +596,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Orders/Fxml_PurchaseOrderOpen.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Orders/Fxml_PurchaseOrder_Open.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -619,8 +629,8 @@ public class Screens {
      * 
      * @author MITM
      */
-    public void startGuide_data(){
-        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("guide_data");
+    public void startGuide_main(){
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("guide_main");
         Datos.setIdScreen(Integer.parseInt(id));
         
         Stage stage = new Stage();
@@ -631,6 +641,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -638,7 +649,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Fxml_Guide.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Guide/Main/Fxml_Guide_Main.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -683,6 +694,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -723,7 +735,7 @@ public class Screens {
      * 
      * @author MITM
      */
-    public void startGuide_paydesk(){
+     public void startGuide_paydesk(){
         String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("guide_paydesk");
         Datos.setIdScreen(Integer.parseInt(id));
         
@@ -735,6 +747,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -742,7 +755,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Fxml_Guide_paydesk.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Guide/Main/Fxml_Guide_Paydesk.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -775,8 +788,8 @@ public class Screens {
      * 
      * @author MITM
      */
-    public void startGuide_InvoiceGlomar(){
-        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("guide_invoiceglomar");
+    public void startGuide_invglomar(){
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("guide_invglomar");
         Datos.setIdScreen(Integer.parseInt(id));
         
         Stage stage = new Stage();
@@ -787,6 +800,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -794,7 +808,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Fxml_Guide_InvoiceGlomar.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Guide/Main/Fxml_Guide_Invglomar.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -839,6 +853,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -846,7 +861,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Fxml_Personal.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Guide/Main/Fxml_Personal.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -891,6 +906,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -898,7 +914,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Screens/Fxml_Vehiculos.fxml"));
+        Gui.setAp_center(gui.loadFxml("Screens/Guide/Main/Fxml_Vehiculos.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   
@@ -943,6 +959,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -995,6 +1012,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -1047,6 +1065,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -1099,6 +1118,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         
@@ -1151,6 +1171,7 @@ public class Screens {
         
         //TOP BAR                
         root.setTop(Gui.getAp_topbar());       
+
         //LEFT BAR                     
         root.setLeft(Gui.getAp_leftbar());
         

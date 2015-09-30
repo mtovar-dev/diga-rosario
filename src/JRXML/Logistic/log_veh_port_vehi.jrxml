@@ -12,8 +12,12 @@
 	<field name="tmarca.nombre" class="java.lang.String"/>
 	<field name="tproced.nombre" class="java.lang.String"/>
 	<field name="ttransp.nombre" class="java.lang.String"/>
+	<field name="tseguro.abrev" class="java.lang.String"/>
+	<field name="tdispflota.nombre" class="java.lang.String"/>
 	<field name="modelo" class="java.lang.String"/>
-	<field name="capacidad" class="java.lang.Integer"/>
+	<field name="peso_bveh" class="java.lang.Integer"/>
+	<field name="cap_cargkgrs" class="java.lang.Integer"/>
+	<field name="cap_cargmtrs3" class="java.lang.Integer"/>
 	<field name="empresa" class="java.lang.String"/>
 	<field name="telefonos" class="java.lang.String"/>
 	<field name="celular" class="java.lang.String"/>
@@ -35,49 +39,44 @@
 	<field name="nro_rgt" class="java.lang.String"/>
 	<field name="status" class="java.lang.Integer"/>
 	<field name="ano" class="java.lang.Integer"/>
-	<field name="clasif" class="java.lang.Integer"/>
 	<field name="rif_empresa" class="java.lang.String"/>
-	<field name="id_tseguro" class="java.lang.Integer"/>
-	<field name="tseguro" class="java.lang.String"/>
-	<field name="abrevseg" class="java.lang.String"/>
+	<field name="clasif" class="java.lang.Integer"/>
+	<field name="tclasif" class="java.lang.String"/>
 	<group name="tproced" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{tproced.nombre}]]></groupExpression>
 		<groupHeader>
-			<band height="18">
+			<band height="20">
 				<staticText>
-					<reportElement x="2" y="2" width="70" height="15" uuid="b79b6337-99c6-4429-80ec-d517c9b25d73"/>
+					<reportElement x="2" y="3" width="70" height="15" uuid="b79b6337-99c6-4429-80ec-d517c9b25d73"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Monospaced" size="8" isBold="true"/>
+						<font fontName="Monospaced" size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[T/Procedencia:]]></text>
+					<text><![CDATA[Procedencia:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="75" y="2" width="200" height="15" uuid="198ae2a1-6b80-4df7-ae49-779840642f02"/>
+					<reportElement x="75" y="2" width="300" height="17" uuid="198ae2a1-6b80-4df7-ae49-779840642f02"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Monospaced" isBold="true"/>
+						<font fontName="Monospaced" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{tproced.nombre}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 	</group>
-	<group name="ttransp">
-		<groupExpression><![CDATA[$F{ttransp.nombre}]]></groupExpression>
+	<group name="tclasif">
+		<groupExpression><![CDATA[$F{clasif}]]></groupExpression>
 		<groupHeader>
 			<band height="18">
 				<staticText>
-					<reportElement x="76" y="2" width="70" height="15" uuid="676f9586-9b8d-441b-84c3-5c334889b40f"/>
+					<reportElement x="75" y="1" width="70" height="15" uuid="676f9586-9b8d-441b-84c3-5c334889b40f"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[T/Transporte:]]></text>
+					<text><![CDATA[CLASIFICACION:]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="149" y="2" width="200" height="15" uuid="10226bc4-2fb1-4958-a530-c34e59dd6040"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Monospaced" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{ttransp.nombre}]]></textFieldExpression>
+				<textField isBlankWhenNull="true">
+					<reportElement x="150" y="1" width="250" height="15" uuid="b2839d25-f516-4ddc-aa74-c6f40e510ac4"/>
+					<textFieldExpression><![CDATA[$F{tclasif}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -254,7 +253,7 @@ RIF: J075455525]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="275" y="0" width="191" height="15" uuid="af044c4a-ba7c-4f3e-b52a-f948b4fd1c51"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced"/>

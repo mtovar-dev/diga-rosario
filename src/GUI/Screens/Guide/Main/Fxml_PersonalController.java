@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package GUI.Screens;
+package GUI.Screens.Guide.Main;
 
 import GUI.Gui;
 import LN.Ln;

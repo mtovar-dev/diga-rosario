@@ -708,7 +708,7 @@ public class Fxml_InsuranceController implements Initializable {
      * 
      */
     private void botonEditar(){
-        if(Datos.getGroupSupplier()!= null && toolsConfig[3]==1){
+        if(Datos.getLog_tseguros()!= null && toolsConfig[3]==1){
             tipoOperacion = 2;
             //changeIcon(true); 
             change_im_tool4(Datos.getLog_tseguros().getStatus());

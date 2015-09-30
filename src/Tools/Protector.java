@@ -11,7 +11,7 @@ import sun.misc.*;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Protector {
     private static final String ALGORITHM = "AES"; 

@@ -91,6 +91,9 @@ public class Fxml_SearchController implements Initializable {
     private RadioButton rb_find14;
     
     @FXML
+    private RadioButton rb_find15;
+    
+    @FXML
     private RadioButton rb_find21;
 
     @FXML
@@ -1351,11 +1354,12 @@ public class Fxml_SearchController implements Initializable {
         assert rb_find12 != null : "fx:id=\"rb_find2\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
         assert rb_find13 != null : "fx:id=\"rb_find3\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
         assert rb_find14 != null : "fx:id=\"rb_find4\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
-        assert rb_find21 != null : "fx:id=\"rb_find5\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
-        assert rb_find22 != null : "fx:id=\"rb_find6\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
-        assert rb_find23 != null : "fx:id=\"rb_find7\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
-        assert rb_find24 != null : "fx:id=\"rb_find8\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
-        assert rb_find25 != null : "fx:id=\"rb_find9\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find15 != null : "fx:id=\"rb_find5\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find21 != null : "fx:id=\"rb_find6\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find22 != null : "fx:id=\"rb_find7\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find23 != null : "fx:id=\"rb_find8\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find24 != null : "fx:id=\"rb_find9\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
+        assert rb_find25 != null : "fx:id=\"rb_find10\" was not injected: check your FXML file 'Fxml_Search.fxml'."; 
 
         /**
          * Nro. Guia
@@ -1394,9 +1398,21 @@ public class Fxml_SearchController implements Initializable {
         });
 
         /**
-         * Producto
+         * Nro. Nota Credito
          */
         rb_find14.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    //tf_buscar.setText("");
+                    tf_producto.requestFocus();
+                }
+            }
+        });
+
+        /**
+         * Producto
+         */
+        rb_find15.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
                     //tf_buscar.setText("");
@@ -1505,7 +1521,6 @@ public class Fxml_SearchController implements Initializable {
                         loadTableOrdCompra( Ln.getInstance().find_orders_date(tf_buscar.getText()));  
                         break;
                 }
-                
                 break;
             case 1002012: // button proveedores
                 loadTableProv( Ln.getInstance().find_Supplier(tf_buscar.getText()));  
@@ -1546,7 +1561,6 @@ public class Fxml_SearchController implements Initializable {
                 else{
                     Gui.getInstance().showMessage("Debe indicar el Parametro de Busqueda!", "A");
                 }
-                    
                 break;            
             case 2003042: // button sup de ruta
                 loadTablePer( Ln.getInstance().find_log_Personal_tp(tf_buscar.getText(), 7, 7));  
@@ -1611,7 +1625,10 @@ public class Fxml_SearchController implements Initializable {
                 rb_find13.setUserData("nfcarga");
                 
                 rb_find14.setToggleGroup(rb_group);
-                rb_find14.setUserData("cprod");
+                rb_find14.setUserData("ncred");
+                
+                rb_find15.setToggleGroup(rb_group);
+                rb_find15.setUserData("cprod");
                 
                 rb_find21.setToggleGroup(rb_group);
                 rb_find21.setUserData("vehi");

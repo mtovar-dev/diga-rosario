@@ -135,7 +135,7 @@ public class Fxml_ConfirmController implements Initializable {
                 result = Ln.getInstance().change_Orders(Datos.getOrders());                                                  
                 if(result){
                     Datos.setNumOrd_comp(null);
-                    Screens.getInstance().startOrdersNew();
+                    Screens.getInstance().startOrders_new();
                 }
                 break;
             case 2004000: // screen personal
@@ -174,7 +174,7 @@ public class Fxml_ConfirmController implements Initializable {
                 }
                 break;
             case 8004000: // screen reason
-                result = Ln.getInstance().change_Reason(Datos.getReason());                                                  
+                result = Ln.getInstance().change_log_TMotdev(Datos.getLog_tmotdev());                                                  
                 if(result){
                     Datos.setMeasure(null);
                     Screens.getInstance().startMeasure();
@@ -188,9 +188,9 @@ public class Fxml_ConfirmController implements Initializable {
                 }
                 break;
             case 9001000: // screen user
-                result = Ln.getInstance().change_UserStatus(Datos.getUsuario());                                                  
+                result = Ln.getInstance().change_UserStatus(Datos.getUser());                                                  
                 if(result){
-                    Datos.setUsuario(null);
+                    Datos.setUser(null);
                     Screens.getInstance().startUser();
                 }
                 break;

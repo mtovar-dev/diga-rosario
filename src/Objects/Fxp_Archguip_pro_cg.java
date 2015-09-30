@@ -28,6 +28,7 @@ public class Fxp_Archguip_pro_cg {
     private double pesokgs;
     private String numguia;     
     private String numfalt;     
+    private String numncred;     
     private int unidfalt;     
     private Unit unidDespCont;
     private int uniporem;
@@ -243,6 +244,20 @@ public class Fxp_Archguip_pro_cg {
     }
 
     /**
+     * @return the numncred
+     */
+    public String getNumncred() {
+        return numncred;
+    }
+
+    /**
+     * @param numncred the numncred to set
+     */
+    public void setNumncred(String numncred) {
+        this.numncred = numncred;
+    }
+
+    /**
      * @return the unidfalt
      */
     public int getUnidfalt() {
@@ -284,6 +299,4 @@ public class Fxp_Archguip_pro_cg {
         this.uniporem = uniporem;
     }
 
-
-    
 }

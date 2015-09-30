@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class State {
     private int idPoblacion;
@@ -114,7 +114,6 @@ public class State {
     }
 
     /**
-     * 
      * @return 
      */
     @Override

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class log_TTransp {
     private int idTTransp;
@@ -99,7 +99,6 @@ public class log_TTransp {
     }
     
     /**
-     * 
      * @return 
      */
     @Override

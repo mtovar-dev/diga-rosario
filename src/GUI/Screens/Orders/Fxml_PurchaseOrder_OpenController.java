@@ -3,46 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Screens;
+package GUI.Screens.Orders;
 
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
-import Objects.log_CGuias_Glomar_invoice;
-import Objects.log_CGuias_Glomar_price;
+import Objects.Orders.Orders;
+import Objects.Orders.Supplier;
 import Tools.Datos;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
@@ -64,29 +56,21 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
+
 /**
  *
  * @author MITM
  */
-public class Fxml_Guide_InvoiceGlomarController implements Initializable {
+public class Fxml_PurchaseOrder_OpenController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
 
     @FXML 
-    private Button bt_execute; 
+    private Button bt_aceptar; 
 
     @FXML
-    private ComboBox<Integer> cb_ano;
-
-    @FXML
-    private ComboBox<String> cb_mes;
-
-    @FXML
-    private DatePicker dp_fecha1;
-    
-    @FXML
-    private DatePicker dp_fecha2;
+    private DatePicker dp_fecha;
     
     @FXML
     private HBox hb_1;    
@@ -131,6 +115,12 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     private ImageView im_tool11;
 
     @FXML
+    private ImageView im_checkr;
+
+    @FXML
+    private ImageView im_checkp;
+
+    @FXML
     private Label lb_mensj;
 
     @FXML
@@ -139,23 +129,23 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     @FXML
     private Label lb_Title;
 
-    @FXML
-    private RadioButton rb_quality1;
-    
-    @FXML
-    private RadioButton rb_quality2;
-    
-    @FXML
-    private RadioButton rb_quality3;
-    
-    @FXML
-    private TableView<log_CGuias_Glomar_price> tb_price;
+    @FXML 
+    private TableView<Orders> tb_table; 
 
-    @FXML
-    private TableView<log_CGuias_Glomar_invoice> tb_invoice;
+    @FXML 
+    private TableView<Orders> tb_view; 
 
     @FXML
     private TextField tf_buscar;
+
+    @FXML
+    private TextField tf_orden1;
+
+    @FXML
+    private TextField tf_orden2;
+
+    @FXML
+    private TextField tf_proveedor;
 
     @FXML
     private VBox vb_form;
@@ -180,16 +170,11 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     
     Map<String, Object> JrxmlParam = new HashMap<String, Object>();
 
-    private static DateTimeFormatter dtf_yyyy = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
     private static JasperReport jReport = null;
     private static JasperViewer jview = null;
     private static JasperPrint jPrint = null;
     
     private static JRBeanCollectionDataSource JRDs = null;
-    
-    final ToggleGroup rb_group = new ToggleGroup();
-
     
     private static int tipoOperacion;    
     private static ImageView[] tools;    
@@ -197,8 +182,13 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     private static String[] tooltips;
 
     private static int numGuias         = 0; 
+    private static int numStatDet       = 0; 
+    private static int numIdProv        = 0; 
     
-    private static final String ScreenName = "Facturación de Carga";
+    private static final ObservableList<Orders> orders_hea = FXCollections.observableArrayList();
+    private static final ObservableList<Orders> orders_det = FXCollections.observableArrayList();
+
+    private static final String ScreenName = "Ord. de Compra";
     
     /**
      * Initializes the controller class.
@@ -207,36 +197,35 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
      */     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert bt_execute != null : "fx:id=\"bt_execute\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert cb_ano != null : "fx:id=\"cb_ano\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert cb_mes != null : "fx:id=\"cb_mes\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert dp_fecha1 != null : "fx:id=\"dt_fecha1\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert dp_fecha2 != null : "fx:id=\"dt_fecha2\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert rb_quality1 != null : "fx:id=\"rb_quality1\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'."; 
-        assert rb_quality2 != null : "fx:id=\"rb_quality2\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'."; 
-        assert rb_quality3 != null : "fx:id=\"rb_quality3\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'."; 
-        assert tb_price != null : "fx:id=\"tb_price\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert tb_invoice != null : "fx:id=\"tb_invoice\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert tf_buscar != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert bt_aceptar != null : "fx:id=\"bt_aceptar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert dp_fecha != null : "fx:id=\"dp_fecha\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'."; 
+        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_checkr != null : "fx:id=\"im_checkr\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_checkp != null : "fx:id=\"im_checkp\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert lb_mensj != null : "fx:id=\"lb_mensj\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_orden1 != null : "fx:id=\"tf_orden1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_orden2 != null : "fx:id=\"tf_orden2\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_proveedor != null : "fx:id=\"tf_proveedor\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
         defineToolBar();         
@@ -244,15 +233,11 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         init_buttons(); //Establece los comportamientos de los botones
         botonInicio();  //Se imprime la pantalla Inicio
 
-        loadYear();      
-        loadMonth();
-        createTablePrice();
-        createTableInvoice();
-
-        rb_quality1.setToggleGroup(rb_group);
-        rb_quality2.setToggleGroup(rb_group);
-        rb_quality3.setToggleGroup(rb_group);
+        createTable();
+        createDetail();
         
+        loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
+
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)){
@@ -286,90 +271,35 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     /***************************************************************************/
     
     /**
-     * Procedimiento de llenado de datos en la tabla de datos
-     */
-    private void loadYear(){
-        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-
-        final ObservableList<Integer> data = FXCollections.observableArrayList();
-        for (int i = localCalendar.get(Calendar.YEAR); i >= 2015; i--) {
-            data.addAll(i);
-        }
-        cb_ano.setItems(data);    
-    }    
-    /**
-     * Procedimiento de llenado de datos en la tabla de datos
-     */
-    private void loadMonth(){        
-        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-
-        final ObservableList<String> data = FXCollections.observableArrayList();
-        for (int i = 12; i >= 1; i--) {
-            switch (i){
-                case 1:
-                    data.add("Enero");
-                    break;
-                case 2:
-                    data.add("Febrero");
-                    break;
-                case 3:
-                    data.add("Marzo");
-                    break;
-                case 4:
-                    data.add("Abril");
-                    break;
-                case 5:
-                    data.add("Mayo");
-                    break;
-                case 6:
-                    data.add("Junio");
-                    break;
-                case 7:
-                    data.add("Julio");
-                    break;
-                case 8:
-                    data.add("Agosto");
-                    break;
-                case 9:
-                    data.add("Septiembre");
-                    break;
-                case 10:
-                    data.add("Octubre");
-                    break;
-                case 11:
-                    data.add("Noviembre");
-                    break;
-                case 12:
-                    data.add("Diciembre");
-                    break;
-            }
-        }
-        cb_mes.setItems(data);    
-    }
-    /**
     * Metodo encargado de Crear e inicializar la Tabla de Datos
     */
-    private void createTablePrice(){
+    private void createTable(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn col_code        = new TableColumn("Código");
-        TableColumn col_zonglomar   = new TableColumn("Zona");                
-        TableColumn col_monpeq      = new TableColumn("Peq");        
-        TableColumn col_mongra      = new TableColumn("Gra");
-        TableColumn col_mtogan      = new TableColumn("Gan");        
-        
-        //Se establece el ancho de cada columna
-        this.objectWidth(col_code           , 60, 60);  
-        this.objectWidth(col_zonglomar      , 110, 110); 
-        this.objectWidth(col_monpeq         , 60,  60);  
-        this.objectWidth(col_mongra         , 60,  60);  
-        this.objectWidth(col_mtogan         , 60,  60);  
+        TableColumn col_ordenc        = new TableColumn("#");        
+        TableColumn col_fechac        = new TableColumn<>("Fecha");        
+        TableColumn col_numorden      = new TableColumn<>("Nro Orden");                
+        TableColumn col_idprovc       = new TableColumn<>("ID");                
+        TableColumn col_rifprovc      = new TableColumn<>("Rif");        
+        TableColumn col_nfiscalc      = new TableColumn<>("Nombre Fiscal");        
+        TableColumn col_fpersonalc    = new TableColumn<>("Firma Personal");        
+        TableColumn col_cantsol       = new TableColumn<>("Cant");        
 
-        col_code.setCellFactory(new Callback<TableColumn, TableCell>() {
+        //Se establece el ancho de cada columna
+        this.objectWidth(col_ordenc       , 34,  34); 
+        this.objectWidth(col_fechac       , 66,  66);
+        this.objectWidth(col_numorden     , 66,  66);
+        this.objectWidth(col_idprovc      , 45,  45);
+        this.objectWidth(col_rifprovc     , 75,  75);
+        this.objectWidth(col_nfiscalc     , 330, 350); //270
+        this.objectWidth(col_fpersonalc   , 200, 350);
+        this.objectWidth(col_cantsol      , 60,  60);
+
+        col_numorden.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, String>() {
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
                     @Override
-                    public void updateItem(String item, boolean empty) {
+                    public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(empty ? null : getString());
                         setAlignment(Pos.CENTER);
@@ -390,28 +320,25 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             }
         });        
 
-        col_monpeq.setCellFactory(new Callback<TableColumn, TableCell>() {
+        col_fechac.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, Double>() {
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
                     @Override
-                    public void updateItem(Double item, boolean empty) {
+                    public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
+                        setAlignment(Pos.CENTER);
                     }
 
                     private String getString() {
                         String ret = "";
                         if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
                         } else {
-                            ret = "0,00";
+                            ret = "";
                         }
                         return ret;
                     }                
@@ -419,28 +346,25 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             }
         });        
 
-        col_mongra.setCellFactory(new Callback<TableColumn, TableCell>() {
+        col_idprovc.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, Double>() {
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
                     @Override
-                    public void updateItem(Double item, boolean empty) {
+                    public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
+                        setAlignment(Pos.CENTER);
                     }
 
                     private String getString() {
                         String ret = "";
                         if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
                         } else {
-                            ret = "0,00";
+                            ret = "";
                         }
                         return ret;
                     }                
@@ -448,12 +372,12 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             }
         });        
 
-        col_mtogan.setCellFactory(new Callback<TableColumn, TableCell>() {
+        col_cantsol.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, Double>() {
+            public TableCell call(TableColumn<Object, Object> param) {
+                return new TableCell<Orders, Integer>() {
                     @Override
-                    public void updateItem(Double item, boolean empty) {
+                    public void updateItem(Integer item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(empty ? null : getString());
                         setAlignment(Pos.CENTER_RIGHT);
@@ -478,216 +402,222 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         });        
 
         //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
-        col_code.setCellValueFactory( 
-                new PropertyValueFactory<>("codigo") );
-        col_zonglomar.setCellValueFactory( 
-                new PropertyValueFactory<>("zonGlomar") );
-        col_monpeq.setCellValueFactory( 
-                new PropertyValueFactory<>("vehPeq") );
-        col_mongra.setCellValueFactory( 
-                new PropertyValueFactory<>("vehGra") );
-        col_mtogan.setCellValueFactory( 
-                new PropertyValueFactory<>("vehGan") );
-        
-        //Se Asigna ordenadamente las columnas de la tabla
-        tb_price.getColumns().addAll(
-                col_code, col_zonglomar, col_monpeq, col_mongra, col_mtogan
-                );                
-        
-        //Se Asigna menu contextual 
-        
-        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
-        EventHandler eh = new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent ke){
-                //Si fue presionado la tecla ARRIBA o ABAJO
-                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
-                    //Selecciona la FILA enfocada
-                    //selectedRowInvoice();
-                }
-            }
-        };
-        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_price.setOnKeyReleased(eh);    
-    }
-    /**
-    * Metodo encargado de Crear e inicializar la Tabla de Datos
-    */
-    private void createTableInvoice(){
-        //Se crean y definen las columnas de la Tabla
-        TableColumn col_chofer      = new TableColumn("Chofer");
-        TableColumn col_fecha       = new TableColumn("Fecha");                
-        TableColumn col_guia        = new TableColumn("Nro. Guia");        
-        TableColumn col_destino     = new TableColumn("Destino");
-        TableColumn col_placa       = new TableColumn("Nro. Placa");        
-        TableColumn col_monguia     = new TableColumn("Mto Guia");
-        TableColumn col_mtoflete    = new TableColumn("Mto Flete");        
-        
-        //Se establece el ancho de cada columna
-        this.objectWidth(col_chofer             , 200, 250);  
-        this.objectWidth(col_fecha              , 80,  80); 
-        this.objectWidth(col_guia               , 80,  80);  
-        this.objectWidth(col_destino            , 100, 100);  
-        this.objectWidth(col_placa              , 80,  80);  
-        this.objectWidth(col_monguia            , 90,  90);  
-        this.objectWidth(col_mtoflete           , 90,  90);  
-
-        col_fecha.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_guia.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_placa.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_monguia.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, Double>() {
-                    @Override
-                    public void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
-                        } else {
-                            ret = "0,00";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_mtoflete.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_CGuias_Glomar_price, Double>() {
-                    @Override
-                    public void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
-                        } else {
-                            ret = "0,00";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
-        col_chofer.setCellValueFactory( 
-                new PropertyValueFactory<>("chofer") );
-        col_fecha.setCellValueFactory( 
+        col_ordenc.setCellValueFactory( 
+                new PropertyValueFactory<>("numorden") );
+        col_fechac.setCellValueFactory( 
                 new PropertyValueFactory<>("fecha") );
-        col_guia.setCellValueFactory( 
-                new PropertyValueFactory<>("guia") );
-        col_destino.setCellValueFactory( 
-                new PropertyValueFactory<>("destino") );
-        col_placa.setCellValueFactory( 
-                new PropertyValueFactory<>("nroPlaca") );
-        col_monguia.setCellValueFactory( 
-                new PropertyValueFactory<>("mtoGuia") );
-        col_mtoflete.setCellValueFactory( 
-                new PropertyValueFactory<>("mtoFlete") );
+        col_numorden.setCellValueFactory( 
+                new PropertyValueFactory<>("idOrden") );
+        col_idprovc.setCellValueFactory( 
+                new PropertyValueFactory<>("idSupplier") );
+        col_rifprovc.setCellValueFactory( 
+                new PropertyValueFactory<>("rif") );
+        col_nfiscalc.setCellValueFactory( 
+                new PropertyValueFactory<>("nombre") );
+        col_fpersonalc.setCellValueFactory( 
+                new PropertyValueFactory<>("firma") );
+        col_cantsol.setCellValueFactory( 
+                new PropertyValueFactory<>("cant_sol") );
+
+        //Se Asigna ordenadamente las columnas de la tabla
+        tb_table.getColumns().addAll(
+            col_ordenc, col_fechac, col_numorden, col_idprovc, col_nfiscalc
+            );   
+
+        //Se Asigna menu contextual 
+
+        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
+        EventHandler eh = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent ke){
+                //Si fue presionado la tecla ARRIBA o ABAJO
+                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
+                    //Selecciona la FILA enfocada
+                    selectedRow();
+                }
+            }
+        };
+        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
+        tb_table.setOnKeyReleased(eh);
+    }  
+    /**
+    * Metodo encargado de Crear e inicializar la Tabla de Datos
+    */
+    private void createDetail(){
+        //Se crean y definen las columnas de la Tabla
+        TableColumn col_orden       = new TableColumn("#");
+        TableColumn col_status      = new TableColumn("Act");
+        TableColumn col_producto    = new TableColumn("Código");                
+        TableColumn col_descrip     = new TableColumn("Descripción");        
+        TableColumn col_unidped     = new TableColumn("Unid");
+        TableColumn col_empaque     = new TableColumn("Empaque");
+        
+        TableColumn col_cantped      = new TableColumn("Pedida");        
+        TableColumn col_cantrec      = new TableColumn("Recibida");        
+        TableColumn col_cantpen      = new TableColumn("Faltante");        
+        TableColumn col_cantidades   = new TableColumn("Cantidades");
+        col_cantidades.getColumns().addAll(
+                col_cantrec, col_cantpen);//col_cantped, 
+
+        TableColumn col_precio       = new TableColumn<>("P. Marcado");        
+        TableColumn col_fecha1       = new TableColumn<>("F. Vcto 1");        
+        TableColumn col_fecha2       = new TableColumn<>("F. Vcto 2");        
+        TableColumn col_cbarra       = new TableColumn<>("Cod. de Barra");        
+
+        //Se establece el ancho de cada columna
+        this.objectWidth(col_orden          , 25,  25);
+        this.objectWidth(col_status         , 30 , 30);
+        this.objectWidth(col_producto       , 52 , 52);   
+        this.objectWidth(col_descrip        , 220, 300);
+        this.objectWidth(col_unidped        , 45,  45);
+        this.objectWidth(col_empaque        , 60,  60);
+        this.objectWidth(col_cantped        , 55 , 65);
+        this.objectWidth(col_cantrec        , 62 , 62);
+        this.objectWidth(col_cantpen        , 62 , 62);
+        this.objectWidth(col_precio         , 75,  75);
+        this.objectWidth(col_fecha1         , 65,  65);
+        this.objectWidth(col_fecha2         , 65,  65);
+        this.objectWidth(col_cbarra         , 115,  115);
+
+        /**
+         * Sobreescritura de un metodo de la Columna, para sustituir el valor numerico 
+         * del STATUS del usuario por una Imagen segun el valor
+         * 1 - VERDE (HABILITADO)
+         * 2 - ROJO  (DESHABILITADO)
+         */
+        col_status.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Orders, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem();
+                            switch(ret){  
+                                case "C":     //DESHABILITADO
+                                    setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Images/img59.png"), 15, 15, false,false))); 
+                                    break;
+                                case "A":     //HABILITADO
+                                    setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Images/img61.png"), 15, 15, false,false))); 
+                                    break;   
+                            }                            
+                        } else {
+                            setGraphic(null);
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_producto.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Orders, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_cantped.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Orders, Integer>() {
+                    @Override
+                    public void updateItem(Integer item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER_RIGHT);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            String gi = getItem().toString();
+                            NumberFormat df = DecimalFormat.getInstance();
+                            df.setMinimumFractionDigits(0);
+                            df.setRoundingMode(RoundingMode.DOWN);
+
+                            ret = df.format(Double.parseDouble(gi));
+                        } else {
+                            ret = "0,00";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_unidped.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Orders, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        
+
+        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
+        col_orden.setCellValueFactory( 
+                new PropertyValueFactory<>("numorden") );
+        col_status.setCellValueFactory( 
+                new PropertyValueFactory<>("statdet") );
+        col_producto.setCellValueFactory( 
+                new PropertyValueFactory<>("idProducto") );
+        col_descrip.setCellValueFactory( 
+                new PropertyValueFactory<>("descrip") );
+        col_cantped.setCellValueFactory( 
+                new PropertyValueFactory<>("cant_sol") );
+        col_unidped.setCellValueFactory( 
+                new PropertyValueFactory<>("unidsol") );
         
         //Se Asigna ordenadamente las columnas de la tabla
-        tb_invoice.getColumns().addAll(
-                col_chofer, col_fecha, col_guia, col_destino, col_placa,
-                col_monguia, col_mtoflete
+        tb_view.getColumns().addAll(
+                col_orden, col_producto, col_descrip, col_unidped, col_empaque,
+                col_cantidades, col_precio, col_fecha1, col_fecha2
                 );                
         
         //Se Asigna menu contextual 
@@ -699,13 +629,14 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
                 //Si fue presionado la tecla ARRIBA o ABAJO
                 if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
                     //Selecciona la FILA enfocada
-                    //selectedRowInvoice();
+                    //selectedRow();
                 }
             }
         };
         //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_invoice.setOnKeyReleased(eh);    
-    }
+        tb_view.setOnKeyReleased(eh);
+    }  
+
     /**
      * Procedimiento encargado de refrescar el formulario de la pantalla,
      * establece nuevos valores a cada campo de Texto
@@ -728,36 +659,45 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         //Se evalua el tipo de Operacion
         switch(tipoOperacion){
             case 0:  //SOLO LECTURA                    
+                tf_orden1.setEditable(true);
+                tf_orden2.setEditable(true);
 
                 //SE PERMITE: NUEVO, CANCELAR Y BUSCAR
                 disables = new Integer[]{2,5,6,9,10};
                 disableAllToolBar(disables); 
-                hb_1.setVisible(true);
                 break;
             case 1:  //NUEVO
-//                lb_Title.setText("NUEVO");
+                lb_Title.setText("NUEVO");
+                tf_orden1.setEditable(false);
+                tf_orden2.setEditable(false);
 
                 //SE PERMITE: NUEVO,GUARDAR Y CANCELAR             
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
                 disableAllToolBar(disables);                            
                 break;
             case 2:  //EDITAR
-//                lb_Title.setText("EDITAR");
+                lb_Title.setText("EDITAR");
+                tf_orden1.setEditable(false);
+                tf_orden2.setEditable(false);
 
                 //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
                 disableAllToolBar(disables);            
                 break;
             case 3:  //GUARDAR
+                tf_orden1.setEditable(true);
+                tf_orden2.setEditable(true);
 
                 //SE PERMITE: GUARDAR Y CANCELAR
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
                 disableAllToolBar(disables);   
                 break;
             case 4:  //CAMBIAR STATUS 
+                tf_orden1.setEditable(true);
+                tf_orden2.setEditable(true);
 
                 //SE PERMITE: GUARDAR,CAMBIO STATUS Y CANCELAR
-                disables = new Integer[]{2,5,6,7,8,9,10};
+                disables = new Integer[]{0,1,2,4,6,7,8,9,10,11};
                 disableAllToolBar(disables); 
                 break;
         }        
@@ -765,38 +705,42 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         Gui.getInstance().setTipoOperacion(tipoOperacion);
     }    
     /**
-     * Procedimiento que busca en BD la lista de usuarios
-     * y los envia a cargar en la tabla
+     * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadPrices(){        
-        Datos.setRep_log_cguias_glomar_price(Ln.getInstance().load_Glomar_price());
-        loadTablePrice( Datos.getRep_log_cguias_glomar_price());     
+    private void loadTable(Orders[] orders){    
+        if(orders != null){
+            ObservableList<Orders> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(orders));   
+            tb_table.setItems(data);        
+        }
+    } 
+    /**
+     * Metodo que selecciona y llena el formulario con los datos del usuario 
+     * seleccionado en la tabla
+     */
+    private void selectedRow(){
+        tipoOperacion = 0;      //SOLO LECTURA
+        Datos.setRep_orders(Ln.getInstance().find_orders(String.valueOf(tb_table.getSelectionModel().getSelectedItem().getIdOrden())));
+        if(Datos.getRep_orders() != null){
+            loadTableView(Datos.getRep_orders()); 
+        }
     }
     /**
      * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadTablePrice(log_CGuias_Glomar_price[] glomar_price){    
-        if(glomar_price != null){
-            ObservableList<log_CGuias_Glomar_price> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(glomar_price));        
-            tb_price.setItems(data);        
+    private void loadTableView(Orders[] order){    
+        if(order != null){
+            ObservableList<Orders> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(order));   
+            tb_view.setItems(data);        
         }
-    } 
-    /**
-     * Procedimiento de llenado de datos en la tabla de datos
-     */
-    private void loadTableInvoice(log_CGuias_Glomar_invoice[] glomar_invoice){    
-        if(glomar_invoice != null){
-            ObservableList<log_CGuias_Glomar_invoice> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(glomar_invoice));        
-            tb_invoice.setItems(data);        
-        }
-    } 
+    }    
+    
 
 
     /***************************************************************************/
     /************************ METODOS DE ACCESO RAPIDO *************************/
-    /***************************************************************************/
+    /******************************************
         
     /**
      * Metodo que define el arreglo de NODOS del formulario que podran ser
@@ -811,21 +755,24 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
+                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
                     };
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
+                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
                     };
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
+                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
                     };
                 break;
         }             
         switch (opc){
+            case 0: 
             case 1: 
-            case 2: 
-            case 3:
+            case 2:
                 Gui.setFields(nodos); 
                 Gui.setFieldFocused(0);
                 Gui.setFieldsSize(nodos.length);
@@ -874,9 +821,9 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             "Cambiar Status de " + ScreenName + " ",
             "Imprimir " + ScreenName + " ",
             "Cancelar ",
-            "Sin Asignar ",
-            "Faltante en " + ScreenName + " ",
-            "Devolución en " + ScreenName + " ",
+            "Sin Asignar",
+            "Sin Asignar",
+            "Sin Asignar",
             "Sin Asignar",
             "Sin Asignar",
             "Buscar " + ScreenName + " "
@@ -887,21 +834,11 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             Tooltip.install(tools[i], tip_tool);
         }
         
-        im_tool1.setVisible(false);
-        im_tool2.setVisible(false);
-        im_tool3.setVisible(false);
-        im_tool4.setVisible(false);
-        im_tool6.setVisible(false);
         im_tool7.setVisible(false);
         im_tool8.setVisible(false);
         im_tool9.setVisible(false);
         im_tool10.setVisible(false);
         im_tool11.setVisible(false);
-        im_tool12.setVisible(false);
-        
-        //ima.setImage(new Image(getClass().getResourceAsStream("/Images/img61a.png")));
-        Image ima = new Image(getClass().getResourceAsStream("/Images/img46.png"));
-//        bt_execute.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Images/img46.png"))));
     }
     /**
      * Metodo que se encarga de habilitar y deshabilitar los botones segun
@@ -980,6 +917,14 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
                     //Valida que el evento se haya generado en el campo de busqueda
                     if(((Node)ke.getSource()).getId().equals("tf_buscar")){                        
                         //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                        Datos.setOrders(new Orders());                           
+                        boolean boo = Ln.getInstance().check_orders(tf_buscar.getText());                
+                        if(boo){
+                            Datos.setRep_orders(Ln.getInstance().find_orders(tf_buscar.getText()));
+                        }
+                        else{
+                            Gui.getInstance().showMessage("El Nro de Orden de Compra NO existe!", "A");
+                        }
                         tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
                     }
                 }
@@ -998,12 +943,20 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
         
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
+        tf_orden1.setText("");
+        tf_orden2.setText("");
+        tf_proveedor.setText("");
 
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
         
+        Datos.setOrders(new Orders());                           
+        refreshForm();                      
+        Datos.setLog_cguias(null);                  //RESET DE LA VARIABLE
+        setFormVisible(true);                      //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
-        loadPrices();
+        
+        tf_orden1.requestFocus();
     }
     /**
      * 
@@ -1011,16 +964,21 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     private void botonNuevo(){
         if(toolsConfig[2]==1){
             tipoOperacion = 1;
+            Datos.setOrders(new Orders());                           
             refreshForm();
             setFormVisible(true);
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
+
+            tf_orden1.setText("");
+            tf_orden2.setText("");
+            tf_orden1.requestFocus();
         }
     }
     /**
      * 
      */
     private void botonEditar(){
-        if(Datos.getLog_cguias()!= null && toolsConfig[3]==1){
+        if(Datos.getOrders() != null && toolsConfig[3]==1){
             tipoOperacion = 2;
             refreshForm();
             setFormVisible(true);     
@@ -1031,37 +989,27 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
      * 
      */
     private void botonGuardar(){   
-        if(Datos.getLog_cguias()!= null){
-            boolean result = false;
-            switch (tipoOperacion){
-                case 1:
-                    if(toolsConfig[4]==1)
-//                        result = saveCGuias();
-                    break;
-                case 2:
-                    if(toolsConfig[4]==1)
-//                        result = saveCGuias();
-                    break;
-            }
-            if (result)
-                botonInicio();
+        if(Datos.getOrders() != null){
+//            boolean result = saveOrder();
+//            if (result)
+//                botonInicio();
         }
     }
     /**
      * 
      */
     private void botonEliminar() {
-        if(Datos.getLog_cguias()!= null && toolsConfig[5]==1){
+        if(Datos.getOrders() != null && toolsConfig[5]==1){
             tipoOperacion = 4;      //OPERACION DE BORRADO
             change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
             String verbo = "desactivar";
-            if(Datos.getLog_cguias().getAnulada()== 1){
+            if(Datos.getOrders().getStatenc()== 1){
                 verbo = "activar";
             }
             String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getLog_cguias().getNumguia()+"?";
+                "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getOrders().getIdOrden()+"?";
             Gui.getInstance().showConfirmar(mensj);  
         }
     }
@@ -1071,9 +1019,13 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     private void botonBuscar(){
         if(toolsConfig[13]==1){
             //tipoOperacion = 0;                          //OPERACION SOLO LECTURA
-            numGuias = 0;
+            tf_orden1.setText("");
             //SE LIMPIA EL FORMULARIO
             tf_buscar.setVisible(true);
+            Datos.setOrders(new Orders());                           
+            refreshForm();                      
+            Datos.setOrders(null);                //RESET DE LA VARIABLE
+            //setFormVisible(false);                      //OCULTA EL FORMULARIO     
             tf_buscar.requestFocus();
         }
     }
@@ -1083,22 +1035,58 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
     private void botonImprimir(){
         tipoOperacion = 5;                  //OPERACION SOLO LECTURA
 
-        ObservableList<log_CGuias_Glomar_invoice> data = FXCollections.observableArrayList();
-        data.addAll(Datos.getRep_log_cguias_glomar_invoice());   
-        JRDs = new JRBeanCollectionDataSource(data, true);
+        ObservableList<Orders> data = FXCollections.observableArrayList();
+        data.addAll(Datos.getRep_orders());   
 
-        JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+        List<Supplier> datas = Ln.getList_Supplier(Ln.getInstance().find_Supplier(data.get(0).getRif()));
+        Datos.setSupplier(datas.get(0));
+        
+        if(!data.isEmpty()){
+            JRDs = new JRBeanCollectionDataSource(data, true);
 
-        try{ 
-            jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_pre_port_inv_glomar.jasper");
-            jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
-            jview = new JasperViewer(jPrint, false);
-            jview.setTitle("DIGA - Relación de Fletes Despachados (Logistica) ");
-        } catch (JRException ee){
-            Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+            JrxmlParam.put("p_orden", "RECEPCION SEGUN O/C NRO.:  " + data.get(0).getIdOrden());
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec.jasper");
+
+                if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
+                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec_nac.jasper");
+                }
+                else{
+                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec_imp.jasper");
+                }
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+
+                jview = new JasperViewer(jPrint, false);
+                jview.setTitle("DIGA - Recepción de Compra (Compras) ");
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+            jview.setVisible(true);
+            jview.setResizable(false);
         }
-        jview.setVisible(true);
-        jview.setResizable(false);
+        else{
+            Gui.getInstance().showMessage("Debe indicar un Nro. de Orden!", "A");
+            tf_orden1.requestFocus();
+        }
+    }
+    /**
+     * 
+     */
+    private void botonCorreoOrden(){
+        tipoOperacion = 8;                  //OPERACION SOLO LECTURA
+
+        Datos.setIdButton(1002012);
+        Gui.getInstance().showEmailSend();  
+    }
+    /**
+     * 
+     */
+    private void botonCorreoAgenda(){
+        tipoOperacion = 9;                  //OPERACION SOLO LECTURA
+
+        Datos.setIdButton(1002013);
+        Gui.getInstance().showEmail(ScreenName);  
     }
     /**
      * Procedimiento que define los comportamientos en diversos Eventos 
@@ -1177,22 +1165,22 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
             }
         });
         /**
-         * BOTON NOTAS DE CREDITO
+         * BOTON POR ASIGNAR
          */
         im_tool8.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    //
+                    botonCorreoOrden();
                 }
             }
         });
         /**
-         * BOTON DEVOLUCION
+         * BOTON POR ASIGNAR
          */
         im_tool9.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    //
+                    botonCorreoAgenda();
                 }
             }
         });
@@ -1201,144 +1189,80 @@ public class Fxml_Guide_InvoiceGlomarController implements Initializable {
          */
         im_tool12.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                switch (mouseEvent.getClickCount()){
-                    case 1:
-                        botonInicio();
-                        botonBuscar();
-                        break;
-                    case 2:
-                        Datos.setIdButton(2003041);
-                        Gui.getInstance().showBusqueda("Busqueda");  
-                        break;
+                botonBuscar();
+            } 
+        });
+        /**
+         * SELECCION EN LA TABLA
+         */
+        tb_table.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    if ((tb_table.getItems() != null) && (!tb_table.getItems().isEmpty()))
+                        selectedRow();
+                }
+            }
+        });        
+        /**
+         * metodo para mostrar buscar el nro de RIF
+         * param: ENTER O TAB
+         */
+        tf_orden1.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if (!tf_orden1.getText().isEmpty()){
                 }
             }
         });
         /**
-         * CB_MES
+         * 
          */
-        cb_mes.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> arg0, String arg1, String arg2) -> {
-            if (arg2 != null){
-                Integer idayi = 01;
-                Integer idayf = 30;
-                Integer imonth = 0;
-                Integer iyear = LocalDate.now().getYear();
-
-                switch (cb_mes.getValue()){
-                    case "Enero":
-                        imonth = 1;
-                        idayf = 31;
-                        break;
-                    case "Febrero":
-                        imonth = 2;
-                        idayf = 28;
-                        break;
-                    case "Marzo":
-                        imonth = 3;
-                        idayf = 31;
-                        break;
-                    case "Abril":
-                        imonth = 4;
-                        break;
-                    case "Mayo":
-                        imonth = 5;
-                        idayf = 31;
-                        break;
-                    case "Junio":
-                        imonth = 6;
-                        break;
-                    case "Julio":
-                        imonth = 7;
-                        idayf = 31;
-                        break;
-                    case "Agosto":
-                        imonth = 8;
-                        idayf = 31;
-                        break;
-                    case "Septiembre":
-                        imonth = 9;
-                        break;
-                    case "Octubre":
-                        imonth = 10;
-                        idayf = 31;
-                        break;
-                    case "Noviembre":
-                        imonth = 11;
-                        break;
-                    case "Diciembre":
-                        imonth = 12;
-                        idayf = 31;
-                        iyear = iyear - 1;
-                        break;
+        bt_aceptar.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty() && dp_fecha.getValue() == null){
+                        loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
+                    }
+                    else{
+                        if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            loadTable( Ln.getInstance().find_orders_date(dp_fecha.getValue().format(formatter)));  
+                        }
+                        else{
+                            if(!tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
+                                loadTable( Ln.getInstance().find_orders_id(tf_orden1.getText()));  
+                            }
+                            if(!tf_orden1.getText().isEmpty() && !tf_orden2.getText().isEmpty()){
+                                loadTable( Ln.getInstance().find_orders_ids(tf_orden1.getText(), tf_orden2.getText()));  
+                            }
+                        }
+                    }
                 }
-                dp_fecha1.setValue(LocalDate.of(iyear, imonth, idayi));
-                if(LocalDate.now().getMonth().getValue() == imonth){
-                    idayf = LocalDate.now().getDayOfMonth();
-                }
-                dp_fecha2.setValue(LocalDate.of(iyear, imonth, idayf));
             }
         });
         /**
-         * BOTON EXECUTE
+         * 
          */
-        bt_execute.setOnAction((ActionEvent event) -> {
-            Integer imonth = 0;
-            Integer iquality = 0;
-
-            switch (cb_mes.getValue()){
-                case "Enero":
-                    imonth = 1;
-                    break;
-                case "Febrero":
-                    imonth = 2;
-                    break;
-                case "Marzo":
-                    imonth = 3;
-                    break;
-                case "Abril":
-                    imonth = 4;
-                    break;
-                case "Mayo":
-                    imonth = 5;
-                    break;
-                case "Junio":
-                    imonth = 6;
-                    break;
-                case "Julio":
-                    imonth = 7;
-                    break;
-                case "Agosto":
-                    imonth = 8;
-                    break;
-                case "Septiembre":
-                    imonth = 9;
-                    break;
-                case "Octubre":
-                    imonth = 10;
-                    break;
-                case "Noviembre":
-                    imonth = 11;
-                    break;
-                case "Diciembre":
-                    imonth = 12;
-                    break;
+        bt_aceptar.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)){
+                if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty() && dp_fecha.getValue() == null){
+                    loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
+                }
+                else{
+                    if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        loadTable( Ln.getInstance().find_orders_date(dp_fecha.getValue().format(formatter)));  
+                    }
+                    else{
+                        if(!tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
+                            loadTable( Ln.getInstance().find_orders_id(tf_orden1.getText()));  
+                        }
+                        if(!tf_orden1.getText().isEmpty() && !tf_orden2.getText().isEmpty()){
+                            loadTable( Ln.getInstance().find_orders_ids(tf_orden1.getText(), tf_orden2.getText()));  
+                        }
+                    }
+                }
             }
-            
-            if (rb_quality1.isSelected())
-                iquality = 1;
-
-            if (rb_quality2.isSelected())
-                iquality = 2;
-
-            if (rb_quality3.isSelected())
-                iquality = 3;
-            
-            Datos.setRep_log_cguias_glomar_invoice(
-                Ln.getInstance().find_Glomar_invoice(
-                    cb_ano.getValue(), imonth, iquality, 
-                    dp_fecha1.getValue().format(dtf_yyyy), dp_fecha2.getValue().format(dtf_yyyy)));
-            loadTableInvoice( Datos.getRep_log_cguias_glomar_invoice());     
         });
-        
     }   
 
     /***************************************************************************/

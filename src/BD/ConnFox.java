@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class ConnFox extends Bd {
     

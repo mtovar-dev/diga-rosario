@@ -8,7 +8,7 @@ package Objects;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Fxp_Archguie {
     

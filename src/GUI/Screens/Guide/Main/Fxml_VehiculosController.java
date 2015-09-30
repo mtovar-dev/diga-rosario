@@ -4,32 +4,28 @@
  * and open the template in the editor.
  */
 
-package GUI.Screens;
+package GUI.Screens.Guide.Main;
 
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
 import Listeners.SelectKeyComboBoxListener;
-import Objects.Orders.Orders;
-import Objects.log_CGuias;
+import Objects.log_TDispflota;
 import Objects.log_TMarca;
 import Objects.log_TProced;
+import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
 import Tools.Datos;
-import Tools.ValidateTextFieldNumber;
-import Tools.ValidateTextFieldPhone;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -74,7 +70,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Fxml_VehiculosController implements Initializable {
     
@@ -91,9 +87,6 @@ public class Fxml_VehiculosController implements Initializable {
     private Button bt_rcv;
     
     @FXML
-    private Button bt_se;
-    
-    @FXML
     private Button bt_rgt;
     
     @FXML
@@ -107,6 +100,12 @@ public class Fxml_VehiculosController implements Initializable {
 
     @FXML
     private ComboBox<log_TTransp> cb_ttrans;
+
+    @FXML
+    private ComboBox<log_TSeguros> cb_tseguro;
+
+    @FXML
+    private ComboBox<log_TDispflota> cb_disponible;
 
     @FXML
     private DatePicker dp_ps;
@@ -205,16 +204,37 @@ public class Fxml_VehiculosController implements Initializable {
     private RadioButton rb_clasif3;
     
     @FXML
+    private RadioButton rb_clasif4;
+    
+    @FXML
+    private RadioButton rb_clasif5;
+    
+    @FXML
+    private RadioButton rb_clasif6;
+    
+    @FXML
+    private RadioButton rb_clasif7;
+    
+    @FXML
+    private RadioButton rb_clasif8;
+    
+    @FXML
     private TableView<log_Vehiculos> tb_table;
 
     @FXML
     private TextField tf_buscar;
 
     @FXML
-    private ValidateTextFieldNumber tf_capacidad;
+    private TextField tf_tara;
 
     @FXML
-    private ValidateTextFieldPhone tf_celular;
+    private TextField tf_ccargakgrs;
+
+    @FXML
+    private TextField tf_ccargamtrs;
+
+    @FXML
+    private TextField tf_celular;
 
     @FXML
     private TextField tf_correo;
@@ -226,7 +246,7 @@ public class Fxml_VehiculosController implements Initializable {
     private TextField tf_rif;
 
     @FXML
-    private ValidateTextFieldNumber tf_ano;
+    private TextField tf_ano;
 
     @FXML
     private TextField tf_modelo;
@@ -244,16 +264,13 @@ public class Fxml_VehiculosController implements Initializable {
     private TextField tf_rcv;
     
     @FXML
-    private TextField tf_seguro;
-    
-    @FXML
     private TextField tf_ps;
     
     @FXML
     private TextField tf_rgt;
     
     @FXML
-    private ValidateTextFieldNumber tf_nrorgt;
+    private TextField tf_nrorgt;
     
     @FXML
     private VBox vb_form;
@@ -281,8 +298,10 @@ public class Fxml_VehiculosController implements Initializable {
     
     private static int tipoOperacion;    
     private static ImageView[] tools;    
+    private static RadioButton[] truckclass;    
     private static Integer[] toolsConfig;    
     private static String[] tooltips;
+    private static String[] truckclasstips;
     private File file;    
     
     private static final String ScreenName = "Vehiculo";
@@ -301,12 +320,13 @@ public class Fxml_VehiculosController implements Initializable {
         assert bt_cc != null : "fx:id=\"bt_cc\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert bt_tt != null : "fx:id=\"bt_tt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert bt_rcv != null : "fx:id=\"bt_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert bt_se != null : "fx:id=\"bt_se\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert bt_ps != null : "fx:id=\"bt_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert bt_rgt != null : "fx:id=\"bt_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_marca != null : "fx:id=\"cb_marca\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_proced != null : "fx:id=\"cb_proced\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert cb_ttrans != null : "fx:id=\"cb_ttrans\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert cb_tseguro != null : "fx:id=\"cb_tseguro\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert cb_disponible != null : "fx:id=\"cb_disponible\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert dp_rcv != null : "fx:id=\"dp_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert dp_ps != null : "fx:id=\"dt_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert dp_rgt != null : "fx:id=\"dt_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
@@ -336,12 +356,18 @@ public class Fxml_VehiculosController implements Initializable {
         assert rb_clasif1 != null : "fx:id=\"rb_clasif1\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
         assert rb_clasif2 != null : "fx:id=\"rb_clasif2\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
         assert rb_clasif3 != null : "fx:id=\"rb_clasif3\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
+        assert rb_clasif4 != null : "fx:id=\"rb_clasif4\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
+        assert rb_clasif5 != null : "fx:id=\"rb_clasif5\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
+        assert rb_clasif6 != null : "fx:id=\"rb_clasif6\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
+        assert rb_clasif7 != null : "fx:id=\"rb_clasif7\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
+        assert rb_clasif8 != null : "fx:id=\"rb_clasif8\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'."; 
         assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert tf_capacidad != null : "fx:id=\"tf_capacidad\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert tf_tara != null : "fx:id=\"tf_tara\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert tf_ccargakgrs != null : "fx:id=\"tf_ccargakgrs\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
+        assert tf_ccargamtrs != null : "fx:id=\"tf_ccargamtrs\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_celular != null : "fx:id=\"tf_celular\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_rcv != null : "fx:id=\"tf_rcv\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
-        assert tf_seguro != null : "fx:id=\"tf_seguro\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_ps != null : "fx:id=\"tf_ps\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_rgt != null : "fx:id=\"tf_rgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
         assert tf_nrorgt != null : "fx:id=\"tf_nrorgt\" was not injected: check your FXML file 'Fxml_Vehiculos.fxml'.";
@@ -364,9 +390,11 @@ public class Fxml_VehiculosController implements Initializable {
         loadBrands();
         loadTProced();
         loadTTransp();
+        loadTSeguro();
+        loadTDispflota();
         createTable();  //Crea e Inicializa la Tabla de Datos                    
 
-        tf_celular.setMaxlength(12);
+//        tf_celular.setMaxlength(12);
 
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
@@ -411,7 +439,7 @@ public class Fxml_VehiculosController implements Initializable {
         TableColumn col_capacidad       = new TableColumn("Cap. Carga");        
         TableColumn col_tmarca          = new TableColumn("T/Marca");
         TableColumn col_tproced         = new TableColumn("T/Proced");        
-        TableColumn col_ttransp         = new TableColumn("T/Transp");        
+        TableColumn col_ttransp         = new TableColumn("Clase");        
         TableColumn col_empresa         = new TableColumn("Empresa");        
         TableColumn col_telefonos       = new TableColumn("Teléfonos");        
         TableColumn col_celular         = new TableColumn("Celular");        
@@ -619,7 +647,7 @@ public class Fxml_VehiculosController implements Initializable {
         //Se Asigna tamaño del VBox para que lo tome el TableView
         vb_table.relocate(30, 64);
         vb_table.setPrefWidth(712);
-        vb_table.setPrefHeight(508);
+        vb_table.setPrefHeight(608);
 
         //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
         EventHandler eh = new EventHandler<KeyEvent>(){
@@ -647,7 +675,7 @@ public class Fxml_VehiculosController implements Initializable {
         //Se obtiene el rif y nombre del personal
         String nro_placa = tf_placa.getText();
         String modelo = tf_modelo.getText();
-        String capacidad = tf_capacidad.getText();
+        String capacidad = tf_ccargakgrs.getText();
         //Si el nombre de usuario no esta en blanco
         if((nro_placa != null && !nro_placa.equals("")) &&
            (modelo != null && !modelo.equals(""))  &&
@@ -658,7 +686,9 @@ public class Fxml_VehiculosController implements Initializable {
             log_Vehiculos log_vehiculos = new log_Vehiculos();
             log_vehiculos.setIdPlaca(tf_placa.getText());
             log_vehiculos.setModelo(tf_modelo.getText());
-            log_vehiculos.setCapacidad(Integer.parseInt(tf_capacidad.getText()));
+            log_vehiculos.setPeso_bveh(Integer.parseInt(tf_tara.getText()));
+            log_vehiculos.setCap_cargkgrs(Integer.parseInt(tf_ccargakgrs.getText()));
+            log_vehiculos.setCap_cargmtrs3(Integer.parseInt(tf_ccargamtrs.getText()));
             log_vehiculos.setEmpresa(tf_empresa.getText());
 
             log_vehiculos.setRif_empresa(tf_rif.getText());
@@ -668,7 +698,6 @@ public class Fxml_VehiculosController implements Initializable {
             log_vehiculos.setRuta_cc(tf_cc.getText());
             log_vehiculos.setRuta_tt(tf_tt.getText());
             log_vehiculos.setRuta_rcv(tf_rcv.getText());
-            log_vehiculos.setId_tseguro(Integer.parseInt(tf_seguro.getText()));
             log_vehiculos.setRuta_ps(tf_ps.getText());
             log_vehiculos.setRuta_rgt(tf_rgt.getText());
             if(dp_rcv.getValue() != null)
@@ -681,20 +710,35 @@ public class Fxml_VehiculosController implements Initializable {
             log_vehiculos.setStatus(Datos.getLog_vehiculos().getStatus());      //Se asigna el STATUS del personal
 
             switch(rb_clasif.getSelectedToggle().getUserData().toString()){
-                case "peq":
+                case "C1":
                     log_vehiculos.setClasif(1);
                     break;
-                case "gra":
+                case "C2":
                     log_vehiculos.setClasif(2);
                     break;
-                case "gan":
+                case "C3":
                     log_vehiculos.setClasif(3);
+                    break;
+                case "C4":
+                    log_vehiculos.setClasif(4);
+                    break;
+                case "C5":
+                    log_vehiculos.setClasif(5);
+                    break;
+                case "C6":
+                    log_vehiculos.setClasif(6);
+                    break;
+                case "C7":
+                    log_vehiculos.setClasif(7);
+                    break;
+                case "C8":
+                    log_vehiculos.setClasif(8);
                     break;
             }
             
             //Se obtiene el log_tmarca
             log_TMarca log_tmarca = (log_TMarca) cb_marca.getValue();            
-            if(log_tmarca == null){             //Si no existe un GroupSupplier seleccionado
+            if(log_tmarca == null){             //Si no existe un log_tmarca seleccionado
                 log_vehiculos.setTmarca(null);   //Se establece la ScreenNameiable como NULA
             }else{  
                 log_vehiculos.setTmarca(log_tmarca);
@@ -702,7 +746,7 @@ public class Fxml_VehiculosController implements Initializable {
 
             //Se obtiene el log_tproced
             log_TProced log_tproced = (log_TProced) cb_proced.getValue();            
-            if(log_tproced == null){             //Si no existe un GroupSupplier seleccionado
+            if(log_tproced == null){             //Si no existe un log_tproced seleccionado
                 log_vehiculos.setTproced(null);   //Se establece la ScreenNameiable como NULA
             }else{  
                 log_vehiculos.setTproced(log_tproced);
@@ -710,12 +754,28 @@ public class Fxml_VehiculosController implements Initializable {
 
             //Se obtiene el log_ttransp 
             log_TTransp log_ttransp = (log_TTransp) cb_ttrans.getValue();            
-            if(log_ttransp == null){             //Si no existe un Estado seleccionado
+            if(log_ttransp == null){             //Si no existe un log_ttransp seleccionado
                 log_vehiculos.setTtransp(null);   //Se establece la ScreenNameiable como NULA
             }else{  
                 log_vehiculos.setTtransp(log_ttransp);
             }            
+
+            //Se obtiene el log_tseguro 
+            log_TSeguros log_tseguro = (log_TSeguros) cb_tseguro.getValue();            
+            if(log_tseguro == null){             //Si no existe un log_tseguro seleccionado
+                log_vehiculos.setTseguro(null);   //Se establece la ScreenNameiable como NULA
+            }else{  
+                log_vehiculos.setTseguro(log_tseguro);
+            }            
             
+            //Se obtiene el log_tseguro 
+            log_TDispflota tdispflota = (log_TDispflota) cb_disponible.getValue();            
+            if(tdispflota == null){             //Si no existe un log_tseguro seleccionado
+                log_vehiculos.setTdispflota(null);   //Se establece la ScreenNameiable como NULA
+            }else{  
+                log_vehiculos.setTdispflota(tdispflota);
+            }            
+
             //Se llama al proceso de Guardado
             boolean result = 
                     Ln.getInstance().save_log_Vehiculos(log_vehiculos, proceso, ScreenName);
@@ -738,7 +798,9 @@ public class Fxml_VehiculosController implements Initializable {
     private void refreshForm(){       
         tf_placa.setText(Datos.getLog_vehiculos().getIdPlaca());
         tf_modelo.setText(Datos.getLog_vehiculos().getModelo());
-        tf_capacidad.setText(Integer.toString(Datos.getLog_vehiculos().getCapacidad()));
+        tf_tara.setText(Integer.toString(Datos.getLog_vehiculos().getPeso_bveh()));
+        tf_ccargakgrs.setText(Integer.toString(Datos.getLog_vehiculos().getCap_cargkgrs()));
+        tf_ccargamtrs.setText(Integer.toString(Datos.getLog_vehiculos().getCap_cargmtrs3()));
         tf_empresa.setText(Datos.getLog_vehiculos().getEmpresa());
         tf_rif.setText(Datos.getLog_vehiculos().getRif_empresa());
         tf_ano.setText(Integer.toString(Datos.getLog_vehiculos().getAno()));
@@ -747,6 +809,8 @@ public class Fxml_VehiculosController implements Initializable {
         cb_marca.setValue(Datos.getLog_vehiculos().getTmarca());
         cb_proced.setValue(Datos.getLog_vehiculos().getTproced());
         cb_ttrans.setValue(Datos.getLog_vehiculos().getTtransp());
+        cb_tseguro.setValue(Datos.getLog_vehiculos().getTseguro());
+        cb_disponible.setValue(Datos.getLog_vehiculos().getTdispflota());
         tf_cc.setText(Datos.getLog_vehiculos().getRuta_cc());
         tf_tt.setText(Datos.getLog_vehiculos().getRuta_tt());
         tf_rcv.setText(Datos.getLog_vehiculos().getRuta_rcv());
@@ -759,6 +823,11 @@ public class Fxml_VehiculosController implements Initializable {
                 rb_clasif1.setSelected(false);
                 rb_clasif2.setSelected(false);
                 rb_clasif3.setSelected(false);
+                rb_clasif4.setSelected(false);
+                rb_clasif5.setSelected(false);
+                rb_clasif6.setSelected(false);
+                rb_clasif7.setSelected(false);
+                rb_clasif8.setSelected(false);
                 break;
             case 1:
                 rb_clasif1.setSelected(true);
@@ -768,6 +837,21 @@ public class Fxml_VehiculosController implements Initializable {
                 break;
             case 3:
                 rb_clasif3.setSelected(true);
+                break;
+            case 4:
+                rb_clasif4.setSelected(true);
+                break;
+            case 5:
+                rb_clasif5.setSelected(true);
+                break;
+            case 6:
+                rb_clasif6.setSelected(true);
+                break;
+            case 7:
+                rb_clasif7.setSelected(true);
+                break;
+            case 8:
+                rb_clasif8.setSelected(true);
                 break;
         }
             
@@ -780,15 +864,14 @@ public class Fxml_VehiculosController implements Initializable {
         if (Datos.getLog_vehiculos().getStat_rcv()!= null) 
             changeIconDate(Datos.getLog_vehiculos().getStat_rcv(), Datos.getLog_vehiculos().getDias_rcv(), im_rcv);
 
-        tf_seguro.setText(String.valueOf(Datos.getLog_vehiculos().getId_tseguro()));
         Tooltip tip_tool = new Tooltip();
         if(Datos.getLog_vehiculos().getTseguro() == null){
             tip_tool.setText("");
         }
         else{
-            tip_tool.setText(Datos.getLog_vehiculos().getTseguro());
+            tip_tool.setText(Datos.getLog_vehiculos().getTseguro().getNombre());
         }
-        tf_seguro.setTooltip(tip_tool);
+        cb_tseguro.setTooltip(tip_tool);
         
         if(Datos.getLog_vehiculos().getFec_ps() != null)
             dp_ps.setValue(Datos.getLog_vehiculos().getFec_ps().toLocalDate());
@@ -826,7 +909,9 @@ public class Fxml_VehiculosController implements Initializable {
             case 0:  //SOLO LECTURA                    
                 tf_placa.setEditable(false);
                 tf_modelo.setEditable(false);
-                tf_capacidad.setEditable(false);
+                tf_tara.setEditable(false);
+                tf_ccargakgrs.setEditable(false);
+                tf_ccargamtrs.setEditable(false);
                 tf_empresa.setEditable(false);
                 tf_rif.setEditable(false);
                 tf_ano.setEditable(false);
@@ -864,7 +949,9 @@ public class Fxml_VehiculosController implements Initializable {
                 lb_Title.setText("NUEVO");
                 tf_placa.setEditable(true);
                 tf_modelo.setEditable(true);
-                tf_capacidad.setEditable(true);
+                tf_tara.setEditable(true);
+                tf_ccargakgrs.setEditable(true);
+                tf_ccargamtrs.setEditable(true);
                 tf_empresa.setEditable(true);
                 tf_rif.setEditable(true);
                 tf_ano.setEditable(true);
@@ -901,7 +988,9 @@ public class Fxml_VehiculosController implements Initializable {
                 lb_Title.setText("EDITAR");
                 tf_placa.setEditable(false);
                 tf_modelo.setEditable(true);
-                tf_capacidad.setEditable(true);
+                tf_tara.setEditable(true);
+                tf_ccargakgrs.setEditable(true);
+                tf_ccargamtrs.setEditable(true);
                 tf_empresa.setEditable(true);
                 tf_rif.setEditable(true);
                 tf_ano.setEditable(true);
@@ -932,7 +1021,9 @@ public class Fxml_VehiculosController implements Initializable {
             case 3:  //GUARDAR
                 tf_placa.setEditable(false);
                 tf_modelo.setEditable(false);
-                tf_capacidad.setEditable(false);
+                tf_tara.setEditable(false);
+                tf_ccargakgrs.setEditable(false);
+                tf_ccargamtrs.setEditable(false);
                 tf_empresa.setEditable(false);
                 tf_rif.setEditable(false);
                 tf_ano.setEditable(false);
@@ -965,7 +1056,9 @@ public class Fxml_VehiculosController implements Initializable {
             case 4:  //CAMBIAR STATUS 
                 tf_placa.setEditable(false);
                 tf_modelo.setEditable(false);
-                tf_capacidad.setEditable(false);
+                tf_tara.setEditable(false);
+                tf_ccargakgrs.setEditable(false);
+                tf_ccargamtrs.setEditable(false);
                 tf_empresa.setEditable(false);
                 tf_rif.setEditable(false);
                 tf_ano.setEditable(false);
@@ -1051,8 +1144,6 @@ public class Fxml_VehiculosController implements Initializable {
         final ObservableList<log_TProced> data = FXCollections.observableArrayList();
         data.addAll(Arrays.asList(log_tproced));          
         cb_proced.setItems(data); 
-//        CbTProcedKeyHandler cbkh = new CbTProcedKeyHandler(data);
-//        cb_proced.setOnKeyReleased(cbkh);
         Datos.setCbProced(cb_proced);                       
         new SelectKeyComboBoxListener(cb_proced); 
     }  
@@ -1066,10 +1157,57 @@ public class Fxml_VehiculosController implements Initializable {
         final ObservableList<log_TTransp> data = FXCollections.observableArrayList();
         data.addAll(Arrays.asList(log_ttransp));          
         cb_ttrans.setItems(data); 
-//        CbTTranspKeyHandler cbkh = new CbTTranspKeyHandler(data);
-//        cb_ttrans.setOnKeyReleased(cbkh);
         Datos.setCbTTransp(cb_ttrans);                       
         new SelectKeyComboBoxListener(cb_ttrans); 
+    }    
+    /**
+     * Procedimiento que obtiene los Distintos Estados de la BD
+     * y los carga en el COMBOBOX
+     * param: nombre del pais
+     */
+    private void loadTSeguro(){ 
+        log_TSeguros[] log_tseguro = Ln.getInstance().load_log_TSeguros();        
+        final ObservableList<log_TSeguros> data = FXCollections.observableArrayList();
+        data.addAll(Arrays.asList(log_tseguro));          
+        cb_tseguro.setItems(data); 
+        Datos.setCbTSeguro(cb_tseguro);                       
+        new SelectKeyComboBoxListener(cb_tseguro); 
+    }    
+    /**
+     * Procedimiento que obtiene los Distintos Estados de la BD
+     * y los carga en el COMBOBOX
+     * param: nombre del pais
+     */
+    private void loadTDispflota(){ 
+        log_TDispflota[] log_tdispflota = Ln.getInstance().load_log_TDispflota();        
+        final ObservableList<log_TDispflota> data = FXCollections.observableArrayList();
+        data.addAll(Arrays.asList(log_tdispflota));          
+        cb_disponible.setItems(data); 
+        Datos.setCbLog_tdispflota(cb_disponible);                       
+        new SelectKeyComboBoxListener(cb_disponible); 
+    }    
+    /**
+     * Procedimiento que obtiene los Distintos Estados de la BD
+     * y los carga en el COMBOBOX
+     * param: nombre del pais
+     */
+    private void loadClassTips(){ 
+        truckclass = new RadioButton[]{rb_clasif1, rb_clasif2, rb_clasif3, rb_clasif4, rb_clasif5, rb_clasif6, rb_clasif7, rb_clasif8};
+        truckclasstips = new String[]{
+            "Clase 1 (menor a 2.722kg)",
+            "Clase 2 (2.723kg - 4.536kg)",
+            "Clase 3 (4.537kg - 6.350kg)",
+            "Clase 4 (6.351kg - 7.257kg)",
+            "Clase 5 (7.258kg - 8.845kg)",
+            "Clase 6 (8.846kg - 11.793kg)",
+            "Clase 7 (11.794kg - 14.969kg)",
+            "Clase 8 (mayor a 14.970kg)",
+            };
+        //se asigna la etiqueta a su respectivo textfield
+        for (int i = 0; i < truckclass.length; i++) {            
+            Tooltip tip_tool = new Tooltip(truckclasstips[i]);
+            Tooltip.install(truckclass[i], tip_tool);
+        }
     }    
     
     /***************************************************************************/
@@ -1089,21 +1227,27 @@ public class Fxml_VehiculosController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    tf_placa,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
-                    tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
+                    tf_placa, cb_marca, tf_ano, tf_modelo, cb_ttrans, tf_tara, 
+                    tf_ccargakgrs, tf_ccargamtrs, cb_proced, tf_empresa, tf_rif,
+                    tf_celular, tf_correo, tf_cc, bt_cc, tf_tt, bt_tt, tf_rcv, bt_rcv, 
+                    dp_rcv, tf_ps, bt_ps, dp_ps, tf_rgt, bt_rgt, dp_rgt, tf_nrorgt,
+                    cb_disponible};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    tf_placa,im_check,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
-                    tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
+                    tf_placa, im_check, cb_marca, tf_ano, tf_modelo, cb_ttrans, tf_tara, 
+                    tf_ccargakgrs, tf_ccargamtrs, cb_proced, tf_empresa, tf_rif,
+                    tf_celular, tf_correo, tf_cc, bt_cc, tf_tt, bt_tt, tf_rcv, bt_rcv, 
+                    dp_rcv, tf_ps, bt_ps, dp_ps, tf_rgt, bt_rgt, dp_rgt, tf_nrorgt,
+                    cb_disponible};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    tf_placa,im_check,cb_marca,tf_modelo,tf_capacidad,tf_ano,tf_empresa,tf_rif,
-                    tf_celular,tf_correo,cb_ttrans,cb_proced,tf_cc,bt_cc,tf_tt,bt_tt,
-                    tf_rcv,bt_rcv,dp_rcv,tf_ps,bt_ps,dp_ps,tf_rgt,bt_rgt,dp_rgt,tf_nrorgt};
+                    tf_placa, im_check, cb_marca, tf_ano, tf_modelo, cb_ttrans, tf_tara, 
+                    tf_ccargakgrs, tf_ccargamtrs, cb_proced, tf_empresa, tf_rif,
+                    tf_celular, tf_correo, tf_cc, bt_cc, tf_tt, bt_tt, tf_rcv, bt_rcv, 
+                    dp_rcv, tf_ps, bt_ps, dp_ps, tf_rgt, bt_rgt, dp_rgt, tf_nrorgt,
+                    cb_disponible};
                 break;
         }             
         switch (opc){
@@ -1277,6 +1421,7 @@ public class Fxml_VehiculosController implements Initializable {
         dp_rgt.setValue(null);
         
         loadToolBar();
+        loadClassTips();
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
@@ -1407,14 +1552,29 @@ public class Fxml_VehiculosController implements Initializable {
     private void init_buttons(){
 
         rb_clasif1.setToggleGroup(rb_clasif);
-        rb_clasif1.setUserData("peq");
+        rb_clasif1.setUserData("C1");
 
         rb_clasif2.setToggleGroup(rb_clasif);
-        rb_clasif2.setUserData("gra");
+        rb_clasif2.setUserData("C2");
 
         rb_clasif3.setToggleGroup(rb_clasif);
-        rb_clasif3.setUserData("gan");
+        rb_clasif3.setUserData("C3");
         
+        rb_clasif4.setToggleGroup(rb_clasif);
+        rb_clasif4.setUserData("C4");
+
+        rb_clasif5.setToggleGroup(rb_clasif);
+        rb_clasif5.setUserData("C5");
+
+        rb_clasif6.setToggleGroup(rb_clasif);
+        rb_clasif6.setUserData("C6");
+        
+        rb_clasif7.setToggleGroup(rb_clasif);
+        rb_clasif7.setUserData("C7");
+
+        rb_clasif8.setToggleGroup(rb_clasif);
+        rb_clasif8.setUserData("C8");
+
         /**
          * LINK PARA OCULTAR FORMULARIO
          */
@@ -1562,21 +1722,43 @@ public class Fxml_VehiculosController implements Initializable {
          * metodo para mostrar la clasificacion del vehiculo por su capacidad
          * param: ENTER O TAB
          */
-        tf_capacidad.setOnKeyReleased((KeyEvent ke) -> {
+        tf_tara.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
                 //Valida que el evento se haya generado en el campo de busqueda
-                if(((Node)ke.getSource()).getId().equals("tf_capacidad")){
-                    if ((Integer.parseInt(tf_capacidad.getText()) > 500) &&
-                        (Integer.parseInt(tf_capacidad.getText()) < 6001))
-                            rb_clasif1.setSelected(true);
-                            
-                    if ((Integer.parseInt(tf_capacidad.getText()) > 6000) &&
-                        (Integer.parseInt(tf_capacidad.getText()) < 15000))
-                            rb_clasif2.setSelected(true);
+                if(((Node)ke.getSource()).getId().equals("tf_tara")){
+                    if ((Integer.parseInt(tf_tara.getText()) >= 0) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 2722)){
+                        rb_clasif1.setSelected(true);
+                    }
+                    if ((Integer.parseInt(tf_tara.getText()) >= 2723) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 4536)){
+                        rb_clasif2.setSelected(true);
+                    }
+                    if ((Integer.parseInt(tf_tara.getText()) >= 4537) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 6350)){
+                        rb_clasif3.setSelected(true);
+                    }
 
-                    if ((Integer.parseInt(tf_capacidad.getText()) > 15001) &&
-                        (Integer.parseInt(tf_capacidad.getText()) < 60000))
-                            rb_clasif3.setSelected(true);
+                    if ((Integer.parseInt(tf_tara.getText()) >= 6351) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 7257)){
+                        rb_clasif4.setSelected(true);
+                    }
+                    if ((Integer.parseInt(tf_tara.getText()) >= 7258) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 8845)){
+                        rb_clasif5.setSelected(true);
+                    }
+                    if ((Integer.parseInt(tf_tara.getText()) >= 8846) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 11793)){
+                        rb_clasif6.setSelected(true);
+                    }
+
+                    if ((Integer.parseInt(tf_tara.getText()) >= 11794) &&
+                        (Integer.parseInt(tf_tara.getText()) <= 14969)){
+                        rb_clasif7.setSelected(true);
+                    }
+                    if ((Integer.parseInt(tf_tara.getText()) >= 14970)){
+                        rb_clasif8.setSelected(true);
+                    }
                 }
             }
         });
@@ -1723,17 +1905,6 @@ public class Fxml_VehiculosController implements Initializable {
                     else{
                         changeIconDate("vencido", (int) Math.abs(diffDays), im_rcv);          
                     }
-                }
-            }
-        });
-        /**
-         * BOTON PRODUCTO
-         */
-        bt_se.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    Datos.setIdButton(2005011);
-                    Gui.getInstance().showBusqueda("Empresa de Seguro");  
                 }
             }
         });
@@ -1940,11 +2111,11 @@ public class Fxml_VehiculosController implements Initializable {
     private void setFormVisible(boolean value){
         vb_form.setVisible(value);  //Establece el estado grafico del formulario
         if(value){  //Si el estado es visible entonces 
-            vb_table.relocate(30, 375);
-            vb_table.setPrefHeight(208);
+            vb_table.relocate(30, 405);
+            vb_table.setPrefHeight(178);
         }else{
             vb_table.relocate(30, 64);
-            vb_table.setPrefHeight(508);
+            vb_table.setPrefHeight(608);
         }
     }           
     /**

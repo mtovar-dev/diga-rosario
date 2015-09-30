@@ -167,7 +167,7 @@ public class Fxml_PassUpdController implements Initializable {
             usuario.setUsername(username);
             usuario.setPswd_old(pf_old.getText());
             usuario.setPswd_new(pf_confirm.getText());
-            Datos.setUsuario(usuario);
+            Datos.setUser(usuario);
             //Se llama al procedimiento que almacena los datos
             boolean result = Ln.getInstance().update_UserPswd(usuario, pf_old.getText(), pf_confirm.getText());
             //Si el resultado es correcto

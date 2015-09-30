@@ -428,8 +428,8 @@ public class Fxml_UserController implements Initializable{
                 usuario.setPswd_old(pf_pswd01.getText());
                 pswd = pf_pswd02.getText();
             }else{              //Si es un Usuario MODIFICADO                
-                usuario.setPswd_old(Datos.getUsuario().getPswd_old());
-                pswd = Datos.getUsuario().getPswd_old();
+                usuario.setPswd_old(Datos.getUser().getPswd_old());
+                pswd = Datos.getUser().getPswd_old();
             }            
             //Se obtiene el ROL del usuario
             Rol rol = (Rol) cb_roles.getValue();            
@@ -438,7 +438,7 @@ public class Fxml_UserController implements Initializable{
             }else{  
                 usuario.setRol(rol);
             }            
-            usuario.setStatus(Datos.getUsuario().getStatus());      //Se asigna el STATUS del usuario
+            usuario.setStatus(Datos.getUser().getStatus());      //Se asigna el STATUS del usuario
             //Se llama al proceso de Guardado
             boolean result = 
                     Ln.getInstance().save_Usuario(usuario, pswd, proceso, ScreenName);
@@ -495,15 +495,15 @@ public class Fxml_UserController implements Initializable{
      * establece nuevos valores a cada campo de Texto
      */
     private void refreshForm(){        
-        tf_username.setText(Datos.getUsuario().getUsername());
-        tf_nomb01.setText(Datos.getUsuario().getNombre1());
-        tf_nomb02.setText(Datos.getUsuario().getNombre2());
-        tf_apel01.setText(Datos.getUsuario().getApellido1());
-        tf_apel02.setText(Datos.getUsuario().getApellido2());
+        tf_username.setText(Datos.getUser().getUsername());
+        tf_nomb01.setText(Datos.getUser().getNombre1());
+        tf_nomb02.setText(Datos.getUser().getNombre2());
+        tf_apel01.setText(Datos.getUser().getApellido1());
+        tf_apel02.setText(Datos.getUser().getApellido2());
         pf_pswd01.setText("");
         pf_pswd02.setText("");               
         pf_old.setText("");
-        cb_roles.getSelectionModel().select(Datos.getUsuario().getRol());      
+        cb_roles.getSelectionModel().select(Datos.getUser().getRol());      
         //Ejecuta el metodo que define el formulario segun el tipo de operacion que fue ejecutada
         setCurrentOperation();
     }  
@@ -606,7 +606,7 @@ public class Fxml_UserController implements Initializable{
         //Instancia el manejador de eventos para el acceso rapido de los datos
 //        CbRolKeyHandler cbkh = new CbRolKeyHandler(data);   
 //        cb_roles.setOnKeyReleased(cbkh);   //Asigno el manejador al COMBOBOX
-        Datos.setRoles(cb_roles);          //Asigna los valores en la clase de Datos Global             
+        Datos.setCbRoles(cb_roles);          //Asigna los valores en la clase de Datos Global             
         new SelectKeyComboBoxListener(cb_roles); 
     }     
     /**
@@ -636,7 +636,7 @@ public class Fxml_UserController implements Initializable{
         //Selecciona el usuario enfocado
         Usuario user = tb_table.getSelectionModel().getSelectedItem();          
         if(user != null){
-            Datos.setUsuario(user);         //Asigno el Usuario a la Clase de Datos Globales
+            Datos.setUser(user);         //Asigno el Usuario a la Clase de Datos Globales
             change_im_tool4(user.getStatus());  //Se define el valor del Boton de Cambio se Status
             refreshForm();                  //Refresca el Formulario
             setPswdVisible(false,false);    //Oculta los campos de contraseña
@@ -855,9 +855,9 @@ public class Fxml_UserController implements Initializable{
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
-        Datos.setUsuario(new Usuario());                           
+        Datos.setUser(new Usuario());                           
         refreshForm();                      
-        Datos.setUsuario(null);             //RESET DE LA VARIABLE
+        Datos.setUser(null);             //RESET DE LA VARIABLE
         setPswdVisible(false,false);
         setFormVisible(false);              //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
@@ -871,7 +871,7 @@ public class Fxml_UserController implements Initializable{
             tipoOperacion = 1;
             change_im_check(false);
             loadRols();
-            Datos.setUsuario(new Usuario());
+            Datos.setUser(new Usuario());
             refreshForm();
             setPswdVisible(true,true);
             setFormVisible(true);
@@ -883,9 +883,9 @@ public class Fxml_UserController implements Initializable{
      */
     private void botonEditar(){
         tipoOperacion = 2;
-        if(Datos.getUsuario() != null && toolsConfig[3]==1){
+        if(Datos.getUser() != null && toolsConfig[3]==1){
             change_im_check(true); 
-            change_im_tool4(Datos.getUsuario().getStatus());
+            change_im_tool4(Datos.getUser().getStatus());
             refreshForm();
             setPswdVisible(false,false);
             setFormVisible(true);     
@@ -896,7 +896,7 @@ public class Fxml_UserController implements Initializable{
      * 
      */
     private void botonGuardar(){        
-        if(Datos.getUsuario() != null && toolsConfig[4]==1){
+        if(Datos.getUser() != null && toolsConfig[4]==1){
             boolean result; 
             if(tipoOperacion == 5 ){
                 result = updatePswd();
@@ -912,18 +912,18 @@ public class Fxml_UserController implements Initializable{
      * 
      */
     private void botonEliminar() {
-        if(Datos.getUsuario() != null && toolsConfig[5]==1){
+        if(Datos.getUser() != null && toolsConfig[5]==1){
             tipoOperacion = 4;      //OPERACION DE BORRADO
             change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL USERNAME                   
             refreshForm();         
             setPswdVisible(false,false);
             setFormVisible(true);  
             String verbo = "desactivar";
-            if(Datos.getUsuario().getStatus() == 1){
+            if(Datos.getUser().getStatus() == 1){
                 verbo = "activar";
             }
             String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getUsuario().getUsername()+ " ?";
+                "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getUser().getUsername()+ " ?";
             Gui.getInstance().showConfirmar(mensj);  
         }
     }
@@ -931,7 +931,7 @@ public class Fxml_UserController implements Initializable{
      * 
      */
     private void botonUpdPswd(){
-        if(Datos.getUsuario() != null && toolsConfig[6]==1){
+        if(Datos.getUser() != null && toolsConfig[6]==1){
             tipoOperacion = 5;      //OPERACION DE MODIFICACION DE CLAVE                                      
             change_im_check(true);                             
             refreshForm();                            
@@ -948,9 +948,9 @@ public class Fxml_UserController implements Initializable{
             tipoOperacion = 0;                  //OPERACION SOLO LECTURA
             //SE LIMPIA EL FORMULARIO
             tf_buscar.setVisible(true);
-            Datos.setUsuario(new Usuario());                           
+            Datos.setUser(new Usuario());                           
             refreshForm();                      
-            Datos.setUsuario(null);             //RESET DE LA VARIABLE
+            Datos.setUser(null);             //RESET DE LA VARIABLE
             setPswdVisible(false,false);
             setFormVisible(false);              //OCULTA EL FORMULARIO     
             tf_buscar.requestFocus();
@@ -963,9 +963,9 @@ public class Fxml_UserController implements Initializable{
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setVisible(false);
-        Datos.setUsuario(new Usuario());                           
+        Datos.setUser(new Usuario());                           
         refreshForm();                      
-        Datos.setUsuario(new Usuario());             //RESET DE LA VARIABLE
+        Datos.setUser(new Usuario());             //RESET DE LA VARIABLE
         setPswdVisible(false,false);
         setFormVisible(false);              //OCULTA EL FORMULARIO
     }

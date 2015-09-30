@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Fxp_Archguip_sum {
     private int orden;

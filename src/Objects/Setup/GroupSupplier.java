@@ -98,7 +98,6 @@ public class GroupSupplier {
     }
 
     /**
-     * 
      * @return 
      */
     @Override

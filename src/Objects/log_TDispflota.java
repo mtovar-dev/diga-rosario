@@ -1,8 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objects.Setup;
+package Objects;
 
 import Tools.Tools;
 import java.sql.ResultSet;
@@ -12,15 +13,18 @@ import java.sql.SQLException;
  *
  * @author MITM
  */
-public class Measure {
-    private int idMeasure;
+public class log_TDispflota {
+    private int idTDispflota;
     private String nombre;
-    private String abrev;     
+    private String abrev;
+    private int valpersonal;
+    private int valvehiculo;
     private int status;
+
     /**
      * 
      */
-    public Measure(){
+    public log_TDispflota(){
         
     }
 
@@ -28,12 +32,14 @@ public class Measure {
      * 
      * @param rs 
      */
-    public Measure(ResultSet rs){
+    public log_TDispflota(ResultSet rs){
         try{
-            idMeasure       = rs.getInt(1);
+            idTDispflota    = rs.getInt(1);
             nombre          = rs.getString(2);
             abrev           = rs.getString(3);
-            status          = rs.getInt(4);
+            valpersonal     = rs.getInt(4);
+            valvehiculo     = rs.getInt(5);
+            status          = rs.getInt(6);
             
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
@@ -41,17 +47,17 @@ public class Measure {
     }
 
     /**
-     * @return the idMeasure
+     * @return the idTDispflota
      */
-    public int getIdMeasure() {
-        return idMeasure;
+    public int getIdTDispflota() {
+        return idTDispflota;
     }
 
     /**
-     * @param idMeasure the idMeasure to set
+     * @param idTDispflota the idTDispflota to set
      */
-    public void setIdMeasure(int idMeasure) {
-        this.idMeasure = idMeasure;
+    public void setIdTDispflota(int idTDispflota) {
+        this.idTDispflota = idTDispflota;
     }
 
     /**
@@ -83,6 +89,34 @@ public class Measure {
     }
 
     /**
+     * @return the valpersonal
+     */
+    public int getValpersonal() {
+        return valpersonal;
+    }
+
+    /**
+     * @param valpersonal the valpersonal to set
+     */
+    public void setValpersonal(int valpersonal) {
+        this.valpersonal = valpersonal;
+    }
+
+    /**
+     * @return the valvehiculo
+     */
+    public int getValvehiculo() {
+        return valvehiculo;
+    }
+
+    /**
+     * @param valvehiculo the valvehiculo to set
+     */
+    public void setValvehiculo(int valvehiculo) {
+        this.valvehiculo = valvehiculo;
+    }
+
+    /**
      * @return the status
      */
     public int getStatus() {
@@ -97,11 +131,12 @@ public class Measure {
     }
     
     /**
+     * 
      * @return 
      */
     @Override
     public String toString(){
-        return this.nombre + " / " + this.abrev ;
+        return this.nombre;
     }
     
 }

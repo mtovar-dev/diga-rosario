@@ -1,15 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI.Screens.Setup;
 
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
-import Objects.log_TMotdev;
+import Objects.log_TDispflota;
 import Tools.Datos;
 import java.net.URL;
 import java.util.Arrays;
@@ -23,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -47,13 +44,10 @@ import javafx.util.Callback;
  *
  * @author MITM
  */
-public class Fxml_ReasonController  implements Initializable {
+public class Fxml_AvailableController implements Initializable {
     
     @FXML //  fx:id="ap_root"
     private AnchorPane ap_root; // Value injected by FXMLLoader
-
-    @FXML
-    private CheckBox ch_val;
 
     @FXML //  fx:id="hb_1"
     private HBox hb_1;
@@ -73,9 +67,6 @@ public class Fxml_ReasonController  implements Initializable {
     @FXML //  fx:id="im_check"
     private ImageView im_check; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="im_val"
-    private ImageView im_val; // Value injected by FXMLLoader
-    
     @FXML //  fx:id="im_tool1"
     private ImageView im_tool1; // Value injected by FXMLLoader
 
@@ -112,6 +103,9 @@ public class Fxml_ReasonController  implements Initializable {
     @FXML //  fx:id="im_tool9"
     private ImageView im_tool9; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="im_val"
+    private ImageView im_val; // Value injected by FXMLLoader
+    
     @FXML //  fx:id="lb_Title"
     private Label lb_Title; // Value injected by FXMLLoader
 
@@ -119,7 +113,7 @@ public class Fxml_ReasonController  implements Initializable {
     private Label lb_ocultar; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tb_table"
-    private TableView<log_TMotdev> tb_table; // Value injected by FXMLLoader
+    private TableView<log_TDispflota> tb_table; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tf_abrev"
     private TextField tf_abrev; // Value injected by FXMLLoader
@@ -159,11 +153,11 @@ public class Fxml_ReasonController  implements Initializable {
     
     private static int tipoOperacion;    
     private static ImageView[] tools;    
-//    private ObservableList<Reason> reason;
+//    private ObservableList<GroupSupplier> groupsupplier;
     private static Integer[] toolsConfig; 
     private static String[] tooltips;
     
-    private static final String ScreenName = "Motivos Dev";
+    private static final String ScreenName = "Disp. Flota";
 
     /**
      * Initializes the controller class.
@@ -172,36 +166,35 @@ public class Fxml_ReasonController  implements Initializable {
      */     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert ch_val != null : "fx:id=\"ch_val\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert hb_3 != null : "fx:id=\"hb_3\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_check != null : "fx:id=\"im_check\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_val != null : "fx:id=\"im_val\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert lb_ocultar != null : "fx:id=\"lb_ocultar\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert tf_abrev != null : "fx:id=\"tf_abrev\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert tf_id != null : "fx:id=\"tf_id\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
-        assert vb_table != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_Reason.fxml'.";
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert hb_2 != null : "fx:id=\"hb_2\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert hb_3 != null : "fx:id=\"hb_3\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_check != null : "fx:id=\"im_check\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_val != null : "fx:id=\"im_val\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert lb_ocultar != null : "fx:id=\"lb_ocultar\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert tf_abrev != null : "fx:id=\"tf_abrev\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert tf_id != null : "fx:id=\"tf_id\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
+        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_AvailableController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
         defineToolBar();         
@@ -237,9 +230,8 @@ public class Fxml_ReasonController  implements Initializable {
 //                   botonBuscar();
 //               }
         });
-        
     }    
-    
+
     /***************************************************************************/
     /***************************** PROCEDIMIENTOS ******************************/
     /***************************************************************************/
@@ -249,14 +241,14 @@ public class Fxml_ReasonController  implements Initializable {
     */
     private void createTable(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn col_status      = new TableColumn("");
-        TableColumn col_motivo      = new TableColumn("Motivo");                
-        TableColumn col_nombre      = new TableColumn("Nombre");        
-        TableColumn col_abrev       = new TableColumn("Abreviatura");        
+        TableColumn<log_TDispflota, Object> col_status      = new TableColumn<>("");
+        TableColumn<log_TDispflota, Object> col_gprov       = new TableColumn<>("Aseguradora");                
+        TableColumn<log_TDispflota, Object> col_nombre      = new TableColumn<>("Nombre");        
+        TableColumn<log_TDispflota, Object> col_abrev       = new TableColumn<>("Abreviatura");        
         
         //Se establece el ancho de cada columna
         this.objectWidth(col_status     , 25 , 25);
-        this.objectWidth(col_motivo     , 80, 120);
+        this.objectWidth(col_gprov      , 100, 140);
         this.objectWidth(col_nombre     , 320, 400);
         this.objectWidth(col_abrev      , 90, 120);
         /**
@@ -265,10 +257,10 @@ public class Fxml_ReasonController  implements Initializable {
          * 1 - VERDE (HABILITADO)
          * 2 - ROJO  (DESHABILITADO)
          */
-        col_status.setCellFactory(new Callback<TableColumn, TableCell>() {
+        col_status.setCellFactory(new Callback<TableColumn<log_TDispflota, Object>, TableCell<log_TDispflota, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<log_TMotdev, Object>() {
+            public TableCell<log_TDispflota, Object> call(TableColumn<log_TDispflota, Object> param) {
+                return new TableCell<log_TDispflota, Object>() {
                     @Override
                     public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
@@ -289,11 +281,11 @@ public class Fxml_ReasonController  implements Initializable {
                 };
             }
         });        
-        //Se define la columna de la tabla con el nombre del atributo del objeto REASON correspondiente
+        //Se define la columna de la tabla con el nombre del atributo del objeto GROUP SUPPLIER correspondiente
         col_status.setCellValueFactory( 
                 new PropertyValueFactory<>("status") );
-        col_motivo.setCellValueFactory( 
-                new PropertyValueFactory<>("idTMotdev") );
+        col_gprov.setCellValueFactory( 
+                new PropertyValueFactory<>("idTSeguro") );
         col_nombre.setCellValueFactory( 
                 new PropertyValueFactory<>("nombre") );
         col_abrev.setCellValueFactory( 
@@ -301,7 +293,7 @@ public class Fxml_ReasonController  implements Initializable {
         
         //Se Asigna ordenadamente las columnas de la tabla
         tb_table.getColumns().addAll(
-                col_status, col_motivo, col_nombre, col_abrev);                
+                col_status, col_gprov, col_nombre, col_abrev);                
         
         //Se Asigna tamaño del VBox para que lo tome el TableView
         vb_table.relocate(30, 64);
@@ -309,14 +301,10 @@ public class Fxml_ReasonController  implements Initializable {
         vb_table.setPrefHeight(508);
 
         //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
-        EventHandler eh = new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent ke){
-                //Si fue presionado la tecla ARRIBA o ABAJO
-                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
-                    //Selecciona la FILA enfocada
-                    selectedRow();
-                }
+        EventHandler eh = (EventHandler<KeyEvent>) (KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){
+                //Selecciona la FILA enfocada
+                selectedRow();
             }
         };
         //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
@@ -326,41 +314,37 @@ public class Fxml_ReasonController  implements Initializable {
      * Metodo encargado de guardar los datos de un nuevo usuario o de un 
      * usuario modificado
      */
-    private boolean saveReason() {
+    private boolean savelog_TAvailable() {
         //Se asigna el valor del tipo de procedimiento que viene de ser ejecutado,
         // 1 si es un NUEVO usuario - 2 si es un usuario MODIFICADO
         int proceso = tipoOperacion;    
         //Se obtiene el nombre de usuario
-        String reasonname = tf_nombre.getText();
+        String groupsuppliername = tf_nombre.getText();
         //Si el nombre de usuario no esta en blanco
-        if(reasonname != null && !reasonname.equals("")){
+        if(groupsuppliername != null && !groupsuppliername.equals("")){
             //Si existe un rol seleccionado
             //Se establece la operacion de guardado
             tipoOperacion = 3;
             //Ejecuta los procesos predeterminados para el guardado del usuario
             setCurrentOperation();
             //Se asignan los valores del objeto 
-            log_TMotdev reason = new log_TMotdev();
-            reason.setIdTMotdev(Integer.parseInt(tf_id.getText()));
-            reason.setNombre(tf_nombre.getText());
-            reason.setAbrev(tf_abrev.getText());
-            if (ch_val.isSelected())
-                reason.setValdev(1);
-            else
-                reason.setValdev(0);
-            reason.setStatus(Datos.getLog_tmotdev().getStatus());      //Se asigna el STATUS del usuario
+            log_TDispflota log_tseguros = new log_TDispflota();
+            log_tseguros.setIdTDispflota(Integer.parseInt(tf_id.getText()));
+            log_tseguros.setNombre(tf_nombre.getText());
+            log_tseguros.setAbrev(tf_abrev.getText());
+            log_tseguros.setStatus(Datos.getLog_tseguros().getStatus());      //Se asigna el STATUS del usuario
             //Se llama al proceso de Guardado
             boolean result = 
-                    Ln.getInstance().save_log_TMotdev(reason, proceso, ScreenName);
+                    Ln.getInstance().save_log_TDispflota(log_tseguros, proceso, ScreenName);
             //Si el Resultado es correcto
             if(result){
                 //Se Notifica al usuario
-                Gui.getInstance().showMessage("El " + ScreenName + " se ha Guardado Correctamente!", "I");
-                loadTMotdev();            //Se Recarga la tabla de usuarios existentes
+                Gui.getInstance().showMessage("La " + ScreenName + " se ha Guardado Correctamente!", "I");
+                loadlog_TAvailable();            //Se Recarga la tabla de usuarios existentes
                 return true;
             }     
         }else{                            
-            Gui.getInstance().showMessage("No Existe ningun " + ScreenName + " para ser Guardado!", "A");
+            Gui.getInstance().showMessage("No Existe ninguna " + ScreenName + " para ser Guardado!", "A");
         }
         return false;
     }
@@ -369,14 +353,9 @@ public class Fxml_ReasonController  implements Initializable {
      * establece nuevos valores a cada campo de Texto
      */
     private void refreshForm(){        
-        tf_id.setText(String.valueOf(Datos.getLog_tmotdev().getIdTMotdev()));
-        tf_nombre.setText(Datos.getLog_tmotdev().getNombre());
-        tf_abrev.setText(Datos.getLog_tmotdev().getAbrev());
-        if (Datos.getLog_tmotdev().getValdev() == 1)
-            ch_val.setSelected(true);
-        else
-            ch_val.setSelected(false);
-            
+        tf_id.setText(String.valueOf(Datos.getLog_tseguros().getIdTSeguro()));
+        tf_nombre.setText(Datos.getLog_tseguros().getNombre());
+        tf_abrev.setText(Datos.getLog_tseguros().getAbrev());
         //Ejecuta el metodo que define el formulario segun el tipo de operacion que fue ejecutada
         setCurrentOperation();
     }  
@@ -397,8 +376,6 @@ public class Fxml_ReasonController  implements Initializable {
                 tf_nombre.setEditable(false);
                 tf_abrev.setEditable(false);
 
-                ch_val.setDisable(true);
-
                 im_check.setVisible(false);
                 im_val.setVisible(false);
 
@@ -414,8 +391,6 @@ public class Fxml_ReasonController  implements Initializable {
                 tf_nombre.setEditable(true);
                 tf_abrev.setEditable(true);
 
-                ch_val.setDisable(false);
-
                 im_check.setVisible(true);
                 im_val.setVisible(false);
 
@@ -430,8 +405,6 @@ public class Fxml_ReasonController  implements Initializable {
                 tf_nombre.setEditable(true);
                 tf_abrev.setEditable(true);
 
-                ch_val.setDisable(false);
-
                 im_check.setVisible(true);
                 im_val.setVisible(false);
                 
@@ -444,8 +417,6 @@ public class Fxml_ReasonController  implements Initializable {
                 tf_nombre.setEditable(false);
                 tf_abrev.setEditable(false);
 
-                ch_val.setDisable(true);
-
                 im_check.setVisible(false);
                 im_val.setVisible(false);
 
@@ -457,8 +428,6 @@ public class Fxml_ReasonController  implements Initializable {
                 tf_id.setEditable(false);
                 tf_nombre.setEditable(false);
                 tf_abrev.setEditable(false);
-
-                ch_val.setDisable(true);
 
                 im_check.setVisible(false);
                 im_val.setVisible(false);
@@ -477,17 +446,17 @@ public class Fxml_ReasonController  implements Initializable {
      * Procedimiento que busca en BD la lista de usuarios
      * y los envia a cargar en la tabla
      */
-    private void loadTMotdev(){        
-        Datos.setRep_log_tmotdev(Ln.getInstance().load_log_TMotdev());
-        loadTable( Datos.getRep_log_tmotdev());     
+    private void loadlog_TAvailable(){        
+        Datos.setRep_log_tdispflota(Ln.getInstance().load_log_TDispflota());
+        loadTable( Datos.getRep_log_tdispflota());     
     }
     /**
      * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadTable(log_TMotdev[] reasons){    
-        if(reasons != null){
-            ObservableList<log_TMotdev> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(reasons));        
+    private void loadTable(log_TDispflota[] log_tseguros){    
+        if(log_tseguros != null){
+            ObservableList<log_TDispflota> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(log_tseguros));        
             tb_table.setItems(data);        
         }
     } 
@@ -498,10 +467,10 @@ public class Fxml_ReasonController  implements Initializable {
     private void selectedRow(){
         tipoOperacion = 0;      //SOLO LECTURA
         //Selecciona el usuario enfocado
-        log_TMotdev reason = tb_table.getSelectionModel().getSelectedItem();          
-        if(reason != null){
-            Datos.setLog_tmotdev(reason);          //Asigno el Usuario a la Clase de Datos Globales
-            change_im_tool4(reason.getStatus());   //Se define el valor del Boton de Cambio se Status
+        log_TDispflota log_tdispflota = tb_table.getSelectionModel().getSelectedItem();          
+        if(log_tdispflota != null){
+            Datos.setLog_tdispflota(log_tdispflota);          //Asigno el Usuario a la Clase de Datos Globales
+            change_im_tool4(log_tdispflota.getStatus());   //Se define el valor del Boton de Cambio se Status
             refreshForm();                      //Refresca el Formulario
             setFormVisible(true);               //Coloca Visible el formulario
         }
@@ -563,9 +532,9 @@ public class Fxml_ReasonController  implements Initializable {
                         //si los campos de texto no son nulos
                         if(tf_nombre.getText() != null ){
                             if(tipoOperacion == 1){ //NUEVO
-                                boolean boo = Ln.getInstance().check_Measure(tf_nombre.getText());    
+                                boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());    
                                 if (boo){
-                                    Gui.getInstance().showMessage("Ya existe el " + ScreenName + ", no puede ser Guardado!", "E");
+                                    Gui.getInstance().showMessage("Ya existe la " + ScreenName + ", no puede ser Guardado!", "E");
                                     botonInicio();
                                 }
                             }
@@ -591,7 +560,7 @@ public class Fxml_ReasonController  implements Initializable {
     private void defineToolBar() {
         //ARREGLO CON LOS BOTONES ORDENADOS POR POSICION
         tools = new ImageView[]{im_tool1,im_tool2,im_tool3,im_tool4,im_tool5,im_tool6,im_tool7,im_tool8,im_tool9,im_tool10,im_tool11,im_tool12};        
-        //CARGA DE LA BD LA CONFIGURACION DE REASON PARA LA PANTALLA
+        //CARGA DE LA BD LA CONFIGURACION DE GROUP SUPPLIER PARA LA PANTALLA
         toolsConfig = Ln.getInstance().loadToolBar();                        
         // arreglo con cada etiqueta, ordenado por boton
         tooltips = new String[]{
@@ -688,21 +657,17 @@ public class Fxml_ReasonController  implements Initializable {
     private void defineBotonBuscar() {
         tf_buscar.setVisible(false);    //establece el textField como oculto al iniciarse la Pantalla
         //Manejador del Evento
-        EventHandler eh = new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent ke){
-                //SI es presionado ENTER o TAB entonces
-                if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){     
-                    //Valida que el evento se haya generado en el campo de busqueda
-                    if(((Node)ke.getSource()).getId().equals("tf_buscar")){                        
-                        try{
-                            Datos.setRep_log_tmotdev(Ln.getInstance().find_log_TMotdev(tf_buscar.getText()));
-                            loadTable(Datos.getRep_log_tmotdev());     
-                        } catch(Exception e){
-                            Gui.getInstance().showMessage("El " + ScreenName + " NO existe!", "A");
-                        }
-                        tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
+        EventHandler eh = (EventHandler<KeyEvent>) (KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                //Valida que el evento se haya generado en el campo de busqueda
+                if(((Node)ke.getSource()).getId().equals("tf_buscar")){
+                    try{
+                        Datos.setRep_log_tdispflota(Ln.getInstance().find_log_TDispflota(tf_buscar.getText()));
+                        loadTable(Datos.getRep_log_tdispflota());     
+                    } catch(Exception e){
+                        Gui.getInstance().showMessage("La " + ScreenName + " NO existe!", "A");
                     }
+                    tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
                 }
             }
         };
@@ -718,12 +683,12 @@ public class Fxml_ReasonController  implements Initializable {
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
-        Datos.setLog_tmotdev(new log_TMotdev());                           
+        Datos.setLog_tdispflota(new log_TDispflota());                           
         refreshForm();                      
-        Datos.setLog_tmotdev(null);             //RESET DE LA VARIABLE
+        Datos.setLog_tseguros(null);             //RESET DE LA VARIABLE
         setFormVisible(false);              //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
-        loadTMotdev();
+        loadlog_TAvailable();
     }
     /**
      * 
@@ -732,8 +697,8 @@ public class Fxml_ReasonController  implements Initializable {
         if(toolsConfig[2]==1){
             tipoOperacion = 1;
             //changeIcon(false);
-            loadTMotdev();
-            Datos.setLog_tmotdev(new log_TMotdev());
+            loadlog_TAvailable();
+            Datos.setLog_tdispflota(new log_TDispflota());
             refreshForm();
             setFormVisible(true);
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
@@ -743,9 +708,10 @@ public class Fxml_ReasonController  implements Initializable {
      * 
      */
     private void botonEditar(){
-        if(Datos.getLog_tmotdev()!= null && toolsConfig[3]==1){
+        if(Datos.getLog_tdispflota()!= null && toolsConfig[3]==1){
             tipoOperacion = 2;
-            change_im_tool4(Datos.getLog_tmotdev().getStatus());
+            //changeIcon(true); 
+            change_im_tool4(Datos.getLog_tdispflota().getStatus());
             refreshForm();
             setFormVisible(true);     
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
@@ -755,8 +721,8 @@ public class Fxml_ReasonController  implements Initializable {
      * 
      */
     private void botonGuardar(){        
-        if(Datos.getLog_tmotdev()!= null && toolsConfig[4]==1){
-            boolean result = saveReason();
+        if(Datos.getLog_tdispflota()!= null && toolsConfig[4]==1){
+            boolean result = savelog_TAvailable();
             if (result)
                 botonInicio();
         }
@@ -765,17 +731,17 @@ public class Fxml_ReasonController  implements Initializable {
      * 
      */
     private void botonEliminar() {
-        if(Datos.getLog_tmotdev()!= null && toolsConfig[5]==1){
+        if(Datos.getLog_tdispflota()!= null && toolsConfig[5]==1){
             tipoOperacion = 4;      //OPERACION DE BORRADO
-            //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL REASON                   
+            //changeIcon(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL GROUP SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
             String verbo = "desactivar";
-            if(Datos.getLog_tmotdev().getStatus() == 1){
+            if(Datos.getLog_tdispflota().getStatus() == 1){
                 verbo = "activar";
             }
             String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + " " + Datos.getLog_tmotdev().getIdTMotdev()+ " ?";
+                "¿Seguro que desea " + verbo + " la " + ScreenName + " " + Datos.getLog_tdispflota().getIdTDispflota()+ " ?";
             Gui.getInstance().showConfirmar(mensj);  
         }
     }
@@ -787,9 +753,9 @@ public class Fxml_ReasonController  implements Initializable {
             tipoOperacion = 0;                  //OPERACION SOLO LECTURA
             //SE LIMPIA EL FORMULARIO
             tf_buscar.setVisible(true);
-            Datos.setLog_tmotdev(new log_TMotdev());                           
+            Datos.setLog_tdispflota(new log_TDispflota());                           
             refreshForm();                      
-            Datos.setLog_tmotdev(null);             //RESET DE LA VARIABLE
+            Datos.setLog_tseguros(null);             //RESET DE LA VARIABLE
             setFormVisible(false);              //OCULTA EL FORMULARIO     
             tf_buscar.requestFocus();
         }
@@ -801,9 +767,9 @@ public class Fxml_ReasonController  implements Initializable {
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
         //SE LIMPIA EL FORMULARIO
         tf_buscar.setVisible(false);
-        Datos.setLog_tmotdev(new log_TMotdev());                           
+        Datos.setLog_tdispflota(new log_TDispflota());                           
         refreshForm();                      
-        Datos.setLog_tmotdev(new log_TMotdev());    //RESET DE LA VARIABLE
+        Datos.setLog_tdispflota(new log_TDispflota());    //RESET DE LA VARIABLE
         setFormVisible(false);              //OCULTA EL FORMULARIO
     }
     /**
@@ -959,9 +925,9 @@ public class Fxml_ReasonController  implements Initializable {
                 //Valida que el evento se haya generado en el campo de busqueda
                 if(((Node)ke.getSource()).getId().equals("tf_nombre")){
                     //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                    boolean boo = Ln.getInstance().check_log_TMotdev(tf_nombre.getText());
+                    boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());
                     if(boo){
-                        Gui.getInstance().showMessage("Ya existe el " + ScreenName + "!", "E");
+                        Gui.getInstance().showMessage("Ya existe la " + ScreenName + "!", "E");
                         botonInicio();
                     }
                 }
@@ -975,24 +941,24 @@ public class Fxml_ReasonController  implements Initializable {
     
     /**
      * Metodo que permite cambiar la imagen del boton CheckUsername
-     * @param boo TRUE si el REASON esta validado
+     * @param boo TRUE si el GROUP SUPPLIER esta validado
      */
     private void change_im_check(boolean boo){
-        if(boo){    //IMAGEN SI EL REASON ES CORRECTO
+        if(boo){    //IMAGEN SI EL GROUP SUPPLIER ES CORRECTO
             im_check.setImage(new Image(getClass().getResourceAsStream("/Images/img06.png")));
-        }else{      //IMAGEN PARA LA BUSQUEDA DE UN REASON
+        }else{      //IMAGEN PARA LA BUSQUEDA DE UN GROUP SUPPLIER
             im_check.setImage(new Image(getClass().getResourceAsStream("/Images/img34.png")));
         }
     }
     /**
      * Metodo que permite cambiar la imagen del boton CheckUserSupplier
-     * @param boo TRUE si el REASON esta validado
+     * @param boo TRUE si el GROUP SUPPLIER esta validado
      */
     private void change_im_val(int boo){
         // 200 HTTP_request Ok
-        if(boo == 200){    //IMAGEN SI EL REASON ES CORRECTO
+        if(boo == 200){    //IMAGEN SI EL GROUP SUPPLIER ES CORRECTO
             im_val.setImage(new Image(getClass().getResourceAsStream("/Images/img57a.png")));
-        }else{      //IMAGEN PARA LA BUSQUEDA DE UN REASON
+        }else{      //IMAGEN PARA LA BUSQUEDA DE UN GROUP SUPPLIER
             im_val.setImage(new Image(getClass().getResourceAsStream("/Images/img61a.png")));
         }
     }
@@ -1001,9 +967,9 @@ public class Fxml_ReasonController  implements Initializable {
      * @param boo 0 si esta DESHABILITADO, 1 si esta HABILITADO 
      */
     private void change_im_tool4(int boo){
-        if(boo == 0){   //IMAGEN SI EL REASON ESTA INHABILITADO
+        if(boo == 0){   //IMAGEN SI EL GROUP SUPPLIER ESTA INHABILITADO
             im_tool4.setImage(new Image(getClass().getResourceAsStream("/Images/img07.png")));
-        }else{          //IMAGEN PARA HABILITAR AL REASON
+        }else{          //IMAGEN PARA HABILITAR AL GROUP SUPPLIER
             im_tool4.setImage(new Image(getClass().getResourceAsStream("/Images/img06.png")));
         }
     }
@@ -1032,4 +998,5 @@ public class Fxml_ReasonController  implements Initializable {
         col.setMinWidth(min);   //Establece el valor minimo
         col.setMaxWidth(max);   //Establece el valor maximo
     }
+    
 }

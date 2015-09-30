@@ -13,15 +13,19 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class log_Vehiculos {
     private String idPlaca;
     private log_TMarca tmarca;
     private log_TProced tproced;
     private log_TTransp ttransp;
+    private log_TSeguros tseguro;
+    private log_TDispflota tdispflota;
     private String modelo;
-    private int capacidad;
+    private int peso_bveh;
+    private int cap_cargkgrs;
+    private int cap_cargmtrs3;
     private String empresa;     
     private String telefonos;
     private String celular;
@@ -43,11 +47,9 @@ public class log_Vehiculos {
     private String nro_rgt;
     private int status;     
     private int ano;     
-    private int clasif;     
     private String rif_empresa;
-    private int id_tseguro;
-    private String tseguro;
-    private String abrevseg;
+    private int clasif;     
+    private String tclasif;
 
     /**
      * 
@@ -85,41 +87,55 @@ public class log_Vehiculos {
             objTt.setAbrev(null);
             ttransp = objTt;
 
-            modelo              = rs.getString(8);
-            capacidad           = rs.getInt(9);
-            empresa             = rs.getString(10);
-            telefonos           = rs.getString(11);
-            celular             = rs.getString(12);
-            correo              = rs.getString(13);
+            ano                 = rs.getInt(8);
+            modelo              = rs.getString(9);
+            peso_bveh           = rs.getInt(10);
+            cap_cargkgrs        = rs.getInt(11);
+            cap_cargmtrs3       = rs.getInt(12);
+            empresa             = rs.getString(13);
+            rif_empresa         = rs.getString(14);
+            telefonos           = rs.getString(15);
+            celular             = rs.getString(16);
+            correo              = rs.getString(17);
 
-            ruta_cc             = rs.getString(14);
-            ruta_tt             = rs.getString(15);
+            ruta_cc             = rs.getString(18);
+            ruta_tt             = rs.getString(19);
 
-            ruta_rcv            = rs.getString(16);
-            fec_rcv             = rs.getDate(17);
-            dias_rcv            = rs.getInt(18);
-            stat_rcv            = rs.getString(19);
+            ruta_rcv            = rs.getString(20);
+            fec_rcv             = rs.getDate(21);
+            dias_rcv            = rs.getInt(22);
+            stat_rcv            = rs.getString(23);
             
-            ruta_ps             = rs.getString(20);
-            fec_ps              = rs.getDate(21);
-            dias_ps             = rs.getInt(22);
-            stat_ps             = rs.getString(23);
+            ruta_ps             = rs.getString(24);
+            fec_ps              = rs.getDate(25);
+            dias_ps             = rs.getInt(26);
+            stat_ps             = rs.getString(27);
 
-            ruta_rgt             = rs.getString(24);
-            fec_rgt              = rs.getDate(25);
-            dias_rgt             = rs.getInt(26);
-            stat_rgt             = rs.getString(27);
+            ruta_rgt             = rs.getString(28);
+            fec_rgt              = rs.getDate(29);
+            dias_rgt             = rs.getInt(30);
+            stat_rgt             = rs.getString(31);
             
-            nro_rgt             = rs.getString(28);
-            status              = rs.getInt(29);
-            ano                 = rs.getInt(30);
-            clasif              = rs.getInt(31);
-            rif_empresa         = rs.getString(32);
-            id_tseguro          = rs.getInt(33);
-            tseguro             = rs.getString(34);
-            abrevseg            = rs.getString(35);
+            nro_rgt             = rs.getString(32);
+            status              = rs.getInt(33);
 
-            
+            //Datos TSeguro del Vehiculo
+            log_TSeguros objTs = new log_TSeguros();
+            objTs.setIdTSeguro(rs.getInt(34));
+            objTs.setNombre(rs.getString(35));
+            objTs.setAbrev(rs.getString(36));
+            tseguro = objTs;
+
+            clasif              = rs.getInt(37);
+            tclasif             = rs.getString(38);
+
+            //Datos TDisponible de Flota
+            log_TDispflota objTd = new log_TDispflota();
+            objTd.setIdTDispflota(rs.getInt(39));
+            objTd.setNombre(rs.getString(40));
+            objTd.setAbrev(rs.getString(41));
+            tdispflota = objTd;
+
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
         }
@@ -182,6 +198,34 @@ public class log_Vehiculos {
     }
 
     /**
+     * @return the tseguro
+     */
+    public log_TSeguros getTseguro() {
+        return tseguro;
+    }
+
+    /**
+     * @param tseguro the tseguro to set
+     */
+    public void setTseguro(log_TSeguros tseguro) {
+        this.tseguro = tseguro;
+    }
+
+    /**
+     * @return the tdispflota
+     */
+    public log_TDispflota getTdispflota() {
+        return tdispflota;
+    }
+
+    /**
+     * @param tdispflota the tdispflota to set
+     */
+    public void setTdispflota(log_TDispflota tdispflota) {
+        this.tdispflota = tdispflota;
+    }
+
+    /**
      * @return the modelo
      */
     public String getModelo() {
@@ -196,17 +240,45 @@ public class log_Vehiculos {
     }
 
     /**
-     * @return the capacidad
+     * @return the peso_bveh
      */
-    public int getCapacidad() {
-        return capacidad;
+    public int getPeso_bveh() {
+        return peso_bveh;
     }
 
     /**
-     * @param capacidad the capacidad to set
+     * @param peso_bveh the peso_bveh to set
      */
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setPeso_bveh(int peso_bveh) {
+        this.peso_bveh = peso_bveh;
+    }
+
+    /**
+     * @return the cap_cargkgrs
+     */
+    public int getCap_cargkgrs() {
+        return cap_cargkgrs;
+    }
+
+    /**
+     * @param cap_cargkgrs the cap_cargkgrs to set
+     */
+    public void setCap_cargkgrs(int cap_cargkgrs) {
+        this.cap_cargkgrs = cap_cargkgrs;
+    }
+
+    /**
+     * @return the cap_cargmtrs3
+     */
+    public int getCap_cargmtrs3() {
+        return cap_cargmtrs3;
+    }
+
+    /**
+     * @param cap_cargmtrs3 the cap_cargmtrs3 to set
+     */
+    public void setCap_cargmtrs3(int cap_cargmtrs3) {
+        this.cap_cargmtrs3 = cap_cargmtrs3;
     }
 
     /**
@@ -504,20 +576,6 @@ public class log_Vehiculos {
     }
 
     /**
-     * @return the clasif
-     */
-    public int getClasif() {
-        return clasif;
-    }
-
-    /**
-     * @param clasif the clasif to set
-     */
-    public void setClasif(int clasif) {
-        this.clasif = clasif;
-    }
-
-    /**
      * @return the rif_empresa
      */
     public String getRif_empresa() {
@@ -532,46 +590,31 @@ public class log_Vehiculos {
     }
 
     /**
-     * @return the id_tseguro
+     * @return the clasif
      */
-    public int getId_tseguro() {
-        return id_tseguro;
+    public int getClasif() {
+        return clasif;
     }
 
     /**
-     * @param id_tseguro the id_tseguro to set
+     * @param clasif the clasif to set
      */
-    public void setId_tseguro(int id_tseguro) {
-        this.id_tseguro = id_tseguro;
+    public void setClasif(int clasif) {
+        this.clasif = clasif;
     }
 
     /**
-     * @return the tseguro
+     * @return the tclasif
      */
-    public String getTseguro() {
-        return tseguro;
+    public String getTclasif() {
+        return tclasif;
     }
 
     /**
-     * @param tseguro the tseguro to set
+     * @param tclasif the tclasif to set
      */
-    public void setTseguro(String tseguro) {
-        this.tseguro = tseguro;
+    public void setTclasif(String tclasif) {
+        this.tclasif = tclasif;
     }
-
-    /**
-     * @return the abrevseg
-     */
-    public String getAbrevseg() {
-        return abrevseg;
-    }
-
-    /**
-     * @param abrevseg the abrevseg to set
-     */
-    public void setAbrevseg(String abrevseg) {
-        this.abrevseg = abrevseg;
-    }
-
 
 }

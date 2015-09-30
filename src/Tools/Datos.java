@@ -15,7 +15,7 @@ import Objects.Setup.GroupSupplier;
 import Objects.Setup.Measure;
 import Objects.Setup.Municipality;
 import Objects.Setup.Parish;
-import Objects.Setup.Reason;
+import Objects.log_TMotdev;
 import Objects.System.Sesion;
 import Objects.Setup.Sex;
 import Objects.Setup.State;
@@ -33,6 +33,7 @@ import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
 import Objects.log_Guide_rel_inv;
 import Objects.log_Personal;
+import Objects.log_TDispflota;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
@@ -61,55 +62,70 @@ public class Datos {
     private static String numRel_Dev;
     private static String numRel_Caj;
     private static String numOrd_comp;
-    
     private static String path_im_view;
 
-    private static Usuario                      usuario;
+    
+    private static ComboBox<City>               cbCity;
+    private static ComboBox<Country>            cbCountry;
+    private static ComboBox<Municipality>       cbMunicipality;
+    private static ComboBox<Parish>             cbParish;
+    private static ComboBox<Rol>                cbRoles;
+    private static ComboBox<Sex>                cbSex;
+    private static ComboBox<State>              cbState;
+    private static ComboBox<Unit>               cbUnit;
+
+    private static ComboBox<GroupSupplier>      cbGroupSupplier;
+    private static ComboBox<log_TMarca>         cbMarca;
+    private static ComboBox<log_TPersonal>      cbTPersonal;
+    private static ComboBox<log_TProced>        cbProced;
+    private static ComboBox<log_TTransp>        cbTTransp;
+    private static ComboBox<log_TMotdev>        cbLog_tmotdev;
+    private static ComboBox<log_TSeguros>       cbTSeguro;
+    private static ComboBox<log_TDispflota>     cbLog_tdispflota;
+    
+    
+    private static Usuario                      user;
     private static City                         city;
     private static Country                      country;
     private static GroupSupplier                groupSupplier;
-    private static log_CGuias                   log_cguias;
-    private static log_Guide_rel_inv            log_guide_rel_inv;
-    private static log_TMarca                   log_tmarca;
-    private static log_Personal                 log_personal;
-    private static log_TPersonal                log_tpersonal;
-    private static log_TProced                  log_tproced;
-    private static log_TSeguros                 log_tseguros;
-    private static log_TTransp                  log_ttransp;
-    private static log_Vehiculos                log_vehiculos;
     private static Measure                      measure;
     private static Municipality                 municipality;
     private static Orders                       orders;
     private static Parish                       parish;
     private static Rol                          role;
-    private static Reason                       reason;
     private static Sex                          sex;
     private static State                        state;
     private static Supplier                     supplier;
     private static Unit                         unit;
     private static UploadExcelFile              updloadexcelfile;
 
-    private static ComboBox<Rol>                roles;
-    private static ComboBox<Country>            cbCountry;
-    private static ComboBox<City>               cbCity;
-    private static ComboBox<GroupSupplier>      cbGroupSupplier;
-    private static ComboBox<log_TMarca>         cbMarca;
-    private static ComboBox<log_TPersonal>      cbTPersonal;
-    private static ComboBox<log_TProced>        cbProced;
-    private static ComboBox<log_TTransp>        cbTTransp;
-    private static ComboBox<Municipality>       cbMunicipality;
-    private static ComboBox<Parish>             cbParish;
-    private static ComboBox<Reason>             cbReason;
-    private static ComboBox<Sex>                cbSex;
-    private static ComboBox<State>              cbState;
-    private static ComboBox<Unit>               cbUnit;
+    private static log_CGuias                   log_cguias;
+    private static log_Guide_rel_inv            log_guide_rel_inv;
+    private static log_Personal                 log_personal;
+    private static log_TDispflota               log_tdispflota;
+    private static log_TMarca                   log_tmarca;
+    private static log_TMotdev                  log_tmotdev;
+    private static log_TPersonal                log_tpersonal;
+    private static log_TProced                  log_tproced;
+    private static log_TSeguros                 log_tseguros;
+    private static log_TTransp                  log_ttransp;
+    private static log_Vehiculos                log_vehiculos;
+
     
     private static ItemLeftBar[]                itemLeftBar; 
+
     private static Fxp_Archguid[]               rep_log_guide_doc;
     private static Fxp_Archguip_pro_cg[]        rep_log_guide_pro_cg;
     private static Fxp_Archguip_pro_dv[]        rep_log_guide_pro_dv;
+
     private static GroupSupplier[]              rep_grp_supplier;
     private static Measure[]                    rep_measure;
+    private static Orders[]                     rep_orders;
+    private static Rol[]                        rep_role;
+    private static Supplier[]                   rep_supplier;
+    private static Unit[]                       rep_unit;
+    private static UploadExcelFile[]            rep_updloadexcelfile;
+
     private static log_CGuias[]                 rep_log_cguias;
     private static log_CGuias_falt[]            rep_log_cguias_falt;
     private static log_CGuias_falt_cg[]         rep_log_cguias_fcar;
@@ -119,27 +135,51 @@ public class Datos {
     private static log_CGuias_Glomar_invoice[]  rep_log_cguias_glomar_invoice;
     private static log_Guide_rel_inv[]          rep_log_guide_rel_inv;
     private static log_Personal[]               rep_log_personal;
+    private static log_TDispflota[]             rep_log_tdispflota;
+    private static log_TMotdev[]                rep_log_tmotdev;
     private static log_TPersonal[]              rep_log_tpersonal;
     private static log_TSeguros[]               rep_log_tseguros;
     private static log_Vehiculos[]              rep_log_vehiculo;
-    private static Orders[]                     rep_orders;
-    private static Reason[]                     rep_reason;
-    private static Rol[]                        rep_role;
-    private static Supplier[]                   rep_supplier;
-    private static Unit[]                       rep_unit;
-    private static UploadExcelFile[]            rep_updloadexcelfile;
 
+    /**
+     * @return the cont_login
+     */
+    public static String[] getLocalHost() {
+        InetAddress ip;
+
+        try {
+            ip = InetAddress.getLocalHost();
+            NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+            byte[] sb = network.getHardwareAddress();
+
+            StringBuilder mac = new StringBuilder();
+            for (int i = 0; i < sb.length; i++) {
+                    mac.append(String.format("%02X%s", sb[i], (i < sb.length - 1) ? "-" : ""));		
+            }
+            return new String[] {ip.getHostName(), ip.getHostAddress(), mac.toString()};
+            
+        } catch (UnknownHostException | SocketException e) {
+            Tools.getErrorMessage(e.getStackTrace(), e.getMessage());
+ 	}
+        return null;
+    }
+
+
+    /***************************************************************************/
+    /**************************** static int ***********************************/
+    /***************************************************************************/
     /**
      * @return the sesion
      */
     public static Sesion getSesion() {
         return sesion;
     }
+
     /**
-     * @param _sesion the sesion to set
+     * @param aSesion the sesion to set
      */
-    public static void setSesion(Sesion _sesion) {
-        sesion = _sesion;
+    public static void setSesion(Sesion aSesion) {
+        sesion = aSesion;
     }
 
     /**
@@ -155,7 +195,7 @@ public class Datos {
     public static void setCont_login(int aCont_login) {
         cont_login = aCont_login;
     }
-    
+
     /**
      * @return the cont_login
      */
@@ -176,183 +216,125 @@ public class Datos {
     public static void setIdScreen(int aIdScreen) {
         idScreen = aIdScreen;
     }
-    
+
     /**
-     * @return the cont_login
+     * @return the idButton
      */
-    public static String[] getLocalHost() {
-        
-        InetAddress ip;
-
-        try {
-            ip = InetAddress.getLocalHost();
-            NetworkInterface network = NetworkInterface.getByInetAddress(ip);
-            byte[] sb = network.getHardwareAddress();
-
-            StringBuilder mac = new StringBuilder();
-            for (int i = 0; i < sb.length; i++) {
-                    mac.append(String.format("%02X%s", sb[i], (i < sb.length - 1) ? "-" : ""));		
-            }
-            return new String[] {ip.getHostName(), ip.getHostAddress(), mac.toString()};
-            
-        } catch (UnknownHostException | SocketException e) {
-            Tools.getErrorMessage(e.getStackTrace(), e.getMessage());
- 	}
-        return null;
+    public static int getIdButton() {
+        return idButton;
     }
 
     /**
-     * @return the usuario
+     * @param aIdButton the idButton to set
      */
-    public static Usuario getUsuario() {
-        return usuario;
+    public static void setIdButton(int aIdButton) {
+        idButton = aIdButton;
     }
 
     /**
-     * @param aUsuario the usuario to set
+     * @return the stSeniat
      */
-    public static void setUsuario(Usuario aUsuario) {
-        usuario = aUsuario;
+    public static int getStSeniat() {
+        return stSeniat;
     }
 
     /**
-     * @return the itemLeftBar
+     * @param aStSeniat the stSeniat to set
      */
-    public static ItemLeftBar[] getItemLeftBar() {
-        return itemLeftBar;
+    public static void setStSeniat(int aStSeniat) {
+        stSeniat = aStSeniat;
+    }
+
+
+    /***************************************************************************/
+    /**************************** static String ********************************/
+    /***************************************************************************/
+    /**
+     * @return the numRela
+     */
+    public static String getNumRela() {
+        return numRela;
     }
 
     /**
-     * @param aItemLeftBar the itemLeftBar to set
+     * @param aNumRela the numRela to set
      */
-    public static void setItemLeftBar(ItemLeftBar[] aItemLeftBar) {
-        itemLeftBar = aItemLeftBar;
+    public static void setNumRela(String aNumRela) {
+        numRela = aNumRela;
     }
 
     /**
-     * @return the roles
+     * @return the numRel_Dev
      */
-    public static ComboBox<Rol> getRoles() {
-        return roles;
+    public static String getNumRel_Dev() {
+        return numRel_Dev;
     }
 
     /**
-     * @param roles the roles to set
+     * @param aNumRel_Dev the numRel_Dev to set
      */
-    public static void setRoles(ComboBox<Rol> roles) {
-        Datos.roles = roles;
-    }
-    
-    /**
-     * @return the usuario
-     */
-    public static Measure getMeasure() {
-        return measure;
+    public static void setNumRel_Dev(String aNumRel_Dev) {
+        numRel_Dev = aNumRel_Dev;
     }
 
     /**
-     * @param aUsuario the usuario to set
+     * @return the numRel_Caj
      */
-    public static void setMeasure(Measure aMeasure) {
-        measure = aMeasure;
+    public static String getNumRel_Caj() {
+        return numRel_Caj;
     }
 
     /**
-     * @return the groupSupplier
+     * @param aNumRel_Caj the numRel_Caj to set
      */
-    public static GroupSupplier getGroupSupplier() {
-        return groupSupplier;
+    public static void setNumRel_Caj(String aNumRel_Caj) {
+        numRel_Caj = aNumRel_Caj;
     }
 
     /**
-     * @param aGroupSupplier the groupSupplier to set
+     * @return the numOrd_comp
      */
-    public static void setGroupSupplier(GroupSupplier aGroupSupplier) {
-        groupSupplier = aGroupSupplier;
+    public static String getNumOrd_comp() {
+        return numOrd_comp;
     }
 
     /**
-     * @return the cbGroupSupplier
+     * @param aNumOrd_comp the numOrd_comp to set
      */
-    public static ComboBox<GroupSupplier> getCbGroupSupplier() {
-        return cbGroupSupplier;
+    public static void setNumOrd_comp(String aNumOrd_comp) {
+        numOrd_comp = aNumOrd_comp;
     }
 
     /**
-     * @param aCbGroupSupplier the cbGroupSupplier to set
+     * @return the path_im_view
      */
-    public static void setCbGroupSupplier(ComboBox<GroupSupplier> aCbGroupSupplier) {
-        cbGroupSupplier = aCbGroupSupplier;
+    public static String getPath_im_view() {
+        return path_im_view;
     }
 
     /**
-     * @return the country
+     * @param aPath_im_view the path_im_view to set
      */
-    public static Country getCountry() {
-        return country;
+    public static void setPath_im_view(String aPath_im_view) {
+        path_im_view = aPath_im_view;
+    }
+
+
+    /***************************************************************************/
+    /**************************** static ComboBox *****************************/
+    /***************************************************************************/
+    /**
+     * @return the cbCity
+     */
+    public static ComboBox<City> getCbCity() {
+        return cbCity;
     }
 
     /**
-     * @param aCountry the country to set
+     * @param aCbCity the cbCity to set
      */
-    public static void setCountry(Country aCountry) {
-        country = aCountry;
-    }
-
-    /**
-     * @return the state
-     */
-    public static State getState() {
-        return state;
-    }
-
-    /**
-     * @param aState the state to set
-     */
-    public static void setState(State aState) {
-        state = aState;
-    }
-
-    /**
-     * @return the city
-     */
-    public static City getCity() {
-        return city;
-    }
-
-    /**
-     * @param aCity the city to set
-     */
-    public static void setCity(City aCity) {
-        city = aCity;
-    }
-
-    /**
-     * @return the municipality
-     */
-    public static Municipality getMunicipality() {
-        return municipality;
-    }
-
-    /**
-     * @param aMunicipality the municipality to set
-     */
-    public static void setMunicipality(Municipality aMunicipality) {
-        municipality = aMunicipality;
-    }
-
-    /**
-     * @return the parish
-     */
-    public static Parish getParish() {
-        return parish;
-    }
-
-    /**
-     * @param aParish the parish to set
-     */
-    public static void setParish(Parish aParish) {
-        parish = aParish;
+    public static void setCbCity(ComboBox<City> aCbCity) {
+        cbCity = aCbCity;
     }
 
     /**
@@ -367,34 +349,6 @@ public class Datos {
      */
     public static void setCbCountry(ComboBox<Country> aCbCountry) {
         cbCountry = aCbCountry;
-    }
-
-    /**
-     * @return the cbState
-     */
-    public static ComboBox<State> getCbState() {
-        return cbState;
-    }
-
-    /**
-     * @param aCbState the cbState to set
-     */
-    public static void setCbState(ComboBox<State> aCbState) {
-        cbState = aCbState;
-    }
-
-    /**
-     * @return the cbCity
-     */
-    public static ComboBox<City> getCbCity() {
-        return cbCity;
-    }
-
-    /**
-     * @param aCbCity the cbCity to set
-     */
-    public static void setCbCity(ComboBox<City> aCbCity) {
-        cbCity = aCbCity;
     }
 
     /**
@@ -426,45 +380,17 @@ public class Datos {
     }
 
     /**
-     * @return the supplier
+     * @return the cbRoles
      */
-    public static Supplier getSupplier() {
-        return supplier;
+    public static ComboBox<Rol> getCbRoles() {
+        return cbRoles;
     }
 
     /**
-     * @param aSupplier the supplier to set
+     * @param aCbRoles the cbRoles to set
      */
-    public static void setSupplier(Supplier aSupplier) {
-        supplier = aSupplier;
-    }
-
-    /**
-     * @return the stSeniat
-     */
-    public static int getStSeniat() {
-        return stSeniat;
-    }
-
-    /**
-     * @param aStSeniat the stSeniat to set
-     */
-    public static void setStSeniat(int aStSeniat) {
-        stSeniat = aStSeniat;
-    }
-
-    /**
-     * @return the sex
-     */
-    public static Sex getSex() {
-        return sex;
-    }
-
-    /**
-     * @param aSex the sex to set
-     */
-    public static void setSex(Sex aSex) {
-        sex = aSex;
+    public static void setCbRoles(ComboBox<Rol> aCbRoles) {
+        cbRoles = aCbRoles;
     }
 
     /**
@@ -482,31 +408,45 @@ public class Datos {
     }
 
     /**
-     * @return the log_personal
+     * @return the cbState
      */
-    public static log_Personal getLog_personal() {
-        return log_personal;
+    public static ComboBox<State> getCbState() {
+        return cbState;
     }
 
     /**
-     * @param aLog_personal the log_personal to set
+     * @param aCbState the cbState to set
      */
-    public static void setLog_personal(log_Personal aLog_personal) {
-        log_personal = aLog_personal;
+    public static void setCbState(ComboBox<State> aCbState) {
+        cbState = aCbState;
     }
 
     /**
-     * @return the cbTPersonal
+     * @return the cbUnit
      */
-    public static ComboBox<log_TPersonal> getCbTPersonal() {
-        return cbTPersonal;
+    public static ComboBox<Unit> getCbUnit() {
+        return cbUnit;
     }
 
     /**
-     * @param aCbTPersonal the cbTPersonal to set
+     * @param aCbUnit the cbUnit to set
      */
-    public static void setCbTPersonal(ComboBox<log_TPersonal> aCbTPersonal) {
-        cbTPersonal = aCbTPersonal;
+    public static void setCbUnit(ComboBox<Unit> aCbUnit) {
+        cbUnit = aCbUnit;
+    }
+
+    /**
+     * @return the cbGroupSupplier
+     */
+    public static ComboBox<GroupSupplier> getCbGroupSupplier() {
+        return cbGroupSupplier;
+    }
+
+    /**
+     * @param aCbGroupSupplier the cbGroupSupplier to set
+     */
+    public static void setCbGroupSupplier(ComboBox<GroupSupplier> aCbGroupSupplier) {
+        cbGroupSupplier = aCbGroupSupplier;
     }
 
     /**
@@ -521,6 +461,20 @@ public class Datos {
      */
     public static void setCbMarca(ComboBox<log_TMarca> aCbMarca) {
         cbMarca = aCbMarca;
+    }
+
+    /**
+     * @return the cbTPersonal
+     */
+    public static ComboBox<log_TPersonal> getCbTPersonal() {
+        return cbTPersonal;
+    }
+
+    /**
+     * @param aCbTPersonal the cbTPersonal to set
+     */
+    public static void setCbTPersonal(ComboBox<log_TPersonal> aCbTPersonal) {
+        cbTPersonal = aCbTPersonal;
     }
 
     /**
@@ -552,101 +506,217 @@ public class Datos {
     }
 
     /**
-     * @return the log_vehiculos
+     * @return the cbLog_tmotdev
      */
-    public static log_Vehiculos getLog_vehiculos() {
-        return log_vehiculos;
+    public static ComboBox<log_TMotdev> getCbLog_tmotdev() {
+        return cbLog_tmotdev;
     }
 
     /**
-     * @param aLog_vehiculos the log_vehiculos to set
+     * @param aCbLog_tmotdev the cbLog_tmotdev to set
      */
-    public static void setLog_vehiculos(log_Vehiculos aLog_vehiculos) {
-        log_vehiculos = aLog_vehiculos;
+    public static void setCbLog_tmotdev(ComboBox<log_TMotdev> aCbLog_tmotdev) {
+        cbLog_tmotdev = aCbLog_tmotdev;
     }
 
     /**
-     * @return the rep_log_personal
+     * @return the cbTSeguro
      */
-    public static log_Personal[] getRep_log_personal() {
-        return rep_log_personal;
+    public static ComboBox<log_TSeguros> getCbTSeguro() {
+        return cbTSeguro;
     }
 
     /**
-     * @param aRep_personal the rep_log_personal to set
+     * @param aCbTSeguro the cbTSeguro to set
      */
-    public static void setRep_log_personal(log_Personal[] aRep_personal) {
-        rep_log_personal = aRep_personal;
+    public static void setCbTSeguro(ComboBox<log_TSeguros> aCbTSeguro) {
+        cbTSeguro = aCbTSeguro;
     }
 
     /**
-     * @return the rep_log_vehiculo
+     * @return the cbLog_tdispflota
      */
-    public static log_Vehiculos[] getRep_log_vehiculo() {
-        return rep_log_vehiculo;
+    public static ComboBox<log_TDispflota> getCbLog_tdispflota() {
+        return cbLog_tdispflota;
     }
 
     /**
-     * @param aRep_log_vehiculo the rep_log_vehiculo to set
+     * @param aCbLog_tdispflota the cbLog_tdispflota to set
      */
-    public static void setRep_log_vehiculo(log_Vehiculos[] aRep_log_vehiculo) {
-        rep_log_vehiculo = aRep_log_vehiculo;
+    public static void setCbLog_tdispflota(ComboBox<log_TDispflota> aCbLog_tdispflota) {
+        cbLog_tdispflota = aCbLog_tdispflota;
+    }
+
+
+    /***************************************************************************/
+    /**************************** static Objetcs *******************************/
+    /***************************************************************************/
+    /**
+     * @return the user
+     */
+    public static Usuario getUser() {
+        return user;
     }
 
     /**
-     * @return the rep_log_tpersonal
+     * @param aUsuario the user to set
      */
-    public static log_TPersonal[] getRep_log_tpersonal() {
-        return rep_log_tpersonal;
+    public static void setUser(Usuario aUsuario) {
+        user = aUsuario;
     }
 
     /**
-     * @param aRep_log_tpersonal the rep_log_tpersonal to set
+     * @return the city
      */
-    public static void setRep_log_tpersonal(log_TPersonal[] aRep_log_tpersonal) {
-        rep_log_tpersonal = aRep_log_tpersonal;
+    public static City getCity() {
+        return city;
     }
 
     /**
-     * @return the rep_grp_supplier
+     * @param aCity the city to set
      */
-    public static GroupSupplier[] getRep_grp_supplier() {
-        return rep_grp_supplier;
+    public static void setCity(City aCity) {
+        city = aCity;
     }
 
     /**
-     * @param aRep_grp_supplier the rep_grp_supplier to set
+     * @return the country
      */
-    public static void setRep_grp_supplier(GroupSupplier[] aRep_grp_supplier) {
-        rep_grp_supplier = aRep_grp_supplier;
+    public static Country getCountry() {
+        return country;
     }
 
     /**
-     * @return the rep_measure
+     * @param aCountry the country to set
      */
-    public static Measure[] getRep_measure() {
-        return rep_measure;
+    public static void setCountry(Country aCountry) {
+        country = aCountry;
     }
 
     /**
-     * @param aRep_measure the rep_measure to set
+     * @return the groupSupplier
      */
-    public static void setRep_measure(Measure[] aRep_measure) {
-        rep_measure = aRep_measure;
+    public static GroupSupplier getGroupSupplier() {
+        return groupSupplier;
     }
 
     /**
-     * @return the rep_supplier
+     * @param aGroupSupplier the groupSupplier to set
      */
-    public static Supplier[] getRep_supplier() {
-        return rep_supplier;
+    public static void setGroupSupplier(GroupSupplier aGroupSupplier) {
+        groupSupplier = aGroupSupplier;
     }
 
     /**
-     * @param aRep_supplier the rep_supplier to set
+     * @return the measure
      */
-    public static void setRep_supplier(Supplier[] aRep_supplier) {
-        rep_supplier = aRep_supplier;
+    public static Measure getMeasure() {
+        return measure;
+    }
+
+    /**
+     * @param aMeasure the measure to set
+     */
+    public static void setMeasure(Measure aMeasure) {
+        measure = aMeasure;
+    }
+
+    /**
+     * @return the municipality
+     */
+    public static Municipality getMunicipality() {
+        return municipality;
+    }
+
+    /**
+     * @param aMunicipality the municipality to set
+     */
+    public static void setMunicipality(Municipality aMunicipality) {
+        municipality = aMunicipality;
+    }
+
+    /**
+     * @return the orders
+     */
+    public static Orders getOrders() {
+        return orders;
+    }
+
+    /**
+     * @param aOrders the orders to set
+     */
+    public static void setOrders(Orders aOrders) {
+        orders = aOrders;
+    }
+
+    /**
+     * @return the parish
+     */
+    public static Parish getParish() {
+        return parish;
+    }
+
+    /**
+     * @param aParish the parish to set
+     */
+    public static void setParish(Parish aParish) {
+        parish = aParish;
+    }
+
+    /**
+     * @return the role
+     */
+    public static Rol getRole() {
+        return role;
+    }
+
+    /**
+     * @param aRole the role to set
+     */
+    public static void setRole(Rol aRole) {
+        role = aRole;
+    }
+
+    /**
+     * @return the sex
+     */
+    public static Sex getSex() {
+        return sex;
+    }
+
+    /**
+     * @param aSex the sex to set
+     */
+    public static void setSex(Sex aSex) {
+        sex = aSex;
+    }
+
+    /**
+     * @return the state
+     */
+    public static State getState() {
+        return state;
+    }
+
+    /**
+     * @param aState the state to set
+     */
+    public static void setState(State aState) {
+        state = aState;
+    }
+
+    /**
+     * @return the supplier
+     */
+    public static Supplier getSupplier() {
+        return supplier;
+    }
+
+    /**
+     * @param aSupplier the supplier to set
+     */
+    public static void setSupplier(Supplier aSupplier) {
+        supplier = aSupplier;
     }
 
     /**
@@ -664,59 +734,17 @@ public class Datos {
     }
 
     /**
-     * @return the rep_unit
+     * @return the updloadexcelfile
      */
-    public static Unit[] getRep_unit() {
-        return rep_unit;
+    public static UploadExcelFile getUpdloadexcelfile() {
+        return updloadexcelfile;
     }
 
     /**
-     * @param aRep_unit the rep_unit to set
+     * @param aUpdloadexcelfile the updloadexcelfile to set
      */
-    public static void setRep_unit(Unit[] aRep_unit) {
-        rep_unit = aRep_unit;
-    }
-
-    /**
-     * @return the idButton
-     */
-    public static int getIdButton() {
-        return idButton;
-    }
-
-    /**
-     * @param aIdButton the idButton to set
-     */
-    public static void setIdButton(int aIdButton) {
-        idButton = aIdButton;
-    }
-
-    /**
-     * @return the cbUnit
-     */
-    public static ComboBox<Unit> getCbUnit() {
-        return cbUnit;
-    }
-
-    /**
-     * @param aCbUnit the cbUnit to set
-     */
-    public static void setCbUnit(ComboBox<Unit> aCbUnit) {
-        cbUnit = aCbUnit;
-    }
-
-    /**
-     * @return the path_im_view
-     */
-    public static String getPath_im_view() {
-        return path_im_view;
-    }
-
-    /**
-     * @param aPath_im_view the path_im_view to set
-     */
-    public static void setPath_im_view(String aPath_im_view) {
-        path_im_view = aPath_im_view;
+    public static void setUpdloadexcelfile(UploadExcelFile aUpdloadexcelfile) {
+        updloadexcelfile = aUpdloadexcelfile;
     }
 
     /**
@@ -748,59 +776,147 @@ public class Datos {
     }
 
     /**
-     * @return the numRela
+     * @return the log_personal
      */
-    public static String getNumRela() {
-        return numRela;
+    public static log_Personal getLog_personal() {
+        return log_personal;
     }
 
     /**
-     * @param aNumRela the numRela to set
+     * @param aLog_personal the log_personal to set
      */
-    public static void setNumRela(String aNumRela) {
-        numRela = aNumRela;
+    public static void setLog_personal(log_Personal aLog_personal) {
+        log_personal = aLog_personal;
     }
 
     /**
-     * @return the reason
+     * @return the log_tdispflota
      */
-    public static Reason getReason() {
-        return reason;
+    public static log_TDispflota getLog_tdispflota() {
+        return log_tdispflota;
     }
 
     /**
-     * @param aReason the reason to set
+     * @param aLog_tdispflota the log_tdispflota to set
      */
-    public static void setReason(Reason aReason) {
-        reason = aReason;
+    public static void setLog_tdispflota(log_TDispflota aLog_tdispflota) {
+        log_tdispflota = aLog_tdispflota;
     }
 
     /**
-     * @return the rep_reason
+     * @return the log_tmarca
      */
-    public static Reason[] getRep_reason() {
-        return rep_reason;
+    public static log_TMarca getLog_tmarca() {
+        return log_tmarca;
     }
 
     /**
-     * @param aRep_reason the rep_reason to set
+     * @param aLog_tmarca the log_tmarca to set
      */
-    public static void setRep_reason(Reason[] aRep_reason) {
-        rep_reason = aRep_reason;
+    public static void setLog_tmarca(log_TMarca aLog_tmarca) {
+        log_tmarca = aLog_tmarca;
     }
 
     /**
-     * @return the rep_log_guide_rel_inv
+     * @return the log_tmotdev
      */
-    public static log_Guide_rel_inv[] getRep_log_guide_rel_inv() {
-        return rep_log_guide_rel_inv;
+    public static log_TMotdev getLog_tmotdev() {
+        return log_tmotdev;
     }
 
     /**
-     * @param aRep_log_guide_rel_inv the rep_log_guide_rel_inv to set
+     * @param aLog_tmotdev the log_tmotdev to set
      */
-    public static void setRep_log_guide_rel_inv(log_Guide_rel_inv[] aRep_log_guide_rel_inv) {
-        rep_log_guide_rel_inv = aRep_log_guide_rel_inv;
+    public static void setLog_tmotdev(log_TMotdev aLog_tmotdev) {
+        log_tmotdev = aLog_tmotdev;
+    }
+
+    /**
+     * @return the log_tpersonal
+     */
+    public static log_TPersonal getLog_tpersonal() {
+        return log_tpersonal;
+    }
+
+    /**
+     * @param aLog_tpersonal the log_tpersonal to set
+     */
+    public static void setLog_tpersonal(log_TPersonal aLog_tpersonal) {
+        log_tpersonal = aLog_tpersonal;
+    }
+
+    /**
+     * @return the log_tproced
+     */
+    public static log_TProced getLog_tproced() {
+        return log_tproced;
+    }
+
+    /**
+     * @param aLog_tproced the log_tproced to set
+     */
+    public static void setLog_tproced(log_TProced aLog_tproced) {
+        log_tproced = aLog_tproced;
+    }
+
+    /**
+     * @return the log_tseguros
+     */
+    public static log_TSeguros getLog_tseguros() {
+        return log_tseguros;
+    }
+
+    /**
+     * @param aLog_tseguros the log_tseguros to set
+     */
+    public static void setLog_tseguros(log_TSeguros aLog_tseguros) {
+        log_tseguros = aLog_tseguros;
+    }
+
+    /**
+     * @return the log_ttransp
+     */
+    public static log_TTransp getLog_ttransp() {
+        return log_ttransp;
+    }
+
+    /**
+     * @param aLog_ttransp the log_ttransp to set
+     */
+    public static void setLog_ttransp(log_TTransp aLog_ttransp) {
+        log_ttransp = aLog_ttransp;
+    }
+
+    /**
+     * @return the log_vehiculos
+     */
+    public static log_Vehiculos getLog_vehiculos() {
+        return log_vehiculos;
+    }
+
+    /**
+     * @param aLog_vehiculos the log_vehiculos to set
+     */
+    public static void setLog_vehiculos(log_Vehiculos aLog_vehiculos) {
+        log_vehiculos = aLog_vehiculos;
+    }
+
+
+    /***************************************************************************/
+    /**************************** static Objetcs *******************************/
+    /***************************************************************************/
+    /**
+     * @return the itemLeftBar
+     */
+    public static ItemLeftBar[] getItemLeftBar() {
+        return itemLeftBar;
+    }
+
+    /**
+     * @param aItemLeftBar the itemLeftBar to set
+     */
+    public static void setItemLeftBar(ItemLeftBar[] aItemLeftBar) {
+        itemLeftBar = aItemLeftBar;
     }
 
     /**
@@ -815,20 +931,6 @@ public class Datos {
      */
     public static void setRep_log_guide_doc(Fxp_Archguid[] aRep_log_guide_doc) {
         rep_log_guide_doc = aRep_log_guide_doc;
-    }
-
-    /**
-     * @return the cbReason
-     */
-    public static ComboBox<Reason> getCbReason() {
-        return cbReason;
-    }
-
-    /**
-     * @param aCbReason the cbReason to set
-     */
-    public static void setCbReason(ComboBox<Reason> aCbReason) {
-        cbReason = aCbReason;
     }
 
     /**
@@ -860,17 +962,101 @@ public class Datos {
     }
 
     /**
-     * @return the numRel_Dev
+     * @return the rep_grp_supplier
      */
-    public static String getNumRel_Dev() {
-        return numRel_Dev;
+    public static GroupSupplier[] getRep_grp_supplier() {
+        return rep_grp_supplier;
     }
 
     /**
-     * @param aNumRelDev the numRel_Dev to set
+     * @param aRep_grp_supplier the rep_grp_supplier to set
      */
-    public static void setNumRel_Dev(String aNumRelDev) {
-        numRel_Dev = aNumRelDev;
+    public static void setRep_grp_supplier(GroupSupplier[] aRep_grp_supplier) {
+        rep_grp_supplier = aRep_grp_supplier;
+    }
+
+    /**
+     * @return the rep_measure
+     */
+    public static Measure[] getRep_measure() {
+        return rep_measure;
+    }
+
+    /**
+     * @param aRep_measure the rep_measure to set
+     */
+    public static void setRep_measure(Measure[] aRep_measure) {
+        rep_measure = aRep_measure;
+    }
+
+    /**
+     * @return the rep_orders
+     */
+    public static Orders[] getRep_orders() {
+        return rep_orders;
+    }
+
+    /**
+     * @param aRep_orders the rep_orders to set
+     */
+    public static void setRep_orders(Orders[] aRep_orders) {
+        rep_orders = aRep_orders;
+    }
+
+    /**
+     * @return the rep_role
+     */
+    public static Rol[] getRep_role() {
+        return rep_role;
+    }
+
+    /**
+     * @param aRep_role the rep_role to set
+     */
+    public static void setRep_role(Rol[] aRep_role) {
+        rep_role = aRep_role;
+    }
+
+    /**
+     * @return the rep_supplier
+     */
+    public static Supplier[] getRep_supplier() {
+        return rep_supplier;
+    }
+
+    /**
+     * @param aRep_supplier the rep_supplier to set
+     */
+    public static void setRep_supplier(Supplier[] aRep_supplier) {
+        rep_supplier = aRep_supplier;
+    }
+
+    /**
+     * @return the rep_unit
+     */
+    public static Unit[] getRep_unit() {
+        return rep_unit;
+    }
+
+    /**
+     * @param aRep_unit the rep_unit to set
+     */
+    public static void setRep_unit(Unit[] aRep_unit) {
+        rep_unit = aRep_unit;
+    }
+
+    /**
+     * @return the rep_updloadexcelfile
+     */
+    public static UploadExcelFile[] getRep_updloadexcelfile() {
+        return rep_updloadexcelfile;
+    }
+
+    /**
+     * @param aRep_updloadexcelfile the rep_updloadexcelfile to set
+     */
+    public static void setRep_updloadexcelfile(UploadExcelFile[] aRep_updloadexcelfile) {
+        rep_updloadexcelfile = aRep_updloadexcelfile;
     }
 
     /**
@@ -885,6 +1071,20 @@ public class Datos {
      */
     public static void setRep_log_cguias(log_CGuias[] aRep_log_cguias) {
         rep_log_cguias = aRep_log_cguias;
+    }
+
+    /**
+     * @return the rep_log_cguias_falt
+     */
+    public static log_CGuias_falt[] getRep_log_cguias_falt() {
+        return rep_log_cguias_falt;
+    }
+
+    /**
+     * @param aRep_log_cguias_falt the rep_log_cguias_falt to set
+     */
+    public static void setRep_log_cguias_falt(log_CGuias_falt[] aRep_log_cguias_falt) {
+        rep_log_cguias_falt = aRep_log_cguias_falt;
     }
 
     /**
@@ -930,48 +1130,6 @@ public class Datos {
     }
 
     /**
-     * @return the role
-     */
-    public static Rol getRole() {
-        return role;
-    }
-
-    /**
-     * @param aRole the role to set
-     */
-    public static void setRole(Rol aRole) {
-        role = aRole;
-    }
-
-    /**
-     * @return the rep_role
-     */
-    public static Rol[] getRep_role() {
-        return rep_role;
-    }
-
-    /**
-     * @param aRep_role the rep_role to set
-     */
-    public static void setRep_role(Rol[] aRep_role) {
-        rep_role = aRep_role;
-    }
-
-    /**
-     * @return the numRel_Caj
-     */
-    public static String getNumRel_Caj() {
-        return numRel_Caj;
-    }
-
-    /**
-     * @param aNumRel_Caj the numRel_Caj to set
-     */
-    public static void setNumRel_Caj(String aNumRel_Caj) {
-        numRel_Caj = aNumRel_Caj;
-    }
-
-    /**
      * @return the rep_log_cguias_glomar_price
      */
     public static log_CGuias_Glomar_price[] getRep_log_cguias_glomar_price() {
@@ -983,20 +1141,6 @@ public class Datos {
      */
     public static void setRep_log_cguias_glomar_price(log_CGuias_Glomar_price[] aRep_log_cguias_glomar_price) {
         rep_log_cguias_glomar_price = aRep_log_cguias_glomar_price;
-    }
-
-    /**
-     * @return the updloadexcelfile
-     */
-    public static UploadExcelFile getUpdloadexcelfile() {
-        return updloadexcelfile;
-    }
-
-    /**
-     * @param aUpdloadexcelfile the updloadexcelfile to set
-     */
-    public static void setUpdloadexcelfile(UploadExcelFile aUpdloadexcelfile) {
-        updloadexcelfile = aUpdloadexcelfile;
     }
 
     /**
@@ -1014,87 +1158,73 @@ public class Datos {
     }
 
     /**
-     * @return the rep_updloadexcelfile
+     * @return the rep_log_guide_rel_inv
      */
-    public static UploadExcelFile[] getRep_updloadexcelfile() {
-        return rep_updloadexcelfile;
+    public static log_Guide_rel_inv[] getRep_log_guide_rel_inv() {
+        return rep_log_guide_rel_inv;
     }
 
     /**
-     * @param aRep_updloadexcelfile the rep_updloadexcelfile to set
+     * @param aRep_log_guide_rel_inv the rep_log_guide_rel_inv to set
      */
-    public static void setRep_updloadexcelfile(UploadExcelFile[] aRep_updloadexcelfile) {
-        rep_updloadexcelfile = aRep_updloadexcelfile;
+    public static void setRep_log_guide_rel_inv(log_Guide_rel_inv[] aRep_log_guide_rel_inv) {
+        rep_log_guide_rel_inv = aRep_log_guide_rel_inv;
     }
 
     /**
-     * @return the rep_log_cguias_falt
+     * @return the rep_log_personal
      */
-    public static log_CGuias_falt[] getRep_log_cguias_falt() {
-        return rep_log_cguias_falt;
+    public static log_Personal[] getRep_log_personal() {
+        return rep_log_personal;
     }
 
     /**
-     * @param aRep_log_cguias_falt the rep_log_cguias_falt to set
+     * @param aRep_log_personal the rep_log_personal to set
      */
-    public static void setRep_log_cguias_falt(log_CGuias_falt[] aRep_log_cguias_falt) {
-        rep_log_cguias_falt = aRep_log_cguias_falt;
+    public static void setRep_log_personal(log_Personal[] aRep_log_personal) {
+        rep_log_personal = aRep_log_personal;
     }
 
     /**
-     * @return the orders
+     * @return the rep_log_tdispflota
      */
-    public static Orders getOrders() {
-        return orders;
+    public static log_TDispflota[] getRep_log_tdispflota() {
+        return rep_log_tdispflota;
     }
 
     /**
-     * @param aOrders the orders to set
+     * @param aRep_log_tdispflota the rep_log_tdispflota to set
      */
-    public static void setOrders(Orders aOrders) {
-        orders = aOrders;
+    public static void setRep_log_tdispflota(log_TDispflota[] aRep_log_tdispflota) {
+        rep_log_tdispflota = aRep_log_tdispflota;
     }
 
     /**
-     * @return the rep_orders
+     * @return the rep_log_tmotdev
      */
-    public static Orders[] getRep_orders() {
-        return rep_orders;
+    public static log_TMotdev[] getRep_log_tmotdev() {
+        return rep_log_tmotdev;
     }
 
     /**
-     * @param aRep_orders the rep_orders to set
+     * @param aRep_log_tmotdev the rep_log_tmotdev to set
      */
-    public static void setRep_orders(Orders[] aRep_orders) {
-        rep_orders = aRep_orders;
+    public static void setRep_log_tmotdev(log_TMotdev[] aRep_log_tmotdev) {
+        rep_log_tmotdev = aRep_log_tmotdev;
     }
 
     /**
-     * @return the numOrd_comp
+     * @return the rep_log_tpersonal
      */
-    public static String getNumOrd_comp() {
-        return numOrd_comp;
+    public static log_TPersonal[] getRep_log_tpersonal() {
+        return rep_log_tpersonal;
     }
 
     /**
-     * @param aNumOrd_comp the numOrd_comp to set
+     * @param aRep_log_tpersonal the rep_log_tpersonal to set
      */
-    public static void setNumOrd_comp(String aNumOrd_comp) {
-        numOrd_comp = aNumOrd_comp;
-    }
-
-    /**
-     * @return the log_tseguros
-     */
-    public static log_TSeguros getLog_tseguros() {
-        return log_tseguros;
-    }
-
-    /**
-     * @param aLog_tseguros the log_tseguros to set
-     */
-    public static void setLog_tseguros(log_TSeguros aLog_tseguros) {
-        log_tseguros = aLog_tseguros;
+    public static void setRep_log_tpersonal(log_TPersonal[] aRep_log_tpersonal) {
+        rep_log_tpersonal = aRep_log_tpersonal;
     }
 
     /**
@@ -1111,4 +1241,20 @@ public class Datos {
         rep_log_tseguros = aRep_log_tseguros;
     }
 
+    /**
+     * @return the rep_log_vehiculo
+     */
+    public static log_Vehiculos[] getRep_log_vehiculo() {
+        return rep_log_vehiculo;
+    }
+
+    /**
+     * @param aRep_log_vehiculo the rep_log_vehiculo to set
+     */
+    public static void setRep_log_vehiculo(log_Vehiculos[] aRep_log_vehiculo) {
+        rep_log_vehiculo = aRep_log_vehiculo;
+    }
+
+
 }
+

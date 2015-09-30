@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Screens;
+package GUI.Screens.Guide.Main;
 
 import GUI.Gui;
 import LN.Ln;
@@ -77,7 +77,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_Guide_paydeskController implements Initializable {
+public class Fxml_Guide_PaydeskController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;

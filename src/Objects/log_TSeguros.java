@@ -99,13 +99,11 @@ public class log_TSeguros {
     }
 
     /**
-     * 
      * @return 
      */
     @Override
     public String toString(){
-        return this.nombre;
+        return this.abrev;
     }
-    
     
 }

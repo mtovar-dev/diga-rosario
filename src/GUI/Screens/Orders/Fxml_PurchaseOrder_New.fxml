@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <?import Tools.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Orders.Fxml_PurchaseOrderNewController">
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Orders.Fxml_PurchaseOrder_NewController">
   <children>
     <VBox minHeight="40.0" prefHeight="40.0" prefWidth="774.0">
       <children>

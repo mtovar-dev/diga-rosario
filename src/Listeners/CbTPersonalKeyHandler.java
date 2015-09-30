@@ -15,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class CbTPersonalKeyHandler implements EventHandler< KeyEvent >{
         private static ObservableList<log_TPersonal> log_tpersonal;        

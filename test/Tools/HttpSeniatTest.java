@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class HttpSeniatTest {
     

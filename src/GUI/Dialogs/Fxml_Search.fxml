@@ -82,7 +82,12 @@
                         <Font size="11.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="rb_find14" layoutX="206.0" layoutY="10.0" mnemonicParsing="false" prefWidth="88.0" text="Producto">
+                  <RadioButton fx:id="rb_find14" layoutX="206.0" layoutY="10.0" mnemonicParsing="false" prefWidth="88.0" text="Nro. Cred">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="rb_find15" layoutX="280.0" layoutY="10.0" mnemonicParsing="false" prefWidth="88.0" text="Producto">
                      <font>
                         <Font size="11.0" />
                      </font>

@@ -32,12 +32,12 @@ public class CbRolKeyHandler implements EventHandler< KeyEvent > {
             else s = event.getText();
 
             if( s.length() == 0 ) {
-                Datos.getRoles().getSelectionModel().selectFirst();
+                Datos.getCbRoles().getSelectionModel().selectFirst();
                 return;
             }            
             for( Rol item: roles ) {                
                 if( item.getNombre().startsWith( s ) ){
-                    Datos.getRoles().getSelectionModel().select( item );
+                    Datos.getCbRoles().getSelectionModel().select( item );
                 }
             }            
         }

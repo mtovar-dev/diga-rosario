@@ -35,7 +35,7 @@ import Objects.System.ItemPrintScreen;
 import Objects.Setup.Measure;
 import Objects.Setup.Municipality;
 import Objects.Setup.Parish;
-import Objects.Setup.Reason;
+import Objects.log_TMotdev;
 import Objects.System.Rol;
 import Objects.System.Sesion;
 import Objects.Setup.Sex;
@@ -51,6 +51,7 @@ import Objects.log_CGuias_falt_cg;
 import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
 import Objects.log_Personal;
+import Objects.log_TDispflota;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
@@ -69,7 +70,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class Ln {
     public String userID;
@@ -316,7 +317,7 @@ public class Ln {
      * @return 
      */
     public boolean update_UserPswd(Usuario usuario, String old, String pswd) {
-        boolean boo = Validar.validar_UpdatePswd(Datos.getUsuario().getPswd_old(), old, usuario.getPswd_new(), pswd);
+        boolean boo = Validar.validar_UpdatePswd(Datos.getUser().getPswd_old(), old, usuario.getPswd_new(), pswd);
         if (boo){
             try{                
                 //Encrypt
@@ -839,22 +840,22 @@ public class Ln {
     /**
      * @author MITM
      * @lista para generar el reporte
-     * @param reason
+     * @param log_tmotdev
      * @return 
      */
-    public static List<Reason> getList_Reason(Reason[] reason){
-        List<Reason> list = new ArrayList<>();        
-        list.addAll(Arrays.asList(reason));        
+    public static List<log_TMotdev> getList_log_TMotdev(log_TMotdev[] log_tmotdev){
+        List<log_TMotdev> list = new ArrayList<>();        
+        list.addAll(Arrays.asList(log_tmotdev));        
         return list;
     }
     /**
      * @author MITM
      * @return 
      */
-    public Reason[] load_Reason() {
+    public log_TMotdev[] load_log_TMotdev() {
         try{
-            Reason[] reason = Bd.getInstance().load_Reason();      
-            return reason;
+            log_TMotdev[] log_tmotdev = Bd.getInstance().load_log_TMotdev();      
+            return log_tmotdev;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Motivo: \n"+e.getMessage()); 
         }
@@ -865,10 +866,10 @@ public class Ln {
      * @param find
      * @return 
      */
-    public Reason[] find_Reason(String find) {
+    public log_TMotdev[] find_log_TMotdev(String find) {
         try{
-            Reason[] reason = Bd.getInstance().find_Reason(find);      
-            return reason;
+            log_TMotdev[] log_tmotdev = Bd.getInstance().find_log_TMotdev(find);      
+            return log_tmotdev;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Motivo: \n"+e.getMessage()); 
         }
@@ -876,16 +877,16 @@ public class Ln {
     }    
     /**
      * @author MITM
-     * @param reason
+     * @param log_tmotdev
      * @param operacion
      * @param ScreenName
      * @return 
      */
-    public boolean save_Reason(Reason reason, int operacion, String ScreenName) {
-        boolean boo = Validar.validar_Save_Reason(reason);
+    public boolean save_log_TMotdev(log_TMotdev log_tmotdev, int operacion, String ScreenName) {
+        boolean boo = Validar.validar_Save_log_TMotdev(log_tmotdev);
         if (boo){
             try{                
-                boolean result = Bd.getInstance().save_Reason(operacion, reason);
+                boolean result = Bd.getInstance().save_log_TMotdev(operacion, log_tmotdev);
 
                 return result;
             }catch(Exception e){
@@ -896,24 +897,24 @@ public class Ln {
     }
     /**
      * @author MITM
-     * @param reasonname
+     * @param log_tmotdevname
      * @return 
      */
-    public boolean check_Reason(String reasonname) {
+    public boolean check_log_TMotdev(String log_tmotdevname) {
         try{
-            return Bd.getInstance().check_Reason(reasonname);                
+            return Bd.getInstance().check_log_TMotdev(log_tmotdevname);                
         }catch(SQLException e){             
         }
         return false;
     }
     /**
      * @author MITM
-     * @param reason
+     * @param log_tmotdev
      * @return 
      */
-    public boolean change_Reason(Reason reason) {
+    public boolean change_log_TMotdev(log_TMotdev log_tmotdev) {
         try{
-            return Bd.getInstance().change_Reason(reason);                
+            return Bd.getInstance().change_log_TMotdev(log_tmotdev);                
         }catch(Exception e){       
             Gui.getInstance().ventanaError("Error Deshabilitando Motivo: \n"+e.getMessage()); 
         }
@@ -1708,12 +1709,12 @@ public class Ln {
     }
     /**
      * @author MITM
-     * @param log_ttranspname
+     * @param log_tsegurosname
      * @return 
      */
-    public boolean check_log_TSeguros(String log_ttranspname) {
+    public boolean check_log_TSeguros(String log_tsegurosname) {
         try{
-            return Bd.getInstance().check_log_TSeguros(log_ttranspname);                
+            return Bd.getInstance().check_log_TSeguros(log_tsegurosname);                
         }catch(SQLException e){             
         }
         return false;
@@ -1728,6 +1729,92 @@ public class Ln {
             return Bd.getInstance().change_log_TSeguros(log_tseguros);                
         }catch(Exception e){       
             Gui.getInstance().ventanaError("Error Deshabilitando Aseguradora: \n"+e.getMessage()); 
+        }
+        return false;
+    }    
+    /***************************************************************************/
+    /*************************** log_TDispflota ********************************/
+    /***************************************************************************/    
+    /**
+     * @author MITM
+     * @lista para generar el reporte
+     * @param log_tdispflota
+     * @return 
+     */
+    public static List<log_TDispflota> getList_log_TDispflota(log_TDispflota[] log_tdispflota){
+        List<log_TDispflota> list = new ArrayList<>();        
+        list.addAll(Arrays.asList(log_tdispflota));        
+        return list;
+    }
+    /**
+     * @author MITM
+     * @return 
+     */
+    public log_TDispflota[] load_log_TDispflota() {
+        try{
+            log_TDispflota[] log_tdispflota = Bd.getInstance().load_log_TDispflota();      
+            return log_tdispflota;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Disponibilidad: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
+    public log_TDispflota[] find_log_TDispflota(String find) {
+        try{
+            log_TDispflota[] log_tdispflota = Bd.getInstance().find_log_TDispflota(find);      
+            return log_tdispflota;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Disponibilidad: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param log_tdispflota
+     * @param operacion
+     * @param ScreenName
+     * @return 
+     */
+    public boolean save_log_TDispflota(log_TDispflota log_tdispflota, int operacion, String ScreenName) {
+        boolean boo = Validar.validar_Save_log_TDispflota(log_tdispflota);
+        if (boo){
+            try{                
+                boolean result = Bd.getInstance().save_log_TDispflota(operacion, log_tdispflota);
+
+                return result;
+            }catch(Exception e){
+                Gui.getInstance().showMessage("Error guardando " + ScreenName +": \n" + e.getMessage(), "E");
+            }
+        }        
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_ttranspname
+     * @return 
+     */
+    public boolean check_log_TDispflota(String log_ttranspname) {
+        try{
+            return Bd.getInstance().check_log_TSeguros(log_ttranspname);                
+        }catch(SQLException e){             
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_tdispflota
+     * @return 
+     */
+    public boolean change_log_TDispflota(log_TDispflota log_tdispflota) {
+        try{
+            return Bd.getInstance().change_log_TDispflota(log_tdispflota);                
+        }catch(Exception e){       
+            Gui.getInstance().ventanaError("Error Deshabilitando Disponibilidad: \n"+e.getMessage()); 
         }
         return false;
     }    

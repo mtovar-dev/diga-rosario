@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@Screens.css,@../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Fxml_Guide_paydeskController">
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Guide.Main.Fxml_Guide_PaydeskController">
   <children>
     <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" text="Nuevo" textAlignment="CENTER">
       <stylesheets>
@@ -23,62 +23,62 @@
               <children>
                 <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img63.png" />
+                    <Image url="@../../../../Images/img63.png" />
                   </image>
                 </ImageView>
                 <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img64.png" />
+                    <Image url="@../../../../Images/img64.png" />
                   </image>
                 </ImageView>
                 <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img49.png" />
+                    <Image url="@../../../../Images/img49.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img07.png" />
+                    <Image url="@../../../../Images/img07.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/im_1.png" />
+                    <Image url="@../../../../Images/im_1.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img03.png" />
+                    <Image url="@../../../../Images/img03.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img04.png" />
+                    <Image url="@../../../../Images/img04.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image url="@../../Images/img36.png" />
+                    <Image url="@../../../../Images/img36.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image url="@../../Images/img37.png" />
+                    <Image url="@../../../../Images/img37.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img59.png" />
+                    <Image url="@../../../../Images/img59.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img60.png" />
+                    <Image url="@../../../../Images/img60.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img32.png" />
+                    <Image url="@../../../../Images/img32.png" />
                   </image>
                 </ImageView>
                 <TextField fx:id="tf_buscar" prefWidth="150.0" />
@@ -110,12 +110,12 @@
                 <TextField fx:id="tf_nroguia" prefWidth="81.0" />
                 <ImageView fx:id="im_check" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img32a.png" />
+                    <Image url="@../../../../Images/img32a.png" />
                   </image>
                 </ImageView>
                 <ImageView id="" fx:id="im_val" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../Images/img61a.png" />
+                    <Image url="@../../../../Images/img61a.png" />
                   </image>
                 </ImageView>
                         <Label layoutX="18.0" layoutY="14.0" prefHeight="17.0" prefWidth="55.0" text="Fecha:">
@@ -144,7 +144,7 @@
 <Label prefHeight="27.0" prefWidth="75.0" text="Nro de Guia:" />
 <ImageView id="" fx:id="im_checkg" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
 <image>
-<Image url="@../../Images/img57a.png" />
+<Image url="@../../../../Images/img57a.png" />
 </image>
 </ImageView>
 </children>
@@ -785,4 +785,8 @@
 </padding>
 </VBox>
   </children>
+   <stylesheets>
+      <URL value="@Screens.css" />
+      <URL value="@../../../Css.css" />
+   </stylesheets>
 </AnchorPane>

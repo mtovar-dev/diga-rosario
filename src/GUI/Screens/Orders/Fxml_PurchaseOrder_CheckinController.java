@@ -1,9 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Screens;
+package GUI.Screens.Orders;
 
 import GUI.Gui;
 import LN.Ln;
@@ -37,7 +38,7 @@ import javafx.scene.layout.VBox;
  *
  * @author MITM
  */
-public class Fxml_templateController implements Initializable {
+public class Fxml_PurchaseOrder_CheckinController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;

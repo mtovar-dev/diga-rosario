@@ -61,6 +61,7 @@ public class log_CGuias extends xy {
     private String scheq_r7;
     private String cheq_pq;
     private String scheq_pq;
+    private String odometro;
     
     /**
      * 
@@ -114,6 +115,7 @@ public class log_CGuias extends xy {
             scheq_r7            = rs.getString(37);
             cheq_pq             = rs.getString(38);
             scheq_pq            = rs.getString(39);
+            odometro            = rs.getString(40);
             
             super.setNumorden(numorden);
             super.setGuias(numguia);
@@ -741,6 +743,20 @@ public class log_CGuias extends xy {
      */
     public void setScheq_pq(String scheq_pq) {
         this.scheq_pq = scheq_pq;
+    }
+
+    /**
+     * @return the odometro
+     */
+    public String getOdometro() {
+        return odometro;
+    }
+
+    /**
+     * @param odometro the odometro to set
+     */
+    public void setOdometro(String odometro) {
+        this.odometro = odometro;
     }
 
 }

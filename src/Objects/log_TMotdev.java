@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Objects.Setup;
+package Objects;
 
 import Tools.Tools;
 import java.sql.ResultSet;
@@ -12,22 +12,22 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
-public class Reason {
-    private int idReason;
+public class log_TMotdev {
+    private int idTMotdev;
     private String nombre;
     private String abrev; 
-    private int valClasif;
-    private int valDev;
+    private int valclasif;
+    private int valdev;
     private int valblq;
-    private int status;
     private int valobserv;
     private int valfact;
+    private int status;
     /**
      * 
      */
-    public Reason(){
+    public log_TMotdev(){
         
     }
 
@@ -35,13 +35,13 @@ public class Reason {
      * 
      * @param rs 
      */
-    public Reason(ResultSet rs){
+    public log_TMotdev(ResultSet rs){
         try{
-            idReason        = rs.getInt(1);
+            idTMotdev       = rs.getInt(1);
             nombre          = rs.getString(2);
             abrev           = rs.getString(3);
-            valClasif       = rs.getInt(4);
-            valDev          = rs.getInt(5);
+            valclasif       = rs.getInt(4);
+            valdev          = rs.getInt(5);
             valblq          = rs.getInt(6);
             status          = rs.getInt(7);
             valobserv       = rs.getInt(8);
@@ -53,17 +53,17 @@ public class Reason {
     }
 
     /**
-     * @return the idReason
+     * @return the idTMotdev
      */
-    public int getIdReason() {
-        return idReason;
+    public int getIdTMotdev() {
+        return idTMotdev;
     }
 
     /**
-     * @param idReason the idReason to set
+     * @param idTMotdev the idTMotdev to set
      */
-    public void setIdReason(int idReason) {
-        this.idReason = idReason;
+    public void setIdTMotdev(int idTMotdev) {
+        this.idTMotdev = idTMotdev;
     }
 
     /**
@@ -95,31 +95,31 @@ public class Reason {
     }
 
     /**
-     * @return the valClasif
+     * @return the valclasif
      */
-    public int getValClasif() {
-        return valClasif;
+    public int getValclasif() {
+        return valclasif;
     }
 
     /**
-     * @param valClasif the valClasif to set
+     * @param valclasif the valclasif to set
      */
-    public void setValClasif(int valClasif) {
-        this.valClasif = valClasif;
+    public void setValclasif(int valclasif) {
+        this.valclasif = valclasif;
     }
 
     /**
-     * @return the valDev
+     * @return the valdev
      */
-    public int getValDev() {
-        return valDev;
+    public int getValdev() {
+        return valdev;
     }
 
     /**
-     * @param valDev the valDev to set
+     * @param valdev the valdev to set
      */
-    public void setValDev(int valDev) {
-        this.valDev = valDev;
+    public void setValdev(int valdev) {
+        this.valdev = valdev;
     }
 
     /**
@@ -134,30 +134,6 @@ public class Reason {
      */
     public void setValblq(int valblq) {
         this.valblq = valblq;
-    }
-
-    /**
-     * @return the status
-     */
-    public int getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    @Override
-    public String toString(){
-        //return this.abrev + " / " + this.nombre ;
-        return this.getNombre() ;
     }
 
     /**
@@ -188,4 +164,26 @@ public class Reason {
         this.valfact = valfact;
     }
 
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    /**
+     * @return 
+     */
+    @Override
+    public String toString(){
+        return this.nombre;
+    }
+    
 }

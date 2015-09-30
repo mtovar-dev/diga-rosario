@@ -8,7 +8,7 @@ package Objects;
 
 /**
  *
- * @author Personal
+ * @author MITM
  */
 public class log_Guide_rel_cred {
     private Fxp_Archguid[] tb_factura;

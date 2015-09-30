@@ -7,7 +7,7 @@ package Tools;
 import GUI.Gui;
 import Objects.Setup.GroupSupplier;
 import Objects.Setup.Measure;
-import Objects.Setup.Reason;
+import Objects.log_TMotdev;
 import Objects.System.Rol;
 import Objects.Setup.Sex;
 import Objects.Orders.Supplier;
@@ -15,6 +15,7 @@ import Objects.Setup.Unit;
 import Objects.System.Usuario;
 import Objects.log_CGuias;
 import Objects.log_Personal;
+import Objects.log_TDispflota;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
@@ -497,12 +498,12 @@ import Objects.log_Vehiculos;
     
     /**
      * @author MITM
-     * @param reason
+     * @param log_tmotdev
      * @return 
      */
-    public static boolean validar_Save_Reason(Reason reason) {
-        boolean opc1 = validarTexto(reason.getNombre(),150,numerosYletras,false);
-        boolean opc2 = validarTexto(reason.getAbrev(),5,numerosYletras,true);
+    public static boolean validar_Save_log_TMotdev(log_TMotdev log_tmotdev) {
+        boolean opc1 = validarTexto(log_tmotdev.getNombre(),150,numerosYletras,false);
+        boolean opc2 = validarTexto(log_tmotdev.getAbrev(),5,numerosYletras,true);
         
         if(!opc1 || !opc2){
             Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");
@@ -637,7 +638,7 @@ import Objects.log_Vehiculos;
         boolean opc6 = true;
 
         boolean opc1 = validarTexto(log_vehiculos.getModelo(),25,numerosYletras,false);
-        boolean opc2 = validarTexto(Integer.toString(log_vehiculos.getCapacidad()),5,soloNumeros,false);
+        boolean opc2 = validarTexto(Integer.toString(log_vehiculos.getCap_cargkgrs()),5,soloNumeros,false);
         
         if (log_vehiculos.getEmpresa() != null)
             opc3 = validarTexto(log_vehiculos.getEmpresa(),150,numerosYletras,false);
@@ -737,6 +738,28 @@ import Objects.log_Vehiculos;
     public static boolean validar_Save_log_TSeguros(log_TSeguros log_tseguros) {
         boolean opc1 = validarTexto(log_tseguros.getNombre(),150,soloLetras,false);
         boolean opc2 = validarTexto(log_tseguros.getAbrev(),5,soloLetras,true);
+        
+        if(!opc1 || !opc2){
+            Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+
+    /***************************************************************************/
+    /****************************** LOG_TSEGUROS *******************************/
+    /***************************************************************************/
+    
+     /**
+     * @author MITM
+     * @param log_tdispflota
+     * @return 
+     */
+    public static boolean validar_Save_log_TDispflota(log_TDispflota log_tdispflota) {
+        boolean opc1 = validarTexto(log_tdispflota.getNombre(),150,soloLetras,false);
+        boolean opc2 = validarTexto(log_tdispflota.getAbrev(),5,soloLetras,true);
         
         if(!opc1 || !opc2){
             Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Screens;
+package GUI.Screens.Guide.Main;
 
 import GUI.Gui;
 import LN.Ln;
@@ -19,7 +19,7 @@ import Objects.Fxp_Archguip_pro_cg;
 import Objects.Fxp_Archguip_pro_dv;
 import Objects.Fxp_Archguip_sum;
 import Objects.Fxp_Renglon;
-import Objects.Setup.Reason;
+import Objects.log_TMotdev;
 import Objects.Setup.Unit;
 import Objects.log_CGuias;
 import Objects.log_CGuias_falt_cg;
@@ -87,7 +87,7 @@ import javafx.util.Callback;
  *
  * @author MITM
  */
-public class Fxml_GuideController implements Initializable {
+public class Fxml_Guide_MainController implements Initializable {
     
     @FXML
     private AnchorPane ap_root;
@@ -165,7 +165,7 @@ public class Fxml_GuideController implements Initializable {
     private ComboBox<Unit> cb_uniddv;
 
     @FXML
-    private ComboBox<Reason> cb_motivodv;
+    private ComboBox<log_TMotdev> cb_motivodv;
 
     @FXML
     private DatePicker dp_fcarga;
@@ -378,9 +378,6 @@ public class Fxml_GuideController implements Initializable {
     private TableView<Fxp_Archguip_pro_cg> tb_almm;
 
     @FXML
-    private TableView<?> tb_almms;
-
-    @FXML
     private TableView<Fxp_Archguid> tb_credit;
 
     @FXML
@@ -400,6 +397,9 @@ public class Fxml_GuideController implements Initializable {
 
     @FXML
     private TextField tf_pcarga;
+
+    @FXML
+    private TextField tf_odometro;
 
     @FXML
     private TextField tf_chofer;
@@ -457,6 +457,9 @@ public class Fxml_GuideController implements Initializable {
 
     @FXML
     private TextField tf_nrocguia;
+
+    @FXML
+    private TextField tf_nrocred;
 
     @FXML
     private TextField tf_prodcg;
@@ -662,7 +665,6 @@ public class Fxml_GuideController implements Initializable {
         assert tb_sada != null : "fx:id=\"tb_sada\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tb_insopesca != null : "fx:id=\"tb_insopesca\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tb_almm != null : "fx:id=\"tb_almm\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
-        assert tb_almms != null : "fx:id=\"tb_almms\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tb_almr != null : "fx:id=\"tb_almr\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tb_credit != null : "fx:id=\"tb_credit\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tb_factura != null : "fx:id=\"tb_factura\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
@@ -670,6 +672,7 @@ public class Fxml_GuideController implements Initializable {
         assert tf_buscar != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_nrorguia != null : "fx:id=\"tf_nrofguia\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_pcarga != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert tf_odometro != null : "fx:id=\"tf_odometro\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_chofer != null : "fx:id=\"tf_chofer\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_veh1 != null : "fx:id=\"tf_veh1\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_veh2 != null : "fx:id=\"tf_veh2\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
@@ -689,6 +692,7 @@ public class Fxml_GuideController implements Initializable {
         assert tf_insopesca != null : "fx:id=\"tf_isopesca\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_nrofguia != null : "fx:id=\"tf_nrofguia\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_nrocguia != null : "fx:id=\"tf_nrocguia\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert tf_nrocred != null : "fx:id=\"tf_nrocred\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_prodcg != null : "fx:id=\"tf_producto\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_cantcg != null : "fx:id=\"tf_cant\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_cheqpdv != null : "fx:id=\"tf_cheqpd\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
@@ -748,12 +752,11 @@ public class Fxml_GuideController implements Initializable {
         createTableInsopesca();  //Crea e Inicializa la Tabla de Datos   
 
         createTableStockM1();   //Crea e Inicializa la Tabla de Datos                    
-        createTableStockMs();
 
         createTableStockR1();   //Crea e Inicializa la Tabla de Datos                    
         createTableStockRs();
 
-        loadReasons();
+        loadTMotdev();
         
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
@@ -3454,100 +3457,6 @@ public class Fxml_GuideController implements Initializable {
     /**
     * Metodo encargado de Crear e inicializar la Tabla de Datos
     */
-    private void createTableStockMs(){
-        //Se crean y definen las columnas de la Tabla
-        TableColumn col_orden       = new TableColumn("#");        
-        TableColumn col_unidad      = new TableColumn("Unid.");        
-        TableColumn col_cant        = new TableColumn("Cant.");
-        
-        //Se establece el ancho de cada columna
-        this.objectWidth(col_orden      , 30,  30);
-        this.objectWidth(col_unidad     , 42,  42);
-        this.objectWidth(col_cant       , 42,  42);
-
-        col_unidad.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Fxp_Archguip_sum, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_cant.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Fxp_Archguip_sum, Integer>() {
-                    @Override
-                    public void updateItem(Integer item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
-        col_orden.setCellValueFactory( 
-                new PropertyValueFactory<>("orden") );
-        col_unidad.setCellValueFactory( 
-                new PropertyValueFactory<>("uniddesp") );
-        col_cant.setCellValueFactory( 
-                new PropertyValueFactory<>("cantdesp") );
-        
-        //Se Asigna ordenadamente las columnas de la tabla
-        tb_almms.getColumns().addAll(
-                col_cant, col_unidad
-                );                
-        
-        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
-        EventHandler eh = new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent ke){
-                //Si fue presionado la tecla ARRIBA o ABAJO
-                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
-                    //Selecciona la FILA enfocada
-                }
-            }
-        };
-        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_almms.setOnKeyReleased(eh);    
-    }
-
-    
-    /**
-    * Metodo encargado de Crear e inicializar la Tabla de Datos
-    */
     private void createTableStockR1(){
         //Se crean y definen las columnas de la Tabla
         TableColumn col_orden       = new TableColumn("#");        
@@ -4298,6 +4207,8 @@ public class Fxml_GuideController implements Initializable {
                 log_cguias.setFecha(Date.valueOf(dp_fcarga.getValue()));
                 log_cguias.setFecsalida(Date.valueOf(dp_fsalida.getValue()));
                 log_cguias.setNumpuerta(Integer.parseInt(tf_pcarga.getText()));
+                log_cguias.setOdometro(tf_odometro.getText());
+                
                 log_cguias.setIdsupruta(tf_supruta.getText());
                 log_cguias.setNumfact(tb_guias.getItems().get(i).getNumfact());
                 log_cguias.setNumclie(tb_guias.getItems().get(i).getNumclie());
@@ -4429,6 +4340,7 @@ public class Fxml_GuideController implements Initializable {
                 log_cguias_falt.setFecha(Date.valueOf(dp_faltcg.getValue()));
                 log_cguias_falt.setNumguiac(tb_almm.getItems().get(j).getNumguia());
                 log_cguias_falt.setNumguiaf(tb_almm.getItems().get(j).getNumfalt());
+                log_cguias_falt.setNumncred(tb_almm.getItems().get(j).getNumncred());
                 log_cguias_falt.setProducto(tb_almm.getItems().get(j).getCodigo());
                 log_cguias_falt.setCantfact(tb_almm.getItems().get(j).getICantDesp());
                 log_cguias_falt.setCantfalt(tb_almm.getItems().get(j).getICantFalt());
@@ -4563,6 +4475,7 @@ public class Fxml_GuideController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
                 tf_veh2.setEditable(false);
@@ -4581,8 +4494,10 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(false);
                 tf_insopesca.setEditable(false);
+
                 tf_nrofguia.setEditable(false);
                 tf_nrocguia.setEditable(false);
+                tf_nrocred.setEditable(false);
                 tf_prodcg.setEditable(false);
                 tf_cantcg.setEditable(false);
 
@@ -4640,6 +4555,7 @@ public class Fxml_GuideController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(true);
                 tf_pcarga.setEditable(true);
+                tf_odometro.setEditable(true);
                 tf_chofer.setEditable(true);
                 tf_veh1.setEditable(true);
                 tf_veh2.setEditable(true);
@@ -4658,27 +4574,29 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(true);
                 tf_insopesca.setEditable(true);
+
                 tf_nrofguia.setEditable(true);
                 tf_nrocguia.setEditable(true);
+                tf_nrocred.setEditable(true);
                 tf_prodcg.setEditable(true);
                 tf_cantcg.setEditable(true);
 
-                tf_cheqpdv.setEditable(true);
-                tf_factdv.setEditable(true);
-                tf_motivodv.setEditable(true);
-                tf_proddv.setEditable(true);
-                tf_cantdv.setEditable(true);
-                tf_pmarcado.setEditable(true);
-                tf_obserdv.setEditable(true);
+                tf_cheqpdv.setEditable(false);
+                tf_factdv.setEditable(false);
+                tf_motivodv.setEditable(false);
+                tf_proddv.setEditable(false);
+                tf_cantdv.setEditable(false);
+                tf_pmarcado.setEditable(false);
+                tf_obserdv.setEditable(false);
 
                 cb_unidcg.setDisable(false);
-                cb_motivodv.setDisable(false);
-                cb_uniddv.setDisable(false);
+                cb_motivodv.setDisable(true);
+                cb_uniddv.setDisable(true);
                 
                 dp_fcarga.setDisable(false);
                 dp_fsalida.setDisable(false);
                 dp_faltcg.setDisable(false);
-                dp_faltdv.setDisable(false);
+                dp_faltdv.setDisable(true);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -4702,8 +4620,8 @@ public class Fxml_GuideController implements Initializable {
                 bt_d1.setDisable(false);
                 bt_d2.setDisable(false);
                 bt_dpc.setDisable(false);
-                bt_dpv.setDisable(false);
                 bt_gc.setDisable(false);
+                bt_dpv.setDisable(false);
 
                 //SE PERMITE: NUEVO,GUARDAR Y CANCELAR             
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
@@ -4715,6 +4633,8 @@ public class Fxml_GuideController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(true);
                 tf_pcarga.setEditable(true);
+                tf_odometro.setEditable(true);
+                tf_chofer.setEditable(true);
                 tf_veh1.setEditable(true);
                 tf_veh2.setEditable(true);
                 tf_ayud1.setEditable(true);
@@ -4732,27 +4652,29 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(true);
                 tf_insopesca.setEditable(true);
-                tf_nrofguia.setEditable(true);
-                tf_nrocguia.setEditable(true);
-                tf_prodcg.setEditable(true);
-                tf_cantcg.setEditable(true);
 
-                tf_cheqpdv.setEditable(true);
-                tf_factdv.setEditable(true);
-                tf_motivodv.setEditable(true);
-                tf_proddv.setEditable(true);
-                tf_cantdv.setEditable(true);
-                tf_pmarcado.setEditable(true);
-                tf_obserdv.setEditable(true);
+                tf_nrofguia.setEditable(false);
+                tf_nrocguia.setEditable(false);
+                tf_nrocred.setEditable(false);
+                tf_prodcg.setEditable(false);
+                tf_cantcg.setEditable(false);
 
-                cb_unidcg.setDisable(false);
-                cb_motivodv.setDisable(false);
-                cb_uniddv.setDisable(false);
+                tf_cheqpdv.setEditable(false);
+                tf_factdv.setEditable(false);
+                tf_motivodv.setEditable(false);
+                tf_proddv.setEditable(false);
+                tf_cantdv.setEditable(false);
+                tf_pmarcado.setEditable(false);
+                tf_obserdv.setEditable(false);
+
+                cb_unidcg.setDisable(true);
+                cb_motivodv.setDisable(true);
+                cb_uniddv.setDisable(true);
                 
                 dp_fcarga.setDisable(false);
                 dp_fsalida.setDisable(false);
-                dp_faltcg.setDisable(false);
-                dp_faltdv.setDisable(false);
+                dp_faltcg.setDisable(true);
+                dp_faltdv.setDisable(true);
                 
                 im_check.setVisible(true);
                 im_val.setVisible(false);
@@ -4773,11 +4695,11 @@ public class Fxml_GuideController implements Initializable {
                 bt_cr7.setDisable(false);
                 bt_cpq.setDisable(false);
 
-                bt_d1.setDisable(false);
-                bt_d2.setDisable(false);
-                bt_dpc.setDisable(false);
-                bt_dpv.setDisable(false);
-                bt_gc.setDisable(false);
+                bt_d1.setDisable(true);
+                bt_d2.setDisable(true);
+                bt_dpc.setDisable(true);
+                bt_dpv.setDisable(true);
+                bt_gc.setDisable(true);
 
                 //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
@@ -4787,6 +4709,7 @@ public class Fxml_GuideController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
                 tf_veh2.setEditable(false);
@@ -4805,8 +4728,10 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(false);
                 tf_insopesca.setEditable(false);
+
                 tf_nrofguia.setEditable(false);
                 tf_nrocguia.setEditable(false);
+                tf_nrocred.setEditable(false);
                 tf_prodcg.setEditable(false);
                 tf_cantcg.setEditable(false);
 
@@ -4860,6 +4785,7 @@ public class Fxml_GuideController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
                 tf_veh2.setEditable(false);
@@ -4878,8 +4804,10 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(false);
                 tf_insopesca.setEditable(false);
+
                 tf_nrofguia.setEditable(false);
                 tf_nrocguia.setEditable(false);
+                tf_nrocred.setEditable(false);
                 tf_prodcg.setEditable(false);
                 tf_cantcg.setEditable(false);
 
@@ -4931,10 +4859,12 @@ public class Fxml_GuideController implements Initializable {
                 disableAllToolBar(disables); 
                 break;
             case 8:  //Faltante en Carga
-                lb_Title.setText("EDITAR");
+                lb_Title.setText("Falt.Car");
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_odometro.setEditable(false);
+                tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
                 tf_veh2.setEditable(false);
                 tf_ayud1.setEditable(false);
@@ -4952,8 +4882,10 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(false);
                 tf_insopesca.setEditable(false);
+
                 tf_nrofguia.setEditable(true);
                 tf_nrocguia.setEditable(true);
+                tf_nrocred.setEditable(true);
                 tf_prodcg.setEditable(true);
                 tf_cantcg.setEditable(true);
 
@@ -5003,7 +4935,7 @@ public class Fxml_GuideController implements Initializable {
                 disableAllToolBar(disables);            
                 break;
             case 9:  //Faltante en Devolución
-                lb_Title.setText("EDITAR");
+                lb_Title.setText("Falt.Dev");
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
@@ -5024,10 +4956,10 @@ public class Fxml_GuideController implements Initializable {
 
                 tf_sada.setEditable(false);
                 tf_insopesca.setEditable(false);
-                tf_nrofguia.setEditable(true);
-                tf_nrocguia.setEditable(true);
-                tf_prodcg.setEditable(true);
-                tf_cantcg.setEditable(true);
+                tf_nrofguia.setEditable(false);
+                tf_nrocguia.setEditable(false);
+                tf_prodcg.setEditable(false);
+                tf_cantcg.setEditable(false);
 
                 tf_cheqpdv.setEditable(true);
                 tf_factdv.setEditable(true);
@@ -5221,6 +5153,7 @@ public class Fxml_GuideController implements Initializable {
                 log_cguias_falt.setOrden(data_fcar.get(i).getNumorden());
                 log_cguias_falt.setNumfalt(data_fcar.get(i).getNumguiac());
                 log_cguias_falt.setNumguia(data_fcar.get(i).getNumguiaf());
+                log_cguias_falt.setNumncred(data_fcar.get(i).getNumncred());
                 log_cguias_falt.setCodigo(data_fcar.get(i).getProducto());
                 log_cguias_falt.setUnidad(data_fcar.get(i).getProdunid());
                 log_cguias_falt.setDescrip(data_fcar.get(i).getDescrip());
@@ -5295,6 +5228,7 @@ public class Fxml_GuideController implements Initializable {
                 numCompDevCar +=1;
             }
             tf_pcarga.setText(String.valueOf(log_cguias[0].getNumpuerta()));
+            tf_odometro.setText(log_cguias[0].getOdometro());
             tf_chofer.setText(log_cguias[0].getChofer());
             tf_veh1.setText(log_cguias[0].getVeh1());
             tf_veh2.setText(log_cguias[0].getVeh2());
@@ -5418,7 +5352,6 @@ public class Fxml_GuideController implements Initializable {
             tb_almp.setItems(null);
             tb_almps.setItems(null);
             tb_almm.setItems(null);
-            tb_almms.setItems(null);
             tb_almr.setItems(null);
 
             tb_credit.setItems(null);
@@ -5583,12 +5516,12 @@ public class Fxml_GuideController implements Initializable {
      * Procedimiento que obtiene los Distintos Motivos de la BD
      * y los carga en el COMBOBOX
      */
-    private void loadReasons(){        
-        Reason[] reason = Ln.getInstance().load_Reason();        
-        final ObservableList<Reason> data = FXCollections.observableArrayList();
-        data.addAll(Arrays.asList(reason)); 
+    private void loadTMotdev(){        
+        log_TMotdev[] log_tmotdev = Ln.getInstance().load_log_TMotdev();        
+        final ObservableList<log_TMotdev> data = FXCollections.observableArrayList();
+        data.addAll(Arrays.asList(log_tmotdev)); 
         cb_motivodv.setItems(data); 
-        Datos.setCbReason(cb_motivodv);              
+        Datos.setCbLog_tmotdev(cb_motivodv);              
         //new AutoCompleteComboBoxListener<>(cb_motivodv);
         new SelectKeyComboBoxListener(cb_motivodv);
         //AutoCompleteComboBoxListener<Object> handler = new AutoCompleteComboBoxListener<>(cb_motivodv);
@@ -5624,6 +5557,24 @@ public class Fxml_GuideController implements Initializable {
 //            }
 //        });
     }  
+    private void loadCheqTips(){ 
+        cheqs = new TextField[]{tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, tf_cheqr6, tf_cheqr7, tf_cheqpq};        
+        cheqtips = new String[]{
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            " ",
+            };
+        //se asigna la etiqueta a su respectivo textfield
+        for (int i = 0; i < cheqs.length; i++) {            
+            Tooltip tip_tool = new Tooltip(cheqtips[i]);
+            Tooltip.install(cheqs[i], tip_tool);
+        }
+    }    
 
     /***************************************************************************/
     /************************ METODOS DE ACCESO RAPIDO *************************/
@@ -5642,44 +5593,44 @@ public class Fxml_GuideController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, tf_veh1, tf_veh2, 
+                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, tf_veh1, tf_veh2, 
                     tf_ayud1, tf_ayud2, tf_supruta, tf_cheqp, 
                     tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, 
                     tf_cheqr6, tf_cheqr7, tf_cheqpq, 
-                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_nrocred, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
                     dp_faltdv, tf_cheqpdv, tf_factdv, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_obserdv};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
                     tf_cheqr4, bt_cr4, tf_cheqr5, bt_cr5, tf_cheqr6, bt_cr6, 
                     tf_cheqr7, bt_cr7, tf_cheqpq, bt_cpq, 
-                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_nrocred, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
                     dp_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_pmarcado, tf_obserdv};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, dp_fsalida, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
                     tf_cheqr4, bt_cr4, tf_cheqr5, bt_cr5, tf_cheqr6, bt_cr6, 
                     tf_cheqr7, bt_cr7, tf_cheqpq, bt_cpq, 
-                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_nrocred, tf_prodcg, 
                     tf_cantcg, cb_unidcg,
                     dp_faltdv, tf_cheqpdv, bt_d1, tf_factdv, bt_d2, cb_motivodv,
                     tf_proddv, tf_cantdv, cb_uniddv, tf_pmarcado, tf_obserdv};
                 break;
             case 8:     //Faltante en Carga
                 nodos = new Node[]{
-                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_prodcg, 
+                    dp_faltcg, tf_nrofguia, tf_nrocguia, tf_nrocred, tf_prodcg, 
                     tf_cantcg, cb_unidcg};
                 break;
             case 9:     //Faltante en Devolucion 
@@ -5881,6 +5832,7 @@ public class Fxml_GuideController implements Initializable {
         tf_nrofguia.setText("");
         tf_nrocguia.setText("");
         tf_pcarga.setText("");
+        tf_odometro.setText("");
         tf_chofer.setText("");
         tf_veh1.setText("");
         tf_veh2.setText("");
@@ -5899,6 +5851,7 @@ public class Fxml_GuideController implements Initializable {
 
         tf_sada.setText("");
         tf_insopesca.setText("");
+        tf_nrocred.setText("");
         tf_prodcg.setText("");
         tf_cantcg.setText("");
         tf_cheqpdv.setText("");
@@ -5960,24 +5913,7 @@ public class Fxml_GuideController implements Initializable {
         loadTableMissing();
         loadTableRefund();
         loadTables("");
-        
-        cheqs = new TextField[]{tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, tf_cheqr6, tf_cheqr7, tf_cheqpq};        
-        cheqtips = new String[]{
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            };
-        //se asigna la etiqueta a su respectivo textfield
-        for (int i = 0; i < cheqs.length; i++) {            
-            Tooltip tip_tool = new Tooltip(cheqtips[i]);
-            Tooltip.install(cheqs[i], tip_tool);
-        }
-        
+        loadCheqTips();
         
         tp_factura.setExpanded(false);
         tp_almacen.setExpanded(false);
@@ -6336,120 +6272,147 @@ public class Fxml_GuideController implements Initializable {
         tf_nrorguia.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)){
                 //Valida que el evento se haya generado en el campo de busqueda
-                if(((Node)ke.getSource()).getId().equals("tf_nrorguia")){
-                    //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                if(!tf_nrorguia.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_nrorguia")){
+                        //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
 
-                    if(tf_nrorguia.getText().substring(0, 1).toUpperCase().equals("R")){
-                        log_Guide_rel_inv guide_carga = new log_Guide_rel_inv();
+                        if(tf_nrorguia.getText().substring(0, 1).toUpperCase().equals("R")){
+                            log_Guide_rel_inv guide_carga = new log_Guide_rel_inv();
 
-                        Fxp_Archguid_cp[] archguid_cp = 
-                            Ln.getInstance().find_Archguid_red_ca(Integer.parseInt(tf_nrorguia.getText().substring(1, tf_nrorguia.getText().length())));
+                            Fxp_Archguid_cp[] archguid_cp = 
+                                Ln.getInstance().find_Archguid_red_ca(Integer.parseInt(tf_nrorguia.getText().substring(1, tf_nrorguia.getText().length())));
 
-                        boolean boor = true;
-                        for (int i = 0; i < log_guide_guia.size(); i++) {
-                            if(String.valueOf(archguid_cp[0].getNumfact_vta()).equals(tb_guias.getItems().get(i).getGuias()) &&
-                                    tb_guias.getItems().get(i).getStat_guia().equals("R")){
-                                boor = false;
-                                Gui.getInstance().showMessage("Este Nro de Factura ya esta relacionado!", "A");
-                                tf_nrorguia.requestFocus();
-                                break;
+                            boolean boor = true;
+                            for (int i = 0; i < log_guide_guia.size(); i++) {
+                                if(String.valueOf(archguid_cp[0].getNumfact_vta()).equals(tb_guias.getItems().get(i).getGuias()) &&
+                                        tb_guias.getItems().get(i).getStat_guia().equals("R")){
+                                    boor = false;
+                                    Gui.getInstance().showMessage("Este Nro de Factura ya esta relacionado!", "A");
+                                    tf_nrorguia.requestFocus();
+                                    break;
+                                }
+                            } 
+
+                            if(boor){
+                                guide_carga.setNumorden(String.valueOf((log_guide_guia.size() + 1)));
+                                guide_carga.setGuias(String.valueOf(archguid_cp[0].getNumfact_vta()));
+                                guide_carga.setNumfact(0);
+                                guide_carga.setNumclie(0);
+
+                                guide_carga.setStat_guia("R");
+
+                                log_guide_guia.add(guide_carga);
+
+                                loadTableGuide_guias();
+                                change_im_val(200, im_checkg); 
+
+                                tf_nrorguia.setText("");
                             }
-                        } 
+                        }else{
+                            boolean booa = Ln.getInstance().check_log_Archguie(tf_nrorguia.getText());                
+                            if(booa){
+                                boolean booc = Ln.getInstance().check_log_CGuias_carga(tf_nrorguia.getText());                
+                                if(booc){
+                                    change_im_val(0, im_checkg); 
+                                    Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
+                                    tf_nrorguia.requestFocus();
+                                }
+                                else{
+                                    for (int i = 0; i < log_guide_guia.size(); i++) {
+                                        if(tf_nrorguia.getText().equals(tb_guias.getItems().get(i).getGuias())){
+                                            booa = false;
+                                            Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
+                                            tf_nrorguia.requestFocus();
+                                            break;
+                                        }
+                                    } 
+                                    if(booa){
+                                        log_Guide_rel_inv guide_carga = new log_Guide_rel_inv();
 
-                        if(boor){
-                            guide_carga.setNumorden(String.valueOf((log_guide_guia.size() + 1)));
-                            guide_carga.setGuias(String.valueOf(archguid_cp[0].getNumfact_vta()));
-                            guide_carga.setNumfact(0);
-                            guide_carga.setNumclie(0);
+                                        List<Fxp_Archguid_gfc> data = 
+                                            Ln.getList_log_Archguid_gfc(Ln.getInstance().find_Archguid_gfc(tf_nrorguia.getText()));
 
-                            guide_carga.setStat_guia("R");
+                                        if (!data.get(0).getStat_guia().equals("X")
+                                                && !data.get(0).getStat_guia().equals("C")){
+                                            guide_carga.setNumorden(String.valueOf((log_guide_guia.size() + 1)));
+                                            guide_carga.setGuias(tf_nrorguia.getText());
+                                            guide_carga.setNumfact(data.get(0).getNumfact());
+                                            guide_carga.setNumclie(data.get(0).getNumclie());
 
-                            log_guide_guia.add(guide_carga);
-
-                            loadTableGuide_guias();
-                            change_im_val(200, im_checkg); 
-
-                            tf_nrorguia.setText("");
-                        }
-                    }else{
-                        boolean booa = Ln.getInstance().check_log_Archguie(tf_nrorguia.getText());                
-                        if(booa){
-                            boolean booc = Ln.getInstance().check_log_CGuias_carga(tf_nrorguia.getText());                
-                            if(booc){
-                                change_im_val(0, im_checkg); 
-                                Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
-                                tf_nrorguia.requestFocus();
-                            }
-                            else{
-                                for (int i = 0; i < log_guide_guia.size(); i++) {
-                                    if(tf_nrorguia.getText().equals(tb_guias.getItems().get(i).getGuias())){
-                                        booa = false;
-                                        Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
-                                        tf_nrorguia.requestFocus();
-                                        break;
-                                    }
-                                } 
-                                if(booa){
-                                    log_Guide_rel_inv guide_carga = new log_Guide_rel_inv();
-
-                                    List<Fxp_Archguid_gfc> data = 
-                                        Ln.getList_log_Archguid_gfc(Ln.getInstance().find_Archguid_gfc(tf_nrorguia.getText()));
-
-                                    if (!data.get(0).getStat_guia().equals("X")
-                                            && !data.get(0).getStat_guia().equals("C")){
-                                        guide_carga.setNumorden(String.valueOf((log_guide_guia.size() + 1)));
-                                        guide_carga.setGuias(tf_nrorguia.getText());
-                                        guide_carga.setNumfact(data.get(0).getNumfact());
-                                        guide_carga.setNumclie(data.get(0).getNumclie());
-
-                                        if (data.get(0).getStat_guia().equals("A")){
-                                            if (tipoOperacion == 1){
-                                                guide_carga.setStat_guia(null);
+                                            if (data.get(0).getStat_guia().equals("A")){
+                                                if (tipoOperacion == 1){
+                                                    guide_carga.setStat_guia(null);
+                                                }
+                                                else{
+                                                    guide_carga.setStat_guia(data.get(0).getStat_guia());
+                                                }
                                             }
                                             else{
-                                                guide_carga.setStat_guia(data.get(0).getStat_guia());
+                                                if (data.get(0).getStat_guia().equals("")){
+                                                    guide_carga.setStat_guia(null);
+                                                }
+                                                else{
+                                                    guide_carga.setStat_guia(data.get(0).getStat_guia());
+                                                }
                                             }
+
+
+                                            log_guide_guia.add(guide_carga);
+
+                                            loadTableGuide_guias();
+                                            change_im_val(200, im_checkg); 
+
+                                            numFactCarga = numFactCarga + data.get(0).getNumfact();
+                                            numClieCarga = numClieCarga + data.get(0).getNumclie();
+
+                                            tp_factura.setText(
+                                                "Relación de Guias / Facturas / Clientes " + 
+                                                "               -          " + 
+                                                log_guide_guia.size() + " / " + 
+                                                numFactCarga + " / " + 
+                                                numClieCarga);
+
+                                            tf_nrorguia.setText("");
+                                        }else{
+                                            Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
+                                            tf_nrorguia.requestFocus();
                                         }
-                                        else{
-                                            if (data.get(0).getStat_guia().equals("")){
-                                                guide_carga.setStat_guia(null);
-                                            }
-                                            else{
-                                                guide_carga.setStat_guia(data.get(0).getStat_guia());
-                                            }
-                                        }
 
-
-                                        log_guide_guia.add(guide_carga);
-
-                                        loadTableGuide_guias();
-                                        change_im_val(200, im_checkg); 
-
-                                        numFactCarga = numFactCarga + data.get(0).getNumfact();
-                                        numClieCarga = numClieCarga + data.get(0).getNumclie();
-
-                                        tp_factura.setText(
-                                            "Relación de Guias / Facturas / Clientes " + 
-                                            "               -          " + 
-                                            log_guide_guia.size() + " / " + 
-                                            numFactCarga + " / " + 
-                                            numClieCarga);
-
-                                        tf_nrorguia.setText("");
-                                    }else{
-                                        Gui.getInstance().showMessage("El Nro. de " + ScreenName + ", ya esta Relacionado!", "A");
-                                        tf_nrorguia.requestFocus();
                                     }
-
                                 }
                             }
-                        }
-                        else{
-                            change_im_val(0, im_checkg); 
-                            Gui.getInstance().showMessage("El Nro. de " + ScreenName + " NO existe!", "A");
-                            tf_nrorguia.requestFocus();
+                            else{
+                                change_im_val(0, im_checkg); 
+                                Gui.getInstance().showMessage("El Nro. de " + ScreenName + " NO existe!", "A");
+                                tf_nrorguia.requestFocus();
+                            }
                         }
                     }
+                }
+            }
+        });
+         /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
+        tf_pcarga.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_pcarga") &&
+                        tf_pcarga.getText().isEmpty()){
+                    Gui.getInstance().ventanaError("Indicar el Nro de la Puerta!");
+                    tf_pcarga.requestFocus();
+                }
+            }
+        });
+         /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
+        tf_odometro.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_odometro") &&
+                        tf_odometro.getText().isEmpty()){
+                    tf_odometro.setText("0");
                 }
             }
         });
@@ -6462,7 +6425,12 @@ public class Fxml_GuideController implements Initializable {
                 if(!tf_chofer.getText().isEmpty()){
                     if(((Node)ke.getSource()).getId().equals("tf_chofer") &&
                             (tf_chofer.getText().length() > 6)){
-                        List<log_Personal> data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_chofer.getText(), 3, 4));
+                        List<log_Personal> data = null;
+                        data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_chofer.getText(), 3, 4));
+                        if(data.isEmpty()){
+                            data = Ln.getList_log_Personal(Ln.getInstance().find_log_Personal_tp(tf_chofer.getText(), 8, 9));
+                        }
+
                         if(!data.isEmpty()){
                             lb_chofer.setText(
                                 data.get(0).getNombres() + ", " + data.get(0).getApellidos() + " " );
@@ -7620,17 +7588,17 @@ public class Fxml_GuideController implements Initializable {
                 if(((Node)ke.getSource()).getId().equals("tf_motdv") &&
                         !tf_motivodv.getText().isEmpty()){
                     //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                    List<Reason> data = Ln.getList_Reason(Ln.getInstance().find_Reason(tf_motivodv.getText()));
+                    List<log_TMotdev> data = Ln.getList_log_TMotdev(Ln.getInstance().find_log_TMotdev(tf_motivodv.getText()));
                     if(!data.isEmpty()){
                         tf_motivodv.setText(tf_motivodv.getText().toUpperCase());
 
                         cb_motivodv.setValue(data.get(0));
-                        Reason reason = (Reason) cb_motivodv.getValue();
-                        Datos.setReason(reason);
+                        log_TMotdev log_tmotdev = (log_TMotdev) cb_motivodv.getValue();
+                        Datos.setLog_tmotdev(log_tmotdev);
 
-                        tf_motivodv.setText(reason.getAbrev());
+                        tf_motivodv.setText(log_tmotdev.getAbrev());
 
-                        switch (Datos.getReason().getValblq()){
+                        switch (Datos.getLog_tmotdev().getValblq()){
                             case 0:
                                 tf_proddv.setDisable(false);
                                 tf_cantdv.setDisable(false);
@@ -7652,7 +7620,7 @@ public class Fxml_GuideController implements Initializable {
                                 break;
                         }
 
-                        switch (Datos.getReason().getValobserv()){
+                        switch (Datos.getLog_tmotdev().getValobserv()){
                             case 0:
                                 break;
                             case 1:
@@ -7686,12 +7654,12 @@ public class Fxml_GuideController implements Initializable {
                         !tf_factdv.getText().isEmpty() && 
                         !cb_motivodv.getSelectionModel().isEmpty()){
                     //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                    Reason reason = (Reason) cb_motivodv.getValue();
-                    Datos.setReason(reason);
+                    log_TMotdev log_tmotdev = (log_TMotdev) cb_motivodv.getValue();
+                    Datos.setLog_tmotdev(log_tmotdev);
 
-                    tf_motivodv.setText(reason.getAbrev());
+                    tf_motivodv.setText(log_tmotdev.getAbrev());
 
-                    switch (Datos.getReason().getValblq()){
+                    switch (Datos.getLog_tmotdev().getValblq()){
                         case 0:
                             tf_proddv.setDisable(false);
                             tf_cantdv.setDisable(false);
@@ -7706,7 +7674,7 @@ public class Fxml_GuideController implements Initializable {
                             break;
                     }
 
-                    switch (Datos.getReason().getValobserv()){
+                    switch (Datos.getLog_tmotdev().getValobserv()){
                         case 0:
                             break;
                         case 1:
@@ -7810,7 +7778,7 @@ public class Fxml_GuideController implements Initializable {
                         cb_uniddv.setItems(data); 
                     }
                     
-                    if(Datos.getReason().getValDev() == 1){
+                    if(Datos.getLog_tmotdev().getValdev() == 1){
                         if (!boo){
                             change_im_val(0, im_checkdp); 
                             Gui.getInstance().showMessage("El Producto No esta relacionado para esa Factura!", "A");
@@ -7935,7 +7903,7 @@ public class Fxml_GuideController implements Initializable {
                 if(((Node)ke.getSource()).getId().equals("tf_obserdv") &&
                         !tf_factdv.getText().isEmpty()){
                     
-                    if (Datos.getReason().getValblq() == 0 &&
+                    if (Datos.getLog_tmotdev().getValblq() == 0 &&
                         tf_factdv.getText().isEmpty() &&
                         tf_proddv.getText().isEmpty() &&
                         tf_cantdv.getText().isEmpty() &&
@@ -7946,7 +7914,7 @@ public class Fxml_GuideController implements Initializable {
                     }else{
                         boolean boor = true;
                         for (int i = 0; i < log_guide_refund.size(); i++) {
-                            switch (Datos.getReason().getValfact()){
+                            switch (Datos.getLog_tmotdev().getValfact()){
                                 case 0:
                                     break;
                                 case 1:
@@ -7966,7 +7934,7 @@ public class Fxml_GuideController implements Initializable {
                             boolean bou = false;
 
                             Fxp_Archguip_pro_dv[] archguip_pro_dv = null;
-                            if (Datos.getReason().getValblq() == 0){
+                            if (Datos.getLog_tmotdev().getValblq() == 0){
 
                                 if (numNotaDev == 0){
                                     archguip_pro_dv = 
@@ -8035,7 +8003,7 @@ public class Fxml_GuideController implements Initializable {
                                         archguip_pro_dv[0].setNumfact(tf_factdv.getText().trim());
                                         archguip_pro_dv[0].setCodigo(tf_proddv.getText().trim());
                                         archguip_pro_dv[0].setICantFalt(Integer.parseInt(tf_cantdv.getText()));
-                                        switch (Datos.getReason().getIdReason()){
+                                        switch (Datos.getLog_tmotdev().getIdTMotdev()){
                                             case 410: //27
                                             case 411: //28
                                                 archguip_pro_dv[0].setICantDesp(0);
@@ -8051,8 +8019,8 @@ public class Fxml_GuideController implements Initializable {
                                         archguip_pro_dv[0].setObserv(tf_obserdv.getText().toUpperCase().trim());
 
                                          //Se obtiene Motivo
-                                        archguip_pro_dv[0].setIdMotivo(Datos.getReason().getIdReason());
-                                        archguip_pro_dv[0].setSmotivo(Datos.getReason().getAbrev());
+                                        archguip_pro_dv[0].setIdMotivo(Datos.getLog_tmotdev().getIdTMotdev());
+                                        archguip_pro_dv[0].setSmotivo(Datos.getLog_tmotdev().getAbrev());
 
                                         //Se obtiene Unidad
                                         Unit unit = (Unit) cb_uniddv.getValue();            
@@ -8123,8 +8091,8 @@ public class Fxml_GuideController implements Initializable {
                                     archguip_pro_dv[0].setObserv(tf_obserdv.getText().toUpperCase().trim());
 
                                      //Se obtiene Motivo
-                                    archguip_pro_dv[0].setIdMotivo(Datos.getReason().getIdReason());
-                                    archguip_pro_dv[0].setSmotivo(Datos.getReason().getAbrev());
+                                    archguip_pro_dv[0].setIdMotivo(Datos.getLog_tmotdev().getIdTMotdev());
+                                    archguip_pro_dv[0].setSmotivo(Datos.getLog_tmotdev().getAbrev());
 
                                     if (numStatDev == 0){
                                         archguip_pro_dv[0].setOrden(String.valueOf(log_guide_refund.size() + 1));
@@ -8164,7 +8132,7 @@ public class Fxml_GuideController implements Initializable {
                             numStatDev = 0;
                             numAlmacen = 0;
                             dblPvp = 0;
-                            switch (Datos.getReason().getValobserv()){
+                            switch (Datos.getLog_tmotdev().getValobserv()){
                                 case 0:
                                     break;
                                 case 1:

@@ -21,6 +21,7 @@ public class log_CGuias_falt_cg{
     private Date fecha;
     private String numguiac;
     private String numguiaf;
+    private String numncred;     
     private String producto;
     private String produnid;
     private String descrip;
@@ -57,6 +58,7 @@ public class log_CGuias_falt_cg{
             cantdesp             = rs.getInt(11);
             id_unidad            = rs.getInt(12);
             unidad               = rs.getString(13);
+            numncred             = rs.getString(14);
             
         }catch(SQLException e){
             Tools.getErrorMessage(e.getStackTrace(),e.getMessage());
@@ -131,6 +133,20 @@ public class log_CGuias_falt_cg{
      */
     public void setNumguiaf(String numguiaf) {
         this.numguiaf = numguiaf;
+    }
+
+    /**
+     * @return the numncred
+     */
+    public String getNumncred() {
+        return numncred;
+    }
+
+    /**
+     * @param numncred the numncred to set
+     */
+    public void setNumncred(String numncred) {
+        this.numncred = numncred;
     }
 
     /**
@@ -244,6 +260,5 @@ public class log_CGuias_falt_cg{
     public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
-
 
 }

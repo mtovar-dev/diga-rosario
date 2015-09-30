@@ -25,7 +25,7 @@ import Objects.System.ItemPrintScreen;
 import Objects.Setup.Measure;
 import Objects.Setup.Municipality;
 import Objects.Setup.Parish;
-import Objects.Setup.Reason;
+import Objects.log_TMotdev;
 import Objects.System.Rol;
 import Objects.System.Sesion;
 import Objects.Setup.Sex;
@@ -41,6 +41,7 @@ import Objects.log_CGuias_falt_cg;
 import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
 import Objects.log_Personal;
+import Objects.log_TDispflota;
 import Objects.log_TMarca;
 import Objects.log_TPersonal;
 import Objects.log_TProced;
@@ -1966,30 +1967,30 @@ public class Bd implements BdInterface{
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Reason[] load_Reason() throws SQLException {
+    public log_TMotdev[] load_log_TMotdev() throws SQLException {
          try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call sp_get_reason_all}");
+            sqlProc.append("{call sp_get_log_tmotdev_all}");
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
                ResultSet result = cstmt.executeQuery();            
                
-               Vector<Reason> vector = new Vector<>();
+               Vector<log_TMotdev> vector = new Vector<>();
                
                while(result.next()) {
-                   Reason reason = new Reason(result);
-                   vector.add(reason);
+                   log_TMotdev log_tmotdev = new log_TMotdev(result);
+                   vector.add(log_tmotdev);
                }
                
-               Reason[] reason = new Reason[vector.size()];
+               log_TMotdev[] log_tmotdev = new log_TMotdev[vector.size()];
                for (int i = 0; i < vector.size(); i++) {
-                   reason[i] = vector.elementAt(i);                    
+                   log_tmotdev[i] = vector.elementAt(i);                    
                }
-               return reason;
+               return log_tmotdev;
             }else{
                 System.out.println("Error: Connexion no activa");
             }
@@ -2007,26 +2008,26 @@ public class Bd implements BdInterface{
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Reason[] find_Reason(String find) throws SQLException {
+    public log_TMotdev[] find_log_TMotdev(String find) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call sp_get_reason_find(?)}");
+            sqlProc.append("{call sp_get_log_tmotdev_find(?)}");
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
                cstmt.setString("@find"  , find );
                ResultSet result = cstmt.executeQuery();            
-               Vector<Reason> vector = new Vector<>();
+               Vector<log_TMotdev> vector = new Vector<>();
                
                while(result.next()) {
-                   Reason reason = new Reason(result);
-                   vector.add(reason);
+                   log_TMotdev log_tmotdev = new log_TMotdev(result);
+                   vector.add(log_tmotdev);
                }
                
-               Reason[] measure = new Reason[vector.size()];
+               log_TMotdev[] measure = new log_TMotdev[vector.size()];
                for (int i = 0; i < vector.size(); i++) {
                    measure[i] = vector.elementAt(i);                    
                }
@@ -2046,12 +2047,12 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * @param operacion Determina el Proceso que se va a ejecutar 1 INSERT, 2 UPDATE
-     * @param reason
+     * @param log_tmotdev
      * @return
      * @throws SQLException
      * @throws Exception 
      */
-    public boolean save_Reason(int operacion, Reason reason) throws SQLException, Exception {
+    public boolean save_log_TMotdev(int operacion, log_TMotdev log_tmotdev) throws SQLException, Exception {
         
         BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
         connection = bd.open();        
@@ -2064,31 +2065,31 @@ public class Bd implements BdInterface{
             
             switch(operacion){
                 case 1:
-                    sql.append("{call sp_ins_reason(?, ?, ?)}");
+                    sql.append("{call sp_ins_log_tmotdev(?, ?, ?)}");
                     mensj = "Nuevo Motivo:";
                     break;
                 case 2:
-                    sql.append("{call sp_upd_reason_basic(?, ?, ?, ?)}");
+                    sql.append("{call sp_upd_log_tmotdev_basic(?, ?, ?, ?)}");
                     mensj = "Actualizando Motivo:";
                     break;
             }
             CallableStatement cstmt = connection.prepareCall(sql.toString());
             switch(operacion){
                 case 1:
-                    cstmt.setString("@nombre"       , reason.getNombre().toUpperCase());
-                    cstmt.setString("@abrev"        , reason.getAbrev().toUpperCase());
-                    cstmt.setInt("@val"             , reason.getValDev());
+                    cstmt.setString("@nombre"       , log_tmotdev.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , log_tmotdev.getAbrev().toUpperCase());
+                    cstmt.setInt("@val"             , log_tmotdev.getValdev());
                     break;
                 case 2:
-                    cstmt.setInt("@id_motivo"       , reason.getIdReason());
-                    cstmt.setString("@nombre"       , reason.getNombre().toUpperCase());
-                    cstmt.setString("@abrev"        , reason.getAbrev().toUpperCase());
-                    cstmt.setInt("@val"             , reason.getValDev());
+                    cstmt.setInt("@id_motivo"       , log_tmotdev.getIdTMotdev());
+                    cstmt.setString("@nombre"       , log_tmotdev.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , log_tmotdev.getAbrev().toUpperCase());
+                    cstmt.setInt("@val"             , log_tmotdev.getValdev());
                     break;
             }
             cstmt.execute();            
             // Auditar el proceso
-            auditar(reason.getIdReason()+ "",mensj);
+            auditar(log_tmotdev.getIdTMotdev()+ "",mensj);
             
             connection.commit();
             
@@ -2109,21 +2110,21 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * Valida si el measurename generado ya se encuentra asignado a una medida en la BD
-     * @param reasonname valor a ser chequeado en la BD
+     * @param log_tmotdevname valor a ser chequeado en la BD
      * @return true si el measure esta en uso, false si esta disponible la medida
      * @throws java.sql.SQLException
      */
-    public boolean check_Reason(String reasonname) throws SQLException {
+    public boolean check_log_TMotdev(String log_tmotdevname) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call sp_get_reason_check(?,?)}");
+            sqlProc.append("{call sp_get_log_tmotdev_check(?,?)}");
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
-               cstmt.setString("@motivo", reasonname);
+               cstmt.setString("@motivo", log_tmotdevname);
                cstmt.registerOutParameter("result", java.sql.Types.INTEGER);               
                cstmt.execute();
                if(cstmt.getInt("result") == 1) return true;               
@@ -2140,11 +2141,11 @@ public class Bd implements BdInterface{
     }
     /**
      * @author MITM
-     * @param reason
+     * @param log_tmotdev
      * @return 
      * @throws java.lang.Exception 
      */
-    public boolean change_Reason(Reason reason) throws Exception {
+    public boolean change_log_TMotdev(log_TMotdev log_tmotdev) throws Exception {
         BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
         connection = bd.open();
         
@@ -2154,17 +2155,17 @@ public class Bd implements BdInterface{
             connection.setAutoCommit(false);
             
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call sp_upd_reason_status(?,?)}");
+            sqlProc.append("{call sp_upd_log_tmotdev_status(?,?)}");
             CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                 
-            cstmt.setInt("@id_motivo", reason.getIdReason());
+            cstmt.setInt("@id_motivo", log_tmotdev.getIdTMotdev());
             int value = 0;
-            if(reason.getStatus() == 0){
+            if(log_tmotdev.getStatus() == 0){
                 value = 1;
             }            
             cstmt.setInt("@status", value );
             cstmt.execute();            
             // Auditar el proceso
-            auditar(reason.getIdReason()+ "","deleteReason:");
+            auditar(log_tmotdev.getIdTMotdev()+ "","deleteReason:");
             
             connection.commit();
             
@@ -3362,11 +3363,11 @@ public class Bd implements BdInterface{
             
             switch(operacion){
                 case 1:
-                    sql.append("{call sp_ins_log_vehiculo_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                    sql.append("{call sp_ins_log_vehiculo_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                     mensj = "Nuevo Vehiculo:";
                     break;
                 case 2:
-                    sql.append("{call sp_upd_log_vehiculo_basic(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                    sql.append("{call sp_upd_log_vehiculo_basic(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                     mensj = "Actualizando Vehiculo:";
                     break;
             }
@@ -3375,53 +3376,60 @@ public class Bd implements BdInterface{
             cstmt.setInt("@tmarca"                 , log_vehiculos.getTmarca().getIdTMarca());
             cstmt.setInt("@tproced"                , log_vehiculos.getTproced().getIdTProced());
             cstmt.setInt("@ttransp"                , log_vehiculos.getTtransp().getIdTTransp());
+            cstmt.setInt("@tseguro"                , log_vehiculos.getTseguro().getIdTSeguro());
+            cstmt.setInt("@tdispflota"             , log_vehiculos.getTdispflota().getIdTDispflota());
             cstmt.setString("@modelo"              , log_vehiculos.getModelo().toUpperCase());
-            cstmt.setInt("@capacidad"              , log_vehiculos.getCapacidad());
+            cstmt.setInt("@tara"                   , log_vehiculos.getPeso_bveh());
+            cstmt.setInt("@capcargakgrs"           , log_vehiculos.getCap_cargkgrs());
+            cstmt.setInt("@capcargamtrs3"          , log_vehiculos.getCap_cargmtrs3());
             cstmt.setInt("@ano"                    , log_vehiculos.getAno());
             cstmt.setInt("@clasificacion"          , log_vehiculos.getClasif());
-            if (log_vehiculos.getEmpresa() != null)
-                cstmt.setString("@empresa"             , log_vehiculos.getEmpresa().toUpperCase());
-            else
-                cstmt.setString("@empresa"             , log_vehiculos.getEmpresa());
-            if (log_vehiculos.getRif_empresa()!= null)
-                cstmt.setString("@rif_empresa"             , log_vehiculos.getRif_empresa().toUpperCase());
-            else
-                cstmt.setString("@rif_empresa"             , log_vehiculos.getRif_empresa());
             cstmt.setString("@telefonos"           , log_vehiculos.getTelefonos());
             cstmt.setString("@celular"             , log_vehiculos.getCelular());
+
+            if (log_vehiculos.getEmpresa() != null)
+                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa().toUpperCase());
+            else
+                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa());
+
+            if (log_vehiculos.getRif_empresa()!= null)
+                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa().toUpperCase());
+            else
+                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa());
+
             if (log_vehiculos.getCorreo() != null)
                 cstmt.setString("@correo"          , log_vehiculos.getCorreo().toLowerCase());
             else
                 cstmt.setString("@correo"          , log_vehiculos.getCorreo());
 
             if (log_vehiculos.getRuta_cc() != null)
-                cstmt.setString("@ruta_cc"          , log_vehiculos.getRuta_cc().toLowerCase());
+                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc().toLowerCase());
             else
-                cstmt.setString("@ruta_cc"          , log_vehiculos.getRuta_cc());
+                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc());
                 
             if (log_vehiculos.getRuta_tt() != null)
-                cstmt.setString("@ruta_tt"          , log_vehiculos.getRuta_tt().toLowerCase());
+                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt().toLowerCase());
             else
-                cstmt.setString("@ruta_tt"          , log_vehiculos.getRuta_tt());
+                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt());
                 
             if (log_vehiculos.getRuta_rcv() != null)
-                cstmt.setString("@ruta_rcv"          , log_vehiculos.getRuta_rcv().toLowerCase());
+                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv().toLowerCase());
             else
-                cstmt.setString("@ruta_rcv"          , log_vehiculos.getRuta_rcv());
+                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv());
                 
             if (log_vehiculos.getRuta_ps() != null)
-                cstmt.setString("@ruta_ps"          , log_vehiculos.getRuta_ps().toLowerCase());
+                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps().toLowerCase());
             else
-                cstmt.setString("@ruta_ps"          , log_vehiculos.getRuta_ps());
+                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps());
 
             if (log_vehiculos.getRuta_rgt() != null)
-                cstmt.setString("@ruta_rgt"          , log_vehiculos.getRuta_rgt().toLowerCase());
+                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt().toLowerCase());
             else
-                cstmt.setString("@ruta_rgt"          , log_vehiculos.getRuta_rgt());
+                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt());
             
-            cstmt.setDate("@fec_rcv"         , log_vehiculos.getFec_rcv());
-            cstmt.setDate("@fec_ps"         , log_vehiculos.getFec_ps());
-            cstmt.setDate("@fec_rgt"         , log_vehiculos.getFec_rgt());
+            cstmt.setDate("@fec_rcv"               , log_vehiculos.getFec_rcv());
+            cstmt.setDate("@fec_ps"                , log_vehiculos.getFec_ps());
+            cstmt.setDate("@fec_rgt"               , log_vehiculos.getFec_rgt());
             cstmt.setString("@nro_rgt"             , log_vehiculos.getNro_rgt());
                 
             cstmt.execute();            
@@ -4348,11 +4356,11 @@ public class Bd implements BdInterface{
             switch(operacion){
                 case 1:
                     sql.append("{call sp_ins_log_tseguro(?, ?)}");
-                    mensj = "Nuevo Tipo Transp:";
+                    mensj = "Nuevo Tipo Seguro:";
                     break;
                 case 2:
                     sql.append("{call sp_upd_log_tseguro_basic(?, ?, ?)}");
-                    mensj = "Actualizando Tipo Transp:";
+                    mensj = "Actualizando Tipo Seguro:";
                     break;
             }
             CallableStatement cstmt = connection.prepareCall(sql.toString());
@@ -4390,7 +4398,7 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * Valida si el groupsuppliername generado ya se encuentra asignado a un grupo en la BD
-     * @param ttranspname valor a ser chequeado en la BD
+     * @param log_tsegurosname valor a ser chequeado en la BD
      * @return true si el groupsupplier esta en uso, false si esta disponible el grupo
      * @throws java.sql.SQLException
      */
@@ -4446,6 +4454,231 @@ public class Bd implements BdInterface{
             cstmt.execute();            
             // Auditar el proceso
             auditar(log_tseguros.getIdTSeguro()+ "","deletelog_tseguros:");
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+
+
+    /***************************************************************************/
+    /**************************** log_TDispflota *******************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public log_TDispflota[] load_log_TDispflota() throws SQLException {
+         try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tdispflota_all}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               ResultSet result = cstmt.executeQuery();            
+               
+               Vector<log_TDispflota> vector = new Vector<>();
+               
+               while(result.next()) {
+                   log_TDispflota log_tdispflota = new log_TDispflota(result);
+                   vector.add(log_tdispflota);
+               }
+               
+               log_TDispflota[] log_tdispflota = new log_TDispflota[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   log_tdispflota[i] = vector.elementAt(i);                    
+               }
+               return log_tdispflota;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public log_TDispflota[] find_log_TDispflota(String find) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tdispflota_find(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@find"  , find );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<log_TDispflota> vector = new Vector<>();
+               
+               while(result.next()) {
+                   log_TDispflota log_tdispflota = new log_TDispflota(result);
+                   vector.add(log_tdispflota);
+               }
+               
+               log_TDispflota[] log_tdispflota = new log_TDispflota[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   log_tdispflota[i] = vector.elementAt(i);                    
+               }
+               
+               return log_tdispflota;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param operacion Determina el Proceso que se va a ejecutar 1 INSERT, 2 UPDATE
+     * @param log_tdispflota
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
+    public boolean save_log_TDispflota(int operacion, log_TDispflota log_tdispflota) throws SQLException, Exception {
+        
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            StringBuilder sql = new StringBuilder();            
+            String mensj = "";
+            
+            switch(operacion){
+                case 1:
+                    sql.append("{call sp_ins_log_tdispflota(?, ?)}");
+                    mensj = "Nuevo Tipo Dispflota:";
+                    break;
+                case 2:
+                    sql.append("{call sp_upd_log_tseguro_basic(?, ?, ?)}");
+                    mensj = "Actualizando Tipo Dispflota:";
+                    break;
+            }
+            CallableStatement cstmt = connection.prepareCall(sql.toString());
+            switch(operacion){
+                case 1:
+                    cstmt.setString("@nombre"       , log_tdispflota.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , log_tdispflota.getAbrev().toUpperCase());
+                    break;
+                case 2:
+                    cstmt.setInt("@id_tdispflota"    , log_tdispflota.getIdTDispflota());
+                    cstmt.setString("@nombre"        , log_tdispflota.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"         , log_tdispflota.getAbrev().toUpperCase());
+                    break;
+            }
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(log_tdispflota.getIdTDispflota()+ "",mensj);
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();   
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+    /**
+     * @author MITM
+     * Valida si el groupsuppliername generado ya se encuentra asignado a un grupo en la BD
+     * @param log_tdispflotasname valor a ser chequeado en la BD
+     * @return true si el groupsupplier esta en uso, false si esta disponible el grupo
+     * @throws java.sql.SQLException
+     */
+    public boolean check_log_TDispflota(String log_tdispflotasname) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_log_tdispflota_check(?,?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
+               cstmt.setString("@log_tdispflota", log_tdispflotasname);
+               cstmt.registerOutParameter("result", java.sql.Types.INTEGER);               
+               cstmt.execute();
+               if(cstmt.getInt("result") == 1) return true;               
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param log_tdispflota
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public boolean change_log_TDispflota(log_TDispflota log_tdispflota) throws Exception {
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();
+        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_upd_log_ttransp_status(?,?)}");
+            CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                 
+            cstmt.setInt("@id_tproced", log_tdispflota.getIdTDispflota());
+            int value = 0;
+            if(log_tdispflota.getStatus()== 0){
+                value = 1;
+            }            
+            cstmt.setInt("@status", value );
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(log_tdispflota.getIdTDispflota()+ "","deletelog_tseguros:");
             
             connection.commit();
             
@@ -5350,9 +5583,9 @@ public class Bd implements BdInterface{
                 switch(operacion){
                     case 1:
                         sql_rela.append("{call sp_ins_log_cguias_numrela(?)}");
-                        sql_data.append("{call sp_ins_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_ins_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_ins_log_cguias_chof(?, ?, ?)}");
-                        sql_vehi.append("{call sp_ins_log_cguias_vehi(?, ?, ?, ?)}");
+                        sql_vehi.append("{call sp_ins_log_cguias_vehi(?, ?, ?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_ins_log_cguias_ayud(?, ?, ?, ?)}");
                         sql_cheq.append("{call sp_ins_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva log_CGuias:";
@@ -5360,9 +5593,9 @@ public class Bd implements BdInterface{
                     case 2:
                         log_cguias.setNumrela(String.valueOf(Datos.getNumRela()));
 
-                        sql_data.append("{call sp_upd_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_upd_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_upd_log_cguias_chof(?, ?, ?)}");
-                        sql_vehi.append("{call sp_upd_log_cguias_vehi(?, ?, ?, ?)}");
+                        sql_vehi.append("{call sp_upd_log_cguias_vehi(?, ?, ?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_upd_log_cguias_ayud(?, ?, ?, ?)}");
                         sql_cheq.append("{call sp_upd_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando log_CGuias:";
@@ -5398,8 +5631,10 @@ public class Bd implements BdInterface{
                     cstmt = connection.prepareCall(sql_vehi.toString());
                     cstmt.setString("@numrela"         , log_cguias.getNumrela());
                     cstmt.setDate("@fecha"             , log_cguias.getFecha());
+                    cstmt.setInt("@numpuerta"          , log_cguias.getNumpuerta());
                     cstmt.setString("@nro_placa1"      , log_cguias.getVeh1());
                     cstmt.setString("@nro_placa2"      , log_cguias.getVeh2());
+                    cstmt.setString("@odometro"        , log_cguias.getOdometro());
                     cstmt.execute();
 
 
@@ -5445,7 +5680,6 @@ public class Bd implements BdInterface{
                 cstmt.setString("@numrela"              , log_cguias.getNumrela());
                 cstmt.setDouble("@numorden"             , pos + 1);
                 cstmt.setString("@numguia"              , log_cguias.getNumguia());
-                cstmt.setInt("@numpuerta"               , log_cguias.getNumpuerta());
                 cstmt.setInt("@numfacturas"             , log_cguias.getNumfact());
                 cstmt.setInt("@numclientes"             , log_cguias.getNumclie());
                 cstmt.setString("@status"               , log_cguias.getStat_guia());
@@ -5556,11 +5790,11 @@ public class Bd implements BdInterface{
 
                 switch (operacion) {
                     case 1:
-                        sqlProc.append("{call sp_ins_log_cguias_falt(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sqlProc.append("{call sp_ins_log_cguias_falt(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva log_CGuias_falt:";
                         break;
                     case 2:
-                        sqlProc.append("{call sp_upd_log_cguias_falt(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sqlProc.append("{call sp_upd_log_cguias_falt(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando log_CGuias_falt:";
                         break;
                 }
@@ -5830,6 +6064,9 @@ public class Bd implements BdInterface{
                     break;
                 case "ncaja":
                     sqlProc.append("{call sp_get_log_cguias_find_ncaja(?, ?, ?)}");
+                    break;
+                case "ncred":
+                    sqlProc.append("{call sp_get_log_cguias_find_ncred(?, ?, ?)}");
                     break;
                 case "cprod":
                     sqlProc.append("{call sp_get_log_cguias_find_prod(?, ?, ?)}");

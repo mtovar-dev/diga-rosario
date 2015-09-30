@@ -76,7 +76,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_PurchaseOrderNewController implements Initializable {
+public class Fxml_PurchaseOrder_NewController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
