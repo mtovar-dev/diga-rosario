@@ -71,6 +71,9 @@ public class Fxml_UserController implements Initializable{
     @FXML //  fx:id="hb_7"
     private HBox hb_7; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="hb_7"
+    private HBox hb_8; // Value injected by FXMLLoader
+    
     @FXML //  fx:id="hb_lastname"
     private HBox hb_lastname; // Value injected by FXMLLoader
     
@@ -127,6 +130,12 @@ public class Fxml_UserController implements Initializable{
 
     @FXML //  fx:id="apel02"
     private TextField tf_apel02; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="correo"
+    private TextField tf_correo; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="clave"
+    private TextField tf_clave; // Value injected by FXMLLoader
     
     @FXML //  fx:id="lb_Title"
     private Label lb_Title; // Value injected by FXMLLoader
@@ -193,6 +202,7 @@ public class Fxml_UserController implements Initializable{
         assert hb_5 != null : "fx:id=\"hb_5\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert hb_6 != null : "fx:id=\"hb_6\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert hb_7 != null : "fx:id=\"hb_7\" was not injected: check your FXML file 'Fxml_User.fxml'.";
+        assert hb_8 != null : "fx:id=\"hb_8\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert hb_lastname != null : "fx:id=\"hb_lastname\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_User.fxml'.";
@@ -212,6 +222,8 @@ public class Fxml_UserController implements Initializable{
         assert tf_nomb02 != null : "fx:id=\"nomb02\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert tf_apel01 != null : "fx:id=\"apel01\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert tf_apel02 != null : "fx:id=\"apel02\" was not injected: check your FXML file 'Fxml_User.fxml'.";
+        assert tf_correo != null : "fx:id=\"tf_correo\" was not injected: check your FXML file 'Fxml_User.fxml'.";
+        assert tf_clave != null : "fx:id=\"tf_clave\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert pf_pswd01 != null : "fx:id=\"pswd01\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert pf_pswd02 != null : "fx:id=\"pswd02\" was not injected: check your FXML file 'Fxml_User.fxml'.";
         assert pf_old != null : "fx:id=\"pf_old\" was not injected: check your FXML file 'Fxml_User.fxml'.";
@@ -274,14 +286,18 @@ public class Fxml_UserController implements Initializable{
         TableColumn col_apellido2 = new TableColumn("2do Apellido");        
         TableColumn col_rol       = new TableColumn("Rol");
         TableColumn col_status    = new TableColumn("");
+        TableColumn col_correo    = new TableColumn("Correo");        
+
         //Se establece el ancho de cada columna
-        this.objectWidth(col_usuario  , 100, 140);
-        this.objectWidth(col_nombre1  , 100, 140);   
-        this.objectWidth(col_nombre2  , 100, 140);
-        this.objectWidth(col_apellido1, 100, 140);
-        this.objectWidth(col_apellido2, 100, 140);
-        this.objectWidth(col_rol      , 150, 150);
+        this.objectWidth(col_usuario  , 110, 110);
+        this.objectWidth(col_nombre1  , 110, 110);   
+        this.objectWidth(col_nombre2  , 100, 110);
+        this.objectWidth(col_apellido1, 110, 110);
+        this.objectWidth(col_apellido2, 100, 110);
+        this.objectWidth(col_rol      , 140, 140);
         this.objectWidth(col_status   , 25 , 25);
+        this.objectWidth(col_correo   , 250, 250);
+
         /**
          * Sobreescritura de un metodo de la Columna, para sustituir el valor numerico 
          * del STATUS del usuario por una Imagen segun el valor
@@ -327,9 +343,14 @@ public class Fxml_UserController implements Initializable{
                 new PropertyValueFactory<>("rol") );
         col_status.setCellValueFactory( 
                 new PropertyValueFactory<>("status") );
+        col_correo.setCellValueFactory( 
+                new PropertyValueFactory<>("email") );
         
         //Se Asigna ordenadamente las columnas de la tabla
-        tb_table.getColumns().addAll(col_status, col_usuario, col_nombre1, col_nombre2, col_apellido1, col_apellido2, col_rol);      
+        tb_table.getColumns().addAll(
+                col_status, col_usuario, col_nombre1, col_nombre2, col_apellido1, 
+                col_apellido2, col_rol, col_correo
+        );      
 
         //Se Asigna tamaño del VBox para que lo tome el TableView
         vb_table.relocate(30, 64);
@@ -414,22 +435,24 @@ public class Fxml_UserController implements Initializable{
             //Se asignan los valores del objeto 
             Usuario usuario = new Usuario();
             usuario.setUsername(tf_username.getText());
-            usuario.setNombre1(tf_nomb01.getText());
+            usuario.setNombre1(tf_nomb01.getText().toUpperCase());
             if ((tf_nomb02.getText() != null) && (!tf_nomb02.getText().isEmpty()))
-                usuario.setNombre2(tf_nomb02.getText());
-            //usuario.setNombre2(tf_nomb02.getText());
-            usuario.setApellido1(tf_apel01.getText());
+                usuario.setNombre2(tf_nomb02.getText().toUpperCase());
+            usuario.setApellido1(tf_apel01.getText().toUpperCase());
             if ((tf_apel02.getText() != null) && (!tf_apel02.getText().isEmpty()))
-                usuario.setApellido2(tf_apel02.getText());
-            //usuario.setApellido2(tf_apel02.getText());
+                usuario.setApellido2(tf_apel02.getText().toUpperCase());
+            usuario.setEmail(tf_correo.getText());
+            usuario.setEmail_pswd(tf_clave.getText());
             String pswd = "";
             
             if(proceso == 1){   //Si es un Usuario NUEVO
                 usuario.setPswd_old(pf_pswd01.getText());
                 pswd = pf_pswd02.getText();
+                usuario.setStatus(2);      //Se asigna el STATUS del usuario
             }else{              //Si es un Usuario MODIFICADO                
                 usuario.setPswd_old(Datos.getUser().getPswd_old());
                 pswd = Datos.getUser().getPswd_old();
+                usuario.setStatus(Datos.getUser().getStatus());      //Se asigna el STATUS del usuario
             }            
             //Se obtiene el ROL del usuario
             Rol rol = (Rol) cb_roles.getValue();            
@@ -438,7 +461,6 @@ public class Fxml_UserController implements Initializable{
             }else{  
                 usuario.setRol(rol);
             }            
-            usuario.setStatus(Datos.getUser().getStatus());      //Se asigna el STATUS del usuario
             //Se llama al proceso de Guardado
             boolean result = 
                     Ln.getInstance().save_Usuario(usuario, pswd, proceso, ScreenName);
@@ -450,7 +472,7 @@ public class Fxml_UserController implements Initializable{
                 return true;
             }     
             }else{  
-                Gui.getInstance().showMessage("Se debe asignar un " + ScreenName + " al Usuario!", "A");
+                Gui.getInstance().showMessage("Se debe asignar un Rol al " + ScreenName + "!", "A");
             }
         }else{                            
             Gui.getInstance().showMessage("No Existe ningun " + ScreenName + " para ser Guardado!", "A");
@@ -500,6 +522,8 @@ public class Fxml_UserController implements Initializable{
         tf_nomb02.setText(Datos.getUser().getNombre2());
         tf_apel01.setText(Datos.getUser().getApellido1());
         tf_apel02.setText(Datos.getUser().getApellido2());
+        tf_correo.setText(Datos.getUser().getEmail());
+        tf_clave.setText(Datos.getUser().getEmail_pswd());
         pf_pswd01.setText("");
         pf_pswd02.setText("");               
         pf_old.setText("");
@@ -525,6 +549,8 @@ public class Fxml_UserController implements Initializable{
             tf_nomb02.setEditable(false);
             tf_apel01.setEditable(false);
             tf_apel02.setEditable(false);
+            tf_correo.setEditable(false);
+            tf_clave.setEditable(false);
             cb_roles.setDisable(true);             
             //SE PERMITE: NUEVO, CANCELAR Y BUSCAR
             disables = new Integer[]{2,7,8,9,10};
@@ -539,6 +565,8 @@ public class Fxml_UserController implements Initializable{
             tf_nomb02.setEditable(true);
             tf_apel01.setEditable(true);
             tf_apel02.setEditable(true);
+            tf_correo.setEditable(true);
+            tf_clave.setEditable(true);
             cb_roles.setDisable(false);
             //SE PERMITE: NUEVO,GUARDAR Y CANCELAR             
             disables = new Integer[]{0,1,3,4,5,7,8,9,10,11};
@@ -551,6 +579,8 @@ public class Fxml_UserController implements Initializable{
             tf_nomb02.setEditable(true);
             tf_apel01.setEditable(true);
             tf_apel02.setEditable(true);
+            tf_correo.setEditable(true);
+            tf_clave.setEditable(true);
             cb_roles.setDisable(false);
             //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
             disables = new Integer[]{0,1,3,4,5,7,8,9,10,11};
@@ -562,6 +592,8 @@ public class Fxml_UserController implements Initializable{
             tf_nomb02.setEditable(false);
             tf_apel01.setEditable(false);
             tf_apel02.setEditable(false);
+            tf_correo.setEditable(false);
+            tf_clave.setEditable(false);
             cb_roles.setDisable(true);
             //SE PERMITE: GUARDAR Y CANCELAR
             disables = new Integer[]{0,1,3,4,5,7,8,9,10,11};
@@ -573,6 +605,8 @@ public class Fxml_UserController implements Initializable{
             tf_nomb02.setEditable(false);
             tf_apel01.setEditable(false);
             tf_apel02.setEditable(false);
+            tf_correo.setEditable(false);
+            tf_clave.setEditable(false);
             cb_roles.setDisable(true);
             //SE PERMITE: GUARDAR,CAMBIO STATUS Y CANCELAR
             disables = new Integer[]{0,1,2,4,5,7,8,9,10,11};
@@ -590,6 +624,7 @@ public class Fxml_UserController implements Initializable{
        hb_2.setVisible(isNamesVisible);
        hb_3.setVisible(isNamesVisible);
        hb_4.setVisible(isNamesVisible);  
+       hb_8.setVisible(isNamesVisible);  
        init_FocusArray(tipoOperacion);  
        Gui.getInstance().setTipoOperacion(tipoOperacion);
     }    
@@ -661,17 +696,18 @@ public class Fxml_UserController implements Initializable{
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, cb_roles, 
-                    pf_pswd01, pf_pswd02};
+                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, tf_correo, 
+                    tf_clave, cb_roles, pf_pswd01, pf_pswd02};
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, cb_roles, 
-                    pf_pswd01, pf_pswd02};
+                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, tf_correo, 
+                    tf_clave, cb_roles, pf_pswd01, pf_pswd02};
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, cb_roles};
+                    tf_nomb01, tf_nomb02, tf_apel01, tf_apel02, tf_correo, 
+                    tf_clave, cb_roles};
                 break;
             case 5:     //CAMBIO PSWD
                 nodos = new Node[]{
@@ -719,7 +755,8 @@ public class Fxml_UserController implements Initializable{
         //Se Enfoca el nuevo nodo correspondiente
         Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     
@@ -1141,16 +1178,16 @@ public class Fxml_UserController implements Initializable{
         if(value){  //Si el estado es visible entonces 
             switch(tipoOperacion){
                 case 0:  //SOLO LECTURA                    
-                    vb_table.relocate(30, 244);
-                    vb_table.setPrefHeight(328);
+                    vb_table.relocate(30, 274);
+                    vb_table.setPrefHeight(298);
                     break;
                 case 1:  //NUEVO
-                    vb_table.relocate(30, 284);
-                    vb_table.setPrefHeight(288);
+                    vb_table.relocate(30, 314);
+                    vb_table.setPrefHeight(258);
                     break;
                 case 2:  //EDITAR
-                    vb_table.relocate(30, 214);
-                    vb_table.setPrefHeight(358);
+                    vb_table.relocate(30, 244);
+                    vb_table.setPrefHeight(328);
                     break;
                 case 5:  //EDITAR PSWD
                     vb_table.relocate(30, 224);

@@ -232,9 +232,11 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
     private static Integer[] toolsConfig;    
     private static String[] tooltips;
 
-    private static int numGuias         = 0; 
+    private static int numItems         = 0; 
     private static int numStatDet       = 0; 
     private static int numIdProv        = 0; 
+
+    private static String codelpro      = ""; 
     
     private static final ObservableList<Orders> orders_new = FXCollections.observableArrayList();
 
@@ -590,6 +592,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                 orders.setNumorden(orders_new.get(i).getNumorden());
                 orders.setIdProducto(orders_new.get(i).getIdProducto());
                 orders.setDescrip(orders_new.get(i).getDescrip());
+                orders.setCodelpro(orders_new.get(i).getCodelpro());
                 orders.setCant_sol(orders_new.get(i).getCant_sol());
                 orders.setId_unidsol(orders_new.get(i).getId_unidsol());
                 orders.setUnidsol(orders_new.get(i).getUnidsol());
@@ -605,7 +608,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                 orders.setStatdet(orders_new.get(i).getStatdet());
                 orders.setStatord(orders_new.get(i).getStatord());
 
-                if (i == numGuias)
+                if (i == numItems)
                     proceso = 1;
 
                 result = 
@@ -817,6 +820,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             ObservableList<Orders> data = FXCollections.observableArrayList();
             data.addAll(Arrays.asList(order));   
 
+            numItems = data.size();
             orders_new.clear();
 
             tf_orden.setText(String.valueOf(order[0].getIdOrden()));
@@ -851,6 +855,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                 orders.setNumorden(data.get(i).getNumorden());
                 orders.setIdProducto(data.get(i).getIdProducto());
                 orders.setDescrip(data.get(i).getDescrip());
+                orders.setCodelpro(data.get(i).getCodelpro());
 
                 orders.setCant_sol(data.get(i).getCant_sol());
                 orders.setId_unidsol(data.get(i).getId_unidsol());
@@ -1085,7 +1090,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
      */
     private void botonInicio() {
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
-        numGuias = 0;
+        numItems = 0;
         
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
@@ -1464,7 +1469,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
 //                if (!tf_prod.getText().isEmpty()){
                     if(((Node)ke.getSource()).getId().equals("tf_prod") &&
-                            (tf_prod.getText().length() < 6)){
+                            (tf_prod.getText().length() > 1)){
 
                         boolean boo = true;
                         if(numStatDet == 0){
@@ -1495,6 +1500,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                                 }
 
                                 tf_descrip.setText(inventa[0].getDescri());
+                                codelpro = inventa[0].getCodelpro();
 
                                 final ObservableList<Unit> data = FXCollections.observableArrayList();
 
@@ -1584,6 +1590,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
 
                         orders.setIdProducto(tf_prod.getText().toUpperCase());
                         orders.setDescrip(tf_descrip.getText());
+                        orders.setCodelpro(codelpro.toUpperCase());
 
                         orders.setCant_sol(Integer.parseInt(tf_cant.getText()));
                         Unit unit = (Unit) cb_unidad.getValue();            
@@ -1624,6 +1631,8 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                         tf_prod.setText("");
                         tf_descrip.setText("");
                         tf_cant.setText("");
+
+                        codelpro = "";
 
                         numStatDet = 0;
                         

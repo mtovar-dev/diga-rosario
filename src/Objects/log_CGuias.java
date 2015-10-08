@@ -62,6 +62,7 @@ public class log_CGuias extends xy {
     private String cheq_pq;
     private String scheq_pq;
     private String odometro;
+    private int turno;     
     
     /**
      * 
@@ -116,6 +117,7 @@ public class log_CGuias extends xy {
             cheq_pq             = rs.getString(38);
             scheq_pq            = rs.getString(39);
             odometro            = rs.getString(40);
+            turno               = rs.getInt(20);
             
             super.setNumorden(numorden);
             super.setGuias(numguia);
@@ -757,6 +759,20 @@ public class log_CGuias extends xy {
      */
     public void setOdometro(String odometro) {
         this.odometro = odometro;
+    }
+
+    /**
+     * @return the turno
+     */
+    public int getTurno() {
+        return turno;
+    }
+
+    /**
+     * @param turno the turno to set
+     */
+    public void setTurno(int turno) {
+        this.turno = turno;
     }
 
 }

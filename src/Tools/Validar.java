@@ -11,6 +11,7 @@ import Objects.log_TMotdev;
 import Objects.System.Rol;
 import Objects.Setup.Sex;
 import Objects.Orders.Supplier;
+import Objects.Setup.Branch;
 import Objects.Setup.Unit;
 import Objects.System.Usuario;
 import Objects.log_CGuias;
@@ -37,8 +38,9 @@ import Objects.log_Vehiculos;
     public static final int numerosYletras  = 1;
     public static final int soloLetras      = 2;
     public static final int soloNumeros     = 3;
-    public static final int soloCorreos     = 4;
-    public static final int soloTelefonos   = 5;
+    public static final int soloDecimales   = 4;
+    public static final int soloCorreos     = 5;
+    public static final int soloTelefonos   = 6;
     /**
      * 
      * @param user Campo correspondiente al nombre de usuario
@@ -130,11 +132,16 @@ import Objects.log_Vehiculos;
                 }
                 break;
             case 4:
-                if(!correo(param)){
+                if(!num_dec(param)){
                     return false;
                 }
                 break;
             case 5:
+                if(!correo(param)){
+                    return false;
+                }
+                break;
+            case 6:
                 if(!telefonos(param)){
                     return false;
                 }
@@ -427,6 +434,28 @@ import Objects.log_Vehiculos;
 
     
     /***************************************************************************/
+    /******************************** BRANCH ***********************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @param branch
+     * @return 
+     */
+    public static boolean validar_Save_Branch(Branch branch) {
+        boolean opc1 = validarTexto(branch.getNombre(),150,numerosYletras,false);
+        boolean opc2 = validarTexto(branch.getAbrev(),5,soloLetras,true);
+        
+        if(!opc1 || !opc2){
+            Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    
+    /***************************************************************************/
     /***************************** GROUPSUPPLIER *******************************/
     /***************************************************************************/
     
@@ -633,25 +662,27 @@ import Objects.log_Vehiculos;
      * @return 
      */
     public static boolean validar_Save_log_Vehiculos(log_Vehiculos log_vehiculos) {
-        boolean opc3 = true;
         boolean opc5 = true;
-        boolean opc6 = true;
+        boolean opc7 = true;
+        boolean opc8 = true;
 
         boolean opc1 = validarTexto(log_vehiculos.getModelo(),25,numerosYletras,false);
-        boolean opc2 = validarTexto(Integer.toString(log_vehiculos.getCap_cargkgrs()),5,soloNumeros,false);
+        boolean opc2 = validarTexto(Integer.toString(log_vehiculos.getPeso_bveh()),5,soloNumeros,false);
+        boolean opc3 = validarTexto(Integer.toString(log_vehiculos.getCap_cargkgrs()),5,soloNumeros,false);
+        boolean opc4 = validarTexto(Double.toString(log_vehiculos.getCap_cargmtrs3()),5,soloDecimales,false);
         
         if (log_vehiculos.getEmpresa() != null)
-            opc3 = validarTexto(log_vehiculos.getEmpresa(),150,numerosYletras,false);
+            opc5 = validarTexto(log_vehiculos.getEmpresa(),150,numerosYletras,false);
 
-        boolean opc4 = validarTexto(Integer.toString(log_vehiculos.getAno()),50,soloNumeros,false);
+        boolean opc6 = validarTexto(Integer.toString(log_vehiculos.getAno()),50,soloNumeros,false);
 
         if (log_vehiculos.getCelular() != null)
-            opc5 = validarTexto(log_vehiculos.getCelular(),15,soloTelefonos,true);
+            opc7 = validarTexto(log_vehiculos.getCelular(),15,soloTelefonos,true);
         
         if (log_vehiculos.getCorreo() != null)
-            opc6 = validarTexto(log_vehiculos.getCorreo(),50,soloCorreos,true);
+            opc7 = validarTexto(log_vehiculos.getCorreo(),50,soloCorreos,true);
         
-        if(opc1 && opc2 && opc3 && opc4 && opc5 && opc6){
+        if(opc1 && opc2 && opc3 && opc4 && opc5 && opc6 && opc7 && opc8){
             return true;
         }else{
             Gui.getInstance().ventanaError("Existen Parametros que no cumplen las especificaciones!");

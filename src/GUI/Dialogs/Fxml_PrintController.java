@@ -312,7 +312,7 @@ public class Fxml_PrintController implements Initializable {
         switch (IdScreen){
             case 1001001: // screen supplier
                 break;
-            case 2003010: // screen guide
+            case 2003020: // screen guide
                 //Datos
                 List<log_CGuias> datag = Ln.getList_log_CGuias(Datos.getRep_log_cguias());
 
@@ -361,7 +361,7 @@ public class Fxml_PrintController implements Initializable {
                 }
 
                 break;
-            case 2004000: // screen personal
+            case 2004010: // screen personal
                 if((tf_buscar.getText() != null && !tf_buscar.equals("")) &&
                         (cb_imp11.getValue() == null ) && 
                         (cb_imp21.getValue() == null ) && 
@@ -471,13 +471,13 @@ public class Fxml_PrintController implements Initializable {
                 cb_imp22.getSelectionModel().clearSelection();
                 cb_imp31.getSelectionModel().clearSelection();
                 break;
-            case 2005000: // screen vehiculos
+            case 2004020: // screen vehiculos
                 break;
-            case 8001000: // screen measure
+            case 8000030: // screen groupsupplier
                 break;
-            case 8002000: // screen groupsupplier
+            case 8000040: // screen measure
                 break;
-            case 9001001: // screen user
+            case 9000100: // screen user
                 break;
         }
         //Gui.getInstance().closeAuxDialog();                               
@@ -838,7 +838,7 @@ public class Fxml_PrintController implements Initializable {
         switch (IdScreen){
             case 1001001: // screen supplier
                 break;
-            case 2003010: // screen guide
+            case 2003020: // screen guide
                 assert cb_imp11 != null : "fx:id=\"cb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
                 assert lb_imp11 != null : "fx:id=\"lb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
                 assert rb_imp11 != null : "fx:id=\"rb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
@@ -899,7 +899,7 @@ public class Fxml_PrintController implements Initializable {
                 cb_imp31.setVisible(false);
                 
                 break;
-            case 2004000: // screen personal
+            case 2004010: // screen personal
                 assert cb_imp11 != null : "fx:id=\"cb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
                 assert lb_imp11 != null : "fx:id=\"lb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
                 assert rb_imp11 != null : "fx:id=\"rb_imp11\" was not injected: check your FXML file 'Fxml_Print.fxml'."; 
@@ -985,13 +985,13 @@ public class Fxml_PrintController implements Initializable {
                 tf_buscar.setText(null);
                 
                 break;
-            case 2005000: // screen vehiculos
+            case 2004020: // screen vehiculos
                 break;
-            case 8001000: // screen measure
+            case 8000030: // screen groupsupplier
                 break;
-            case 8002000: // screen groupsupplier
+            case 8000040: // screen measure
                 break;
-            case 9001001: // screen user
+            case 9000100: // screen user
                 break;
         }
     }

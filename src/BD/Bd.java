@@ -31,12 +31,14 @@ import Objects.System.Sesion;
 import Objects.Setup.Sex;
 import Objects.Setup.State;
 import Objects.Orders.Supplier;
+import Objects.Reports.Dev_FanulSucursales;
 import Objects.Setup.Unit;
 import Objects.System.Usuario;
 import Objects.log_CGuias;
 import Objects.log_CGuias_Glomar_invoice;
 import Objects.log_CGuias_Glomar_price;
-import Objects.log_CGuias_falt;
+import Objects.Reports.Dev_FaltCarga;
+import Objects.Setup.Branch;
 import Objects.log_CGuias_falt_cg;
 import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
@@ -457,11 +459,11 @@ public class Bd implements BdInterface{
             
             switch(operacion){
                 case 1:
-                    sql.append("{call sp_ins_user_data(?, ?, ?, ?, ?, ?, ?)}");
+                    sql.append("{call sp_ins_user_data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                     mensj = "Nuevo Usuario:";
                     break;
                 case 2:
-                    sql.append("{call sp_upd_user_basic(?, ?, ?, ?, ?, ?)}");
+                    sql.append("{call sp_upd_user_basic(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                     mensj = "Actualizando Usuario:";
                     break;
                 case 3:
@@ -472,29 +474,27 @@ public class Bd implements BdInterface{
             CallableStatement cstmt = connection.prepareCall(sql.toString());
             switch(operacion){
                 case 1:
-                    cstmt.setString("@id_user"      , usuario.getUsername() );
-                    cstmt.setString("@nombre1"      , usuario.getNombre1().toUpperCase());
-                    if(usuario.getNombre2() == null) 
-                        cstmt.setString("@nombre2", null);
-                    else
-                        cstmt.setString("@nombre2"  , usuario.getNombre2().toUpperCase());
-                    cstmt.setString("@apellido1"    , usuario.getApellido1().toUpperCase());
-                    if(usuario.getApellido2() == null) 
-                        cstmt.setString("@apellido2", null);
-                    else
-                        cstmt.setString("@apellido2", usuario.getApellido2().toUpperCase());
+                    cstmt.setString("@id_user"      , usuario.getUsername());
+                    cstmt.setString("@nombre1"      , usuario.getNombre1());
+                    cstmt.setString("@nombre2"  , usuario.getNombre2());
+                    cstmt.setString("@apellido1"    , usuario.getApellido1());
+                    cstmt.setString("@apellido2", usuario.getApellido2());
                     cstmt.setString("@clave"        , usuario.getPswd_old());
                     cstmt.setInt("@id_rol"          , usuario.getRol().getIdRol());
+                    cstmt.setString("@correo"       , usuario.getEmail());
+                    cstmt.setString("@clave_correo" , usuario.getEmail_pswd());
+                    cstmt.setInt("@status"          , usuario.getStatus());
                     break;
                 case 2:
-                    cstmt.setString("@id_user"      , usuario.getUsername() );
-                    cstmt.setString("@nombre1"      , usuario.getNombre1().toUpperCase());
-                    if(usuario.getNombre2() != null) 
-                        cstmt.setString("@nombre2"  , usuario.getNombre2().toUpperCase());
-                    cstmt.setString("@apellido1"    , usuario.getApellido1().toUpperCase());
-                    if(usuario.getApellido2() != null) 
-                        cstmt.setString("@apellido2", usuario.getApellido2().toUpperCase());
+                    cstmt.setString("@id_user"      , usuario.getUsername());
+                    cstmt.setString("@nombre1"      , usuario.getNombre1());
+                    cstmt.setString("@nombre2"  , usuario.getNombre2());
+                    cstmt.setString("@apellido1"    , usuario.getApellido1());
+                    cstmt.setString("@apellido2", usuario.getApellido2());
                     cstmt.setInt("@id_rol"          , usuario.getRol().getIdRol());
+                    cstmt.setString("@correo"       , usuario.getEmail());
+                    cstmt.setString("@clave_correo" , usuario.getEmail_pswd());
+                    cstmt.setInt("@status"          , usuario.getStatus());
                     break;
                 case 3:
                     cstmt.setString("@id_user"      , usuario.getUsername() );
@@ -818,6 +818,231 @@ public class Bd implements BdInterface{
             cstmt.execute();            
             // Auditar el proceso
             auditar(role.getIdRol()+ "","deleteRol:");
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+
+    
+    /***************************************************************************/
+    /******************************** BRANCH ***********************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Branch[] load_Branch() throws SQLException {
+         try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_branch_all}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               ResultSet result = cstmt.executeQuery();            
+               
+               Vector<Branch> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Branch branch = new Branch(result);
+                   vector.add(branch);
+               }
+               
+               Branch[] branch = new Branch[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   branch[i] = vector.elementAt(i);                    
+               }
+               return branch;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Branch[] find_Branch(String find) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_branch_find(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@find"  , find );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Branch> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Branch branch = new Branch(result);
+                   vector.add(branch);
+               }
+               
+               Branch[] branch = new Branch[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   branch[i] = vector.elementAt(i);                    
+               }
+               
+               return branch;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param operacion Determina el Proceso que se va a ejecutar 1 INSERT, 2 UPDATE
+     * @param branch
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
+    public boolean save_Branch(int operacion, Branch branch) throws SQLException, Exception {
+        
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            StringBuilder sql = new StringBuilder();            
+            String mensj = "";
+            
+            switch(operacion){
+                case 1:
+                    sql.append("{call sp_ins_branch(?, ?)}");
+                    mensj = "Nueva Unidad:";
+                    break;
+                case 2:
+                    sql.append("{call sp_upd_branch_basic(?, ?, ?)}");
+                    mensj = "Actualizando Unidad:";
+                    break;
+            }
+            CallableStatement cstmt = connection.prepareCall(sql.toString());
+            switch(operacion){
+                case 1:
+                    cstmt.setString("@nombre"       , branch.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , branch.getAbrev().toUpperCase());
+                    break;
+                case 2:
+                    cstmt.setInt("@id_branch"         , branch.getIdBranch());
+                    cstmt.setString("@nombre"       , branch.getNombre().toUpperCase());
+                    cstmt.setString("@abrev"        , branch.getAbrev().toUpperCase());
+                    break;
+            }
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(branch.getIdBranch()+ "",mensj);
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();   
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+    /**
+     * @author MITM
+     * Valida si el measurename generado ya se encuentra asignado a una medida en la BD
+     * @param branchname valor a ser chequeado en la BD
+     * @return true si el measure esta en uso, false si esta disponible la medida
+     * @throws java.sql.SQLException
+     */
+    public boolean check_Branch(String branchname) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_branch_check(?,?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
+               cstmt.setString("@branch", branchname);
+               cstmt.registerOutParameter("result", java.sql.Types.INTEGER);               
+               cstmt.execute();
+               if(cstmt.getInt("result") == 1) return true;               
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param branch
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public boolean change_Branch(Branch branch) throws Exception {
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();
+        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_upd_branch_status(?,?)}");
+            CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                 
+            cstmt.setInt("@id_branch", branch.getIdBranch());
+            int value = 0;
+            if(branch.getStatus() == 0){
+                value = 1;
+            }            
+            cstmt.setInt("@status", value );
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(branch.getIdBranch()+ "","deleteBranch:");
             
             connection.commit();
             
@@ -3372,58 +3597,58 @@ public class Bd implements BdInterface{
                     break;
             }
             CallableStatement cstmt = connection.prepareCall(sql.toString());
-            cstmt.setString("@nro_placa"           , log_vehiculos.getIdPlaca().toUpperCase());
+            cstmt.setString("@nro_placa"           , log_vehiculos.getIdPlaca());
             cstmt.setInt("@tmarca"                 , log_vehiculos.getTmarca().getIdTMarca());
             cstmt.setInt("@tproced"                , log_vehiculos.getTproced().getIdTProced());
             cstmt.setInt("@ttransp"                , log_vehiculos.getTtransp().getIdTTransp());
             cstmt.setInt("@tseguro"                , log_vehiculos.getTseguro().getIdTSeguro());
             cstmt.setInt("@tdispflota"             , log_vehiculos.getTdispflota().getIdTDispflota());
-            cstmt.setString("@modelo"              , log_vehiculos.getModelo().toUpperCase());
+            cstmt.setString("@modelo"              , log_vehiculos.getModelo());
             cstmt.setInt("@tara"                   , log_vehiculos.getPeso_bveh());
             cstmt.setInt("@capcargakgrs"           , log_vehiculos.getCap_cargkgrs());
-            cstmt.setInt("@capcargamtrs3"          , log_vehiculos.getCap_cargmtrs3());
+            cstmt.setDouble("@capcargamtrs3"       , log_vehiculos.getCap_cargmtrs3());
             cstmt.setInt("@ano"                    , log_vehiculos.getAno());
             cstmt.setInt("@clasificacion"          , log_vehiculos.getClasif());
             cstmt.setString("@telefonos"           , log_vehiculos.getTelefonos());
             cstmt.setString("@celular"             , log_vehiculos.getCelular());
 
             if (log_vehiculos.getEmpresa() != null)
-                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa().toUpperCase());
+                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa());
             else
                 cstmt.setString("@empresa"         , log_vehiculos.getEmpresa());
 
             if (log_vehiculos.getRif_empresa()!= null)
-                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa().toUpperCase());
+                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa());
             else
                 cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa());
 
             if (log_vehiculos.getCorreo() != null)
-                cstmt.setString("@correo"          , log_vehiculos.getCorreo().toLowerCase());
+                cstmt.setString("@correo"          , log_vehiculos.getCorreo());
             else
                 cstmt.setString("@correo"          , log_vehiculos.getCorreo());
 
             if (log_vehiculos.getRuta_cc() != null)
-                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc().toLowerCase());
+                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc());
             else
                 cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc());
                 
             if (log_vehiculos.getRuta_tt() != null)
-                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt().toLowerCase());
+                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt());
             else
                 cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt());
                 
             if (log_vehiculos.getRuta_rcv() != null)
-                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv().toLowerCase());
+                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv());
             else
                 cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv());
                 
             if (log_vehiculos.getRuta_ps() != null)
-                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps().toLowerCase());
+                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps());
             else
                 cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps());
 
             if (log_vehiculos.getRuta_rgt() != null)
-                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt().toLowerCase());
+                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt());
             else
                 cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt());
             
@@ -5801,14 +6026,15 @@ public class Bd implements BdInterface{
                 CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
                 cstmt.setString("@numrela",         log_cguias_falt.getNumrela());
                 cstmt.setDouble("@numorden",        pos + 1);
+                cstmt.setDate("@fecha",             log_cguias_falt.getFecha());
                 cstmt.setString("@numguia",         log_cguias_falt.getNumguiac());
                 cstmt.setString("@numfalt",         log_cguias_falt.getNumguiaf());
+                cstmt.setString("@numncred",        log_cguias_falt.getNumncred());
                 cstmt.setString("@producto",        log_cguias_falt.getProducto());
                 cstmt.setInt("@cantfact",           log_cguias_falt.getCantfact());
                 cstmt.setInt("@cantfalt",           log_cguias_falt.getCantfalt());
                 cstmt.setInt("@cantdesp",           log_cguias_falt.getCantdesp());
                 cstmt.setInt("@id_unidad",          log_cguias_falt.getId_unidad());
-                cstmt.setDate("@fecha",             log_cguias_falt.getFecha());
                 cstmt.execute();
 
                 // Auditar el proceso
@@ -6541,54 +6767,6 @@ public class Bd implements BdInterface{
         return null;
     }
     /***************************************************************************/
-    /************************** CGUIAS_GLOMAR_INVOICE ****************************/
-    /***************************************************************************/
-    
-    /**
-     * @author MITM
-     * @param gf_desde
-     * @param gf_hasta
-     * @return 
-     * @throws java.sql.SQLException 
-     */
-    public log_CGuias_falt[] find_log_CGuias_falt(String gf_desde, String gf_hasta) throws SQLException {
-        try{
-            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
-            connection = bd.open();
-        
-            StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call sp_get_log_cguias_print_fcar(?, ?)}");
-            
-            if (connection != null){
-               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
-               cstmt.setString("@guiaf1"    , gf_desde );
-               cstmt.setString("@guiaf2"    , gf_hasta );
-               ResultSet result = cstmt.executeQuery();            
-               Vector<log_CGuias_falt> vector = new Vector<>();
-               
-               while(result.next()) {
-                   log_CGuias_falt cguias_falt = new log_CGuias_falt(result);
-                   vector.add(cguias_falt);
-               }
-               
-               log_CGuias_falt[] cguias_falt = new log_CGuias_falt[vector.size()];
-               for (int i = 0; i < vector.size(); i++) {
-                   cguias_falt[i] = vector.elementAt(i);                    
-               }
-               
-               return cguias_falt;
-            }else{
-                System.out.println("Error: Connexion no activa");
-            }
-        }catch(SQLException e){            
-            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-            Tools.getErrorMessage(stacktrace,"Error = " + e); 
-        }finally{
-            connection.close();
-        }
-        return null;
-    }
-    /***************************************************************************/
     /************************** UPFILE RETENCIONES *****************************/
     /***************************************************************************/    
 
@@ -7152,13 +7330,13 @@ public class Bd implements BdInterface{
                 switch(operacion){
                     case 1:
                         sql_rela.append("{call sp_ins_ord_numcompra(?)}");
-                        sql_data.append("{call sp_ins_ord_orden_compra(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_ins_ord_orden_compra(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva orde_compa:";
                         break;
                     case 2:
                         orders.setIdOrden(Integer.parseInt(Datos.getNumOrd_comp()));
 
-                        sql_data.append("{call sp_upd_ord_orden_compra(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_upd_ord_orden_compra(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando orde_compa:";
                         break;
                 }
@@ -7189,6 +7367,7 @@ public class Bd implements BdInterface{
                 cstmt.setString("@usupervisa"           , orders.getUsr_supervisa());
                 cstmt.setInt("@numorden"                , pos + 1);
                 cstmt.setString("@producto"             , orders.getIdProducto());
+                cstmt.setString("@codelpro"             , orders.getCodelpro());
                 cstmt.setInt("@cantsol"                 , orders.getCant_sol());
                 cstmt.setInt("@id_unidsol"              , orders.getId_unidsol());
                 cstmt.setDouble("@costo"                , orders.getCosto());
@@ -7259,6 +7438,102 @@ public class Bd implements BdInterface{
         }finally{
             connection.close();
         }
+    }
+    /***************************************************************************/
+    /********************************* REPORTS *********************************/
+    /***************************************************************************/
+    /**
+     * @author MITM
+     * @param year1
+     * @param year2
+     * @param branch
+     * @param date1
+     * @param date2
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Dev_FanulSucursales[] find_Dev_FanulSucursales(int year1, int year2, String branch, String date1, String date2) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call [sp_get_rep_dev_factanul_suc](?, ?, ?, ?, ?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano1"         , year1 );
+               cstmt.setInt("@ano2"         , year2 );
+               cstmt.setString("@sucursal"  , branch );
+               cstmt.setString("@fecha1"    , date1 );
+               cstmt.setString("@fecha2"    , date2 );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Dev_FanulSucursales> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Dev_FanulSucursales sqlQuery = new Dev_FanulSucursales(result);
+                   vector.add(sqlQuery);
+               }
+               
+               Dev_FanulSucursales[] sqlQuery = new Dev_FanulSucursales[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   sqlQuery[i] = vector.elementAt(i);                    
+               }
+               
+               return sqlQuery;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+   
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Dev_FaltCarga[] find_Dev_Faltcarga(String find) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_rep_dev_faltcarga(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@find"    , find );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Dev_FaltCarga> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Dev_FaltCarga cguias_falt = new Dev_FaltCarga(result);
+                   vector.add(cguias_falt);
+               }
+               
+               Dev_FaltCarga[] cguias_falt = new Dev_FaltCarga[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   cguias_falt[i] = vector.elementAt(i);                    
+               }
+               
+               return cguias_falt;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
     }
 
     

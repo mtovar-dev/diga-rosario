@@ -138,67 +138,67 @@ public class Fxml_ConfirmController implements Initializable {
                     Screens.getInstance().startOrders_new();
                 }
                 break;
-            case 2004000: // screen personal
+            case 2004010: // screen personal
                 result = Ln.getInstance().change_log_Personal(Datos.getLog_personal());                                                  
                 if(result){
                     Datos.setLog_personal(null);
-                    Screens.getInstance().startPersonal();
+                    Screens.getInstance().startFleet_staff();
                 }
                 break;
-            case 2005000: // screen vehiculos
+            case 2004020: // screen vehiculos
                 result = Ln.getInstance().change_log_Vehiculos(Datos.getLog_vehiculos());
                 if(result){
                     Datos.setLog_vehiculos(null);
-                    Screens.getInstance().startVehicles();
+                    Screens.getInstance().startFleet_vehicle();
                 }
                 break;
-            case 8001000: // screen insurance
+            case 8000010: // screen insurance
                 result = Ln.getInstance().change_log_TSeguros(Datos.getLog_tseguros());                                                  
                 if(result){
                     Datos.setMeasure(null);
-                    Screens.getInstance().startMeasure();
+                    Screens.getInstance().startConfig_Insurance();
                 }
                 break;
-            case 8002000: // screen groupsupplier
+            case 8000030: // screen groupsupplier
                 result = Ln.getInstance().change_GroupSupplier(Datos.getGroupSupplier());                                                  
                 if(result){
                     Datos.setGroupSupplier(null);
-                    Screens.getInstance().startGroupSupplier();
+                    Screens.getInstance().startConfig_Groupsupplier();
                 }
                 break;
-            case 8003000: // screen measure
+            case 8000040: // screen measure
                 result = Ln.getInstance().change_Measure(Datos.getMeasure());                                                  
                 if(result){
                     Datos.setMeasure(null);
-                    Screens.getInstance().startMeasure();
+                    Screens.getInstance().startConfig_Measure();
                 }
                 break;
-            case 8004000: // screen reason
+            case 8000050: // screen reason
                 result = Ln.getInstance().change_log_TMotdev(Datos.getLog_tmotdev());                                                  
                 if(result){
                     Datos.setMeasure(null);
-                    Screens.getInstance().startMeasure();
+                    Screens.getInstance().startConfig_Reason();
                 }
                 break;
-            case 8005000: // screen unit
+            case 8000060: // screen unit
                 result = Ln.getInstance().change_Unit(Datos.getUnit());                                                  
                 if(result){
                     Datos.setMeasure(null);
-                    Screens.getInstance().startMeasure();
+                    Screens.getInstance().startConfig_Unit();
                 }
                 break;
-            case 9001000: // screen user
+            case 9000100: // screen user
                 result = Ln.getInstance().change_UserStatus(Datos.getUser());                                                  
                 if(result){
                     Datos.setUser(null);
-                    Screens.getInstance().startUser();
+                    Screens.getInstance().startSystem_User();
                 }
                 break;
-            case 9003000: // screen role
+            case 9000200: // screen role
                 result = Ln.getInstance().change_Rol(Datos.getRole());                                                  
                 if(result){
                     Datos.setRole(null);
-                    Screens.getInstance().startRole();
+                    Screens.getInstance().startSystem_Role();
                 }
                 break;
             

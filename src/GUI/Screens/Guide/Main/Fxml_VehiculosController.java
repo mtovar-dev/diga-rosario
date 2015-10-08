@@ -401,6 +401,7 @@ public class Fxml_VehiculosController implements Initializable {
             if (ke.getCode().equals(KeyCode.ENTER)){
                 nextFocusedField(ke);    //Traslado el ENFOQUE al siguiente Campo
             }
+            //validar el ENTER
 //            if (ke.isAltDown() && ke.getCode().equals(KeyCode.DIGIT1)){
 //                botonNuevo();
 //            }
@@ -465,11 +466,11 @@ public class Fxml_VehiculosController implements Initializable {
         
         //Se establece el ancho de cada columna
         this.objectWidth(col_status         , 30, 30);
-        this.objectWidth(col_nroplaca       , 80, 80);
-        this.objectWidth(col_modelo         , 130, 200);
+        this.objectWidth(col_nroplaca       , 70, 70);
+        this.objectWidth(col_modelo         , 150, 200);
         this.objectWidth(col_capacidad      , 75, 75);
         this.objectWidth(col_tmarca         , 100, 150);
-        this.objectWidth(col_tproced        , 90, 150);
+        this.objectWidth(col_tproced        , 100, 150);
         this.objectWidth(col_ttransp        , 110, 150);
         this.objectWidth(col_empresa        , 180, 350);
         this.objectWidth(col_telefonos      , 100, 150);
@@ -684,28 +685,46 @@ public class Fxml_VehiculosController implements Initializable {
             setCurrentOperation();
             //Se asignan los valores del objeto 
             log_Vehiculos log_vehiculos = new log_Vehiculos();
-            log_vehiculos.setIdPlaca(tf_placa.getText());
-            log_vehiculos.setModelo(tf_modelo.getText());
+            log_vehiculos.setIdPlaca(tf_placa.getText().toUpperCase());
+            log_vehiculos.setModelo(tf_modelo.getText().toUpperCase());
+            log_vehiculos.setAno(Integer.parseInt(tf_ano.getText()));
             log_vehiculos.setPeso_bveh(Integer.parseInt(tf_tara.getText()));
             log_vehiculos.setCap_cargkgrs(Integer.parseInt(tf_ccargakgrs.getText()));
-            log_vehiculos.setCap_cargmtrs3(Integer.parseInt(tf_ccargamtrs.getText()));
-            log_vehiculos.setEmpresa(tf_empresa.getText());
-
-            log_vehiculos.setRif_empresa(tf_rif.getText());
-            log_vehiculos.setAno(Integer.parseInt(tf_ano.getText()));
+            log_vehiculos.setCap_cargmtrs3(Double.parseDouble(tf_ccargamtrs.getText()));
+            if(tf_rif.getText() != null){
+                log_vehiculos.setRif_empresa(tf_rif.getText().toUpperCase());
+            }
+            if(tf_empresa.getText() != null){
+                log_vehiculos.setEmpresa(tf_empresa.getText().toUpperCase());
+            }
             log_vehiculos.setCelular(tf_celular.getText());
-            log_vehiculos.setCorreo(tf_correo.getText());
-            log_vehiculos.setRuta_cc(tf_cc.getText());
-            log_vehiculos.setRuta_tt(tf_tt.getText());
-            log_vehiculos.setRuta_rcv(tf_rcv.getText());
-            log_vehiculos.setRuta_ps(tf_ps.getText());
-            log_vehiculos.setRuta_rgt(tf_rgt.getText());
-            if(dp_rcv.getValue() != null)
+            if(tf_correo.getText() != null){
+                log_vehiculos.setCorreo(tf_correo.getText().toLowerCase());
+            }
+            if(tf_cc.getText() != null){
+                log_vehiculos.setRuta_cc(tf_cc.getText().toLowerCase());
+            }
+            if(tf_tt.getText() != null){
+                log_vehiculos.setRuta_tt(tf_tt.getText().toLowerCase());
+            }
+            if(tf_rcv.getText() != null){
+                log_vehiculos.setRuta_rcv(tf_rcv.getText().toLowerCase());
+            }
+            if(tf_ps.getText() != null){
+                log_vehiculos.setRuta_ps(tf_ps.getText().toLowerCase());
+            }
+            if(tf_ps.getText() != null){
+                log_vehiculos.setRuta_rgt(tf_rgt.getText());
+            }
+            if(dp_rcv.getValue() != null){
                 log_vehiculos.setFec_rcv(Date.valueOf(dp_rcv.getValue()));
-            if(dp_ps.getValue() != null)
+            }
+            if(dp_ps.getValue() != null){
                 log_vehiculos.setFec_ps(Date.valueOf(dp_ps.getValue()));
-            if(dp_rgt.getValue() != null)
+            }
+            if(dp_rgt.getValue() != null){
                 log_vehiculos.setFec_rgt(Date.valueOf(dp_rgt.getValue()));
+            }
             log_vehiculos.setNro_rgt(tf_nrorgt.getText());
             log_vehiculos.setStatus(Datos.getLog_vehiculos().getStatus());      //Se asigna el STATUS del personal
 
@@ -800,7 +819,7 @@ public class Fxml_VehiculosController implements Initializable {
         tf_modelo.setText(Datos.getLog_vehiculos().getModelo());
         tf_tara.setText(Integer.toString(Datos.getLog_vehiculos().getPeso_bveh()));
         tf_ccargakgrs.setText(Integer.toString(Datos.getLog_vehiculos().getCap_cargkgrs()));
-        tf_ccargamtrs.setText(Integer.toString(Datos.getLog_vehiculos().getCap_cargmtrs3()));
+        tf_ccargamtrs.setText(Double.toString(Datos.getLog_vehiculos().getCap_cargmtrs3()));
         tf_empresa.setText(Datos.getLog_vehiculos().getEmpresa());
         tf_rif.setText(Datos.getLog_vehiculos().getRif_empresa());
         tf_ano.setText(Integer.toString(Datos.getLog_vehiculos().getAno()));
@@ -1277,7 +1296,8 @@ public class Fxml_VehiculosController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     
@@ -1759,6 +1779,30 @@ public class Fxml_VehiculosController implements Initializable {
                     if ((Integer.parseInt(tf_tara.getText()) >= 14970)){
                         rb_clasif8.setSelected(true);
                     }
+                }
+            }
+        });
+         /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
+        tf_ccargakgrs.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_ccargakgrs") &&
+                        tf_ccargakgrs.getText().isEmpty()){
+                    tf_ccargakgrs.setText("0");
+                }
+            }
+        });
+         /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
+        tf_ccargamtrs.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_ccargamtrs") &&
+                        tf_ccargamtrs.getText().isEmpty()){
+                    tf_ccargamtrs.setText("0");
                 }
             }
         });

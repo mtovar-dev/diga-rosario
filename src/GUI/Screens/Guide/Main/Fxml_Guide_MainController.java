@@ -399,6 +399,9 @@ public class Fxml_Guide_MainController implements Initializable {
     private TextField tf_pcarga;
 
     @FXML
+    private TextField tf_turno;
+
+    @FXML
     private TextField tf_odometro;
 
     @FXML
@@ -672,6 +675,7 @@ public class Fxml_Guide_MainController implements Initializable {
         assert tf_buscar != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_nrorguia != null : "fx:id=\"tf_nrofguia\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_pcarga != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert tf_turno != null : "fx:id=\"tf_turno\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_odometro != null : "fx:id=\"tf_odometro\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_chofer != null : "fx:id=\"tf_chofer\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_veh1 != null : "fx:id=\"tf_veh1\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
@@ -4207,6 +4211,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 log_cguias.setFecha(Date.valueOf(dp_fcarga.getValue()));
                 log_cguias.setFecsalida(Date.valueOf(dp_fsalida.getValue()));
                 log_cguias.setNumpuerta(Integer.parseInt(tf_pcarga.getText()));
+                log_cguias.setTurno(Integer.parseInt(tf_turno.getText()));
                 log_cguias.setOdometro(tf_odometro.getText());
                 
                 log_cguias.setIdsupruta(tf_supruta.getText());
@@ -4475,6 +4480,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_turno.setEditable(false);
                 tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
@@ -4555,6 +4561,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(true);
                 tf_pcarga.setEditable(true);
+                tf_turno.setEditable(true);
                 tf_odometro.setEditable(true);
                 tf_chofer.setEditable(true);
                 tf_veh1.setEditable(true);
@@ -4633,6 +4640,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(true);
                 tf_pcarga.setEditable(true);
+                tf_turno.setEditable(true);
                 tf_odometro.setEditable(true);
                 tf_chofer.setEditable(true);
                 tf_veh1.setEditable(true);
@@ -4709,6 +4717,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_turno.setEditable(false);
                 tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
@@ -4785,6 +4794,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(true);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_turno.setEditable(false);
                 tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
@@ -4863,6 +4873,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_turno.setEditable(false);
                 tf_odometro.setEditable(false);
                 tf_chofer.setEditable(false);
                 tf_veh1.setEditable(false);
@@ -4939,6 +4950,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 tf_nroguia.setEditable(false);
                 tf_nrorguia.setEditable(false);
                 tf_pcarga.setEditable(false);
+                tf_turno.setEditable(false);
                 tf_veh1.setEditable(false);
                 tf_veh2.setEditable(false);
                 tf_ayud1.setEditable(false);
@@ -5228,6 +5240,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 numCompDevCar +=1;
             }
             tf_pcarga.setText(String.valueOf(log_cguias[0].getNumpuerta()));
+            tf_turno.setText(String.valueOf(log_cguias[0].getTurno()));
             tf_odometro.setText(log_cguias[0].getOdometro());
             tf_chofer.setText(log_cguias[0].getChofer());
             tf_veh1.setText(log_cguias[0].getVeh1());
@@ -5593,7 +5606,7 @@ public class Fxml_Guide_MainController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, tf_veh1, tf_veh2, 
+                    dp_fcarga, tf_pcarga, tf_turno, tf_odometro, tf_chofer, tf_veh1, tf_veh2, 
                     tf_ayud1, tf_ayud2, tf_supruta, tf_cheqp, 
                     tf_cheqr1, tf_cheqr2, tf_cheqr3, tf_cheqr4, tf_cheqr5, 
                     tf_cheqr6, tf_cheqr7, tf_cheqpq, 
@@ -5604,7 +5617,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, tf_turno, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
@@ -5617,7 +5630,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    dp_fcarga, tf_pcarga, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
+                    dp_fcarga, tf_pcarga, tf_turno, tf_odometro, tf_chofer, bt_c1, tf_veh1, 
                     bt_c2, tf_veh2, bt_c3, tf_ayud1, bt_c4, tf_ayud2, bt_c5, 
                     tf_supruta, bt_c7, tf_cheqp, bt_c6, 
                     tf_cheqr1, bt_cr1, tf_cheqr2, bt_cr2, tf_cheqr3, bt_cr3, 
@@ -5832,6 +5845,7 @@ public class Fxml_Guide_MainController implements Initializable {
         tf_nrofguia.setText("");
         tf_nrocguia.setText("");
         tf_pcarga.setText("");
+        tf_turno.setText("");
         tf_odometro.setText("");
         tf_chofer.setText("");
         tf_veh1.setText("");
@@ -7293,6 +7307,18 @@ public class Fxml_Guide_MainController implements Initializable {
             }
         });
          /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
+        tf_nrocred.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_nrocred") &&
+                        tf_nrocred.getText().isEmpty()){
+                    tf_nrocred.setText("0");
+                }
+            }
+        });
+         /**
          * metodo para mostrar buscar el nro de guia
          * param: ENTER 
          */
@@ -7440,6 +7466,7 @@ public class Fxml_Guide_MainController implements Initializable {
                                 archguip_pro[0].setICantFalt(Integer.parseInt(tf_cantcg.getText()));
                                 archguip_pro[0].setSCantFalt(tf_cantcg.getText() + " " + cb_unidcg.getValue().getAbrev());
                                 archguip_pro[0].setNumfalt(tf_nrofguia.getText());
+                                archguip_pro[0].setNumncred(tf_nrocred.getText());
 
                                 //Se obtiene Unidad
                                 Unit unit = (Unit) cb_unidcg.getValue();            
@@ -7448,6 +7475,7 @@ public class Fxml_Guide_MainController implements Initializable {
                                 log_guide_missing.add(archguip_pro[0]);
                                 loadTableMissing();
                                 tf_nrocguia.setText("");
+                                tf_nrocred.setText("");
                                 tf_prodcg.setText("");
                                 tf_cantcg.setText("");
                                 cb_unidcg.setValue(null);

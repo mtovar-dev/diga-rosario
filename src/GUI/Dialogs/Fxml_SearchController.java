@@ -1403,8 +1403,8 @@ public class Fxml_SearchController implements Initializable {
         rb_find14.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    //tf_buscar.setText("");
-                    tf_producto.requestFocus();
+                    tf_buscar.setText("");
+                    tf_buscar.requestFocus();
                 }
             }
         });
@@ -1415,7 +1415,6 @@ public class Fxml_SearchController implements Initializable {
         rb_find15.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    //tf_buscar.setText("");
                     tf_producto.requestFocus();
                 }
             }

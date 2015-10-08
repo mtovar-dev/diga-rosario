@@ -31,6 +31,11 @@ public class LeftBar {
     private Node rootIcon;
     private Image nodeIcon;
     private Image itemIcon;
+
+    private Image comIcon;
+    private Image logIcon;
+    private Image finIcon;
+    private Image hhrIcon;
     private Image conIcon;
     private Image sysIcon;
     private Image usrIcon;
@@ -40,13 +45,23 @@ public class LeftBar {
             final Node rootIcon1 = new ImageView(new Image(getClass().getResourceAsStream("/Images/img54a.png")));
             final Image nodeIcon1 = new Image(getClass().getResourceAsStream("/Images/img39a.png"));
             final Image itemIcon1 = new Image(getClass().getResourceAsStream("/Images/img73a.png"));
-            final Image conIcon1 = new Image(getClass().getResourceAsStream("/Images/img17a.png"));
-            final Image sysIcon1 = new Image(getClass().getResourceAsStream("/Images/img18a.png"));
-            final Image usrIcon1 = new Image(getClass().getResourceAsStream("/Images/img20a.png"));
+
+            final Image comIcon1 = new Image(getClass().getResourceAsStream("/Images/img23.png"));
+            final Image logIcon1 = new Image(getClass().getResourceAsStream("/Images/img24.png"));
+            final Image finIcon1 = new Image(getClass().getResourceAsStream("/Images/img25.png"));
+            final Image hhrIcon1 = new Image(getClass().getResourceAsStream("/Images/img26.png"));
+            final Image conIcon1 = new Image(getClass().getResourceAsStream("/Images/img17.png"));
+            final Image sysIcon1 = new Image(getClass().getResourceAsStream("/Images/img18.png"));
+            final Image usrIcon1 = new Image(getClass().getResourceAsStream("/Images/img20.png"));
 
             rootIcon = rootIcon1;
             nodeIcon = nodeIcon1;
             itemIcon = itemIcon1;
+
+            comIcon = comIcon1;
+            logIcon = logIcon1;
+            finIcon = finIcon1;
+            hhrIcon = hhrIcon1;
             conIcon = conIcon1;
             sysIcon = sysIcon1;
             usrIcon = usrIcon1;
@@ -109,6 +124,22 @@ public class LeftBar {
 
             if ((menu.getMenu() != null) && (menu.getNombre_mn() == null) && (menu.getNombre_smn1() == null)) {
                 switch (menu.getMenu()) {
+                    case "Compras":
+                        treeItemRoot.getChildren().addAll(
+                                itemRoot = new TreeItem<>(menu.getMenu(), new ImageView(comIcon)));
+                        break;
+                    case "Logistica":
+                        treeItemRoot.getChildren().addAll(
+                                itemRoot = new TreeItem<>(menu.getMenu(), new ImageView(logIcon)));
+                        break;
+                    case "Finanzas":
+                        treeItemRoot.getChildren().addAll(
+                                itemRoot = new TreeItem<>(menu.getMenu(), new ImageView(finIcon)));
+                        break;
+                    case "Gestión Humana":
+                        treeItemRoot.getChildren().addAll(
+                                itemRoot = new TreeItem<>(menu.getMenu(), new ImageView(hhrIcon)));
+                        break;
                     case "Configuración":
                         treeItemRoot.getChildren().addAll(
                                 itemRoot = new TreeItem<>(menu.getMenu(), new ImageView(conIcon)));
@@ -125,13 +156,13 @@ public class LeftBar {
             }
 
             if ((menu.getMenu() != null) && (menu.getNombre_mn() != null) && (menu.getNombre_smn1() == null)) {
-                if (!menu.getNombre_mn().equals("Usuarios")) {
+//                if (!menu.getNombre_mn().equals("Usuarios")) {
                     itemRoot.getChildren().addAll(
                             itemNode = new TreeItem<>(menu.getNombre_mn(), new ImageView(itemIcon)));
-                } else {
-                    itemRoot.getChildren().addAll(
-                            itemNode = new TreeItem<>(menu.getNombre_mn(), new ImageView(usrIcon)));
-                }
+//                } else {
+//                    itemRoot.getChildren().addAll(
+//                            itemNode = new TreeItem<>(menu.getNombre_mn(), new ImageView(usrIcon)));
+//                }
             }
 
             if ((menu.getMenu() != null) && (menu.getNombre_mn() != null) && (menu.getNombre_smn1() != null)) {
@@ -173,62 +204,98 @@ public class LeftBar {
             case "Abiertas":
                 Screens.getInstance().startOrders_open();
                 break;
-            case "Datos de Carga":
+            case "Cerradas":
+                Screens.getInstance().startOrders_closed();
+                break;
+
+            case "Factura":
+                Screens.getInstance().startGuide_branch();
+                break;
+            case "Guia de Carga":
                 Screens.getInstance().startGuide_main();
                 break;
-            case "Informe de Carga":
-                Screens.getInstance().startGuide_print();
+            case "Recuperación":
+                Screens.getInstance().startGuide_recovery();
                 break;
-            case "Relación de Caja":
-                Screens.getInstance().startGuide_paydesk();
-                break;
-            case "Facturación de Carga":
-                Screens.getInstance().startGuide_invglomar();
-                break;
+
             case "Personal":
-                Screens.getInstance().startPersonal();
+                Screens.getInstance().startFleet_staff();
                 break;
             case "Vehiculo":
-                Screens.getInstance().startVehicles();
+                Screens.getInstance().startFleet_vehicle();
                 break;
-            case "Aseguradora":
-                Screens.getInstance().startInsurance();
+
+            case "Faltante de Carga":
+                Screens.getInstance().startReport_Missingload();
                 break;
-            case "Grupo de Proveedores":
-                Screens.getInstance().startGroupSupplier();
+            case "Fact. Anuladas por Sucursal":
+                Screens.getInstance().startReport_Invoicebranch();
                 break;
-            case "Medidas":
-                Screens.getInstance().startMeasure();
+
+            case "Fact. Emitidas":
+                Screens.getInstance().startReport_Invoicebranch();
                 break;
-            case "Motivos":
-                Screens.getInstance().startReason();
+            case "Guias Emitidas":
+                Screens.getInstance().startReport_Invoicebranch();
                 break;
-            case "Unidades":
-                Screens.getInstance().startUnit();
+            case "Guias Cargadas":
+                Screens.getInstance().startReport_Invoicebranch();
                 break;
-            case "Usuarios":
-                Screens.getInstance().startUser();
+            case "Guias Pendientes":
+                Screens.getInstance().startIndicators_Guidepending();
                 break;
-            case "Roles":
-                Screens.getInstance().startRole();
+
+            case "Caja":
+                Screens.getInstance().startRelation_Guidepaydesk();
                 break;
-            case "Concepto":
-                Screens.getInstance().startAud_Gh_Concepto();
+            case "Glomar":
+                Screens.getInstance().startRelation_Guideinvglomar();
                 break;
-            case "Empleado":
-                Screens.getInstance().startAud_Gh_Empleado();
-                break;
-            case "Empresa":
-                Screens.getInstance().startAud_Gh_Empresa();
-                break;
+
             case "Consulta de Rif":
-                //Screens.getInstance().startAud_Gh_Concepto();
+                Screens.getInstance().startSeniat_Qryrif();
                 break;
             case "Carga de Retenciones":
-                Screens.getInstance().startSeniat_UpFile_Reten();
+                Screens.getInstance().startSeniat_Upfileretenciones();
                 break;
             case "Consulta de Retenciones":
-                Screens.getInstance().startSeniat_Query_Reten();
+                Screens.getInstance().startSeniat_Qryretenciones();
+                break;
+
+            case "Concepto":
+                Screens.getInstance().startHhrr_Audconcepto();
+                break;
+            case "Empleado":
+                Screens.getInstance().startHhrr_Audempleado();
+                break;
+            case "Empresa":
+                Screens.getInstance().startHhrr_Audempresa();
+                break;
+
+            case "Aseguradora":
+                Screens.getInstance().startConfig_Insurance();
+                break;
+            case "Disp. de Flota":
+                Screens.getInstance().startConfig_Available();
+                break;
+            case "Grupo de Proveedores":
+                Screens.getInstance().startConfig_Groupsupplier();
+                break;
+            case "Medidas":
+                Screens.getInstance().startConfig_Measure();
+                break;
+            case "Motivos":
+                Screens.getInstance().startConfig_Reason();
+                break;
+            case "Unidades":
+                Screens.getInstance().startConfig_Unit();
+                break;
+
+            case "Usuarios":
+                Screens.getInstance().startSystem_User();
+                break;
+            case "Roles":
+                Screens.getInstance().startSystem_Role();
                 break;
 //            default:
 //                Stage aux = gui.getStage();

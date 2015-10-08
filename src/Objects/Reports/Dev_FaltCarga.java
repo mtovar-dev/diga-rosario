@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package Objects;
+package Objects.Reports;
 
 import Tools.Tools;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,7 +16,7 @@ import java.sql.SQLException;
  *
  * @author MITM
  */
-public class log_CGuias_falt {
+public class Dev_FaltCarga {
     private String guiafalt;    
     private String numorden;
     private String fecha;
@@ -26,7 +27,7 @@ public class log_CGuias_falt {
     /**
      * 
      */
-    public log_CGuias_falt(){
+    public Dev_FaltCarga(){
 
     }
 
@@ -34,7 +35,7 @@ public class log_CGuias_falt {
      * 
      * @param rs 
      */
-    public log_CGuias_falt(ResultSet rs){
+    public Dev_FaltCarga(ResultSet rs){
         try{
             guiafalt             = rs.getString(1);
             numorden             = rs.getString(2);

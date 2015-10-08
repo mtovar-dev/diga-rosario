@@ -328,14 +328,14 @@ public class Fxml_AvailableController implements Initializable {
             //Ejecuta los procesos predeterminados para el guardado del usuario
             setCurrentOperation();
             //Se asignan los valores del objeto 
-            log_TDispflota log_tseguros = new log_TDispflota();
-            log_tseguros.setIdTDispflota(Integer.parseInt(tf_id.getText()));
-            log_tseguros.setNombre(tf_nombre.getText());
-            log_tseguros.setAbrev(tf_abrev.getText());
-            log_tseguros.setStatus(Datos.getLog_tseguros().getStatus());      //Se asigna el STATUS del usuario
+            log_TDispflota log_tdispflota = new log_TDispflota();
+            log_tdispflota.setIdTDispflota(Integer.parseInt(tf_id.getText()));
+            log_tdispflota.setNombre(tf_nombre.getText());
+            log_tdispflota.setAbrev(tf_abrev.getText());
+            log_tdispflota.setStatus(Datos.getLog_tdispflota().getStatus());      //Se asigna el STATUS del usuario
             //Se llama al proceso de Guardado
             boolean result = 
-                    Ln.getInstance().save_log_TDispflota(log_tseguros, proceso, ScreenName);
+                    Ln.getInstance().save_log_TDispflota(log_tdispflota, proceso, ScreenName);
             //Si el Resultado es correcto
             if(result){
                 //Se Notifica al usuario
@@ -353,9 +353,9 @@ public class Fxml_AvailableController implements Initializable {
      * establece nuevos valores a cada campo de Texto
      */
     private void refreshForm(){        
-        tf_id.setText(String.valueOf(Datos.getLog_tseguros().getIdTSeguro()));
-        tf_nombre.setText(Datos.getLog_tseguros().getNombre());
-        tf_abrev.setText(Datos.getLog_tseguros().getAbrev());
+        tf_id.setText(String.valueOf(Datos.getLog_tdispflota().getIdTDispflota()));
+        tf_nombre.setText(Datos.getLog_tdispflota().getNombre());
+        tf_abrev.setText(Datos.getLog_tdispflota().getAbrev());
         //Ejecuta el metodo que define el formulario segun el tipo de operacion que fue ejecutada
         setCurrentOperation();
     }  
@@ -532,7 +532,7 @@ public class Fxml_AvailableController implements Initializable {
                         //si los campos de texto no son nulos
                         if(tf_nombre.getText() != null ){
                             if(tipoOperacion == 1){ //NUEVO
-                                boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());    
+                                boolean boo = Ln.getInstance().check_log_TDispflota(tf_nombre.getText());    
                                 if (boo){
                                     Gui.getInstance().showMessage("Ya existe la " + ScreenName + ", no puede ser Guardado!", "E");
                                     botonInicio();
@@ -545,7 +545,8 @@ public class Fxml_AvailableController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     
@@ -685,7 +686,7 @@ public class Fxml_AvailableController implements Initializable {
         tf_buscar.setVisible(false);
         Datos.setLog_tdispflota(new log_TDispflota());                           
         refreshForm();                      
-        Datos.setLog_tseguros(null);             //RESET DE LA VARIABLE
+        Datos.setLog_tdispflota(null);             //RESET DE LA VARIABLE
         setFormVisible(false);              //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
         loadlog_TAvailable();

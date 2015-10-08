@@ -293,7 +293,8 @@ public class Fxml_RoleController implements Initializable {
         
         //Se Asigna ordenadamente las columnas de la tabla
         tb_table.getColumns().addAll(
-                col_status, col_rol, col_nombre, col_abrev);                
+                col_status, col_rol, col_nombre, col_abrev
+        );                
         
         //Se Asigna tamaño del VBox para que lo tome el TableView
         vb_table.relocate(30, 64);
@@ -549,7 +550,8 @@ public class Fxml_RoleController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     

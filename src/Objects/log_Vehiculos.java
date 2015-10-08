@@ -25,7 +25,7 @@ public class log_Vehiculos {
     private String modelo;
     private int peso_bveh;
     private int cap_cargkgrs;
-    private int cap_cargmtrs3;
+    private double cap_cargmtrs3;
     private String empresa;     
     private String telefonos;
     private String celular;
@@ -91,7 +91,7 @@ public class log_Vehiculos {
             modelo              = rs.getString(9);
             peso_bveh           = rs.getInt(10);
             cap_cargkgrs        = rs.getInt(11);
-            cap_cargmtrs3       = rs.getInt(12);
+            cap_cargmtrs3       = rs.getDouble(12);
             empresa             = rs.getString(13);
             rif_empresa         = rs.getString(14);
             telefonos           = rs.getString(15);
@@ -270,14 +270,14 @@ public class log_Vehiculos {
     /**
      * @return the cap_cargmtrs3
      */
-    public int getCap_cargmtrs3() {
+    public double getCap_cargmtrs3() {
         return cap_cargmtrs3;
     }
 
     /**
      * @param cap_cargmtrs3 the cap_cargmtrs3 to set
      */
-    public void setCap_cargmtrs3(int cap_cargmtrs3) {
+    public void setCap_cargmtrs3(double cap_cargmtrs3) {
         this.cap_cargmtrs3 = cap_cargmtrs3;
     }
 

@@ -1090,11 +1090,17 @@ public class Fxml_Aud_Gh_EmpresaController implements Initializable {
             Tooltip.install(tools[i], tip_tool);
         }
         
+        im_tool1.setVisible(false);
+        im_tool2.setVisible(false);
+        im_tool3.setVisible(false);
+        im_tool4.setVisible(false);
+        im_tool6.setVisible(false);
         im_tool7.setVisible(false);
         im_tool8.setVisible(false);
         im_tool9.setVisible(false);
         im_tool10.setVisible(false);
         im_tool11.setVisible(false);
+        im_tool12.setVisible(false);
     }
     /**
      * Metodo que se encarga de habilitar y deshabilitar los botones segun

@@ -8,37 +8,45 @@ package GUI.Reports;
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
-import Objects.log_CGuias_falt;
+import Objects.Reports.Dev_FaltCarga;
 import Tools.Datos;
+import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -51,14 +59,26 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_Guide_repController implements Initializable {
+public class Fxml_FaltCargaController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
 
     @FXML 
-    private Button bt_execute; 
+    private Button bt_aceptar; 
 
+    @FXML
+    private ComboBox<Integer> cb_ano1;
+
+    @FXML
+    private ComboBox<Integer> cb_ano2;
+
+    @FXML
+    private DatePicker dp_fecha1;
+    
+    @FXML
+    private DatePicker dp_fecha2;
+    
     @FXML
     private HBox hb_1;    
     
@@ -111,15 +131,27 @@ public class Fxml_Guide_repController implements Initializable {
     private Label lb_Title;
 
     @FXML
+    private TableView<Dev_FaltCarga> tb_query;
+
+    @FXML
     private TextField tf_buscar;
 
     @FXML
-    private TextField tf_desde;
+    private TextField tf_chofer;
 
     @FXML
-    private TextField tf_hasta;
+    private TextField tf_nroguia;
 
     @FXML
+    private TextField tf_nroncred;
+
+    @FXML
+    private TextField tf_nromay;
+
+    @FXML
+    private TextField tf_nromen;
+
+    
     private VBox vb_form;
 
     @FXML
@@ -142,25 +174,27 @@ public class Fxml_Guide_repController implements Initializable {
     
     Map<String, Object> JrxmlParam = new HashMap<String, Object>();
 
-    private static DateTimeFormatter dtf_yyyy = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
     private static JasperReport jReport = null;
     private static JasperViewer jview = null;
     private static JasperPrint jPrint = null;
     
     private static JRBeanCollectionDataSource JRDs = null;
     
-    final ToggleGroup rb_group = new ToggleGroup();
-
+    private static SimpleDateFormat sdf_dd = new SimpleDateFormat("dd/MM/yy"); // Set your date format
+    private static DateTimeFormatter dtf_yyyy = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static DateTimeFormatter dtf_dd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     private static int tipoOperacion;    
     private static ImageView[] tools;    
     private static Integer[] toolsConfig;    
     private static String[] tooltips;
+    private File file;    
 
     private static int numGuias         = 0; 
     
-    private static final String ScreenName = "Informe de Carga";
+    private static final ObservableList<Dev_FaltCarga> sqlQuery = FXCollections.observableArrayList();
+
+    private static final String ScreenName = "Consulta";
     
     /**
      * Initializes the controller class.
@@ -169,35 +203,45 @@ public class Fxml_Guide_repController implements Initializable {
      */     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert bt_execute != null : "fx:id=\"bt_execute\" was not injected: check your FXML file 'Fxml_InvoiceGlomarController.fxml'.";
-        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert tf_buscar != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert tf_desde != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert tf_hasta != null : "fx:id=\"tf_pcarga\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
-        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_Guide_rep.fxml'.";
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert bt_aceptar != null : "fx:id=\"bt_aceptar\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert cb_ano1 != null : "fx:id=\"cb_ano1\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert cb_ano2 != null : "fx:id=\"cb_ano2\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert dp_fecha1 != null : "fx:id=\"dt_fecha1\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert dp_fecha2 != null : "fx:id=\"dt_fecha2\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_mensj != null : "fx:id=\"lb_mensj\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_chofer != null : "fx:id=\"tf_chofer\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_nroguia != null : "fx:id=\"tf_nroguia\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_nroncred != null : "fx:id=\"tf_nrofact\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_nromay != null : "fx:id=\"tf_nromay\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tf_nromen != null : "fx:id=\"tf_nromen\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
         defineToolBar();         
         defineBotonBuscar();    
         init_buttons(); //Establece los comportamientos de los botones
-        botonInicio();  //Se imprime la pantalla Inicio
+
+        loadYear();      
+        createTableQuery();
 
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
@@ -230,7 +274,153 @@ public class Fxml_Guide_repController implements Initializable {
     /***************************************************************************/
     /***************************** PROCEDIMIENTOS ******************************/
     /***************************************************************************/
-    
+
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadYear(){
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+
+        final ObservableList<Integer> data = FXCollections.observableArrayList();
+        for (int i = localCalendar.get(Calendar.YEAR); i >= 2015; i--) {
+            data.addAll(i);
+        }
+        cb_ano1.setItems(data);    
+        cb_ano1.getSelectionModel().selectFirst();    
+
+        cb_ano2.setItems(data);    
+        cb_ano2.getSelectionModel().selectFirst();    
+    }    
+    /**
+    * Metodo encargado de Crear e inicializar la Tabla de Datos
+    */
+    private void createTableQuery(){
+        //Se crean y definen las columnas de la Tabla
+        TableColumn col_orden       = new TableColumn("#");
+        TableColumn col_guia         = new TableColumn("G.Falt");
+        TableColumn col_fecha       = new TableColumn("Fecha");        
+        TableColumn col_nombre      = new TableColumn("Nombre del Chofer");        
+        TableColumn col_numrela     = new TableColumn("Nro. Relación");        
+        
+        //Se establece el ancho de cada columna
+        this.objectWidth(col_orden          , 36,   36);  
+        this.objectWidth(col_guia           , 60,   60); 
+        this.objectWidth(col_fecha          , 80,   80);  
+        this.objectWidth(col_nombre         , 290,  290);  
+        this.objectWidth(col_numrela        , 90,   90);  
+
+        col_guia.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Dev_FaltCarga, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_fecha.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Dev_FaltCarga, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_numrela.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Dev_FaltCarga, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+
+        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
+        col_orden.setCellValueFactory( 
+                new PropertyValueFactory<>("numorden") );
+        col_guia.setCellValueFactory( 
+                new PropertyValueFactory<>("guiafalt") );
+        col_fecha.setCellValueFactory( 
+                new PropertyValueFactory<>("fecha") );
+        col_nombre.setCellValueFactory( 
+                new PropertyValueFactory<>("chofer") );
+        col_numrela.setCellValueFactory( 
+                new PropertyValueFactory<>("numrela") );
+        
+        //Se Asigna ordenadamente las columnas de la tabla
+        tb_query.getColumns().addAll(
+                col_orden, col_guia, col_fecha, col_nombre, col_numrela
+                );                
+        
+        //Se Asigna menu contextual 
+
+        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
+        EventHandler eh = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent ke){
+                //Si fue presionado la tecla ARRIBA o ABAJO
+                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
+                    //Selecciona la FILA enfocada
+                    //selectedRowInvoice();
+                }
+            }
+        };
+        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
+        tb_query.setOnKeyReleased(eh);    
+    }
     /**
      * Procedimiento encargado de refrescar el formulario de la pantalla,
      * establece nuevos valores a cada campo de Texto
@@ -255,13 +445,10 @@ public class Fxml_Guide_repController implements Initializable {
             case 0:  //SOLO LECTURA                    
 
                 //SE PERMITE: NUEVO, CANCELAR Y BUSCAR
-                //disables = new Integer[]{2,6,7,8,9,10};
                 disables = new Integer[]{2,5,6,9,10};
                 disableAllToolBar(disables); 
-                hb_1.setVisible(true);
                 break;
             case 1:  //NUEVO
-//                lb_Title.setText(Tools.verticalText("NUEVO"));
 //                lb_Title.setText("NUEVO");
 
                 //SE PERMITE: NUEVO,GUARDAR Y CANCELAR             
@@ -269,7 +456,6 @@ public class Fxml_Guide_repController implements Initializable {
                 disableAllToolBar(disables);                            
                 break;
             case 2:  //EDITAR
-//                lb_Title.setText(Tools.verticalText("EDITAR"));
 //                lb_Title.setText("EDITAR");
 
                 //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
@@ -285,28 +471,23 @@ public class Fxml_Guide_repController implements Initializable {
             case 4:  //CAMBIAR STATUS 
 
                 //SE PERMITE: GUARDAR,CAMBIO STATUS Y CANCELAR
-                //disables = new Integer[]{0,1,2,4,6,7,8,9,10,11};
                 disables = new Integer[]{2,5,6,7,8,9,10};
                 disableAllToolBar(disables); 
-                break;
-            case 8:  //Notas de Credito
-//                lb_Title.setText("EDITAR");
-
-                //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
-                disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
-                disableAllToolBar(disables);            
-                break;
-            case 9:  //Notas de Credito
-//                lb_Title.setText("EDITAR");
-
-                //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
-                disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
-                disableAllToolBar(disables);            
                 break;
         }        
         init_FocusArray(tipoOperacion);       
         Gui.getInstance().setTipoOperacion(tipoOperacion);
     }    
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadTableQuery(Dev_FaltCarga[] sqlQuery){    
+        if(sqlQuery != null){
+            ObservableList<Dev_FaltCarga> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(sqlQuery));        
+            tb_query.setItems(data);        
+        }
+    } 
 
     /***************************************************************************/
     /************************ METODOS DE ACCESO RAPIDO *************************/
@@ -325,6 +506,8 @@ public class Fxml_Guide_repController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
+                    cb_ano1, cb_ano2, tf_chofer, tf_nroguia, tf_nroncred,
+                    dp_fecha1, dp_fecha2, bt_aceptar
                     };
                 break;
             case 1:     //NUEVO
@@ -335,26 +518,11 @@ public class Fxml_Guide_repController implements Initializable {
                 nodos = new Node[]{
                     };
                 break;
-            case 8:     //Faltante en Carga
-                nodos = new Node[]{
-                    };
-                break;
-            case 9:     //Faltante en Devolucion 
-                nodos = new Node[]{
-                    };
-                break;
         }             
         switch (opc){
+            case 0: 
             case 1: 
             case 2: 
-            case 3:
-                Gui.setFields(nodos); 
-                Gui.setFieldFocused(0);
-                Gui.setFieldsSize(nodos.length);
-                break;
-                
-            case 8: 
-            case 9:
                 Gui.setFields(nodos); 
                 Gui.setFieldFocused(0);
                 Gui.setFieldsSize(nodos.length);
@@ -505,18 +673,6 @@ public class Fxml_Guide_repController implements Initializable {
                     //Valida que el evento se haya generado en el campo de busqueda
                     if(((Node)ke.getSource()).getId().equals("tf_buscar")){                        
                         //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-//                        Datos.setLog_cguias(new log_CGuias());                           
-//                        boolean boo = Ln.getInstance().check_log_CGuias_carga(tf_buscar.getText());                
-//                        numGuias = 0;
-//                        if(boo){
-//                            Datos.setRep_log_cguias(Ln.getInstance().find_log_CGuias(tf_buscar.getText(), "", "", Integer.parseInt(rows)));
-//                            loadTable(Datos.getRep_log_cguias());     
-//                        }
-//                        else{
-//                            change_im_val(0, im_checkg); 
-//                            Gui.getInstance().ventanaError("El Nro de Relación de Guia NO existe!");
-//                            tf_nroguia.requestFocus();
-//                        }
                         tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
                     }
                 }
@@ -529,118 +685,18 @@ public class Fxml_Guide_repController implements Initializable {
     /**
      * 
      */
-    private void botonInicio() {
-        tipoOperacion = 0;                  //OPERACION SOLO LECTURA
-        numGuias = 0;
-        
-        loadToolBar();
-        //SE LIMPIA EL FORMULARIO
-
-        tf_buscar.setText("");
-        tf_buscar.setVisible(false);
-        
-//        Datos.setLog_cguias(new log_CGuias());                           
-//        Datos.setLog_guide_rel_inv(new log_Guide_rel_inv());
-//        refreshForm();                      
-//        Datos.setLog_cguias(null);                  //RESET DE LA VARIABLE
-//        Datos.setLog_guide_rel_inv(null);           //RESET DE LA VARIABLE
-//        setFormVisible(false);                      //OCULTA EL FORMULARIO
-        //RECARGA LA TABLA ORIGINAL
-    }
-    /**
-     * 
-     */
-    private void botonNuevo(){
-        if(toolsConfig[2]==1){
-            tipoOperacion = 1;
-            refreshForm();
-            setFormVisible(true);
-            Gui.getFields()[Gui.getFieldFocused()].requestFocus();
-        }
-    }
-    /**
-     * 
-     */
-    private void botonEditar(){
-        if(Datos.getLog_cguias()!= null && toolsConfig[3]==1){
-            tipoOperacion = 2;
-            refreshForm();
-            setFormVisible(true);     
-            Gui.getFields()[Gui.getFieldFocused()].requestFocus();
-        }
-    }
-    /**
-     * 
-     */
-    private void botonGuardar(){   
-        if(Datos.getLog_cguias()!= null){
-            boolean result = false;
-            switch (tipoOperacion){
-                case 1:
-                    if(toolsConfig[4]==1)
-//                        result = saveCGuias();
-                    break;
-                case 2:
-                    if(toolsConfig[4]==1)
-//                        result = saveCGuias();
-                    break;
-                case 8:
-                    if(toolsConfig[9]==1)
-//                        result = saveMissing();
-                    break;
-                case 9:
-                    if(toolsConfig[10]==1)
-//                        result = saveRefund();
-                    break;
-            }
-            if (result)
-                botonInicio();
-        }
-    }
-    /**
-     * 
-     */
-    private void botonEliminar() {
-        if(Datos.getLog_cguias()!= null && toolsConfig[5]==1){
-            tipoOperacion = 4;      //OPERACION DE BORRADO
-            change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL SUPPLIER                   
-            refreshForm();         
-            setFormVisible(true);  
-            String verbo = "desactivar";
-            if(Datos.getLog_cguias().getAnulada()== 1){
-                verbo = "activar";
-            }
-            String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getLog_cguias().getNumguia()+"?";
-            Gui.getInstance().showConfirmar(mensj);  
-        }
-    }
-    /**
-     * 
-     */
-    private void botonBuscar(){
-        if(toolsConfig[13]==1){
-            //tipoOperacion = 0;                          //OPERACION SOLO LECTURA
-            numGuias = 0;
-            //SE LIMPIA EL FORMULARIO
-            tf_buscar.setVisible(true);
-            tf_buscar.requestFocus();
-        }
-    }
-    /**
-     * 
-     */
     private void botonImprimir(){
         tipoOperacion = 5;                  //OPERACION SOLO LECTURA
 
-        ObservableList<log_CGuias_falt> data = FXCollections.observableArrayList();
-        data.addAll(Datos.getRep_log_cguias_falt());   
+        ObservableList<Dev_FaltCarga> data = FXCollections.observableArrayList();
+        data.addAll(Datos.getRep_dev_faltcarga());   
         JRDs = new JRBeanCollectionDataSource(data, true);
 
         JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-
+        JrxmlParam.put("p_subtitulo", "");
+ 
         try{ 
-            jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_sop_falt.jasper");
+            jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_rep_faltcarga.jasper");
             jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
             jview = new JasperViewer(jPrint, false);
             jview.setTitle("DIGA - Relación de Notas de Faltante en Carga (Logistica) ");
@@ -656,120 +712,188 @@ public class Fxml_Guide_repController implements Initializable {
      */
     private void init_buttons(){
         /**
-         * BOTON NUEVO
-         */
-        im_tool1.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonInicio();
-                    botonNuevo();
-                }
-            }
-        });
-        /**
-         * BOTON EDITAR
-         */
-        im_tool2.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonEditar();
-                }
-            }
-        });
-        /**
-         * BOTON GUARDAR
-         */
-        im_tool3.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonGuardar();
-                }
-            }
-        });        
-        /**
-         * BOTON ELIMINAR
-         */
-        im_tool4.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonEliminar();
-                }
-            }
-        });
-        /**
-         * BOTON IMPRIMIR
-         */
-        im_tool5.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){   
-                    botonImprimir();
-                }
-            }
-        });
-        /**
-         * BOTON REGRESAR
-         */
-        im_tool6.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonInicio();
-                }
-            }
-        });
-        /**
-         * BOTON POR ASIGNAR
-         */
-        im_tool7.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    //
-                }
-            }
-        });
-        /**
-         * BOTON NOTAS DE CREDITO
-         */
-        im_tool8.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    //
-                }
-            }
-        });
-        /**
-         * BOTON DEVOLUCION
-         */
-        im_tool9.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    //
-                }
-            }
-        });
-        /**
-         * BOTON BUSCAR
-         */
-        im_tool12.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                switch (mouseEvent.getClickCount()){
-                    case 1:
-                        botonInicio();
-                        botonBuscar();
-                        break;
-                    case 2:
-                        Datos.setIdButton(2003041);
-                        Gui.getInstance().showBusqueda("Busqueda");  
-                        break;
-                }
-            }
-        });
-        /**
          * BOTON EXECUTE
          */
-        bt_execute.setOnAction((ActionEvent event) -> {
-            Datos.setRep_log_cguias_falt(
-                Ln.getInstance().find_log_CGuias_falt(
-                    tf_desde.getText(), tf_hasta.getText()));
+        bt_aceptar.setOnAction((ActionEvent event) -> {
+            String sqlWhere = "";
+
+            int year1 = cb_ano1.getValue(); 
+
+            if (year1 != 0){
+                sqlWhere = 
+                    "cg_fdv.ano >= " + cb_ano1.getValue() + " " +
+                    "AND cg_fdv.ano <= " + cb_ano2.getValue() + " ";
+                
+                if (!tf_chofer.getText().isEmpty()){
+                    sqlWhere = sqlWhere + 
+                        "AND (pr_cf.nombres like '%" + tf_chofer.getText() + "%' " +
+                        "OR (pr_cf.apellidos like '%" + tf_chofer.getText() + "%') ";
+                }
+                
+                if (!tf_nroguia.getText().isEmpty()){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.numguia = '" + tf_nroguia.getText() + "' ";
+                }
+
+                if (!tf_nroncred.getText().isEmpty()){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.numncred like '%" + tf_nroncred.getText() + "%' ";
+                }
+
+                if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.fecha = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
+                }
+
+                if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.fecha >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
+                        "AND cg_fdv.fecha <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
+                }
+
+                if (!tf_nromay.getText().isEmpty()){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+                }
+
+                if (!tf_nromen.getText().isEmpty()){
+                    sqlWhere = sqlWhere + 
+                        "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                }
+            }
+            else{
+                if (!tf_chofer.getText().isEmpty()){
+                    sqlWhere = 
+                        "(pr_cf.nombres like '%" + tf_chofer.getText() + "%' " +
+                        "OR (pr_cf.apellidos like '%" + tf_chofer.getText() + "%') ";
+                
+                    if (!tf_nroguia.getText().isEmpty()){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.numguia = '" + tf_nroguia.getText() + "' ";
+                    }
+
+                    if (!tf_nroncred.getText().isEmpty()){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.numncred like '%" + tf_nroncred.getText() + "%' ";
+                    }
+
+                    if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.fecha = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
+                    }
+
+                    if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.fecha >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
+                            "AND cg_fdv.fecha <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
+                    }
+
+                    if (!tf_nromay.getText().isEmpty()){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+                    }
+
+                    if (!tf_nromen.getText().isEmpty()){
+                        sqlWhere = sqlWhere + 
+                            "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                    }
+                }
+                else{
+                    if (!tf_nroguia.getText().isEmpty()){
+                        sqlWhere = sqlWhere + 
+                            "cg_fdv.numguia = '" + tf_nroguia.getText() + "' ";
+
+                        if (!tf_nroncred.getText().isEmpty()){
+                            sqlWhere = sqlWhere + 
+                                "AND cg_fdv.numncred like '%" + tf_nroncred.getText() + "%' ";
+                        }
+
+                        if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
+                            sqlWhere = sqlWhere + 
+                                "AND cg_fdv.fecha = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
+                        }
+
+                        if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
+                            sqlWhere = sqlWhere + 
+                                "AND cg_fdv.fecha >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
+                                "AND cg_fdv.fecha <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
+                        }
+
+                        if (!tf_nromay.getText().isEmpty()){
+                            sqlWhere = sqlWhere + 
+                                "AND cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+                        }
+
+                        if (!tf_nromen.getText().isEmpty()){
+                            sqlWhere = sqlWhere + 
+                                "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                        }
+                    }
+                    else{
+                        if (!tf_nroncred.getText().isEmpty()){
+                            sqlWhere = sqlWhere + 
+                                "cg_fdv.numncred like '%" + tf_nroncred.getText() + "%' ";
+
+                            if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
+                                sqlWhere = sqlWhere + 
+                                    "AND cg_fdv.fecha = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
+                            }
+
+                            if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
+                                sqlWhere = sqlWhere + 
+                                    "AND cg_fdv.fecha >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
+                                    "AND cg_fdv.fecha <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
+                            }
+
+                            if (!tf_nromay.getText().isEmpty()){
+                                sqlWhere = sqlWhere + 
+                                    "AND cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+                            }
+
+                            if (!tf_nromen.getText().isEmpty()){
+                                sqlWhere = sqlWhere + 
+                                    "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                            }
+                        }
+                        else{
+                            if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
+                                sqlWhere = sqlWhere + 
+                                    "cg_fdv.fecha = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
+
+                                if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
+                                    sqlWhere = sqlWhere + 
+                                        "AND cg_fdv.fecha >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
+                                        "AND cg_fdv.fecha <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
+                                }
+
+                                if (!tf_nromay.getText().isEmpty()){
+                                    sqlWhere = sqlWhere + 
+                                        "AND cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+                                }
+
+                                if (!tf_nromen.getText().isEmpty()){
+                                    sqlWhere = sqlWhere + 
+                                        "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                                }
+                            }
+                            else{
+                                if (!tf_nromay.getText().isEmpty()){
+                                    sqlWhere = sqlWhere + 
+                                        "cg_fdv.numfalt >" + tf_nromay.getText() + " ";
+
+                                    if (!tf_nromen.getText().isEmpty()){
+                                        sqlWhere = sqlWhere + 
+                                            "AND cg_fdv.numfalt <" + tf_nromen.getText() + " ";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Datos.setRep_dev_faltcarga(Ln.getInstance().find_Dev_Faltcarga(sqlWhere));
+            loadTableQuery(Datos.getRep_dev_faltcarga());     
         });
     }   
 
@@ -861,5 +985,5 @@ public class Fxml_Guide_repController implements Initializable {
     public static void refreshIdBusqueda(){
         //tf_chofer.setText(Gui.getIdBusqueda());
     }
-
+    
 }

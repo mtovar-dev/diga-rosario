@@ -50,6 +50,7 @@ public class Orders {
     private String statdet;
     private String correo;
     private String statord;
+    private String codelpro;
 
     /**
      * 
@@ -99,6 +100,7 @@ public class Orders {
             statdet         = rs.getString(33);
             correo          = rs.getString(34);
             statord         = rs.getString(35);
+            codelpro        = rs.getString(36);
             
                     
         }catch(SQLException e){
@@ -594,6 +596,20 @@ public class Orders {
      */
     public void setStatord(String statord) {
         this.statord = statord;
+    }
+
+    /**
+     * @return the codelpro
+     */
+    public String getCodelpro() {
+        return codelpro;
+    }
+
+    /**
+     * @param codelpro the codelpro to set
+     */
+    public void setCodelpro(String codelpro) {
+        this.codelpro = codelpro;
     }
 
 }

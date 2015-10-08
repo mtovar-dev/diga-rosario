@@ -532,7 +532,7 @@ public class Fxml_InsuranceController implements Initializable {
                         //si los campos de texto no son nulos
                         if(tf_nombre.getText() != null ){
                             if(tipoOperacion == 1){ //NUEVO
-                                boolean boo = Ln.getInstance().check_GroupSupplier(tf_nombre.getText());    
+                                boolean boo = Ln.getInstance().check_log_TSeguros(tf_nombre.getText());    
                                 if (boo){
                                     Gui.getInstance().showMessage("Ya existe la " + ScreenName + ", no puede ser Guardado!", "E");
                                     botonInicio();
@@ -545,7 +545,8 @@ public class Fxml_InsuranceController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     

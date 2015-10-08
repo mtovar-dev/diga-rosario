@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens/Screens.css,@../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Reports.Fxml_Guide_repController">
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens/Screens.css,@../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Reports.Fxml_FanulSucursalesController">
   <children>
     <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" textAlignment="CENTER">
       <stylesheets>
@@ -58,7 +58,7 @@
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                   <image>
-                    <Image url="@../../Images/img36.png" />
+                    <Image url="@../../Images/img75.png" />
                   </image>
                 </ImageView>
                 <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
@@ -82,7 +82,7 @@
                   </image>
                 </ImageView>
                 <TextField fx:id="tf_buscar" prefWidth="150.0" />
-                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Informe de Carga" textAlignment="CENTER">
+                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Consulta" textAlignment="CENTER">
                   <stylesheets>
                     <URL value="@../Screens/Screens.css" />
                   </stylesheets>
@@ -98,70 +98,116 @@
       </children>
     </VBox>
     <VBox fx:id="vb_table" layoutX="8.0" layoutY="45.0" prefHeight="550.0" prefWidth="766.0" spacing="5.0">
-      <children><HBox prefHeight="500.0" prefWidth="606.0">
-<children><VBox layoutX="10.0" layoutY="10.0" prefHeight="330.0" prefWidth="110.0">
+      <children>
+        <HBox id="usrLn01" alignment="CENTER_LEFT" prefWidth="657.0" spacing="10.0">
+<VBox.margin>
+<Insets left="25.0" />
+</VBox.margin>
+               <children>
+                  <HBox id="HBox" fx:id="hb_11" alignment="CENTER" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label id="lb_mensj" fx:id="lb_mensj1" alignment="TOP_CENTER" prefWidth="580.0" styleClass="lb-mensj" stylesheets="@../Dialogs/Dialog.css" text="Fact. Anuladas por Sucursales" wrapText="true" />
+                     </children>
+                  </HBox>
+               </children>
+        </HBox><HBox prefHeight="470.0" prefWidth="606.0">
+<children><VBox layoutX="10.0" layoutY="10.0" prefHeight="330.0" prefWidth="180.0">
 <HBox.margin>
 <Insets />
 </HBox.margin>
 <padding>
-<Insets top="58.0" />
-</padding>
-</VBox>
-<VBox layoutX="10.0" layoutY="10.0" prefHeight="499.0" prefWidth="646.0">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-<padding>
-<Insets left="7.0" top="5.0" />
+<Insets top="28.0" />
 </padding>
                      <children>
-                        <HBox id="HBox" fx:id="hb_11" alignment="CENTER" spacing="5.0">
-                           <children>
-                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../Images/img74.png" />
-                                 </image>
-                              </ImageView>
-                              <Label id="lb_mensj" fx:id="lb_mensj1" alignment="TOP_CENTER" prefWidth="395.0" styleClass="lb-mensj" stylesheets="@../Dialogs/Dialog.css" text="En Construcción" wrapText="true" />
-                           </children>
-                        </HBox>
                         <HBox prefHeight="30.0" prefWidth="200.0">
                            <children>
-                              <HBox prefHeight="30.0" prefWidth="160.0">
+                              <HBox prefHeight="30.0" prefWidth="140.0">
                                  <children>
-                                    <Label prefWidth="45.0" text="Desde">
+                                    <Label alignment="CENTER" prefWidth="150.0" text="Parametros de Busqueda">
                                        <HBox.margin>
                                           <Insets top="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="tf_desde" prefWidth="60.0" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="180.0">
-                                 <children>
-                                    <Label prefWidth="45.0" text="Hasta">
-                                       <HBox.margin>
-                                          <Insets top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <TextField fx:id="tf_hasta" prefWidth="60.0" />
                                  </children>
                                  <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </HBox>
-                              <HBox id="usrLn01" prefHeight="30.0" spacing="10.0">
-                                 <children>
-                                    <Button fx:id="bt_execute" contentDisplay="CENTER" mnemonicParsing="false" text="Aplicar" textAlignment="CENTER" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                               </HBox>
                            </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
+                        </HBox>
+                        <HBox id="usrLn01" prefHeight="10.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <HBox id="usrLn01" prefHeight="32.0" prefWidth="569.0" spacing="10.0">
+                                 <children>
+                                    <HBox id="HBox" alignment="CENTER" prefHeight="10.0" prefWidth="572.0" spacing="5.0">
+                                       <children>
+                                          <Separator prefWidth="600.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="400.0" prefWidth="180.0">
+                           <children>
+                              <VBox prefWidth="200.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <ComboBox id="cb_ano" fx:id="cb_ano1" prefWidth="75.0" />
+                                          <ComboBox id="cb_ano" fx:id="cb_ano2" layoutX="10.0" layoutY="13.0" prefWidth="75.0">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <ComboBox id="cb_sucursal" fx:id="cb_sucursal" prefWidth="160.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <DatePicker fx:id="dp_fecha1" prefWidth="158.0" promptText="Fecha Desde" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="130.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <DatePicker fx:id="dp_fecha2" prefWidth="158.0" promptText="Fecha Hasta" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="30.0" prefWidth="150.0">
+                                       <children>
+                                          <Button fx:id="bt_aceptar" contentDisplay="CENTER" mnemonicParsing="false" text="Aplicar" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+</VBox>
+<VBox layoutX="10.0" layoutY="10.0" prefWidth="580.0">
+<HBox.margin>
+<Insets />
+</HBox.margin>
+<padding>
+<Insets left="7.0" top="28.0" />
+</padding>
+                     <children>
+                        <HBox prefHeight="458.0">
+                           <children>
+                              <TableView fx:id="tb_query" prefWidth="580.0" styleClass="defaultTableStyle" />
+                           </children>
                         </HBox>
                      </children>
 </VBox>

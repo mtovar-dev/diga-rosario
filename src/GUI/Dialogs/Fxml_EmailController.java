@@ -9,6 +9,7 @@ package GUI.Dialogs;
 import GUI.Gui;
 import LN.Ln;
 import Objects.Orders.Orders;
+import Objects.Orders.Supplier;
 import Tools.Datos;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -17,6 +18,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -593,8 +595,8 @@ public class Fxml_EmailController implements Initializable {
         if(orders != null){
             ObservableList<Object> data = FXCollections.observableArrayList();        
             data.addAll(Arrays.asList(orders));   
-            tb_table.setItems(data);        
-
+            tb_table.setItems(data);    
+            
             Datos.setRep_orders(orders);
             bt_correo.setDisable(false);
         }

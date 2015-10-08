@@ -1047,8 +1047,6 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
             JrxmlParam.put("p_user", Datos.getSesion().getUsername());
             JrxmlParam.put("p_orden", "RECEPCION SEGUN O/C NRO.:  " + data.get(0).getIdOrden());
             try{ 
-                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec.jasper");
-
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
                     jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec_nac.jasper");
                 }

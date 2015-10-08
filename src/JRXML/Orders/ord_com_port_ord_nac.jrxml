@@ -125,6 +125,8 @@
 	<field name="preciosug" class="java.lang.Double"/>
 	<field name="observ" class="java.lang.String"/>
 	<field name="statdet" class="java.lang.Integer"/>
+	<field name="statord" class="java.lang.String"/>
+	<field name="codelpro" class="java.lang.String"/>
 	<variable name="v_tcant" class="java.lang.Double" resetType="Group" resetGroup="idorden" calculation="Sum">
 		<variableExpression><![CDATA[$F{cant_sol}]]></variableExpression>
 	</variable>
@@ -133,7 +135,7 @@
 		<groupFooter>
 			<band height="220">
 				<textField pattern="#,##0">
-					<reportElement x="384" y="2" width="55" height="15" uuid="7632e0eb-99ca-402f-8abe-a0226869c7a8"/>
+					<reportElement x="424" y="2" width="55" height="15" uuid="7632e0eb-99ca-402f-8abe-a0226869c7a8"/>
 					<box>
 						<topPen lineWidth="0.5" lineStyle="Dotted"/>
 					</box>
@@ -231,7 +233,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="285" splitType="Stretch">
+		<band height="300" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="100" width="572" height="1" uuid="3583c343-ae35-47c8-857b-3eb60659ffad"/>
 				<graphicElement>
@@ -259,7 +261,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="284" width="572" height="1" uuid="82360ece-4d0b-46fe-a559-14fffef88466"/>
+				<reportElement x="0" y="299" width="572" height="1" uuid="82360ece-4d0b-46fe-a559-14fffef88466"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
@@ -508,28 +510,28 @@ RIF: J075455525]]></text>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="72" y="269" width="57" height="15" uuid="430a9b1c-8eb2-4b1c-b516-0dba8eb518c8"/>
+				<reportElement x="58" y="284" width="57" height="15" uuid="430a9b1c-8eb2-4b1c-b516-0dba8eb518c8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Producto]]></text>
+				<text><![CDATA[Diga]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="142" y="269" width="225" height="15" uuid="5de8b817-c797-4300-81cf-a1530037434a"/>
+				<reportElement x="192" y="284" width="225" height="15" uuid="5de8b817-c797-4300-81cf-a1530037434a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descripción del Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="269" width="106" height="15" uuid="29c6a693-0e6f-43f5-b9fb-db691952d057"/>
+				<reportElement x="420" y="284" width="106" height="15" uuid="29c6a693-0e6f-43f5-b9fb-db691952d057"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cantidad / Unidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="269" width="15" height="15" uuid="db614bf1-f5cb-42e1-a0d0-3853842bbd7d"/>
+				<reportElement x="40" y="284" width="15" height="15" uuid="db614bf1-f5cb-42e1-a0d0-3853842bbd7d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
@@ -551,17 +553,23 @@ RIF: J075455525]]></text>
 			</textField>
 			<textField>
 				<reportElement x="59" y="154" width="21" height="15" uuid="19aa3ec8-0283-4b15-bfd5-e01a7a1b67f6"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{idSupplier}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="88" y="154" width="100" height="15" uuid="ad19e243-1ea5-4c37-b4c9-ce1b486f855b"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{rif}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="59" y="169" width="202" height="15" uuid="751c2481-a1f2-4f62-a66b-ef97b03ecc8a"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -606,44 +614,65 @@ RIF: J075455525]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="118" y="284" width="70" height="15" uuid="b229fac6-78f7-4a8a-84c3-c0b13a5e947e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="268" width="130" height="15" uuid="80cabd94-5f3f-4b7c-b072-937ad4c7f616"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Código de]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="15">
 			<textField>
-				<reportElement x="50" y="0" width="15" height="15" uuid="1aa66387-26dc-4f49-867f-ec00172130f0"/>
+				<reportElement x="40" y="0" width="15" height="15" uuid="1aa66387-26dc-4f49-867f-ec00172130f0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numorden}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="72" y="0" width="57" height="15" uuid="e22a3138-8a00-4120-b9ba-126616d23c98"/>
+				<reportElement x="58" y="0" width="57" height="15" uuid="e22a3138-8a00-4120-b9ba-126616d23c98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{idProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="0" width="225" height="15" uuid="30028142-254b-4b46-ae01-5db81c058366"/>
+				<reportElement x="192" y="0" width="225" height="15" uuid="30028142-254b-4b46-ae01-5db81c058366"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descrip}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="0" width="34" height="15" uuid="9192829b-cf7a-4393-b6b3-8f70b6ae3849"/>
+				<reportElement x="484" y="0" width="34" height="15" uuid="9192829b-cf7a-4393-b6b3-8f70b6ae3849"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidsol}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="384" y="0" width="55" height="15" uuid="231cd67a-423b-4da6-a5d7-61c79f4bb73a"/>
+				<reportElement x="424" y="0" width="55" height="15" uuid="231cd67a-423b-4da6-a5d7-61c79f4bb73a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cant_sol}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="0" width="70" height="15" uuid="7d51aef7-f54f-4593-b9d3-704b81b30a0d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codelpro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

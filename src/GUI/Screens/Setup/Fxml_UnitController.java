@@ -548,7 +548,8 @@ public class Fxml_UnitController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     

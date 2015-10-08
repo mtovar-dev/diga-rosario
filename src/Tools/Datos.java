@@ -27,7 +27,6 @@ import Objects.Orders.Supplier;
 import Objects.log_CGuias;
 import Objects.log_CGuias_Glomar_invoice;
 import Objects.log_CGuias_Glomar_price;
-import Objects.log_CGuias_falt;
 import Objects.log_CGuias_falt_cg;
 import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
@@ -40,6 +39,9 @@ import Objects.log_TProced;
 import Objects.log_TSeguros;
 import Objects.log_TTransp;
 import Objects.log_Vehiculos;
+import Objects.Reports.Dev_FanulSucursales;
+import Objects.Reports.Dev_FaltCarga;
+import Objects.Setup.Branch;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -65,6 +67,7 @@ public class Datos {
     private static String path_im_view;
 
     
+    private static ComboBox<Branch>             cbBranch;
     private static ComboBox<City>               cbCity;
     private static ComboBox<Country>            cbCountry;
     private static ComboBox<Municipality>       cbMunicipality;
@@ -85,6 +88,7 @@ public class Datos {
     
     
     private static Usuario                      user;
+    private static Branch                       branch;
     private static City                         city;
     private static Country                      country;
     private static GroupSupplier                groupSupplier;
@@ -118,6 +122,9 @@ public class Datos {
     private static Fxp_Archguip_pro_cg[]        rep_log_guide_pro_cg;
     private static Fxp_Archguip_pro_dv[]        rep_log_guide_pro_dv;
 
+    private static Dev_FanulSucursales[]        rep_dev_fanulaucursales;
+    private static Dev_FaltCarga[]              rep_dev_faltcarga;
+
     private static GroupSupplier[]              rep_grp_supplier;
     private static Measure[]                    rep_measure;
     private static Orders[]                     rep_orders;
@@ -127,7 +134,6 @@ public class Datos {
     private static UploadExcelFile[]            rep_updloadexcelfile;
 
     private static log_CGuias[]                 rep_log_cguias;
-    private static log_CGuias_falt[]            rep_log_cguias_falt;
     private static log_CGuias_falt_cg[]         rep_log_cguias_fcar;
     private static log_CGuias_falt_dv[]         rep_log_cguias_fdev;
     private static log_CGuias_perm[]            rep_log_cguias_perm;
@@ -323,6 +329,19 @@ public class Datos {
     /***************************************************************************/
     /**************************** static ComboBox *****************************/
     /***************************************************************************/
+    /**
+     * @return the cbBranch
+     */
+    public static ComboBox<Branch> getCbBranch() {
+        return cbBranch;
+    }
+
+    /**
+     * @param aCbBranch the cbBranch to set
+     */
+    public static void setCbBranch(ComboBox<Branch> aCbBranch) {
+        cbBranch = aCbBranch;
+    }
     /**
      * @return the cbCity
      */
@@ -563,6 +582,20 @@ public class Datos {
      */
     public static void setUser(Usuario aUsuario) {
         user = aUsuario;
+    }
+
+    /**
+     * @return the branch
+     */
+    public static Branch getBranch() {
+        return branch;
+    }
+
+    /**
+     * @param aBranch the branch to set
+     */
+    public static void setBranch(Branch aBranch) {
+        branch = aBranch;
     }
 
     /**
@@ -962,6 +995,20 @@ public class Datos {
     }
 
     /**
+     * @return the rep_dev_fanulaucursales
+     */
+    public static Dev_FanulSucursales[] getRep_dev_fanulaucursales() {
+        return rep_dev_fanulaucursales;
+    }
+
+    /**
+     * @param aRep_dev_fanulaucursales the rep_dev_fanulaucursales to set
+     */
+    public static void setRep_dev_fanulaucursales(Dev_FanulSucursales[] aRep_dev_fanulaucursales) {
+        rep_dev_fanulaucursales = aRep_dev_fanulaucursales;
+    }
+
+    /**
      * @return the rep_grp_supplier
      */
     public static GroupSupplier[] getRep_grp_supplier() {
@@ -1074,17 +1121,17 @@ public class Datos {
     }
 
     /**
-     * @return the rep_log_cguias_falt
+     * @return the rep_dev_faltcarga
      */
-    public static log_CGuias_falt[] getRep_log_cguias_falt() {
-        return rep_log_cguias_falt;
+    public static Dev_FaltCarga[] getRep_dev_faltcarga() {
+        return rep_dev_faltcarga;
     }
 
     /**
-     * @param aRep_log_cguias_falt the rep_log_cguias_falt to set
+     * @param aRep_log_cguias_falt the rep_dev_faltcarga to set
      */
-    public static void setRep_log_cguias_falt(log_CGuias_falt[] aRep_log_cguias_falt) {
-        rep_log_cguias_falt = aRep_log_cguias_falt;
+    public static void setRep_dev_faltcarga(Dev_FaltCarga[] aRep_log_cguias_falt) {
+        rep_dev_faltcarga = aRep_log_cguias_falt;
     }
 
     /**
@@ -1254,7 +1301,6 @@ public class Datos {
     public static void setRep_log_vehiculo(log_Vehiculos[] aRep_log_vehiculo) {
         rep_log_vehiculo = aRep_log_vehiculo;
     }
-
 
 }
 

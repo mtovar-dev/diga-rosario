@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ord_com_port_ord_imp" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -125,6 +125,8 @@
 	<field name="preciosug" class="java.lang.Double"/>
 	<field name="observ" class="java.lang.String"/>
 	<field name="statdet" class="java.lang.Integer"/>
+	<field name="statord" class="java.lang.String"/>
+	<field name="codelpro" class="java.lang.String"/>
 	<variable name="v_tcant" class="java.lang.Double" resetType="Group" resetGroup="idorden" calculation="Sum">
 		<variableExpression><![CDATA[$F{cant_sol}]]></variableExpression>
 	</variable>
@@ -547,17 +549,23 @@ RIF: J075455525]]></text>
 			</textField>
 			<textField>
 				<reportElement x="59" y="154" width="21" height="15" uuid="19aa3ec8-0283-4b15-bfd5-e01a7a1b67f6"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{idSupplier}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="88" y="154" width="100" height="15" uuid="ad19e243-1ea5-4c37-b4c9-ce1b486f855b"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{rif}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="59" y="169" width="202" height="15" uuid="751c2481-a1f2-4f62-a66b-ef97b03ecc8a"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<staticText>

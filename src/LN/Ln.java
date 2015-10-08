@@ -41,12 +41,14 @@ import Objects.System.Sesion;
 import Objects.Setup.Sex;
 import Objects.Setup.State;
 import Objects.Orders.Supplier;
+import Objects.Reports.Dev_FanulSucursales;
 import Objects.Setup.Unit;
 import Objects.System.Usuario;
 import Objects.log_CGuias;
 import Objects.log_CGuias_Glomar_invoice;
 import Objects.log_CGuias_Glomar_price;
-import Objects.log_CGuias_falt;
+import Objects.Reports.Dev_FaltCarga;
+import Objects.Setup.Branch;
 import Objects.log_CGuias_falt_cg;
 import Objects.log_CGuias_falt_dv;
 import Objects.log_CGuias_perm;
@@ -420,6 +422,92 @@ public class Ln {
         return false;
     }    
     
+    /***************************************************************************/
+    /******************************** BRANCH ***********************************/
+    /***************************************************************************/    
+    /**
+     * @author MITM
+     * @lista para generar el reporte
+     * @param unit
+     * @return 
+     */
+    public static List<Branch> getList_Branch(Branch[] branch){
+        List<Branch> list = new ArrayList<>();        
+        list.addAll(Arrays.asList(branch));        
+        return list;
+    }
+    /**
+     * @author MITM
+     * @return 
+     */
+    public Branch[] load_Branch() {
+        try{
+            Branch[] branch = Bd.getInstance().load_Branch();      
+            return branch;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Sucursal: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
+    public Branch[] find_Branch(String find) {
+        try{
+            Branch[] branch = Bd.getInstance().find_Branch(find);      
+            return branch;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Sucursal: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param unit
+     * @param operacion
+     * @param ScreenName
+     * @return 
+     */
+    public boolean save_Branch(Branch branch, int operacion, String ScreenName) {
+        boolean boo = Validar.validar_Save_Branch(branch);
+        if (boo){
+            try{                
+                boolean result = Bd.getInstance().save_Branch(operacion, branch);
+
+                return result;
+            }catch(Exception e){
+                Gui.getInstance().showMessage("Error guardando " + ScreenName +": \n" + e.getMessage(), "E");
+            }
+        }        
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param branchname
+     * @return 
+     */
+    public boolean check_Branch(String branchname) {
+        try{
+            return Bd.getInstance().check_Unit(branchname);                
+        }catch(SQLException e){             
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param branch
+     * @return 
+     */
+    public boolean change_Branch(Branch branch) {
+        try{
+            return Bd.getInstance().change_Branch(branch);                
+        }catch(Exception e){       
+            Gui.getInstance().ventanaError("Error Deshabilitando Sucursal: \n"+e.getMessage()); 
+        }
+        return false;
+    }        
 
     /***************************************************************************/
     /***************************** GROUPSUPPLIER *******************************/
@@ -2698,36 +2786,6 @@ public class Ln {
         return null;
     }    
     /***************************************************************************/
-    /************************* CGUIAS_FALT_SOPORTE **************************/
-    /***************************************************************************/
-    
-    /**
-     * @author MITM
-     * @lista para generar el reporte
-     * @param cguias_falt
-     * @return 
-     */
-    public static List<log_CGuias_falt> getList_log_CGuias_falt(log_CGuias_falt[] cguias_falt){
-        List<log_CGuias_falt> list = new ArrayList<>();        
-        list.addAll(Arrays.asList(cguias_falt));        
-        return list;
-    }
-    /**
-     * @author MITM
-     * @param gf_desde
-     * @param gf_hasta
-     * @return 
-     */
-    public log_CGuias_falt[] find_log_CGuias_falt(String gf_desde, String gf_hasta) {
-        try{
-            log_CGuias_falt[] cguias_falt = Bd.getInstance().find_log_CGuias_falt(gf_desde, gf_hasta);      
-            return cguias_falt;
-        }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Cargas: \n"+e.getMessage()); 
-        }
-        return null;
-    }    
-    /***************************************************************************/
     /************************** UPFILE RETENCIONES *****************************/
     /***************************************************************************/    
     
@@ -2921,6 +2979,7 @@ public class Ln {
      * @param orders
      * @param operacion
      * @param pos
+     * @param ScreenName
      * @return 
      */
     public boolean save_orders(Orders orders, int operacion, int pos, String ScreenName) {
@@ -2949,6 +3008,41 @@ public class Ln {
         }
         return false;
     }  
+    /***************************************************************************/
+    /********************************* REPORTS *********************************/
+    /***************************************************************************/
+   
+    /**
+     * @author MITM
+     * @param year1
+     * @param year2
+     * @param date1
+     * @param date2
+     * @return 
+     */
+    public Dev_FanulSucursales[] find_Dev_FanulSucursales(int year1, int year2, String branch, String date1, String date2) {
+        try{
+            Dev_FanulSucursales[] sqlQuery = Bd.getInstance().find_Dev_FanulSucursales(year1, year2, branch, date1, date2);      
+            return sqlQuery;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
+    public Dev_FaltCarga[] find_Dev_Faltcarga(String find) {
+        try{
+            Dev_FaltCarga[] cguias_falt = Bd.getInstance().find_Dev_Faltcarga(find);      
+            return cguias_falt;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Cargas: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
     
 
 

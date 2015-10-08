@@ -9,7 +9,6 @@ import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
 import Objects.Seniat.UploadExcelFile;
-import Objects.log_CGuias;
 import Tools.Datos;
 import java.io.File;
 import java.math.RoundingMode;
@@ -71,7 +70,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author mtovar
  */
-public class Fxml_Query_RetencionesController implements Initializable {
+public class Fxml_Qry_RetencionesController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
@@ -1298,427 +1297,427 @@ public class Fxml_Query_RetencionesController implements Initializable {
          * BOTON EXECUTE
          */
         bt_aceptar.setOnAction((ActionEvent event) -> {
-            String SqlWhere = "";
+            String sqlWhere = "";
 
             int year1 = cb_ano1.getValue(); 
 
             if (year1 != 0){
-                SqlWhere = 
+                sqlWhere = 
                     "ano >= " + cb_ano1.getValue() + " " +
                     "AND ano <= " + cb_ano2.getValue() + " ";
                 
                 if (!tf_rif.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND rif_agente like '%" + tf_rif.getText() + "%' ";
                 }
                 
                 if (!tf_nombre.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND nombre_agente like '%" + tf_nombre.getText() + "%' ";
                 }
 
                 if (!tf_documento.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND nro_doc like '%" + tf_documento.getText() + "%' ";
                 }
 
                 if (!tf_control.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND nro_control like '%" + tf_control.getText() + "%' ";
                 }
 
                 if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
                 }
 
                 if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                         "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                 }
 
                 if (!tf_mtomay.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                 }
 
                 if (!tf_mtomen.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                 }
 
                 if (!tf_retmay.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND mto_ret1 >" + tf_retmay.getText() + " ";
                 }
 
                 if (!tf_retmen.getText().isEmpty()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND mto_ret1 <" + tf_retmen.getText() + " ";
                 }
 
                 if (cb_comprob.isSelected()){
-                    SqlWhere = SqlWhere + 
+                    sqlWhere = sqlWhere + 
                         "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                 }
 
                 if (cb_difmonto.isSelected()){
                     if (!tf_difmto.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND mto_ret1 BETWEEN " +
                             "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                     }
                     else{
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND (mto_ret1 - mto_retd1) > 0 " ;
                     }
                 }
             }
             else{
                 if (!tf_rif.getText().isEmpty()){
-                    SqlWhere = 
+                    sqlWhere = 
                         "rif_agente like '%" + tf_rif.getText() + "%' ";
 
                     if (!tf_nombre.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND nombre_agente like '%" + tf_nombre.getText() + "%' ";
                     }
 
                     if (!tf_documento.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND nro_doc like '%" + tf_documento.getText() + "%' ";
                     }
 
                     if (!tf_control.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND nro_control like '%" + tf_control.getText() + "%' ";
                     }
 
                     if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
                     }
 
                     if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                             "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                     }
 
                     if (!tf_mtomay.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                     }
 
                     if (!tf_mtomen.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                     }
 
                     if (!tf_retmay.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND mto_ret1 >" + tf_retmay.getText() + " ";
                     }
 
                     if (!tf_retmen.getText().isEmpty()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND mto_ret1 <" + tf_retmen.getText() + " ";
                     }
 
                     if (cb_comprob.isSelected()){
-                        SqlWhere = SqlWhere + 
+                        sqlWhere = sqlWhere + 
                             "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                     }
 
                     if (cb_difmonto.isSelected()){
                         if (!tf_difmto.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND mto_ret1 BETWEEN " +
                                 "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                         }
                         else{
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND (mto_ret1 - mto_retd1) > 0 " ;
                         }
                     }
                 }
                 else{
                     if (!tf_nombre.getText().isEmpty()){
-                        SqlWhere = 
+                        sqlWhere = 
                             "nombre_agente like '%" + tf_nombre.getText() + "%' ";
 
                         if (!tf_documento.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND nro_doc like '%" + tf_documento.getText() + "%' ";
                         }
 
                         if (!tf_control.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND nro_control like '%" + tf_control.getText() + "%' ";
                         }
 
                         if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
                         }
 
                         if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                                 "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                         }
 
                         if (!tf_mtomay.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                         }
 
                         if (!tf_mtomen.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                         }
 
                         if (!tf_retmay.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND mto_ret1 >" + tf_retmay.getText() + " ";
                         }
 
                         if (!tf_retmen.getText().isEmpty()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND mto_ret1 <" + tf_retmen.getText() + " ";
                         }
 
                         if (cb_comprob.isSelected()){
-                            SqlWhere = SqlWhere + 
+                            sqlWhere = sqlWhere + 
                                 "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                         }
 
                         if (cb_difmonto.isSelected()){
                             if (!tf_difmto.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND mto_ret1 BETWEEN " +
                                     "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                             }
                             else{
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND (mto_ret1 - mto_retd1) > 0 " ;
                             }
                         }
                     }
                     else{
                         if (!tf_documento.getText().isEmpty()){
-                            SqlWhere = 
+                            sqlWhere = 
                                 "nro_doc like '%" + tf_documento.getText() + "%' ";
 
                             if (!tf_control.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND nro_control like '%" + tf_control.getText() + "%' ";
                             }
 
                             if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
                             }
 
                             if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                                     "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                             }
 
                             if (!tf_mtomay.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                             }
 
                             if (!tf_mtomen.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                             }
 
                             if (!tf_retmay.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND mto_ret1 >" + tf_retmay.getText() + " ";
                             }
 
                             if (!tf_retmen.getText().isEmpty()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND mto_ret1 <" + tf_retmen.getText() + " ";
                             }
 
                             if (cb_comprob.isSelected()){
-                                SqlWhere = SqlWhere + 
+                                sqlWhere = sqlWhere + 
                                     "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                             }
 
                             if (cb_difmonto.isSelected()){
                                 if (!tf_difmto.getText().isEmpty()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND mto_ret1 BETWEEN " +
                                         "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                                 }
                                 else{
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND (mto_ret1 - mto_retd1) > 0 " ;
                                 }
                             }
                         }
                         else{
                             if (!tf_control.getText().isEmpty()){
-                                SqlWhere = 
+                                sqlWhere = 
                                     "nro_control like '%" + tf_control.getText() + "%' ";
 
                                 if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
                                 }
 
                                 if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                                         "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                                 }
 
                                 if (!tf_mtomay.getText().isEmpty()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                                 }
 
                                 if (!tf_mtomen.getText().isEmpty()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                                 }
 
                                 if (!tf_retmay.getText().isEmpty()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND mto_ret1 >" + tf_retmay.getText() + " ";
                                 }
 
                                 if (!tf_retmen.getText().isEmpty()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND mto_ret1 <" + tf_retmen.getText() + " ";
                                 }
 
                                 if (cb_comprob.isSelected()){
-                                    SqlWhere = SqlWhere + 
+                                    sqlWhere = sqlWhere + 
                                         "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                                 }
 
                                 if (cb_difmonto.isSelected()){
                                     if (!tf_difmto.getText().isEmpty()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND mto_ret1 BETWEEN " +
                                             "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                                     }
                                     else{
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND (mto_ret1 - mto_retd1) > 0 " ;
                                     }
                                 }
                             }
                             else{
                                 if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() == null)){
-                                    SqlWhere = 
+                                    sqlWhere = 
                                         "fecha_doc = '" + dp_fecha1.getValue().format(dtf_yyyy) + "' ";
 
                                     if ((dp_fecha1.getValue() != null) && (dp_fecha2.getValue() != null)){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND fecha_doc >= '" + dp_fecha1.getValue().format(dtf_yyyy) + "' " +
                                             "AND fecha_doc <= '" + dp_fecha2.getValue().format(dtf_yyyy) + "' ";
                                     }
 
                                     if (!tf_mtomay.getText().isEmpty()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND mto_doc1 >" + tf_mtomay.getText() + " ";
                                     }
 
                                     if (!tf_mtomen.getText().isEmpty()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                                     }
 
                                     if (!tf_retmay.getText().isEmpty()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND mto_ret1 >" + tf_retmay.getText() + " ";
                                     }
 
                                     if (!tf_retmen.getText().isEmpty()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND mto_ret1 <" + tf_retmen.getText() + " ";
                                     }
 
                                     if (cb_comprob.isSelected()){
-                                        SqlWhere = SqlWhere + 
+                                        sqlWhere = sqlWhere + 
                                             "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                                     }
 
                                     if (cb_difmonto.isSelected()){
                                         if (!tf_difmto.getText().isEmpty()){
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND mto_ret1 BETWEEN " +
                                                 "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                                         }
                                         else{
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND (mto_ret1 - mto_retd1) > 0 " ;
                                         }
                                     }
                                 }
                                 else{
                                     if (!tf_mtomay.getText().isEmpty()){
-                                        SqlWhere = 
+                                        sqlWhere = 
                                             "mto_doc1 >" + tf_mtomay.getText() + " ";
 
                                         if (!tf_mtomen.getText().isEmpty()){
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND mto_doc1 <" + tf_mtomen.getText() + " ";
                                         }
 
                                         if (!tf_retmay.getText().isEmpty()){
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND mto_ret1 >" + tf_retmay.getText() + " ";
                                         }
 
                                         if (!tf_retmen.getText().isEmpty()){
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND mto_ret1 <" + tf_retmen.getText() + " ";
                                         }
 
                                         if (cb_comprob.isSelected()){
-                                            SqlWhere = SqlWhere + 
+                                            sqlWhere = sqlWhere + 
                                                 "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                                         }
                                     }
                                     else{
                                         if (!tf_retmay.getText().isEmpty()){
-                                                SqlWhere = 
+                                                sqlWhere = 
                                                     "mto_ret1 >" + tf_retmay.getText() + " ";
 
                                             if (!tf_retmen.getText().isEmpty()){
-                                                SqlWhere = SqlWhere + 
+                                                sqlWhere = sqlWhere + 
                                                     "AND mto_ret1 <" + tf_retmen.getText() + " ";
                                             }
 
                                             if (cb_comprob.isSelected()){
-                                                SqlWhere = SqlWhere + 
+                                                sqlWhere = sqlWhere + 
                                                     "AND ISNULL(nro_comprobante, 'x') = 'x' ";
                                             }
                                         }
                                         else{
                                             if (cb_comprob.isSelected()){
-                                                SqlWhere = 
+                                                sqlWhere = 
                                                     "ISNULL(nro_comprobante, 'x') = 'x' ";
                                             }
                                             else{
                                                 if (cb_difmonto.isSelected()){
                                                     if (!tf_difmto.getText().isEmpty()){
-                                                        SqlWhere = 
+                                                        sqlWhere = 
                                                             "mto_ret1 BETWEEN " +
                                                             "(mto_retd1 -" + tf_difmto.getText() + ") AND (mto_retd1 +" + tf_difmto.getText() + ") ";
                                                     }
                                                     else{
-                                                        SqlWhere = 
+                                                        sqlWhere = 
                                                             "(mto_ret1 - mto_retd1) > 0 " ;
                                                     }
                                                 }
@@ -1732,7 +1731,7 @@ public class Fxml_Query_RetencionesController implements Initializable {
                 }
             }
             
-            Datos.setRep_updloadexcelfile(Ln.getInstance().find_Upfile_Retenciones(SqlWhere));
+            Datos.setRep_updloadexcelfile(Ln.getInstance().find_Upfile_Retenciones(sqlWhere));
             loadTableQuery(Datos.getRep_updloadexcelfile());     
         });
     }   

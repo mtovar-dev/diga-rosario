@@ -45,17 +45,19 @@ public class Usuario {
         nombre2             = rs.getString(4);
         apellido1           = rs.getString(5);
         apellido2           = rs.getString(6);
+
+        //Desencriptacion de la Contraseña del usuario
+        String salt = java.util.ResourceBundle.getBundle("BD/DBcon").getString("dns");
+        pswd_old            = Protector.decrypt(rs.getString(7), salt);
+        status              = rs.getInt(8);        
+
         //Datos del Rol del Usuario
         Rol obj = new Rol();
         obj.setIdRol( rs.getInt(9));
         obj.setNombre(rs.getString(10));
         obj.setAbrev( rs.getString(11));
         rol = obj;
-        
-        //Desencriptacion de la Contraseña del usuario
-        String salt = java.util.ResourceBundle.getBundle("BD/DBcon").getString("dns");
-        pswd_old            = Protector.decrypt(rs.getString(7), salt);
-        status              = rs.getInt(8);        
+
         email               = rs.getString(12);
         email_pswd          = rs.getString(13);
         

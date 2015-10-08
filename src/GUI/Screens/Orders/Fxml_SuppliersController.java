@@ -341,6 +341,7 @@ public class Fxml_SuppliersController implements Initializable {
         TableColumn col_rif_val     = new TableColumn("Sen");             
         TableColumn col_rif         = new TableColumn("Rif");                
         TableColumn col_nombre      = new TableColumn("Nombre Fiscal");        
+        TableColumn col_firma       = new TableColumn("Firma");        
         TableColumn col_grupo       = new TableColumn("Grupo");
         TableColumn col_direccion   = new TableColumn("Dirección");        
         TableColumn col_ciudad      = new TableColumn("Ciudad");        
@@ -441,6 +442,8 @@ public class Fxml_SuppliersController implements Initializable {
                 new PropertyValueFactory<>("rif") );
         col_nombre.setCellValueFactory( 
                 new PropertyValueFactory<>("nombre") );
+        col_firma.setCellValueFactory( 
+                new PropertyValueFactory<>("firma") );
         col_grupo.setCellValueFactory( 
                 new PropertyValueFactory<>("groupsupplier") );
         col_direccion.setCellValueFactory( 
@@ -470,9 +473,9 @@ public class Fxml_SuppliersController implements Initializable {
         
         //Se Asigna ordenadamente las columnas de la tabla
         tb_table.getColumns().addAll(
-                col_status, col_rif_val, col_rif, col_nombre, col_grupo, col_direccion,
-                col_ciudad, col_parroquia, col_municipio, col_estado, col_pais,
-                col_telefonos, col_fax, col_contacto, col_celular, col_correo
+                col_status, col_rif_val, col_rif, col_nombre, col_firma, col_grupo, 
+                col_direccion, col_ciudad, col_parroquia, col_municipio, col_estado, 
+                col_pais, col_telefonos, col_fax, col_contacto, col_celular, col_correo
                 );                
         
         //Se Asigna tamaño del VBox para que lo tome el TableView
@@ -1072,7 +1075,8 @@ public class Fxml_SuppliersController implements Initializable {
             //Se Enfoca el nuevo nodo correspondiente
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();            
         }else{  //Sino
-           botonGuardar();  //Guardar los datos
+            if(tipoOperacion > 0)
+                botonGuardar();  //Guardar los datos
         }                
     }
     
