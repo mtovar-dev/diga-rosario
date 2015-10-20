@@ -48,6 +48,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -569,10 +571,10 @@ public class Fxml_FanulSucursalesController implements Initializable {
             "Imprimir " + ScreenName + " ",
             "Cancelar ",
             "Sin Asignar ",
-            "Faltante en " + ScreenName + " ",
-            "Devolución en " + ScreenName + " ",
-            "Sin Asignar",
-            "Sin Asignar",
+            "Sin Asignar ", 
+            "Sin Asignar ", 
+            "Sin Asignar ",
+            "Sin Asignar ",
             "Buscar " + ScreenName + " "
             };
         //se asigna la etiqueta a su respectivo boton
@@ -708,6 +710,16 @@ public class Fxml_FanulSucursalesController implements Initializable {
      * de cada boton en la pantalla actual.
      */
     private void init_buttons(){
+        /**
+         * BOTON IMPRIMIR
+         */
+        im_tool5.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){   
+                    botonImprimir();
+                }
+            }
+        });
         /**
          * BOTON EXECUTE
          */

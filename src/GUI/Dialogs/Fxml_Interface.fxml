@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="100.0" prefWidth="450.0" styleClass="Pane, bordered-Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.Dialogs.Fxml_ConfirmController">
+  <children>
+    <VBox prefHeight="100.0" prefWidth="450.0">
+      <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="400.0" spacing="5.0">
+          <children>
+            <Label fx:id="lb_mensj" prefWidth="395.0" styleClass="lb_error" wrapText="true">
+              <stylesheets>
+                <URL value="@Dialog.css" />
+              </stylesheets>
+            </Label>
+          </children>
+          <padding>
+            <Insets left="30.0" />
+          </padding>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+          <children>
+            <Button fx:id="bt_aceptar" mnemonicParsing="false" text="Aceptar" />
+            <Button fx:id="bt_cancelar" mnemonicParsing="false" text="Cancelar" />
+          </children>
+          <padding>
+            <Insets left="25.0" right="25.0" />
+          </padding>
+        </HBox>
+      </children>
+      <padding>
+        <Insets bottom="10.0" top="10.0" />
+      </padding>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@Dialog.css" />
+    <URL value="@../Css.css" />
+  </stylesheets>
+</AnchorPane>

@@ -7,6 +7,10 @@ package Tools;
 import Objects.Fxp_Archguid;
 import Objects.Fxp_Archguip_pro_cg;
 import Objects.Fxp_Archguip_pro_dv;
+import Objects.Indicators.Zsi_nros_sem;
+import Objects.Indicators.Zsi_nros_sem_avg;
+import Objects.Indicators.Zsi_nros_sem_day;
+import Objects.Indicators.Zsi_nros_sem_r;
 import Objects.Orders.Orders;
 import Objects.Seniat.UploadExcelFile;
 import Objects.Setup.City;
@@ -115,6 +119,11 @@ public class Datos {
     private static log_TTransp                  log_ttransp;
     private static log_Vehiculos                log_vehiculos;
 
+    private static Zsi_nros_sem                 zsi_nros_sem;
+    private static Zsi_nros_sem_avg             zsi_nros_sem_avg;
+    private static Zsi_nros_sem_day             zsi_nros_sem_day;
+    private static Zsi_nros_sem_r               zsi_nros_sem_r;
+    
     
     private static ItemLeftBar[]                itemLeftBar; 
 
@@ -125,6 +134,9 @@ public class Datos {
     private static Dev_FanulSucursales[]        rep_dev_fanulaucursales;
     private static Dev_FaltCarga[]              rep_dev_faltcarga;
 
+    private static Zsi_nros_sem_avg[]           ind_zsi_nros_sem_avg;
+    private static Zsi_nros_sem_r[]             ind_zsi_nros_sem_r;
+    
     private static GroupSupplier[]              rep_grp_supplier;
     private static Measure[]                    rep_measure;
     private static Orders[]                     rep_orders;
@@ -934,6 +946,62 @@ public class Datos {
         log_vehiculos = aLog_vehiculos;
     }
 
+    /**
+     * @return the zsi_nros_sem_avg
+     */
+    public static Zsi_nros_sem_avg getZsi_nros_sem_avg() {
+        return zsi_nros_sem_avg;
+    }
+
+    /**
+     * @param aZsi_nros_sem_avgh the zsi_nros_sem_avg to set
+     */
+    public static void setZsi_nros_sem_avg(Zsi_nros_sem_avg aZsi_nros_sem_avgh) {
+        zsi_nros_sem_avg = aZsi_nros_sem_avgh;
+    }
+
+    /**
+     * @return the zsi_nros_sem
+     */
+    public static Zsi_nros_sem getZsi_nros_sem() {
+        return zsi_nros_sem;
+    }
+
+    /**
+     * @param aZsi_nros_sem_avgv the zsi_nros_sem to set
+     */
+    public static void setZsi_nros_sem(Zsi_nros_sem aZsi_nros_sem_avgv) {
+        zsi_nros_sem = aZsi_nros_sem_avgv;
+    }
+
+    /**
+     * @return the zsi_nros_sem_day
+     */
+    public static Zsi_nros_sem_day getZsi_nros_sem_day() {
+        return zsi_nros_sem_day;
+    }
+
+    /**
+     * @param aZsi_nros_sem_day the zsi_nros_sem_day to set
+     */
+    public static void setZsi_nros_sem_day(Zsi_nros_sem_day aZsi_nros_sem_day) {
+        zsi_nros_sem_day = aZsi_nros_sem_day;
+    }
+
+    /**
+     * @return the zsi_nros_sem_r
+     */
+    public static Zsi_nros_sem_r getZsi_nros_sem_r() {
+        return zsi_nros_sem_r;
+    }
+
+    /**
+     * @param aZsi_nros_sem_rh the zsi_nros_sem_r to set
+     */
+    public static void setZsi_nros_sem_r(Zsi_nros_sem_r aZsi_nros_sem_rh) {
+        zsi_nros_sem_r = aZsi_nros_sem_rh;
+    }
+
 
     /***************************************************************************/
     /**************************** static Objetcs *******************************/
@@ -1020,6 +1088,34 @@ public class Datos {
      */
     public static void setRep_grp_supplier(GroupSupplier[] aRep_grp_supplier) {
         rep_grp_supplier = aRep_grp_supplier;
+    }
+
+    /**
+     * @return the ind_zsi_nros_sem_avg
+     */
+    public static Zsi_nros_sem_avg[] getInd_zsi_nros_sem_avg() {
+        return ind_zsi_nros_sem_avg;
+    }
+
+    /**
+     * @param aInd_zsi_nros_sem_avg the ind_zsi_nros_sem_avg to set
+     */
+    public static void setInd_zsi_nros_sem_avg(Zsi_nros_sem_avg[] aInd_zsi_nros_sem_avg) {
+        ind_zsi_nros_sem_avg = aInd_zsi_nros_sem_avg;
+    }
+
+    /**
+     * @return the ind_zsi_nros_sem_r
+     */
+    public static Zsi_nros_sem_r[] getInd_zsi_nros_sem_r() {
+        return ind_zsi_nros_sem_r;
+    }
+
+    /**
+     * @param aInd_zsi_nros_sem_rh the ind_zsi_nros_sem_r to set
+     */
+    public static void setInd_zsi_nros_sem_r(Zsi_nros_sem_r[] aInd_zsi_nros_sem_rh) {
+        ind_zsi_nros_sem_r = aInd_zsi_nros_sem_rh;
     }
 
     /**

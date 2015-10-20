@@ -238,7 +238,7 @@ public class LeftBar {
             case "Guias Emitidas":
                 Screens.getInstance().startReport_Invoicebranch();
                 break;
-            case "Guias Cargadas":
+            case "Guias Despachadas":
                 Screens.getInstance().startReport_Invoicebranch();
                 break;
             case "Guias Pendientes":

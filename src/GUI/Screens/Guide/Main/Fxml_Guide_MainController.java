@@ -6422,6 +6422,18 @@ public class Fxml_Guide_MainController implements Initializable {
          * metodo para validar la cant falta
          * param: ENTER 
          */
+        tf_turno.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_turno") &&
+                        tf_turno.getText().isEmpty()){
+                    tf_turno.setText("0");
+                }
+            }
+        });
+         /**
+         * metodo para validar la cant falta
+         * param: ENTER 
+         */
         tf_odometro.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
                 if(((Node)ke.getSource()).getId().equals("tf_odometro") &&

@@ -106,6 +106,8 @@ public class Fxp_Inventa {
     private Double pgastos;
     private String paleta;
     private String fpaqbul;
+    private String pvjusto;
+    private int sql;
 
     /**
      * 
@@ -230,6 +232,8 @@ public class Fxp_Inventa {
             pgastos         = rs.getDouble(93);
             paleta          = rs.getString(94);
             fpaqbul         = rs.getString(95);
+            pvjusto         = rs.getString(96);
+            sql             = rs.getInt(97);
 
             
         }catch(SQLException e){
@@ -1509,6 +1513,34 @@ public class Fxp_Inventa {
      */
     public void setFpaqbul(String fpaqbul) {
         this.fpaqbul = fpaqbul;
+    }
+
+    /**
+     * @return the pvjusto
+     */
+    public String getPvjusto() {
+        return pvjusto;
+    }
+
+    /**
+     * @param pvjusto the pvjusto to set
+     */
+    public void setPvjusto(String pvjusto) {
+        this.pvjusto = pvjusto;
+    }
+
+    /**
+     * @return the sql
+     */
+    public int getSql() {
+        return sql;
+    }
+
+    /**
+     * @param sql the sql to set
+     */
+    public void setSql(int sql) {
+        this.sql = sql;
     }
 
 }

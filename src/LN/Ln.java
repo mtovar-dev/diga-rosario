@@ -21,6 +21,10 @@ import Objects.Setup.City;
 import Objects.Setup.Country;
 import Objects.Fxp_Archguip_pro;
 import Objects.Fxp_Renglon;
+import Objects.Indicators.Zsi_nros_sem_avg;
+import Objects.Indicators.Zsi_nros_sem;
+import Objects.Indicators.Zsi_nros_sem_day;
+import Objects.Indicators.Zsi_nros_sem_r;
 import Objects.Setup.GroupSupplier;
 import Objects.Infocent.Asignacion;
 import Objects.Infocent.Concepto;
@@ -3043,7 +3047,66 @@ public class Ln {
         }
         return null;
     }    
-    
+    /***************************************************************************/
+    /******************************** INDICATORS *******************************/
+    /***************************************************************************/
+   
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     */
+    public Zsi_nros_sem[] find_Zsi_nros_sem(int year) {
+        try{
+            Zsi_nros_sem[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem(year);      
+            return sqlQuery;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     */
+    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year) {
+        try{
+            Zsi_nros_sem_avg[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_avg(year);      
+            return sqlQuery;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     */
+    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year) {
+        try{
+            Zsi_nros_sem_day[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_day(year);      
+            return sqlQuery;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     */
+    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year) {
+        try{
+            Zsi_nros_sem_r[] cguias_falt = Bd.getInstance().find_Zsi_nros_sem_r(year);      
+            return cguias_falt;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Cargas: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
 
 
     

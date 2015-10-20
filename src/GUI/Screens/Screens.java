@@ -648,7 +648,7 @@ public class Screens {
         root.setRight(null);
         
         // CENTER
-        Gui.setAp_center(gui.loadFxml("Indicators/Fxml_FanulSucursales.fxml"));
+        Gui.setAp_center(gui.loadFxml("Reports/Fxml_FanulSucursales.fxml"));
         root.setCenter(Gui.getAp_center());
         
         //GENERAL   

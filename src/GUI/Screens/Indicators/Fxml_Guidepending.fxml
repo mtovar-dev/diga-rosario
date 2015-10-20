@@ -22,68 +22,59 @@
           <children>
             <HBox fx:id="hbox_toolbar" alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="980.0" spacing="5.0">
               <children>
-                <ImageView id="" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img63.png" />
-                  </image>
-                </ImageView>
-                <ImageView fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img64.png" />
-                  </image>
-                </ImageView>
-                <ImageView fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img49.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool4" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img07.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool5" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/im_1.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool6" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img03.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool7" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img04.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool8" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image url="@../../../Images/img36.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool9" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image url="@../../../Images/img37.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool10" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img59.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img60.png" />
-                  </image>
-                </ImageView>
-                <ImageView id="im_tool3" fx:id="im_tool12" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
-                  <image>
-                    <Image preserveRatio="false" smooth="false" url="@../../../Images/img32.png" />
-                  </image>
-                </ImageView>
-                <TextField fx:id="tf_buscar" prefWidth="150.0" />
-                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="264.0" styleClass="lb-screen" text="Graficos X-R" textAlignment="CENTER">
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
+                           <children>
+                              <Label prefWidth="30.0" text="Año" />
+                              <ComboBox id="cb_ano" fx:id="cb_ano" minHeight="20.0" prefWidth="75.0">
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="30.0" text="S.Ini" />
+                              <Slider fx:id="sl_semi" blockIncrement="1.0" max="53.0" showTickMarks="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Slider>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="30.0" text="S.Fin" />
+                              <Slider fx:id="sl_semf" blockIncrement="1.0" max="53.0" showTickMarks="true">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Slider>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="90.0" spacing="5.0">
+                           <children>
+                              <ImageView id="im_tool3" fx:id="im_tool1" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                                 <image>
+                                    <Image url="@../../../Images/img43.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView id="im_tool3" fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                                 <image>
+                                    <Image url="@../../../Images/img44.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView id="im_tool3" fx:id="im_tool3" fitHeight="32.0" fitWidth="32.0" layoutX="57.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                                 <image>
+                                    <Image url="@../../../Images/img45.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </HBox>
+                <Label id="lb_Title" fx:id="lb_screen" alignment="CENTER" prefHeight="25.0" prefWidth="154.0" styleClass="lb-screen" text="Graficos X-R" textAlignment="CENTER">
                   <stylesheets>
                     <URL value="@../Screens.css" />
                   </stylesheets>
@@ -99,184 +90,190 @@
       </children>
     </VBox>
     <VBox fx:id="vb_table" layoutX="8.0" layoutY="45.0" prefHeight="550.0" prefWidth="766.0" spacing="5.0">
-      <children><HBox prefHeight="550.0" prefWidth="606.0">
-<children><VBox layoutX="10.0" layoutY="10.0" prefHeight="350.0" prefWidth="180.0">
-<HBox.margin>
-<Insets />
-</HBox.margin>
-<padding>
-<Insets top="20.0" />
-</padding>
+      <children>
+            <VBox prefHeight="105.0" prefWidth="100.0">
+               <children>
+                  <HBox fillHeight="false" prefHeight="105.0">
                      <children>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
+                        <VBox prefHeight="105.0" prefWidth="90.0">
                            <children>
-                              <HBox prefHeight="30.0" prefWidth="140.0">
+                              <HBox>
                                  <children>
-                                    <Label alignment="CENTER" prefWidth="150.0" text="Parametros de Grafico">
+                                    <Label text="X--:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Label>
+                                    <Label fx:id="lb_Xm" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
                                        <HBox.margin>
-                                          <Insets top="5.0" />
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="LCS:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Label>
+                                    <Label fx:id="lb_lcsx" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="1.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="LCI:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Label>
+                                    <Label fx:id="lb_lcix" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="1.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="R--:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font></Label>
+                                    <Label fx:id="lb_Rm" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="4.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="33.0">
+                                 <children>
+                                    <Label text="LCS:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lb_lcsr" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
                                        </HBox.margin>
                                     </Label>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
+                                 <VBox.margin>
+                                    <Insets top="1.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="85.0">
+                                 <children>
+                                    <Label text="LCI:">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lb_lcir" layoutX="10.0" layoutY="10.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="11.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="1.0" />
+                                 </VBox.margin>
                               </HBox>
                            </children>
-                        </HBox>
-                        <HBox id="usrLn01" prefHeight="10.0" prefWidth="200.0" spacing="10.0">
+                        </VBox>
+                        <VBox prefWidth="594.0">
                            <children>
-                              <HBox id="usrLn01" prefHeight="32.0" prefWidth="569.0" spacing="10.0">
+                              <HBox fillHeight="false" prefHeight="56.0" prefWidth="660.0">
                                  <children>
-                                    <HBox id="HBox" alignment="CENTER" prefHeight="10.0" prefWidth="572.0" spacing="5.0">
+                                    <VBox prefWidth="660.0">
                                        <children>
-                                          <Separator prefWidth="600.0" />
+                                          <TableView fx:id="tb_queryX">
+                                             <styleClass>
+                                                <String fx:value="table" />
+                                                <String fx:value="defaultTableStyle" />
+                                             </styleClass>
+                                          </TableView>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </HBox>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="500.0" prefWidth="180.0">
-                           <children>
-                              <VBox prefWidth="200.0">
+                              <HBox fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="660.0">
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="150.0">
+                                    <VBox prefWidth="660.0">
                                        <children>
-                                          <Label prefWidth="30.0" text="Ano" />
-                                          <ComboBox id="cb_ano" fx:id="cb_ano" minHeight="20.0" prefWidth="75.0">
-                                             <HBox.margin>
-                                                <Insets left="8.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
+                                          <TableView fx:id="tb_queryR">
+                                             <styleClass>
+                                                <String fx:value="table" />
+                                                <String fx:value="defaultTableStyle" />
+                                             </styleClass>
+                                          </TableView>
                                        </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0">
-                                       <children>
-                                          <Label prefWidth="30.0" text="S.Ini" />
-                                          <Slider fx:id="sl_semi">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Slider>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0">
-                                       <children>
-                                          <Label prefWidth="30.0" text="S.Fin" />
-                                          <Slider fx:id="sl_semf">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </Slider>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="30.0" prefWidth="150.0">
-                                       <children>
-                                          <Button fx:id="bt_aceptar" contentDisplay="CENTER" mnemonicParsing="false" text="Aplicar" textAlignment="CENTER">
-                                             <HBox.margin>
-                                                <Insets left="50.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="150.0">
-                                       <children>
-                                          <HBox>
-                                             <children>
-                                                <Label text="LCS:" />
-                                                <Label fx:id="lb_lcs" layoutX="10.0" layoutY="10.0">
-                                                   <HBox.margin>
-                                                      <Insets left="5.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </HBox>
-                                          <HBox layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <Label text="LCI:" />
-                                                <Label fx:id="lb_lci" layoutX="10.0" layoutY="10.0">
-                                                   <HBox.margin>
-                                                      <Insets left="5.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </HBox>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="150.0">
-                                       <children>
-                                          <HBox>
-                                             <children>
-                                                <Label text="X--:" />
-                                                <Label fx:id="Xm" layoutX="10.0" layoutY="10.0">
-                                                   <HBox.margin>
-                                                      <Insets left="5.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </HBox>
-                                          <HBox layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <Label text="R--:" />
-                                                <Label fx:id="Rm" layoutX="10.0" layoutY="10.0">
-                                                   <HBox.margin>
-                                                      <Insets left="5.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets left="14.0" />
-                                             </HBox.margin>
-                                          </HBox>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="50.0" prefHeight="320.0" prefWidth="150.0">
-                                       <children>
-                                          <TableView fx:id="tb_query" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
+                                    </VBox>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </VBox>
+                                 <VBox.margin>
+                                    <Insets top="4.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <Button fx:id="bt_aceptar" contentDisplay="CENTER" mnemonicParsing="false" text="Aplicar" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
-</VBox>
-<VBox layoutX="10.0" layoutY="10.0" prefWidth="580.0">
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox><HBox prefHeight="450.0">
+<children>
+<VBox layoutX="10.0" layoutY="10.0" prefWidth="766.0">
 <HBox.margin>
 <Insets />
 </HBox.margin>
 <padding>
-<Insets left="7.0" top="20.0" />
+<Insets left="7.0" />
 </padding>
                      <children>
                         <HBox prefHeight="260.0">
                            <children>
-                              <LineChart fx:id="lc_grax" prefWidth="560.0" title="(X)">
+                              <LineChart fx:id="lc_grax" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -288,7 +285,7 @@
                         </HBox>
                         <HBox layoutX="17.0" layoutY="38.0" prefHeight="260.0">
                            <children>
-                              <LineChart fx:id="lc_grar" prefWidth="560.0" title="(R)">
+                              <LineChart fx:id="lc_grar" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>

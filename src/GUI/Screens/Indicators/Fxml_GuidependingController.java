@@ -8,10 +8,17 @@ package GUI.Screens.Indicators;
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
+import Objects.Indicators.Zsi_nros_sem;
+import Objects.Indicators.Zsi_nros_sem_avg;
+import Objects.Indicators.Zsi_nros_sem_day;
+import Objects.Indicators.Zsi_nros_sem_r;
 import Objects.Reports.Dev_FaltCarga;
 import Tools.Datos;
 import java.io.File;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -20,13 +27,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -35,22 +44,24 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
+import javafx.scene.paint.Color;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -126,10 +137,16 @@ public class Fxml_GuidependingController implements Initializable {
     private Label lb_Title;
 
     @FXML
-    private Label lb_lcs;
+    private Label lb_lcsx;
 
     @FXML
-    private Label lb_lci;
+    private Label lb_lcsr;
+
+    @FXML
+    private Label lb_lcix;
+
+    @FXML
+    private Label lb_lcir;
 
     @FXML
     private Label lb_Xm;
@@ -144,13 +161,19 @@ public class Fxml_GuidependingController implements Initializable {
     private LineChart<?, ?> lc_grar;
     
     @FXML
-    private Slider sl_semf;
-
-    @FXML
     private Slider sl_semi;
     
     @FXML
-    private TableView<?> tb_query;
+    private Slider sl_semf;
+
+    @FXML
+    private ScrollBar sbh_table;
+    
+    @FXML
+    private TableView<Zsi_nros_sem_avg> tb_queryX;
+
+    @FXML
+    private TableView<Zsi_nros_sem_r> tb_queryR;
 
     @FXML
     private TextField tf_buscar;
@@ -195,8 +218,22 @@ public class Fxml_GuidependingController implements Initializable {
     private File file;    
 
     private static int numGuias         = 0; 
+
+    private static final CategoryAxis xAxis = new CategoryAxis();
+    private static final NumberAxis yAxis = new NumberAxis();
+
+    private static XYChart.Series seriesX1 = new XYChart.Series();
+    private static XYChart.Series seriesX2 = new XYChart.Series();
+    private static XYChart.Series seriesX3 = new XYChart.Series();
+    private static XYChart.Series seriesX4 = new XYChart.Series();
+
+    private static XYChart.Series seriesR1 = new XYChart.Series();
+    private static XYChart.Series seriesR2 = new XYChart.Series();
+    private static XYChart.Series seriesR3 = new XYChart.Series();
+    private static XYChart.Series seriesR4 = new XYChart.Series();
     
-    private static final ObservableList<Dev_FaltCarga> sqlQuery = FXCollections.observableArrayList();
+    private static final ObservableList<Zsi_nros_sem_avg> sqlQueryX = FXCollections.observableArrayList();
+    private static final ObservableList<Zsi_nros_sem_avg> sqlQueryR = FXCollections.observableArrayList();
 
     private static final String ScreenName = "Consulta";
     
@@ -226,18 +263,27 @@ public class Fxml_GuidependingController implements Initializable {
         assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
         assert lb_mensj != null : "fx:id=\"lb_mensj\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
         assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_lcsx != null : "fx:id=\"lb_lcsx\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_lcix != null : "fx:id=\"lb_lcix\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_lcsr != null : "fx:id=\"lb_lcsr\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert lb_lcir != null : "fx:id=\"lb_lcir\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert sl_semi != null : "fx:id=\"sl_semi\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert sl_semf != null : "fx:id=\"sl_semf\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert sbh_table != null : "fx:id=\"sbh_table\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
+        assert tb_queryX != null : "fx:id=\"tb_queryX\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
+        assert tb_queryR != null : "fx:id=\"tb_queryR\" was not injected: check your FXML file 'Fxml_Guide.fxml'.";
         assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
         assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
         assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_Rep_FaltCargaController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
-        defineToolBar();         
-        defineBotonBuscar();    
+//        defineToolBar();         
+//        defineBotonBuscar();    
         init_buttons(); //Establece los comportamientos de los botones
 
         loadYear();      
-//        createTableQuery();
+        createTableQueryX();
+        createTableQueryR();
 
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
@@ -287,115 +333,238 @@ public class Fxml_GuidependingController implements Initializable {
     /**
     * Metodo encargado de Crear e inicializar la Tabla de Datos
     */
-    private void createTableQuery(){
+    private void createTableQueryX(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn col_orden       = new TableColumn("#");
-        TableColumn col_guia         = new TableColumn("G.Falt");
-        TableColumn col_fecha       = new TableColumn("Fecha");        
-        TableColumn col_nombre      = new TableColumn("Nombre del Chofer");        
-        TableColumn col_numrela     = new TableColumn("Nro. Relación");        
+        TableColumn col_ano         = new TableColumn("#");
+        TableColumn col_sem01       = new TableColumn("01");
+        TableColumn col_sem02       = new TableColumn("02");
+        TableColumn col_sem03       = new TableColumn("03");
+        TableColumn col_sem04       = new TableColumn("04");
+        TableColumn col_sem05       = new TableColumn("05");
+        TableColumn col_sem06       = new TableColumn("06");
+        TableColumn col_sem07       = new TableColumn("07");
+        TableColumn col_sem08       = new TableColumn("08");
+        TableColumn col_sem09       = new TableColumn("09");
+        TableColumn col_sem10       = new TableColumn("10");
+        TableColumn col_sem11       = new TableColumn("11");
+        TableColumn col_sem12       = new TableColumn("12");
+        TableColumn col_sem13       = new TableColumn("13");
+        TableColumn col_sem14       = new TableColumn("14");
+        TableColumn col_sem15       = new TableColumn("15");
+        TableColumn col_sem16       = new TableColumn("16");
+        TableColumn col_sem17       = new TableColumn("17");
+        TableColumn col_sem18       = new TableColumn("18");
+        TableColumn col_sem19       = new TableColumn("19");
+        TableColumn col_sem20       = new TableColumn("20");
+        TableColumn col_sem21       = new TableColumn("21");
+        TableColumn col_sem22       = new TableColumn("22");
+        TableColumn col_sem23       = new TableColumn("23");
+        TableColumn col_sem24       = new TableColumn("24");
+        TableColumn col_sem25       = new TableColumn("25");
+        TableColumn col_sem26       = new TableColumn("26");
+        TableColumn col_sem27       = new TableColumn("27");
+        TableColumn col_sem28       = new TableColumn("28");
+        TableColumn col_sem29       = new TableColumn("29");
+        TableColumn col_sem30       = new TableColumn("30");
+        TableColumn col_sem31       = new TableColumn("31");
+        TableColumn col_sem32       = new TableColumn("32");
+        TableColumn col_sem33       = new TableColumn("33");
+        TableColumn col_sem34       = new TableColumn("34");
+        TableColumn col_sem35       = new TableColumn("35");
+        TableColumn col_sem36       = new TableColumn("36");
+        TableColumn col_sem37       = new TableColumn("37");
+        TableColumn col_sem38       = new TableColumn("38");
+        TableColumn col_sem39       = new TableColumn("39");
+        TableColumn col_sem40       = new TableColumn("40");
+        TableColumn col_sem41       = new TableColumn("41");
+        TableColumn col_sem42       = new TableColumn("42");
+        TableColumn col_sem43       = new TableColumn("43");
+        TableColumn col_sem44       = new TableColumn("44");
+        TableColumn col_sem45       = new TableColumn("45");
+        TableColumn col_sem46       = new TableColumn("46");
+        TableColumn col_sem47       = new TableColumn("47");
+        TableColumn col_sem48       = new TableColumn("48");
+        TableColumn col_sem49       = new TableColumn("49");
+        TableColumn col_sem50       = new TableColumn("50");
+        TableColumn col_sem51       = new TableColumn("51");
+        TableColumn col_sem52       = new TableColumn("52");
+        TableColumn col_sem53       = new TableColumn("53");
         
         //Se establece el ancho de cada columna
-        this.objectWidth(col_orden          , 36,   36);  
-        this.objectWidth(col_guia           , 60,   60); 
-        this.objectWidth(col_fecha          , 80,   80);  
-        this.objectWidth(col_nombre         , 290,  290);  
-        this.objectWidth(col_numrela        , 90,   90);  
-
-        col_guia.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Dev_FaltCarga, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_fecha.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Dev_FaltCarga, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_numrela.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Dev_FaltCarga, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
+        this.objectWidth(col_ano            ,45,   45);
+        this.objectWidth(col_sem01          ,45,   45);  
+        this.objectWidth(col_sem02          ,45,   45); 
+        this.objectWidth(col_sem03          ,45,   45);  
+        this.objectWidth(col_sem04          ,45,   45);  
+        this.objectWidth(col_sem05          ,45,   45);  
+        this.objectWidth(col_sem06          ,45,   45);  
+        this.objectWidth(col_sem07          ,45,   45); 
+        this.objectWidth(col_sem08          ,45,   45);  
+        this.objectWidth(col_sem09          ,45,   45);  
+        this.objectWidth(col_sem10          ,45,   45);  
+        this.objectWidth(col_sem11          ,45,   45);  
+        this.objectWidth(col_sem12          ,45,   45); 
+        this.objectWidth(col_sem13          ,45,   45);  
+        this.objectWidth(col_sem14          ,45,   45);  
+        this.objectWidth(col_sem15          ,45,   45);  
+        this.objectWidth(col_sem16          ,45,   45);  
+        this.objectWidth(col_sem17          ,45,   45); 
+        this.objectWidth(col_sem18          ,45,   45);  
+        this.objectWidth(col_sem19          ,45,   45);  
+        this.objectWidth(col_sem20          ,45,   45);  
+        this.objectWidth(col_sem21          ,45,   45);  
+        this.objectWidth(col_sem22          ,45,   45); 
+        this.objectWidth(col_sem23          ,45,   45);  
+        this.objectWidth(col_sem24          ,45,   45);  
+        this.objectWidth(col_sem25          ,45,   45);  
+        this.objectWidth(col_sem26          ,45,   45);  
+        this.objectWidth(col_sem27          ,45,   45); 
+        this.objectWidth(col_sem28          ,45,   45);  
+        this.objectWidth(col_sem29          ,45,   45);  
+        this.objectWidth(col_sem30          ,45,   45);  
+        this.objectWidth(col_sem31          ,45,   45);  
+        this.objectWidth(col_sem32          ,45,   45); 
+        this.objectWidth(col_sem33          ,45,   45);  
+        this.objectWidth(col_sem34          ,45,   45);  
+        this.objectWidth(col_sem35          ,45,   45);  
+        this.objectWidth(col_sem36          ,45,   45);  
+        this.objectWidth(col_sem37          ,45,   45); 
+        this.objectWidth(col_sem38          ,45,   45);  
+        this.objectWidth(col_sem39          ,45,   45);  
+        this.objectWidth(col_sem40          ,45,   45);  
+        this.objectWidth(col_sem41          ,45,   45);  
+        this.objectWidth(col_sem42          ,45,   45); 
+        this.objectWidth(col_sem43          ,45,   45);  
+        this.objectWidth(col_sem44          ,45,   45);  
+        this.objectWidth(col_sem45          ,45,   45);  
+        this.objectWidth(col_sem46          ,45,   45);  
+        this.objectWidth(col_sem47          ,45,   45); 
+        this.objectWidth(col_sem48          ,45,   45);  
+        this.objectWidth(col_sem49          ,45,   45);  
+        this.objectWidth(col_sem50          ,45,   45);  
+        this.objectWidth(col_sem51          ,45,   45);  
+        this.objectWidth(col_sem52          ,45,   45); 
+        this.objectWidth(col_sem53          ,45,   45);  
 
 
         //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
-        col_orden.setCellValueFactory( 
-                new PropertyValueFactory<>("numorden") );
-        col_guia.setCellValueFactory( 
-                new PropertyValueFactory<>("guiafalt") );
-        col_fecha.setCellValueFactory( 
-                new PropertyValueFactory<>("fecha") );
-        col_nombre.setCellValueFactory( 
-                new PropertyValueFactory<>("chofer") );
-        col_numrela.setCellValueFactory( 
-                new PropertyValueFactory<>("numrela") );
+        col_ano.setCellValueFactory( 
+                new PropertyValueFactory<>("ano") );
+        col_sem01.setCellValueFactory( 
+                new PropertyValueFactory<>("sem01") );
+        col_sem02.setCellValueFactory( 
+                new PropertyValueFactory<>("sem02") );
+        col_sem03.setCellValueFactory( 
+                new PropertyValueFactory<>("sem03") );
+        col_sem04.setCellValueFactory( 
+                new PropertyValueFactory<>("sem04") );
+        col_sem05.setCellValueFactory( 
+                new PropertyValueFactory<>("sem05") );
+        col_sem06.setCellValueFactory( 
+                new PropertyValueFactory<>("sem06") );
+        col_sem07.setCellValueFactory( 
+                new PropertyValueFactory<>("sem07") );
+        col_sem08.setCellValueFactory( 
+                new PropertyValueFactory<>("sem08") );
+        col_sem09.setCellValueFactory( 
+                new PropertyValueFactory<>("sem09") );
+        col_sem10.setCellValueFactory( 
+                new PropertyValueFactory<>("sem10") );
+        col_sem11.setCellValueFactory( 
+                new PropertyValueFactory<>("sem11") );
+        col_sem12.setCellValueFactory( 
+                new PropertyValueFactory<>("sem12") );
+        col_sem13.setCellValueFactory( 
+                new PropertyValueFactory<>("sem13") );
+        col_sem14.setCellValueFactory( 
+                new PropertyValueFactory<>("sem14") );
+        col_sem15.setCellValueFactory( 
+                new PropertyValueFactory<>("sem15") );
+        col_sem16.setCellValueFactory( 
+                new PropertyValueFactory<>("sem16") );
+        col_sem17.setCellValueFactory( 
+                new PropertyValueFactory<>("sem17") );
+        col_sem18.setCellValueFactory( 
+                new PropertyValueFactory<>("sem18") );
+        col_sem19.setCellValueFactory( 
+                new PropertyValueFactory<>("sem19") );
+        col_sem20.setCellValueFactory( 
+                new PropertyValueFactory<>("sem20") );
+        col_sem21.setCellValueFactory( 
+                new PropertyValueFactory<>("sem21") );
+        col_sem22.setCellValueFactory( 
+                new PropertyValueFactory<>("sem22") );
+        col_sem23.setCellValueFactory( 
+                new PropertyValueFactory<>("sem23") );
+        col_sem24.setCellValueFactory( 
+                new PropertyValueFactory<>("sem24") );
+        col_sem25.setCellValueFactory( 
+                new PropertyValueFactory<>("sem25") );
+        col_sem26.setCellValueFactory( 
+                new PropertyValueFactory<>("sem26") );
+        col_sem27.setCellValueFactory( 
+                new PropertyValueFactory<>("sem27") );
+        col_sem28.setCellValueFactory( 
+                new PropertyValueFactory<>("sem28") );
+        col_sem29.setCellValueFactory( 
+                new PropertyValueFactory<>("sem29") );
+        col_sem30.setCellValueFactory( 
+                new PropertyValueFactory<>("sem30") );
+        col_sem31.setCellValueFactory( 
+                new PropertyValueFactory<>("sem31") );
+        col_sem32.setCellValueFactory( 
+                new PropertyValueFactory<>("sem32") );
+        col_sem33.setCellValueFactory( 
+                new PropertyValueFactory<>("sem33") );
+        col_sem34.setCellValueFactory( 
+                new PropertyValueFactory<>("sem34") );
+        col_sem35.setCellValueFactory( 
+                new PropertyValueFactory<>("sem35") );
+        col_sem36.setCellValueFactory( 
+                new PropertyValueFactory<>("sem36") );
+        col_sem37.setCellValueFactory( 
+                new PropertyValueFactory<>("sem37") );
+        col_sem38.setCellValueFactory( 
+                new PropertyValueFactory<>("sem38") );
+        col_sem39.setCellValueFactory( 
+                new PropertyValueFactory<>("sem39") );
+        col_sem40.setCellValueFactory( 
+                new PropertyValueFactory<>("sem40") );
+        col_sem41.setCellValueFactory( 
+                new PropertyValueFactory<>("sem41") );
+        col_sem42.setCellValueFactory( 
+                new PropertyValueFactory<>("sem42") );
+        col_sem43.setCellValueFactory( 
+                new PropertyValueFactory<>("sem43") );
+        col_sem44.setCellValueFactory( 
+                new PropertyValueFactory<>("sem44") );
+        col_sem45.setCellValueFactory( 
+                new PropertyValueFactory<>("sem45") );
+        col_sem46.setCellValueFactory( 
+                new PropertyValueFactory<>("sem46") );
+        col_sem47.setCellValueFactory( 
+                new PropertyValueFactory<>("sem47") );
+        col_sem48.setCellValueFactory( 
+                new PropertyValueFactory<>("sem48") );
+        col_sem49.setCellValueFactory( 
+                new PropertyValueFactory<>("sem49") );
+        col_sem50.setCellValueFactory( 
+                new PropertyValueFactory<>("sem50") );
+        col_sem51.setCellValueFactory( 
+                new PropertyValueFactory<>("sem51") );
+        col_sem52.setCellValueFactory( 
+                new PropertyValueFactory<>("sem52") );
+        col_sem53.setCellValueFactory( 
+                new PropertyValueFactory<>("sem53") );
         
         //Se Asigna ordenadamente las columnas de la tabla
-        tb_query.getColumns().addAll(
-                col_orden, col_guia, col_fecha, col_nombre, col_numrela
+        tb_queryX.getColumns().addAll(
+                col_sem01, col_sem02, col_sem03, col_sem04, col_sem05, col_sem06, col_sem07, col_sem08, col_sem09, col_sem10,
+                col_sem11, col_sem12, col_sem13, col_sem14, col_sem15, col_sem16, col_sem17, col_sem18, col_sem19, col_sem20,
+                col_sem21, col_sem22, col_sem23, col_sem24, col_sem25, col_sem26, col_sem27, col_sem28, col_sem29, col_sem30,
+                col_sem31, col_sem32, col_sem33, col_sem34, col_sem35, col_sem36, col_sem37, col_sem38, col_sem39, col_sem40,
+                col_sem41, col_sem42, col_sem43, col_sem44, col_sem45, col_sem46, col_sem47, col_sem48, col_sem49, col_sem50,
+                col_sem51, col_sem52, col_sem53
                 );                
         
         //Se Asigna menu contextual 
@@ -412,7 +581,260 @@ public class Fxml_GuidependingController implements Initializable {
             }
         };
         //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_query.setOnKeyReleased(eh);    
+        tb_queryX.setOnKeyReleased(eh);
+    }
+    /**
+    * Metodo encargado de Crear e inicializar la Tabla de Datos
+    */
+    private void createTableQueryR(){
+        //Se crean y definen las columnas de la Tabla
+        TableColumn col_ano         = new TableColumn("#");
+        TableColumn col_sem01       = new TableColumn("01");
+        TableColumn col_sem02       = new TableColumn("02");
+        TableColumn col_sem03       = new TableColumn("03");
+        TableColumn col_sem04       = new TableColumn("04");
+        TableColumn col_sem05       = new TableColumn("05");
+        TableColumn col_sem06       = new TableColumn("06");
+        TableColumn col_sem07       = new TableColumn("07");
+        TableColumn col_sem08       = new TableColumn("08");
+        TableColumn col_sem09       = new TableColumn("09");
+        TableColumn col_sem10       = new TableColumn("10");
+        TableColumn col_sem11       = new TableColumn("11");
+        TableColumn col_sem12       = new TableColumn("12");
+        TableColumn col_sem13       = new TableColumn("13");
+        TableColumn col_sem14       = new TableColumn("14");
+        TableColumn col_sem15       = new TableColumn("15");
+        TableColumn col_sem16       = new TableColumn("16");
+        TableColumn col_sem17       = new TableColumn("17");
+        TableColumn col_sem18       = new TableColumn("18");
+        TableColumn col_sem19       = new TableColumn("19");
+        TableColumn col_sem20       = new TableColumn("20");
+        TableColumn col_sem21       = new TableColumn("21");
+        TableColumn col_sem22       = new TableColumn("22");
+        TableColumn col_sem23       = new TableColumn("23");
+        TableColumn col_sem24       = new TableColumn("24");
+        TableColumn col_sem25       = new TableColumn("25");
+        TableColumn col_sem26       = new TableColumn("26");
+        TableColumn col_sem27       = new TableColumn("27");
+        TableColumn col_sem28       = new TableColumn("28");
+        TableColumn col_sem29       = new TableColumn("29");
+        TableColumn col_sem30       = new TableColumn("30");
+        TableColumn col_sem31       = new TableColumn("31");
+        TableColumn col_sem32       = new TableColumn("32");
+        TableColumn col_sem33       = new TableColumn("33");
+        TableColumn col_sem34       = new TableColumn("34");
+        TableColumn col_sem35       = new TableColumn("35");
+        TableColumn col_sem36       = new TableColumn("36");
+        TableColumn col_sem37       = new TableColumn("37");
+        TableColumn col_sem38       = new TableColumn("38");
+        TableColumn col_sem39       = new TableColumn("39");
+        TableColumn col_sem40       = new TableColumn("40");
+        TableColumn col_sem41       = new TableColumn("41");
+        TableColumn col_sem42       = new TableColumn("42");
+        TableColumn col_sem43       = new TableColumn("43");
+        TableColumn col_sem44       = new TableColumn("44");
+        TableColumn col_sem45       = new TableColumn("45");
+        TableColumn col_sem46       = new TableColumn("46");
+        TableColumn col_sem47       = new TableColumn("47");
+        TableColumn col_sem48       = new TableColumn("48");
+        TableColumn col_sem49       = new TableColumn("49");
+        TableColumn col_sem50       = new TableColumn("50");
+        TableColumn col_sem51       = new TableColumn("51");
+        TableColumn col_sem52       = new TableColumn("52");
+        TableColumn col_sem53       = new TableColumn("53");
+        
+        //Se establece el ancho de cada columna
+        this.objectWidth(col_ano            ,45,   45);
+        this.objectWidth(col_sem01          ,45,   45);  
+        this.objectWidth(col_sem02          ,45,   45); 
+        this.objectWidth(col_sem03          ,45,   45);  
+        this.objectWidth(col_sem04          ,45,   45);  
+        this.objectWidth(col_sem05          ,45,   45);  
+        this.objectWidth(col_sem06          ,45,   45);  
+        this.objectWidth(col_sem07          ,45,   45); 
+        this.objectWidth(col_sem08          ,45,   45);  
+        this.objectWidth(col_sem09          ,45,   45);  
+        this.objectWidth(col_sem10          ,45,   45);  
+        this.objectWidth(col_sem11          ,45,   45);  
+        this.objectWidth(col_sem12          ,45,   45); 
+        this.objectWidth(col_sem13          ,45,   45);  
+        this.objectWidth(col_sem14          ,45,   45);  
+        this.objectWidth(col_sem15          ,45,   45);  
+        this.objectWidth(col_sem16          ,45,   45);  
+        this.objectWidth(col_sem17          ,45,   45); 
+        this.objectWidth(col_sem18          ,45,   45);  
+        this.objectWidth(col_sem19          ,45,   45);  
+        this.objectWidth(col_sem20          ,45,   45);  
+        this.objectWidth(col_sem21          ,45,   45);  
+        this.objectWidth(col_sem22          ,45,   45); 
+        this.objectWidth(col_sem23          ,45,   45);  
+        this.objectWidth(col_sem24          ,45,   45);  
+        this.objectWidth(col_sem25          ,45,   45);  
+        this.objectWidth(col_sem26          ,45,   45);  
+        this.objectWidth(col_sem27          ,45,   45); 
+        this.objectWidth(col_sem28          ,45,   45);  
+        this.objectWidth(col_sem29          ,45,   45);  
+        this.objectWidth(col_sem30          ,45,   45);  
+        this.objectWidth(col_sem31          ,45,   45);  
+        this.objectWidth(col_sem32          ,45,   45); 
+        this.objectWidth(col_sem33          ,45,   45);  
+        this.objectWidth(col_sem34          ,45,   45);  
+        this.objectWidth(col_sem35          ,45,   45);  
+        this.objectWidth(col_sem36          ,45,   45);  
+        this.objectWidth(col_sem37          ,45,   45); 
+        this.objectWidth(col_sem38          ,45,   45);  
+        this.objectWidth(col_sem39          ,45,   45);  
+        this.objectWidth(col_sem40          ,45,   45);  
+        this.objectWidth(col_sem41          ,45,   45);  
+        this.objectWidth(col_sem42          ,45,   45); 
+        this.objectWidth(col_sem43          ,45,   45);  
+        this.objectWidth(col_sem44          ,45,   45);  
+        this.objectWidth(col_sem45          ,45,   45);  
+        this.objectWidth(col_sem46          ,45,   45);  
+        this.objectWidth(col_sem47          ,45,   45); 
+        this.objectWidth(col_sem48          ,45,   45);  
+        this.objectWidth(col_sem49          ,45,   45);  
+        this.objectWidth(col_sem50          ,45,   45);  
+        this.objectWidth(col_sem51          ,45,   45);  
+        this.objectWidth(col_sem52          ,45,   45); 
+        this.objectWidth(col_sem53          ,45,   45);  
+
+
+        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
+        col_ano.setCellValueFactory( 
+                new PropertyValueFactory<>("ano") );
+        col_sem01.setCellValueFactory( 
+                new PropertyValueFactory<>("sem01") );
+        col_sem02.setCellValueFactory( 
+                new PropertyValueFactory<>("sem02") );
+        col_sem03.setCellValueFactory( 
+                new PropertyValueFactory<>("sem03") );
+        col_sem04.setCellValueFactory( 
+                new PropertyValueFactory<>("sem04") );
+        col_sem05.setCellValueFactory( 
+                new PropertyValueFactory<>("sem05") );
+        col_sem06.setCellValueFactory( 
+                new PropertyValueFactory<>("sem06") );
+        col_sem07.setCellValueFactory( 
+                new PropertyValueFactory<>("sem07") );
+        col_sem08.setCellValueFactory( 
+                new PropertyValueFactory<>("sem08") );
+        col_sem09.setCellValueFactory( 
+                new PropertyValueFactory<>("sem09") );
+        col_sem10.setCellValueFactory( 
+                new PropertyValueFactory<>("sem10") );
+        col_sem11.setCellValueFactory( 
+                new PropertyValueFactory<>("sem11") );
+        col_sem12.setCellValueFactory( 
+                new PropertyValueFactory<>("sem12") );
+        col_sem13.setCellValueFactory( 
+                new PropertyValueFactory<>("sem13") );
+        col_sem14.setCellValueFactory( 
+                new PropertyValueFactory<>("sem14") );
+        col_sem15.setCellValueFactory( 
+                new PropertyValueFactory<>("sem15") );
+        col_sem16.setCellValueFactory( 
+                new PropertyValueFactory<>("sem16") );
+        col_sem17.setCellValueFactory( 
+                new PropertyValueFactory<>("sem17") );
+        col_sem18.setCellValueFactory( 
+                new PropertyValueFactory<>("sem18") );
+        col_sem19.setCellValueFactory( 
+                new PropertyValueFactory<>("sem19") );
+        col_sem20.setCellValueFactory( 
+                new PropertyValueFactory<>("sem20") );
+        col_sem21.setCellValueFactory( 
+                new PropertyValueFactory<>("sem21") );
+        col_sem22.setCellValueFactory( 
+                new PropertyValueFactory<>("sem22") );
+        col_sem23.setCellValueFactory( 
+                new PropertyValueFactory<>("sem23") );
+        col_sem24.setCellValueFactory( 
+                new PropertyValueFactory<>("sem24") );
+        col_sem25.setCellValueFactory( 
+                new PropertyValueFactory<>("sem25") );
+        col_sem26.setCellValueFactory( 
+                new PropertyValueFactory<>("sem26") );
+        col_sem27.setCellValueFactory( 
+                new PropertyValueFactory<>("sem27") );
+        col_sem28.setCellValueFactory( 
+                new PropertyValueFactory<>("sem28") );
+        col_sem29.setCellValueFactory( 
+                new PropertyValueFactory<>("sem29") );
+        col_sem30.setCellValueFactory( 
+                new PropertyValueFactory<>("sem30") );
+        col_sem31.setCellValueFactory( 
+                new PropertyValueFactory<>("sem31") );
+        col_sem32.setCellValueFactory( 
+                new PropertyValueFactory<>("sem32") );
+        col_sem33.setCellValueFactory( 
+                new PropertyValueFactory<>("sem33") );
+        col_sem34.setCellValueFactory( 
+                new PropertyValueFactory<>("sem34") );
+        col_sem35.setCellValueFactory( 
+                new PropertyValueFactory<>("sem35") );
+        col_sem36.setCellValueFactory( 
+                new PropertyValueFactory<>("sem36") );
+        col_sem37.setCellValueFactory( 
+                new PropertyValueFactory<>("sem37") );
+        col_sem38.setCellValueFactory( 
+                new PropertyValueFactory<>("sem38") );
+        col_sem39.setCellValueFactory( 
+                new PropertyValueFactory<>("sem39") );
+        col_sem40.setCellValueFactory( 
+                new PropertyValueFactory<>("sem40") );
+        col_sem41.setCellValueFactory( 
+                new PropertyValueFactory<>("sem41") );
+        col_sem42.setCellValueFactory( 
+                new PropertyValueFactory<>("sem42") );
+        col_sem43.setCellValueFactory( 
+                new PropertyValueFactory<>("sem43") );
+        col_sem44.setCellValueFactory( 
+                new PropertyValueFactory<>("sem44") );
+        col_sem45.setCellValueFactory( 
+                new PropertyValueFactory<>("sem45") );
+        col_sem46.setCellValueFactory( 
+                new PropertyValueFactory<>("sem46") );
+        col_sem47.setCellValueFactory( 
+                new PropertyValueFactory<>("sem47") );
+        col_sem48.setCellValueFactory( 
+                new PropertyValueFactory<>("sem48") );
+        col_sem49.setCellValueFactory( 
+                new PropertyValueFactory<>("sem49") );
+        col_sem50.setCellValueFactory( 
+                new PropertyValueFactory<>("sem50") );
+        col_sem51.setCellValueFactory( 
+                new PropertyValueFactory<>("sem51") );
+        col_sem52.setCellValueFactory( 
+                new PropertyValueFactory<>("sem52") );
+        col_sem53.setCellValueFactory( 
+                new PropertyValueFactory<>("sem53") );
+        
+        //Se Asigna ordenadamente las columnas de la tabla
+        tb_queryR.getColumns().addAll(
+                col_sem01, col_sem02, col_sem03, col_sem04, col_sem05, col_sem06, col_sem07, col_sem08, col_sem09, col_sem10,
+                col_sem11, col_sem12, col_sem13, col_sem14, col_sem15, col_sem16, col_sem17, col_sem18, col_sem19, col_sem20,
+                col_sem21, col_sem22, col_sem23, col_sem24, col_sem25, col_sem26, col_sem27, col_sem28, col_sem29, col_sem30,
+                col_sem31, col_sem32, col_sem33, col_sem34, col_sem35, col_sem36, col_sem37, col_sem38, col_sem39, col_sem40,
+                col_sem41, col_sem42, col_sem43, col_sem44, col_sem45, col_sem46, col_sem47, col_sem48, col_sem49, col_sem50,
+                col_sem51, col_sem52, col_sem53
+                );                
+        
+        //Se Asigna menu contextual 
+
+        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
+        EventHandler eh = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent ke){
+                //Si fue presionado la tecla ARRIBA o ABAJO
+                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
+                    //Selecciona la FILA enfocada
+                    //selectedRowInvoice();
+                }
+            }
+        };
+        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
+        tb_queryR.setOnKeyReleased(eh);
     }
     /**
      * Procedimiento encargado de refrescar el formulario de la pantalla,
@@ -474,11 +896,21 @@ public class Fxml_GuidependingController implements Initializable {
     /**
      * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadTableQuery(Dev_FaltCarga[] sqlQuery){    
+    private void loadTableQueryX(Zsi_nros_sem_avg[] sqlQuery){    
         if(sqlQuery != null){
-            ObservableList<Dev_FaltCarga> data = FXCollections.observableArrayList();        
+            ObservableList<Zsi_nros_sem_avg> data = FXCollections.observableArrayList();        
             data.addAll(Arrays.asList(sqlQuery));        
-//            tb_query.setItems(data);        
+            tb_queryX.setItems(data);        
+        }
+    } 
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadTableQueryR(Zsi_nros_sem_r[] sqlQuery){    
+        if(sqlQuery != null){
+            ObservableList<Zsi_nros_sem_r> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(sqlQuery));        
+            tb_queryR.setItems(data);        
         }
     } 
 
@@ -703,87 +1135,555 @@ public class Fxml_GuidependingController implements Initializable {
      * de cada boton en la pantalla actual.
      */
     private void init_buttons(){
+        tb_queryR.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                Pane header = (Pane) tb_queryR.lookup("TableHeaderRow");
+                if (header.isVisible()){
+                    header.setMaxHeight(0);
+                    header.setMinHeight(0);
+                    header.setPrefHeight(0);
+                    header.setVisible(false);
+                }
+            }
+        });        
         /**
          * BOTON EXECUTE
          */
         bt_aceptar.setOnAction((ActionEvent event) -> {
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
+            int year = 0;
+            int sem = 0;
 
+            double A2 = .483;
+            double D3 = 0;
+            double D4 = 2.004;
+            
+            double Xm = 0;
+            double lcsX = 0;
+            double lciX = 0;
+
+            double Rm = 0;
+            double lcsR = 0;
+            double lciR = 0;
+
+            if (cb_ano.getValue() != null)
+                year = cb_ano.getValue();
+
+            NumberFormat df = DecimalFormat.getInstance();
+            df.setMinimumFractionDigits(2);
+            df.setRoundingMode(RoundingMode.DOWN);
+
+            Zsi_nros_sem[] zsi_nros_sem_avgv = Ln.getInstance().find_Zsi_nros_sem(year);
+            Zsi_nros_sem_avg[] zsi_nros_sem_avg = Ln.getInstance().find_Zsi_nros_sem_avg(year);
+            Zsi_nros_sem_day[] zsi_nros_sem_day = Ln.getInstance().find_Zsi_nros_sem_day(year);
+            Zsi_nros_sem_r[] zsi_nros_sem_r = Ln.getInstance().find_Zsi_nros_sem_r(year);
+
+            sqlQueryX.addAll(zsi_nros_sem_avg);
+            
+            Datos.setInd_zsi_nros_sem_avg(zsi_nros_sem_avg);
+            loadTableQueryX(Datos.getInd_zsi_nros_sem_avg());
+
+            Datos.setInd_zsi_nros_sem_r(zsi_nros_sem_r);
+            loadTableQueryR(Datos.getInd_zsi_nros_sem_r());
+            
+            Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+            int currentWeekOfYear = localCalendar.get(Calendar.WEEK_OF_YEAR);
+            
+            for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
+                if(i <= currentWeekOfYear){
+                    if(zsi_nros_sem_avgv[i].getXm() != 0){
+                        sem += 1;
+                        Xm += zsi_nros_sem_avgv[i].getXm();
+                    }
+                    if(zsi_nros_sem_avgv[i].getRm()!= 0){
+                        Rm += zsi_nros_sem_avgv[i].getRm();
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+            sl_semf.setValue(sem);
+
+            Xm = Xm / sem;
+            String xm = Double.toString(Xm);
+            lb_Xm.setText(df.format(Double.parseDouble(xm)));
+
+            Rm = Rm / sem;
+            String rm = Double.toString(Rm);
+            lb_Rm.setText(df.format(Double.parseDouble(rm)));
+
+            for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
+                if(i <= currentWeekOfYear){
+                    if(zsi_nros_sem_avgv[i].getXm() != 0){
+                        lcsX = zsi_nros_sem_avgv[i].getXm() + (A2 * Rm);
+                        lciX = zsi_nros_sem_avgv[i].getXm() - (A2 * Rm);
+                    }
+                    if(zsi_nros_sem_avgv[i].getRm() != 0){
+                        lcsR = (D4 * Rm);
+                        lciR = (D3 * Rm);
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+            String lcsx = Double.toString(lcsX);
+            lb_lcsx.setText(df.format(Double.parseDouble(lcsx)));
+            String lcix = Double.toString(lciX);
+            lb_lcix.setText(df.format(Double.parseDouble(lcix)));
+
+            String lcsr = Double.toString(lcsR);
+            lb_lcsr.setText(df.format(Double.parseDouble(lcsr)));
+            String lcir = Double.toString(lciR);
+            lb_lcir.setText(df.format(Double.parseDouble(lcir)));
+            
+            
+            lc_grax.getData().clear();
             xAxis.setLabel("Semanas");       
-
-//            final LineChart<String,Number> lineChart = 
-//                    new LineChart<String,Number>(xAxis,yAxis);
-
-//            lc_grax = new LineChart<String,Number>(xAxis,yAxis);
             
-            lc_grax.setTitle("Guias Pendientes / Semana");
+            seriesX1.setName("LCS");
+            seriesX1.getData().add(new XYChart.Data("2", lcsX));
+            seriesX1.getData().add(new XYChart.Data("3", lcsX));
+            seriesX1.getData().add(new XYChart.Data("4", lcsX));
+            seriesX1.getData().add(new XYChart.Data("5", lcsX));
+            seriesX1.getData().add(new XYChart.Data("6", lcsX));
+            seriesX1.getData().add(new XYChart.Data("7", lcsX));
+            seriesX1.getData().add(new XYChart.Data("8", lcsX));
+            seriesX1.getData().add(new XYChart.Data("9", lcsX));
+            seriesX1.getData().add(new XYChart.Data("10", lcsX));
+            seriesX1.getData().add(new XYChart.Data("11", lcsX));
+            seriesX1.getData().add(new XYChart.Data("12", lcsX));
+            seriesX1.getData().add(new XYChart.Data("13", lcsX));
+            seriesX1.getData().add(new XYChart.Data("14", lcsX));
+            seriesX1.getData().add(new XYChart.Data("15", lcsX));
+            seriesX1.getData().add(new XYChart.Data("16", lcsX));
+            seriesX1.getData().add(new XYChart.Data("17", lcsX));
+            seriesX1.getData().add(new XYChart.Data("18", lcsX));
+            seriesX1.getData().add(new XYChart.Data("19", lcsX));
+            seriesX1.getData().add(new XYChart.Data("20", lcsX));
+            seriesX1.getData().add(new XYChart.Data("21", lcsX));
+            seriesX1.getData().add(new XYChart.Data("22", lcsX));
+            seriesX1.getData().add(new XYChart.Data("23", lcsX));
+            seriesX1.getData().add(new XYChart.Data("24", lcsX));
+            seriesX1.getData().add(new XYChart.Data("25", lcsX));
+            seriesX1.getData().add(new XYChart.Data("26", lcsX));
+            seriesX1.getData().add(new XYChart.Data("27", lcsX));
+            seriesX1.getData().add(new XYChart.Data("28", lcsX));
+            seriesX1.getData().add(new XYChart.Data("29", lcsX));
+            seriesX1.getData().add(new XYChart.Data("30", lcsX));
+            seriesX1.getData().add(new XYChart.Data("31", lcsX));
+            seriesX1.getData().add(new XYChart.Data("32", lcsX));
+            seriesX1.getData().add(new XYChart.Data("33", lcsX));
+            seriesX1.getData().add(new XYChart.Data("34", lcsX));
+            seriesX1.getData().add(new XYChart.Data("35", lcsX));
+            seriesX1.getData().add(new XYChart.Data("36", lcsX));
+            seriesX1.getData().add(new XYChart.Data("37", lcsX));
+            seriesX1.getData().add(new XYChart.Data("38", lcsX));
+            seriesX1.getData().add(new XYChart.Data("39", lcsX));
+            seriesX1.getData().add(new XYChart.Data("40", lcsX));
+            seriesX1.getData().add(new XYChart.Data("41", lcsX));
+            seriesX1.getData().add(new XYChart.Data("42", lcsX));
+            seriesX1.getData().add(new XYChart.Data("43", lcsX));
+            seriesX1.getData().add(new XYChart.Data("44", lcsX));
+            seriesX1.getData().add(new XYChart.Data("45", lcsX));
+            seriesX1.getData().add(new XYChart.Data("46", lcsX));
+            seriesX1.getData().add(new XYChart.Data("47", lcsX));
+            seriesX1.getData().add(new XYChart.Data("48", lcsX));
+            seriesX1.getData().add(new XYChart.Data("49", lcsX));
+            seriesX1.getData().add(new XYChart.Data("50", lcsX));
+            seriesX1.getData().add(new XYChart.Data("51", lcsX));
+            seriesX1.getData().add(new XYChart.Data("52", lcsX));
+            seriesX1.getData().add(new XYChart.Data("53", lcsX));
 
             
-            XYChart.Series series1 = new XYChart.Series();
-            series1.setName("LCS");
-            series1.getData().add(new XYChart.Data("29", 1995.74));
-            series1.getData().add(new XYChart.Data("30", 1995.74));
-            series1.getData().add(new XYChart.Data("31", 1995.74));
-            series1.getData().add(new XYChart.Data("32", 1995.74));
-            series1.getData().add(new XYChart.Data("33", 1995.74));
-            series1.getData().add(new XYChart.Data("34", 1995.74));
-            series1.getData().add(new XYChart.Data("35", 1995.74));
-            series1.getData().add(new XYChart.Data("36", 1995.74));
-            series1.getData().add(new XYChart.Data("37", 1995.74));
-            series1.getData().add(new XYChart.Data("38", 1995.74));
-            series1.getData().add(new XYChart.Data("39", 1995.74));
-            series1.getData().add(new XYChart.Data("40", 1995.74));
+            seriesX2.setName("X");
+            seriesX2.getData().add(new XYChart.Data("2", zsi_nros_sem_avg[0].getSem02()));
+            seriesX2.getData().add(new XYChart.Data("3", zsi_nros_sem_avg[0].getSem03()));
+            seriesX2.getData().add(new XYChart.Data("4", zsi_nros_sem_avg[0].getSem04()));
+            seriesX2.getData().add(new XYChart.Data("5", zsi_nros_sem_avg[0].getSem05()));
+            seriesX2.getData().add(new XYChart.Data("6", zsi_nros_sem_avg[0].getSem06()));
+            seriesX2.getData().add(new XYChart.Data("7", zsi_nros_sem_avg[0].getSem07()));
+            seriesX2.getData().add(new XYChart.Data("8", zsi_nros_sem_avg[0].getSem08()));
+            seriesX2.getData().add(new XYChart.Data("9", zsi_nros_sem_avg[0].getSem09()));
+            seriesX2.getData().add(new XYChart.Data("10", zsi_nros_sem_avg[0].getSem10()));
+            seriesX2.getData().add(new XYChart.Data("11", zsi_nros_sem_avg[0].getSem11()));
+            seriesX2.getData().add(new XYChart.Data("12", zsi_nros_sem_avg[0].getSem12()));
+            seriesX2.getData().add(new XYChart.Data("13", zsi_nros_sem_avg[0].getSem13()));
+            seriesX2.getData().add(new XYChart.Data("14", zsi_nros_sem_avg[0].getSem14()));
+            seriesX2.getData().add(new XYChart.Data("15", zsi_nros_sem_avg[0].getSem15()));
+            seriesX2.getData().add(new XYChart.Data("16", zsi_nros_sem_avg[0].getSem16()));
+            seriesX2.getData().add(new XYChart.Data("17", zsi_nros_sem_avg[0].getSem17()));
+            seriesX2.getData().add(new XYChart.Data("18", zsi_nros_sem_avg[0].getSem18()));
+            seriesX2.getData().add(new XYChart.Data("19", zsi_nros_sem_avg[0].getSem19()));
+            seriesX2.getData().add(new XYChart.Data("20", zsi_nros_sem_avg[0].getSem20()));
+            seriesX2.getData().add(new XYChart.Data("21", zsi_nros_sem_avg[0].getSem21()));
+            seriesX2.getData().add(new XYChart.Data("22", zsi_nros_sem_avg[0].getSem22()));
+            seriesX2.getData().add(new XYChart.Data("23", zsi_nros_sem_avg[0].getSem23()));
+            seriesX2.getData().add(new XYChart.Data("24", zsi_nros_sem_avg[0].getSem24()));
+            seriesX2.getData().add(new XYChart.Data("25", zsi_nros_sem_avg[0].getSem25()));
+            seriesX2.getData().add(new XYChart.Data("26", zsi_nros_sem_avg[0].getSem26()));
+            seriesX2.getData().add(new XYChart.Data("27", zsi_nros_sem_avg[0].getSem27()));
+            seriesX2.getData().add(new XYChart.Data("28", zsi_nros_sem_avg[0].getSem28()));
+            seriesX2.getData().add(new XYChart.Data("29", zsi_nros_sem_avg[0].getSem29()));
+            seriesX2.getData().add(new XYChart.Data("30", zsi_nros_sem_avg[0].getSem30()));
+            seriesX2.getData().add(new XYChart.Data("31", zsi_nros_sem_avg[0].getSem31()));
+            seriesX2.getData().add(new XYChart.Data("32", zsi_nros_sem_avg[0].getSem32()));
+            seriesX2.getData().add(new XYChart.Data("33", zsi_nros_sem_avg[0].getSem33()));
+            seriesX2.getData().add(new XYChart.Data("34", zsi_nros_sem_avg[0].getSem34()));
+            seriesX2.getData().add(new XYChart.Data("35", zsi_nros_sem_avg[0].getSem35()));
+            seriesX2.getData().add(new XYChart.Data("36", zsi_nros_sem_avg[0].getSem36()));
+            seriesX2.getData().add(new XYChart.Data("37", zsi_nros_sem_avg[0].getSem37()));
+            seriesX2.getData().add(new XYChart.Data("38", zsi_nros_sem_avg[0].getSem38()));
+            seriesX2.getData().add(new XYChart.Data("39", zsi_nros_sem_avg[0].getSem39()));
+            seriesX2.getData().add(new XYChart.Data("40", zsi_nros_sem_avg[0].getSem40()));
+            seriesX2.getData().add(new XYChart.Data("41", zsi_nros_sem_avg[0].getSem41()));
+            seriesX2.getData().add(new XYChart.Data("42", zsi_nros_sem_avg[0].getSem42()));
+            seriesX2.getData().add(new XYChart.Data("43", zsi_nros_sem_avg[0].getSem43()));
+            seriesX2.getData().add(new XYChart.Data("44", zsi_nros_sem_avg[0].getSem44()));
+            seriesX2.getData().add(new XYChart.Data("45", zsi_nros_sem_avg[0].getSem45()));
+            seriesX2.getData().add(new XYChart.Data("46", zsi_nros_sem_avg[0].getSem46()));
+            seriesX2.getData().add(new XYChart.Data("47", zsi_nros_sem_avg[0].getSem47()));
+            seriesX2.getData().add(new XYChart.Data("48", zsi_nros_sem_avg[0].getSem48()));
+            seriesX2.getData().add(new XYChart.Data("49", zsi_nros_sem_avg[0].getSem49()));
+            seriesX2.getData().add(new XYChart.Data("50", zsi_nros_sem_avg[0].getSem50()));
+            seriesX2.getData().add(new XYChart.Data("51", zsi_nros_sem_avg[0].getSem51()));
+            seriesX2.getData().add(new XYChart.Data("52", zsi_nros_sem_avg[0].getSem52()));
+            seriesX2.getData().add(new XYChart.Data("53", zsi_nros_sem_avg[0].getSem53()));
 
             
-            XYChart.Series series2 = new XYChart.Series();
-            series2.setName("X");
-            series2.getData().add(new XYChart.Data("29", 1257));
-            series2.getData().add(new XYChart.Data("30", 1140));
-            series2.getData().add(new XYChart.Data("31", 1235));
-            series2.getData().add(new XYChart.Data("32", 1258));
-            series2.getData().add(new XYChart.Data("33", 955));
-            series2.getData().add(new XYChart.Data("34", 970));
-            series2.getData().add(new XYChart.Data("35", 1552));
-            series2.getData().add(new XYChart.Data("36", 1145));
-            series2.getData().add(new XYChart.Data("37", 992));
-            series2.getData().add(new XYChart.Data("38", 1017));
-            series2.getData().add(new XYChart.Data("39", 1019));
-            series2.getData().add(new XYChart.Data("40", 771));
+            seriesX3.setName("Xm");
+            seriesX3.getData().add(new XYChart.Data("2", Xm));
+            seriesX3.getData().add(new XYChart.Data("3", Xm));
+            seriesX3.getData().add(new XYChart.Data("4", Xm));
+            seriesX3.getData().add(new XYChart.Data("5", Xm));
+            seriesX3.getData().add(new XYChart.Data("6", Xm));
+            seriesX3.getData().add(new XYChart.Data("7", Xm));
+            seriesX3.getData().add(new XYChart.Data("8", Xm));
+            seriesX3.getData().add(new XYChart.Data("9", Xm));
+            seriesX3.getData().add(new XYChart.Data("10", Xm));
+            seriesX3.getData().add(new XYChart.Data("11", Xm));
+            seriesX3.getData().add(new XYChart.Data("12", Xm));
+            seriesX3.getData().add(new XYChart.Data("13", Xm));
+            seriesX3.getData().add(new XYChart.Data("14", Xm));
+            seriesX3.getData().add(new XYChart.Data("15", Xm));
+            seriesX3.getData().add(new XYChart.Data("16", Xm));
+            seriesX3.getData().add(new XYChart.Data("17", Xm));
+            seriesX3.getData().add(new XYChart.Data("18", Xm));
+            seriesX3.getData().add(new XYChart.Data("19", Xm));
+            seriesX3.getData().add(new XYChart.Data("20", Xm));
+            seriesX3.getData().add(new XYChart.Data("21", Xm));
+            seriesX3.getData().add(new XYChart.Data("22", Xm));
+            seriesX3.getData().add(new XYChart.Data("23", Xm));
+            seriesX3.getData().add(new XYChart.Data("24", Xm));
+            seriesX3.getData().add(new XYChart.Data("25", Xm));
+            seriesX3.getData().add(new XYChart.Data("26", Xm));
+            seriesX3.getData().add(new XYChart.Data("27", Xm));
+            seriesX3.getData().add(new XYChart.Data("28", Xm));
+            seriesX3.getData().add(new XYChart.Data("29", Xm));
+            seriesX3.getData().add(new XYChart.Data("30", Xm));
+            seriesX3.getData().add(new XYChart.Data("31", Xm));
+            seriesX3.getData().add(new XYChart.Data("32", Xm));
+            seriesX3.getData().add(new XYChart.Data("33", Xm));
+            seriesX3.getData().add(new XYChart.Data("34", Xm));
+            seriesX3.getData().add(new XYChart.Data("35", Xm));
+            seriesX3.getData().add(new XYChart.Data("36", Xm));
+            seriesX3.getData().add(new XYChart.Data("37", Xm));
+            seriesX3.getData().add(new XYChart.Data("38", Xm));
+            seriesX3.getData().add(new XYChart.Data("39", Xm));
+            seriesX3.getData().add(new XYChart.Data("40", Xm));
+            seriesX3.getData().add(new XYChart.Data("41", Xm));
+            seriesX3.getData().add(new XYChart.Data("42", Xm));
+            seriesX3.getData().add(new XYChart.Data("43", Xm));
+            seriesX3.getData().add(new XYChart.Data("44", Xm));
+            seriesX3.getData().add(new XYChart.Data("45", Xm));
+            seriesX3.getData().add(new XYChart.Data("46", Xm));
+            seriesX3.getData().add(new XYChart.Data("47", Xm));
+            seriesX3.getData().add(new XYChart.Data("48", Xm));
+            seriesX3.getData().add(new XYChart.Data("49", Xm));
+            seriesX3.getData().add(new XYChart.Data("50", Xm));
+            seriesX3.getData().add(new XYChart.Data("51", Xm));
+            seriesX3.getData().add(new XYChart.Data("52", Xm));
+            seriesX3.getData().add(new XYChart.Data("53", Xm));
 
 
-            XYChart.Series series3 = new XYChart.Series();
-            series3.setName("Xm");
-            series3.getData().add(new XYChart.Data("29", 1153));
-            series3.getData().add(new XYChart.Data("30", 1153));
-            series3.getData().add(new XYChart.Data("31", 1153));
-            series3.getData().add(new XYChart.Data("32", 1153));
-            series3.getData().add(new XYChart.Data("33", 1153));
-            series3.getData().add(new XYChart.Data("34", 1153));
-            series3.getData().add(new XYChart.Data("35", 1153));
-            series3.getData().add(new XYChart.Data("36", 1153));
-            series3.getData().add(new XYChart.Data("37", 1153));
-            series3.getData().add(new XYChart.Data("38", 1153));
-            series3.getData().add(new XYChart.Data("39", 1153));
-            series3.getData().add(new XYChart.Data("40", 1153));
+            seriesX4.setName("LCI");
+            seriesX4.getData().add(new XYChart.Data("2", lciX));
+            seriesX4.getData().add(new XYChart.Data("3", lciX));
+            seriesX4.getData().add(new XYChart.Data("4", lciX));
+            seriesX4.getData().add(new XYChart.Data("5", lciX));
+            seriesX4.getData().add(new XYChart.Data("6", lciX));
+            seriesX4.getData().add(new XYChart.Data("7", lciX));
+            seriesX4.getData().add(new XYChart.Data("8", lciX));
+            seriesX4.getData().add(new XYChart.Data("9", lciX));
+            seriesX4.getData().add(new XYChart.Data("10", lciX));
+            seriesX4.getData().add(new XYChart.Data("11", lciX));
+            seriesX4.getData().add(new XYChart.Data("12", lciX));
+            seriesX4.getData().add(new XYChart.Data("13", lciX));
+            seriesX4.getData().add(new XYChart.Data("14", lciX));
+            seriesX4.getData().add(new XYChart.Data("15", lciX));
+            seriesX4.getData().add(new XYChart.Data("16", lciX));
+            seriesX4.getData().add(new XYChart.Data("17", lciX));
+            seriesX4.getData().add(new XYChart.Data("18", lciX));
+            seriesX4.getData().add(new XYChart.Data("19", lciX));
+            seriesX4.getData().add(new XYChart.Data("20", lciX));
+            seriesX4.getData().add(new XYChart.Data("21", lciX));
+            seriesX4.getData().add(new XYChart.Data("22", lciX));
+            seriesX4.getData().add(new XYChart.Data("23", lciX));
+            seriesX4.getData().add(new XYChart.Data("24", lciX));
+            seriesX4.getData().add(new XYChart.Data("25", lciX));
+            seriesX4.getData().add(new XYChart.Data("26", lciX));
+            seriesX4.getData().add(new XYChart.Data("27", lciX));
+            seriesX4.getData().add(new XYChart.Data("28", lciX));
+            seriesX4.getData().add(new XYChart.Data("29", lciX));
+            seriesX4.getData().add(new XYChart.Data("30", lciX));
+            seriesX4.getData().add(new XYChart.Data("31", lciX));
+            seriesX4.getData().add(new XYChart.Data("32", lciX));
+            seriesX4.getData().add(new XYChart.Data("33", lciX));
+            seriesX4.getData().add(new XYChart.Data("34", lciX));
+            seriesX4.getData().add(new XYChart.Data("35", lciX));
+            seriesX4.getData().add(new XYChart.Data("36", lciX));
+            seriesX4.getData().add(new XYChart.Data("37", lciX));
+            seriesX4.getData().add(new XYChart.Data("38", lciX));
+            seriesX4.getData().add(new XYChart.Data("39", lciX));
+            seriesX4.getData().add(new XYChart.Data("40", lciX));
+            seriesX4.getData().add(new XYChart.Data("41", lciX));
+            seriesX4.getData().add(new XYChart.Data("42", lciX));
+            seriesX4.getData().add(new XYChart.Data("43", lciX));
+            seriesX4.getData().add(new XYChart.Data("44", lciX));
+            seriesX4.getData().add(new XYChart.Data("45", lciX));
+            seriesX4.getData().add(new XYChart.Data("46", lciX));
+            seriesX4.getData().add(new XYChart.Data("47", lciX));
+            seriesX4.getData().add(new XYChart.Data("48", lciX));
+            seriesX4.getData().add(new XYChart.Data("49", lciX));
+            seriesX4.getData().add(new XYChart.Data("50", lciX));
+            seriesX4.getData().add(new XYChart.Data("51", lciX));
+            seriesX4.getData().add(new XYChart.Data("52", lciX));
+            seriesX4.getData().add(new XYChart.Data("53", lciX));
+
+            lc_grax.getData().addAll(seriesX1, seriesX2, seriesX3, seriesX4);
 
 
-            XYChart.Series series4 = new XYChart.Series();
-            series4.setName("LCI");
-            series4.getData().add(new XYChart.Data("29", 310.26));
-            series4.getData().add(new XYChart.Data("30", 310.26));
-            series4.getData().add(new XYChart.Data("31", 310.26));
-            series4.getData().add(new XYChart.Data("32", 310.26));
-            series4.getData().add(new XYChart.Data("33", 310.26));
-            series4.getData().add(new XYChart.Data("34", 310.26));
-            series4.getData().add(new XYChart.Data("35", 310.26));
-            series4.getData().add(new XYChart.Data("36", 310.26));
-            series4.getData().add(new XYChart.Data("37", 310.26));
-            series4.getData().add(new XYChart.Data("38", 310.26));
-            series4.getData().add(new XYChart.Data("39", 310.26));
-            series4.getData().add(new XYChart.Data("40", 310.26));
 
-            lc_grax.getData().addAll(series1, series2, series3, series4);
+            lc_grar.getData().clear();
+
+            seriesR1.setName("LCS");
+            seriesR1.getData().add(new XYChart.Data("2", lcsR));
+            seriesR1.getData().add(new XYChart.Data("3", lcsR));
+            seriesR1.getData().add(new XYChart.Data("4", lcsR));
+            seriesR1.getData().add(new XYChart.Data("5", lcsR));
+            seriesR1.getData().add(new XYChart.Data("6", lcsR));
+            seriesR1.getData().add(new XYChart.Data("7", lcsR));
+            seriesR1.getData().add(new XYChart.Data("8", lcsR));
+            seriesR1.getData().add(new XYChart.Data("9", lcsR));
+            seriesR1.getData().add(new XYChart.Data("10", lcsR));
+            seriesR1.getData().add(new XYChart.Data("11", lcsR));
+            seriesR1.getData().add(new XYChart.Data("12", lcsR));
+            seriesR1.getData().add(new XYChart.Data("13", lcsR));
+            seriesR1.getData().add(new XYChart.Data("14", lcsR));
+            seriesR1.getData().add(new XYChart.Data("15", lcsR));
+            seriesR1.getData().add(new XYChart.Data("16", lcsR));
+            seriesR1.getData().add(new XYChart.Data("17", lcsR));
+            seriesR1.getData().add(new XYChart.Data("18", lcsR));
+            seriesR1.getData().add(new XYChart.Data("19", lcsR));
+            seriesR1.getData().add(new XYChart.Data("20", lcsR));
+            seriesR1.getData().add(new XYChart.Data("21", lcsR));
+            seriesR1.getData().add(new XYChart.Data("22", lcsR));
+            seriesR1.getData().add(new XYChart.Data("23", lcsR));
+            seriesR1.getData().add(new XYChart.Data("24", lcsR));
+            seriesR1.getData().add(new XYChart.Data("25", lcsR));
+            seriesR1.getData().add(new XYChart.Data("26", lcsR));
+            seriesR1.getData().add(new XYChart.Data("27", lcsR));
+            seriesR1.getData().add(new XYChart.Data("28", lcsR));
+            seriesR1.getData().add(new XYChart.Data("29", lcsR));
+            seriesR1.getData().add(new XYChart.Data("30", lcsR));
+            seriesR1.getData().add(new XYChart.Data("31", lcsR));
+            seriesR1.getData().add(new XYChart.Data("32", lcsR));
+            seriesR1.getData().add(new XYChart.Data("33", lcsR));
+            seriesR1.getData().add(new XYChart.Data("34", lcsR));
+            seriesR1.getData().add(new XYChart.Data("35", lcsR));
+            seriesR1.getData().add(new XYChart.Data("36", lcsR));
+            seriesR1.getData().add(new XYChart.Data("37", lcsR));
+            seriesR1.getData().add(new XYChart.Data("38", lcsR));
+            seriesR1.getData().add(new XYChart.Data("39", lcsR));
+            seriesR1.getData().add(new XYChart.Data("40", lcsR));
+            seriesR1.getData().add(new XYChart.Data("41", lcsR));
+            seriesR1.getData().add(new XYChart.Data("42", lcsR));
+            seriesR1.getData().add(new XYChart.Data("43", lcsR));
+            seriesR1.getData().add(new XYChart.Data("44", lcsR));
+            seriesR1.getData().add(new XYChart.Data("45", lcsR));
+            seriesR1.getData().add(new XYChart.Data("46", lcsR));
+            seriesR1.getData().add(new XYChart.Data("47", lcsR));
+            seriesR1.getData().add(new XYChart.Data("48", lcsR));
+            seriesR1.getData().add(new XYChart.Data("49", lcsR));
+            seriesR1.getData().add(new XYChart.Data("50", lcsR));
+            seriesR1.getData().add(new XYChart.Data("51", lcsR));
+            seriesR1.getData().add(new XYChart.Data("52", lcsR));
+            seriesR1.getData().add(new XYChart.Data("53", lcsR));
+
+            seriesR2.setName("R");
+            seriesR2.getData().add(new XYChart.Data("2", zsi_nros_sem_r[0].getSem02()));
+            seriesR2.getData().add(new XYChart.Data("3", zsi_nros_sem_r[0].getSem03()));
+            seriesR2.getData().add(new XYChart.Data("4", zsi_nros_sem_r[0].getSem04()));
+            seriesR2.getData().add(new XYChart.Data("5", zsi_nros_sem_r[0].getSem05()));
+            seriesR2.getData().add(new XYChart.Data("6", zsi_nros_sem_r[0].getSem06()));
+            seriesR2.getData().add(new XYChart.Data("7", zsi_nros_sem_r[0].getSem07()));
+            seriesR2.getData().add(new XYChart.Data("8", zsi_nros_sem_r[0].getSem08()));
+            seriesR2.getData().add(new XYChart.Data("9", zsi_nros_sem_r[0].getSem09()));
+            seriesR2.getData().add(new XYChart.Data("10", zsi_nros_sem_r[0].getSem10()));
+            seriesR2.getData().add(new XYChart.Data("11", zsi_nros_sem_r[0].getSem11()));
+            seriesR2.getData().add(new XYChart.Data("12", zsi_nros_sem_r[0].getSem12()));
+            seriesR2.getData().add(new XYChart.Data("13", zsi_nros_sem_r[0].getSem13()));
+            seriesR2.getData().add(new XYChart.Data("14", zsi_nros_sem_r[0].getSem14()));
+            seriesR2.getData().add(new XYChart.Data("15", zsi_nros_sem_r[0].getSem15()));
+            seriesR2.getData().add(new XYChart.Data("16", zsi_nros_sem_r[0].getSem16()));
+            seriesR2.getData().add(new XYChart.Data("17", zsi_nros_sem_r[0].getSem17()));
+            seriesR2.getData().add(new XYChart.Data("18", zsi_nros_sem_r[0].getSem18()));
+            seriesR2.getData().add(new XYChart.Data("19", zsi_nros_sem_r[0].getSem19()));
+            seriesR2.getData().add(new XYChart.Data("20", zsi_nros_sem_r[0].getSem20()));
+            seriesR2.getData().add(new XYChart.Data("21", zsi_nros_sem_r[0].getSem21()));
+            seriesR2.getData().add(new XYChart.Data("22", zsi_nros_sem_r[0].getSem22()));
+            seriesR2.getData().add(new XYChart.Data("23", zsi_nros_sem_r[0].getSem23()));
+            seriesR2.getData().add(new XYChart.Data("24", zsi_nros_sem_r[0].getSem24()));
+            seriesR2.getData().add(new XYChart.Data("25", zsi_nros_sem_r[0].getSem25()));
+            seriesR2.getData().add(new XYChart.Data("26", zsi_nros_sem_r[0].getSem26()));
+            seriesR2.getData().add(new XYChart.Data("27", zsi_nros_sem_r[0].getSem27()));
+            seriesR2.getData().add(new XYChart.Data("28", zsi_nros_sem_r[0].getSem28()));
+            seriesR2.getData().add(new XYChart.Data("29", zsi_nros_sem_r[0].getSem29()));
+            seriesR2.getData().add(new XYChart.Data("30", zsi_nros_sem_r[0].getSem30()));
+            seriesR2.getData().add(new XYChart.Data("31", zsi_nros_sem_r[0].getSem31()));
+            seriesR2.getData().add(new XYChart.Data("32", zsi_nros_sem_r[0].getSem32()));
+            seriesR2.getData().add(new XYChart.Data("33", zsi_nros_sem_r[0].getSem33()));
+            seriesR2.getData().add(new XYChart.Data("34", zsi_nros_sem_r[0].getSem34()));
+            seriesR2.getData().add(new XYChart.Data("35", zsi_nros_sem_r[0].getSem35()));
+            seriesR2.getData().add(new XYChart.Data("36", zsi_nros_sem_r[0].getSem36()));
+            seriesR2.getData().add(new XYChart.Data("37", zsi_nros_sem_r[0].getSem37()));
+            seriesR2.getData().add(new XYChart.Data("38", zsi_nros_sem_r[0].getSem38()));
+            seriesR2.getData().add(new XYChart.Data("39", zsi_nros_sem_r[0].getSem39()));
+            seriesR2.getData().add(new XYChart.Data("40", zsi_nros_sem_r[0].getSem40()));
+            seriesR2.getData().add(new XYChart.Data("41", zsi_nros_sem_r[0].getSem41()));
+            seriesR2.getData().add(new XYChart.Data("42", zsi_nros_sem_r[0].getSem42()));
+            seriesR2.getData().add(new XYChart.Data("43", zsi_nros_sem_r[0].getSem43()));
+            seriesR2.getData().add(new XYChart.Data("44", zsi_nros_sem_r[0].getSem44()));
+            seriesR2.getData().add(new XYChart.Data("45", zsi_nros_sem_r[0].getSem45()));
+            seriesR2.getData().add(new XYChart.Data("46", zsi_nros_sem_r[0].getSem46()));
+            seriesR2.getData().add(new XYChart.Data("47", zsi_nros_sem_r[0].getSem47()));
+            seriesR2.getData().add(new XYChart.Data("48", zsi_nros_sem_r[0].getSem48()));
+            seriesR2.getData().add(new XYChart.Data("49", zsi_nros_sem_r[0].getSem49()));
+            seriesR2.getData().add(new XYChart.Data("50", zsi_nros_sem_r[0].getSem50()));
+            seriesR2.getData().add(new XYChart.Data("51", zsi_nros_sem_r[0].getSem51()));
+            seriesR2.getData().add(new XYChart.Data("52", zsi_nros_sem_r[0].getSem52()));
+            seriesR2.getData().add(new XYChart.Data("53", zsi_nros_sem_r[0].getSem53()));
+            
+            seriesR3.setName("Rm");
+            seriesR3.getData().add(new XYChart.Data("2", Rm));
+            seriesR3.getData().add(new XYChart.Data("3", Rm));
+            seriesR3.getData().add(new XYChart.Data("4", Rm));
+            seriesR3.getData().add(new XYChart.Data("5", Rm));
+            seriesR3.getData().add(new XYChart.Data("6", Rm));
+            seriesR3.getData().add(new XYChart.Data("7", Rm));
+            seriesR3.getData().add(new XYChart.Data("8", Rm));
+            seriesR3.getData().add(new XYChart.Data("9", Rm));
+            seriesR3.getData().add(new XYChart.Data("10", Rm));
+            seriesR3.getData().add(new XYChart.Data("11", Rm));
+            seriesR3.getData().add(new XYChart.Data("12", Rm));
+            seriesR3.getData().add(new XYChart.Data("13", Rm));
+            seriesR3.getData().add(new XYChart.Data("14", Rm));
+            seriesR3.getData().add(new XYChart.Data("15", Rm));
+            seriesR3.getData().add(new XYChart.Data("16", Rm));
+            seriesR3.getData().add(new XYChart.Data("17", Rm));
+            seriesR3.getData().add(new XYChart.Data("18", Rm));
+            seriesR3.getData().add(new XYChart.Data("19", Rm));
+            seriesR3.getData().add(new XYChart.Data("20", Rm));
+            seriesR3.getData().add(new XYChart.Data("21", Rm));
+            seriesR3.getData().add(new XYChart.Data("22", Rm));
+            seriesR3.getData().add(new XYChart.Data("23", Rm));
+            seriesR3.getData().add(new XYChart.Data("24", Rm));
+            seriesR3.getData().add(new XYChart.Data("25", Rm));
+            seriesR3.getData().add(new XYChart.Data("26", Rm));
+            seriesR3.getData().add(new XYChart.Data("27", Rm));
+            seriesR3.getData().add(new XYChart.Data("28", Rm));
+            seriesR3.getData().add(new XYChart.Data("29", Rm));
+            seriesR3.getData().add(new XYChart.Data("30", Rm));
+            seriesR3.getData().add(new XYChart.Data("31", Rm));
+            seriesR3.getData().add(new XYChart.Data("32", Rm));
+            seriesR3.getData().add(new XYChart.Data("33", Rm));
+            seriesR3.getData().add(new XYChart.Data("34", Rm));
+            seriesR3.getData().add(new XYChart.Data("35", Rm));
+            seriesR3.getData().add(new XYChart.Data("36", Rm));
+            seriesR3.getData().add(new XYChart.Data("37", Rm));
+            seriesR3.getData().add(new XYChart.Data("38", Rm));
+            seriesR3.getData().add(new XYChart.Data("39", Rm));
+            seriesR3.getData().add(new XYChart.Data("40", Rm));
+            seriesR3.getData().add(new XYChart.Data("41", Rm));
+            seriesR3.getData().add(new XYChart.Data("42", Rm));
+            seriesR3.getData().add(new XYChart.Data("43", Rm));
+            seriesR3.getData().add(new XYChart.Data("44", Rm));
+            seriesR3.getData().add(new XYChart.Data("45", Rm));
+            seriesR3.getData().add(new XYChart.Data("46", Rm));
+            seriesR3.getData().add(new XYChart.Data("47", Rm));
+            seriesR3.getData().add(new XYChart.Data("48", Rm));
+            seriesR3.getData().add(new XYChart.Data("49", Rm));
+            seriesR3.getData().add(new XYChart.Data("50", Rm));
+            seriesR3.getData().add(new XYChart.Data("51", Rm));
+            seriesR3.getData().add(new XYChart.Data("52", Rm));
+            seriesR3.getData().add(new XYChart.Data("53", Rm));
+
+            seriesR4.setName("LCI");
+            seriesR4.getData().add(new XYChart.Data("2", lciR));
+            seriesR4.getData().add(new XYChart.Data("3", lciR));
+            seriesR4.getData().add(new XYChart.Data("4", lciR));
+            seriesR4.getData().add(new XYChart.Data("5", lciR));
+            seriesR4.getData().add(new XYChart.Data("6", lciR));
+            seriesR4.getData().add(new XYChart.Data("7", lciR));
+            seriesR4.getData().add(new XYChart.Data("8", lciR));
+            seriesR4.getData().add(new XYChart.Data("9", lciR));
+            seriesR4.getData().add(new XYChart.Data("10", lciR));
+            seriesR4.getData().add(new XYChart.Data("11", lciR));
+            seriesR4.getData().add(new XYChart.Data("12", lciR));
+            seriesR4.getData().add(new XYChart.Data("13", lciR));
+            seriesR4.getData().add(new XYChart.Data("14", lciR));
+            seriesR4.getData().add(new XYChart.Data("15", lciR));
+            seriesR4.getData().add(new XYChart.Data("16", lciR));
+            seriesR4.getData().add(new XYChart.Data("17", lciR));
+            seriesR4.getData().add(new XYChart.Data("18", lciR));
+            seriesR4.getData().add(new XYChart.Data("19", lciR));
+            seriesR4.getData().add(new XYChart.Data("20", lciR));
+            seriesR4.getData().add(new XYChart.Data("21", lciR));
+            seriesR4.getData().add(new XYChart.Data("22", lciR));
+            seriesR4.getData().add(new XYChart.Data("23", lciR));
+            seriesR4.getData().add(new XYChart.Data("24", lciR));
+            seriesR4.getData().add(new XYChart.Data("25", lciR));
+            seriesR4.getData().add(new XYChart.Data("26", lciR));
+            seriesR4.getData().add(new XYChart.Data("27", lciR));
+            seriesR4.getData().add(new XYChart.Data("28", lciR));
+            seriesR4.getData().add(new XYChart.Data("29", lciR));
+            seriesR4.getData().add(new XYChart.Data("30", lciR));
+            seriesR4.getData().add(new XYChart.Data("31", lciR));
+            seriesR4.getData().add(new XYChart.Data("32", lciR));
+            seriesR4.getData().add(new XYChart.Data("33", lciR));
+            seriesR4.getData().add(new XYChart.Data("34", lciR));
+            seriesR4.getData().add(new XYChart.Data("35", lciR));
+            seriesR4.getData().add(new XYChart.Data("36", lciR));
+            seriesR4.getData().add(new XYChart.Data("37", lciR));
+            seriesR4.getData().add(new XYChart.Data("38", lciR));
+            seriesR4.getData().add(new XYChart.Data("39", lciR));
+            seriesR4.getData().add(new XYChart.Data("40", lciR));
+            seriesR4.getData().add(new XYChart.Data("41", lciR));
+            seriesR4.getData().add(new XYChart.Data("42", lciR));
+            seriesR4.getData().add(new XYChart.Data("43", lciR));
+            seriesR4.getData().add(new XYChart.Data("44", lciR));
+            seriesR4.getData().add(new XYChart.Data("45", lciR));
+            seriesR4.getData().add(new XYChart.Data("46", lciR));
+            seriesR4.getData().add(new XYChart.Data("47", lciR));
+            seriesR4.getData().add(new XYChart.Data("48", lciR));
+            seriesR4.getData().add(new XYChart.Data("49", lciR));
+            seriesR4.getData().add(new XYChart.Data("50", lciR));
+            seriesR4.getData().add(new XYChart.Data("51", lciR));
+            seriesR4.getData().add(new XYChart.Data("52", lciR));
+            seriesR4.getData().add(new XYChart.Data("53", lciR));
+
+            lc_grar.getData().addAll(seriesR1, seriesR2, seriesR3, seriesR4);
         });
     }   
 
@@ -798,10 +1698,10 @@ public class Fxml_GuidependingController implements Initializable {
     private void setFormVisible(boolean value){
         vb_form.setVisible(value);  //Establece el estado grafico del formulario
 //        if(value){  //Si el estado es visible entonces 
-//            vb_table.relocate(30, 439);
+//            vb_table.relocate(25, 439);
 //            vb_table.setPrefHeight(133);
 //        }else{
-//            vb_table.relocate(30, 64);
+//            vb_table.relocate(25, 64);
 //            vb_table.setPrefHeight(508);
 //        }
     }           
@@ -815,5 +1715,67 @@ public class Fxml_GuidependingController implements Initializable {
         col.setMinWidth(min);   //Establece el valor minimo
         col.setMaxWidth(max);   //Establece el valor maximo
     }
-    
-}
+    /** @return plotted y values for monotonically increasing integer x values, starting from x=1 */
+    public ObservableList<XYChart.Data<Integer, Integer>> plot(int... y) {
+        final ObservableList<XYChart.Data<Integer, Integer>> dataset = FXCollections.observableArrayList();
+        int i = 0;
+        while (i < y.length) {
+            final XYChart.Data<Integer, Integer> data = new XYChart.Data<>(i + 1, y[i]);
+            data.setNode(
+                new HoveredThresholdNode(
+                    (i == 0) ? 0 : y[i-1],
+                    y[i]
+                )
+            );
+
+            dataset.add(data);
+            i++;
+        }
+
+        return dataset;
+    }
+    /** a node which displays a value on hover, but is otherwise empty */
+    class HoveredThresholdNode extends StackPane {
+        HoveredThresholdNode(int priorValue, int value) {
+            setPrefSize(15, 15);
+
+            final Label label = createDataThresholdLabel(priorValue, value);
+
+            setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override 
+                public void handle(MouseEvent mouseEvent) {
+                    getChildren().setAll(label);
+                    setCursor(Cursor.NONE);
+                    toFront();
+                }
+            });
+            
+            setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override 
+                public void handle(MouseEvent mouseEvent) {
+                    getChildren().clear();
+                    setCursor(Cursor.CROSSHAIR);
+                }
+            });
+        }
+
+        private Label createDataThresholdLabel(int priorValue, int value) {
+            final Label label = new Label(value + "");
+            label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
+            label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
+
+            if (priorValue == 0) {
+                label.setTextFill(Color.DARKGRAY);
+            } 
+            else if (value > priorValue) {
+                label.setTextFill(Color.FORESTGREEN);
+            } 
+            else {
+                label.setTextFill(Color.FIREBRICK);
+            }
+
+            label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+            return label;
+        }
+    }
+}    

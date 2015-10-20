@@ -16,6 +16,10 @@ import Objects.Setup.City;
 import Objects.Setup.Country;
 import Objects.Fxp_Archguip_pro;
 import Objects.Fxp_Renglon;
+import Objects.Indicators.Zsi_nros_sem_avg;
+import Objects.Indicators.Zsi_nros_sem;
+import Objects.Indicators.Zsi_nros_sem_day;
+import Objects.Indicators.Zsi_nros_sem_r;
 import Objects.Orders.Fxp_Inventa;
 import Objects.Orders.Orders;
 import Objects.Seniat.UploadExcelFile;
@@ -5810,7 +5814,7 @@ public class Bd implements BdInterface{
                         sql_rela.append("{call sp_ins_log_cguias_numrela(?)}");
                         sql_data.append("{call sp_ins_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_ins_log_cguias_chof(?, ?, ?)}");
-                        sql_vehi.append("{call sp_ins_log_cguias_vehi(?, ?, ?, ?, ?, ?)}");
+                        sql_vehi.append("{call sp_ins_log_cguias_vehi(?, ?, ?, ?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_ins_log_cguias_ayud(?, ?, ?, ?)}");
                         sql_cheq.append("{call sp_ins_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva log_CGuias:";
@@ -5820,7 +5824,7 @@ public class Bd implements BdInterface{
 
                         sql_data.append("{call sp_upd_log_cguias_data(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         sql_chof.append("{call sp_upd_log_cguias_chof(?, ?, ?)}");
-                        sql_vehi.append("{call sp_upd_log_cguias_vehi(?, ?, ?, ?, ?, ?)}");
+                        sql_vehi.append("{call sp_upd_log_cguias_vehi(?, ?, ?, ?, ?, ?, ?)}");
                         sql_ayud.append("{call sp_upd_log_cguias_ayud(?, ?, ?, ?)}");
                         sql_cheq.append("{call sp_upd_log_cguias_cheq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando log_CGuias:";
@@ -5857,6 +5861,7 @@ public class Bd implements BdInterface{
                     cstmt.setString("@numrela"         , log_cguias.getNumrela());
                     cstmt.setDate("@fecha"             , log_cguias.getFecha());
                     cstmt.setInt("@numpuerta"          , log_cguias.getNumpuerta());
+                    cstmt.setInt("@numturno"          , log_cguias.getTurno());
                     cstmt.setString("@nro_placa1"      , log_cguias.getVeh1());
                     cstmt.setString("@nro_placa2"      , log_cguias.getVeh2());
                     cstmt.setString("@odometro"        , log_cguias.getOdometro());
@@ -6674,11 +6679,11 @@ public class Bd implements BdInterface{
             
             switch(operacion){
                 case 1:
-                    sql.append("{call sp_ins_role(?, ?)}");
+//                    sql.append("{call sp_ins_role(?, ?)}");
                     mensj = "Nuevo Glomar_price:";
                     break;
                 case 2:
-                    sql.append("{call sp_upd_role_basic(?, ?, ?)}");
+//                    sql.append("{call sp_upd_role_basic(?, ?, ?)}");
                     mensj = "Actualizando Glomar_price:";
                     break;
             }
@@ -7535,7 +7540,177 @@ public class Bd implements BdInterface{
         }
         return null;
     }
-
+    /***************************************************************************/
+    /******************************** INDICATORS *******************************/
+    /***************************************************************************/
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Zsi_nros_sem[] find_Zsi_nros_sem(int year) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano"         , year );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Zsi_nros_sem> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Zsi_nros_sem sqlQuery = new Zsi_nros_sem(result);
+                   vector.add(sqlQuery);
+               }
+               
+               Zsi_nros_sem[] sqlQuery = new Zsi_nros_sem[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   sqlQuery[i] = vector.elementAt(i);                    
+               }
+               
+               return sqlQuery;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano"         , year );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Zsi_nros_sem_avg> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Zsi_nros_sem_avg sqlQuery = new Zsi_nros_sem_avg(result);
+                   vector.add(sqlQuery);
+               }
+               
+               Zsi_nros_sem_avg[] sqlQuery = new Zsi_nros_sem_avg[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   sqlQuery[i] = vector.elementAt(i);                    
+               }
+               
+               return sqlQuery;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano"         , year );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Zsi_nros_sem_day> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Zsi_nros_sem_day sqlQuery = new Zsi_nros_sem_day(result);
+                   vector.add(sqlQuery);
+               }
+               
+               Zsi_nros_sem_day[] sqlQuery = new Zsi_nros_sem_day[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   sqlQuery[i] = vector.elementAt(i);                    
+               }
+               
+               return sqlQuery;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param year
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano"         , year );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Zsi_nros_sem_r> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Zsi_nros_sem_r sqlQuery = new Zsi_nros_sem_r(result);
+                   vector.add(sqlQuery);
+               }
+               
+               Zsi_nros_sem_r[] sqlQuery = new Zsi_nros_sem_r[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   sqlQuery[i] = vector.elementAt(i);                    
+               }
+               
+               return sqlQuery;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
     
     /***************************************************************************/
     /******************************* SINGLETON *********************************/
