@@ -1069,8 +1069,9 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                         Datos.setOrders(new Orders());                           
                         boolean boo = Ln.getInstance().check_orders(tf_buscar.getText());                
                         if(boo){
-                            Datos.setRep_orders(Ln.getInstance().find_orders(tf_buscar.getText()));
-                            loadOrders(Datos.getRep_orders());     
+                            Datos.setRep_orders(Ln.getInstance().find_orders_print(tf_buscar.getText()));
+                            loadOrders(Ln.getInstance().find_orders(tf_buscar.getText()));     
+
                         }
                         else{
                             Gui.getInstance().showMessage("El Nro. de " + ScreenName + " NO existe!", "A");
@@ -1206,7 +1207,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
 
         if(!orders_new.isEmpty()){
             ObservableList<Orders> data = FXCollections.observableArrayList();
-            data.addAll(orders_new);   
+            data.addAll(Datos.getRep_orders());   
             JRDs = new JRBeanCollectionDataSource(data, true);
 
             JrxmlParam.put("p_user", Datos.getSesion().getUsername());
@@ -1369,8 +1370,8 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                         boolean boo = Ln.getInstance().check_orders(tf_orden.getText());                
                         if(boo){
                             Datos.setNumOrd_comp(tf_orden.getText());
-                            Datos.setRep_orders(Ln.getInstance().find_orders(tf_orden.getText()));
-                            loadOrders(Datos.getRep_orders());     
+                            Datos.setRep_orders(Ln.getInstance().find_orders_print(tf_orden.getText()));
+                            loadOrders(Ln.getInstance().find_orders(tf_orden.getText()));     
 
                             List<Supplier> data = Ln.getList_Supplier(Ln.getInstance().find_Supplier(orders_new.get(0).getRif()));
                             Datos.setSupplier(data.get(0));

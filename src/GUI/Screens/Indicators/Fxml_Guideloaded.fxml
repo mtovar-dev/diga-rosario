@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Indicators.Fxml_GuidependingController">
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Indicators.Fxml_GuideloadedController">
   <children>
     <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" textAlignment="CENTER">
       <stylesheets>
@@ -59,7 +59,7 @@
                                     <Image url="@../../../Images/img43.png" />
                                  </image>
                               </ImageView>
-                              <ImageView id="im_tool3" fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" layoutX="57.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
+                              <ImageView id="im_tool3" fx:id="im_tool2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="im-image">
                                  <image>
                                     <Image url="@../../../Images/img45.png" />
                                  </image>
@@ -94,7 +94,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Xm:">
+                                    <Label text="X--:">
                                        <font>
                                           <Font size="11.0" />
                                        </font></Label>
@@ -151,7 +151,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label text="Rm:">
+                                    <Label text="R--:">
                                        <font>
                                           <Font size="11.0" />
                                        </font></Label>
@@ -261,8 +261,30 @@
 <Insets left="7.0" />
 </padding>
                      <children>
-                        <HBox fx:id="hb_X" prefHeight="260.0" />
-                        <HBox fx:id="hb_R" layoutX="17.0" layoutY="38.0" prefHeight="260.0" />
+                        <HBox prefHeight="260.0">
+                           <children>
+                              <LineChart fx:id="lc_grax" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="17.0" layoutY="38.0" prefHeight="260.0">
+                           <children>
+                              <LineChart fx:id="lc_grar" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </HBox>
                      </children>
 </VBox>
 </children></HBox>

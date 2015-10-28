@@ -702,12 +702,24 @@ public class Fxml_PersonalController implements Initializable {
             log_personal.setDireccion(tf_direccion.getText());
             log_personal.setTelefonos(tf_thab.getText());
             log_personal.setCelular(tf_celular.getText());
-            log_personal.setCorreo(tf_correo.getText());
-            log_personal.setRuta_ci(tf_ci.getText());
-            log_personal.setRuta_lc(tf_lc.getText());
-            log_personal.setRuta_cm(tf_cm.getText());
-            log_personal.setRuta_cs(tf_cs.getText());
-            log_personal.setRuta_ma(tf_ma.getText());
+            if(tf_correo.getText() != null){
+                log_personal.setCorreo(tf_correo.getText().toLowerCase());
+            }
+            if(tf_ci.getText() != null){
+                log_personal.setRuta_ci(tf_ci.getText().toLowerCase());
+            }
+            if(tf_lc.getText() != null){
+                log_personal.setRuta_lc(tf_lc.getText().toLowerCase());
+            }
+            if(tf_cm.getText() != null){
+                log_personal.setRuta_cm(tf_cm.getText().toLowerCase());
+            }
+            if(tf_cs.getText() != null){
+                log_personal.setRuta_cs(tf_cs.getText().toLowerCase());
+            }
+            if(tf_ma.getText() != null){
+                log_personal.setRuta_ma(tf_ma.getText().toLowerCase());
+            }
             log_personal.setFec_lc(Date.valueOf(dp_lc.getValue()));
             log_personal.setFec_cm(Date.valueOf(dp_cm.getValue()));
             log_personal.setFec_cs(Date.valueOf(dp_cs.getValue()));

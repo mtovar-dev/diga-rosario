@@ -74,7 +74,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_GuidependingController implements Initializable {
+public class Fxml_GuideloadedController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
@@ -226,7 +226,7 @@ public class Fxml_GuidependingController implements Initializable {
     private static double Xm = 0;
     private static double Rm = 0;
 
-    
+
     private static final String ScreenName = "Consulta";
     
     /**
@@ -1291,7 +1291,7 @@ public class Fxml_GuidependingController implements Initializable {
         JRDs = new JRBeanCollectionDataSource(data, true);
 
         JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-        JrxmlParam.put("p_titulo", "Diferencia = Guias Emitidas - Guias Despachadas");
+        JrxmlParam.put("p_titulo", "Guias Despachadas");
         JrxmlParam.put("p_subtitulo", "Año: " + cb_ano.getValue());
  
         try{ 
@@ -1431,3 +1431,4 @@ public class Fxml_GuidependingController implements Initializable {
         }
     }
 }    
+

@@ -1,0 +1,37 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/10/2015, 05:11:57 PM
+    Author     : MITM
+*/
+
+/*.chart-symbol {  solid circle 
+    -fx-background-color: #f9d900;
+    -fx-background-radius: 2px;
+    -fx-padding: 2px;
+}*/
+
+
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 5px;
+}
+ 
+.chart-legend-item-symbol{
+   -fx-background-radius: 0;
+}
+ 
+.chart-legend-item{
+    -fx-text-fill: #191970;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #20ABD9; }
+.default-color1.chart-series-line { -fx-stroke: #F19A2A; }
+
+.default-color0.chart-line-symbol { -fx-background-color: transparent; }
+.default-color1.chart-line-symbol { -fx-background-color: transparent; }
+.default-color2.chart-line-symbol { -fx-background-color: transparent; }
+.default-color3.chart-line-symbol { -fx-background-color: transparent; }

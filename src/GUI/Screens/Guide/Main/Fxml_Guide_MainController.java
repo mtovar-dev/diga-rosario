@@ -7362,6 +7362,9 @@ public class Fxml_Guide_MainController implements Initializable {
                                     data.addAll(Arrays.asList(unitCont)); 
                                 }
 
+                                Unit[] unitUni = Ln.getInstance().find_Unit("UNI");        
+                                data.addAll(Arrays.asList(unitUni)); 
+
                                 cb_unidcg.setItems(data); 
                             }
                         }
@@ -7643,6 +7646,7 @@ public class Fxml_Guide_MainController implements Initializable {
                                 tf_proddv.setDisable(false);
                                 tf_cantdv.setDisable(false);
                                 cb_uniddv.setDisable(false);
+                                tf_pmarcado.setDisable(false);
                                 
                                 tf_proddv.requestFocus();
                                 break;
@@ -7651,7 +7655,7 @@ public class Fxml_Guide_MainController implements Initializable {
                                     tf_proddv.setDisable(true);
                                     tf_cantdv.setDisable(true);
                                     cb_uniddv.setDisable(true);
-
+                                    tf_pmarcado.setDisable(true);
                                     tf_obserdv.requestFocus();
                                 }
                                 else{
@@ -7704,6 +7708,7 @@ public class Fxml_Guide_MainController implements Initializable {
                             tf_proddv.setDisable(false);
                             tf_cantdv.setDisable(false);
                             cb_uniddv.setDisable(false);
+                            tf_pmarcado.setDisable(false);
 
                             tf_proddv.requestFocus();
                             break;
@@ -7711,6 +7716,7 @@ public class Fxml_Guide_MainController implements Initializable {
                             tf_proddv.setDisable(true);
                             tf_cantdv.setDisable(true);
                             cb_uniddv.setDisable(true);
+                            tf_pmarcado.setDisable(true);
                             break;
                     }
 

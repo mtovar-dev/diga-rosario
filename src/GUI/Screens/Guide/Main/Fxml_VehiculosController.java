@@ -1735,6 +1735,9 @@ public class Fxml_VehiculosController implements Initializable {
                         Gui.getInstance().showMessage("Ya existe el " + ScreenName + "!", "E");
                         botonInicio();
                     }
+                    else{
+                        tf_placa.setText(tf_placa.getText().toUpperCase());
+                    }
                 }
             }
         });
@@ -1746,37 +1749,36 @@ public class Fxml_VehiculosController implements Initializable {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
                 //Valida que el evento se haya generado en el campo de busqueda
                 if(((Node)ke.getSource()).getId().equals("tf_tara")){
-                    if ((Integer.parseInt(tf_tara.getText()) >= 0) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 2722)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 0) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 2722)){
                         rb_clasif1.setSelected(true);
                     }
-                    if ((Integer.parseInt(tf_tara.getText()) >= 2723) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 4536)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 2723) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 4536)){
                         rb_clasif2.setSelected(true);
                     }
-                    if ((Integer.parseInt(tf_tara.getText()) >= 4537) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 6350)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 4537) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 6350)){
                         rb_clasif3.setSelected(true);
                     }
 
-                    if ((Integer.parseInt(tf_tara.getText()) >= 6351) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 7257)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 6351) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 7257)){
                         rb_clasif4.setSelected(true);
                     }
-                    if ((Integer.parseInt(tf_tara.getText()) >= 7258) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 8845)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 7258) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 8845)){
                         rb_clasif5.setSelected(true);
                     }
-                    if ((Integer.parseInt(tf_tara.getText()) >= 8846) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 11793)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 8846) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 11793)){
                         rb_clasif6.setSelected(true);
                     }
-
-                    if ((Integer.parseInt(tf_tara.getText()) >= 11794) &&
-                        (Integer.parseInt(tf_tara.getText()) <= 14969)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 11794) &&
+                        ((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) <= 14969)){
                         rb_clasif7.setSelected(true);
                     }
-                    if ((Integer.parseInt(tf_tara.getText()) >= 14970)){
+                    if (((Integer.parseInt(tf_tara.getText()) + Integer.parseInt(tf_ccargakgrs.getText())) >= 14970)){
                         rb_clasif8.setSelected(true);
                     }
                 }

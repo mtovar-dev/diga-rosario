@@ -161,7 +161,7 @@
 				</textElement>
 				<text><![CDATA[Fecha / Hora:]]></text>
 			</staticText>
-			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+			<textField pattern="d MMM yyyy HH:mm:ss">
 				<reportElement x="397" y="18" width="170" height="15" uuid="a0d1151e-d710-42ec-a2cc-dd585d589a29"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="9" isBold="false"/>

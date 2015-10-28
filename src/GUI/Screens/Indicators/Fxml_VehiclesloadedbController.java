@@ -33,7 +33,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
@@ -74,7 +73,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_GuidependingController implements Initializable {
+public class Fxml_VehiclesloadedbController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
@@ -88,11 +87,8 @@ public class Fxml_GuidependingController implements Initializable {
     @FXML
     private HBox hb_1;    
     
-    @FXML
-    private HBox hb_X;
-    
-    @FXML
-    private HBox hb_R;
+//    @FXML
+//    private HBox hb_X;    
     
     @FXML
     private HBox hbox_toolbar;
@@ -164,7 +160,7 @@ public class Fxml_GuidependingController implements Initializable {
     private LineChart<String,Number> lc_grax;
     
     @FXML
-    private LineChart<?, ?> lc_grar;
+    private LineChart<String, Number> lc_grar;
     
     @FXML
     private Slider sl_semi;
@@ -223,9 +219,29 @@ public class Fxml_GuidependingController implements Initializable {
     private static String[] tooltips;
     private File file;    
 
-    private static double Xm = 0;
-    private static double Rm = 0;
+    private static int numGuias         = 0; 
 
+    private static final CategoryAxis xAxis = new CategoryAxis();
+    private static final NumberAxis yAxis = new NumberAxis();
+
+//    private static XYChart.Series seriesX1;
+//    private static XYChart.Series seriesX2;
+//    private static XYChart.Series seriesX3;
+//    private static XYChart.Series seriesX4;
+//
+//    private static XYChart.Series seriesR1;
+//    private static XYChart.Series seriesR2;
+//    private static XYChart.Series seriesR3;
+//    private static XYChart.Series seriesR4;
+    private static XYChart.Series seriesX1 = new XYChart.Series();
+    private static XYChart.Series seriesX2 = new XYChart.Series();
+    private static XYChart.Series seriesX3 = new XYChart.Series();
+    private static XYChart.Series seriesX4 = new XYChart.Series();
+
+    private static XYChart.Series seriesR1 = new XYChart.Series();
+    private static XYChart.Series seriesR2 = new XYChart.Series();
+    private static XYChart.Series seriesR3 = new XYChart.Series();
+    private static XYChart.Series seriesR4 = new XYChart.Series();
     
     private static final String ScreenName = "Consulta";
     
@@ -1111,23 +1127,14 @@ public class Fxml_GuidependingController implements Initializable {
         double D3 = 0;
         double D4 = 2.004;
 
-        Xm = 0;
+        double Xm = 0;
         double lcsX = 0;
         double lciX = 0;
 
-        int[] dataLcsX = new int[53];    
-        int[] dataXm = new int[53];    
-        int[] dataLciX = new int[53];    
-
-        Rm = 0;
+        double Rm = 0;
         double lcsR = 0;
         double lciR = 0;
 
-        int[] dataLcsR = new int[53];    
-        int[] dataRm = new int[53];    
-        int[] dataLciR = new int[53];    
-        
-        
         if (cb_ano.getValue() != null)
             year = cb_ano.getValue();
 
@@ -1151,7 +1158,7 @@ public class Fxml_GuidependingController implements Initializable {
         loadTableQueryR(Datos.getInd_zsi_nros_sem_r());
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
-            if(i <= currentWeekOfYear){
+            if(i < currentWeekOfYear){
                 if(zsi_nros_sem_avgv[i].getXm() != 0){
                     sem += 1;
                     Xm += zsi_nros_sem_avgv[i].getXm();
@@ -1175,7 +1182,7 @@ public class Fxml_GuidependingController implements Initializable {
         lb_Rm.setText(df.format(Double.parseDouble(rm)));
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
-            if(i <= currentWeekOfYear){
+            if(i < currentWeekOfYear){
                 if(zsi_nros_sem_avgv[i].getXm() != 0){
                     lcsX = Xm + (A2 * Rm);
                     lciX = Xm - (A2 * Rm);
@@ -1199,86 +1206,276 @@ public class Fxml_GuidependingController implements Initializable {
         String lcir = Double.toString(lciR);
         lb_lcir.setText(df.format(Double.parseDouble(lcir)));
 
+        xAxis.setLabel("Semanas");       
+
+//        seriesX1 = new XYChart.Series();
+//        seriesX2 = new XYChart.Series();
+//        seriesX3 = new XYChart.Series();
+//        seriesX4 = new XYChart.Series();
+        
+        seriesX1.setName("LCS");
+        seriesX2.setName("X");
+        seriesX3.setName("Xm");
+        seriesX4.setName("LCI");
+//        if(seriesX1.getData().size() > 0){
+//            seriesX1.getData().removeAll();
+//            seriesX2.getData().removeAll();
+//            seriesX3.getData().removeAll();
+//            seriesX4.getData().removeAll();
+//        }
+
+//        seriesR1 = new XYChart.Series();
+//        seriesR2 = new XYChart.Series();
+//        seriesR3 = new XYChart.Series();
+//        seriesR4 = new XYChart.Series();
+        
+        seriesR1.setName("LCS");
+        seriesR2.setName("R");
+        seriesR3.setName("Rm");
+        seriesR4.setName("LCI");
+//        if(seriesR1.getData().size() > 0){
+//            seriesR1.getData().removeAll();
+//            seriesR2.getData().removeAll();
+//            seriesR3.getData().removeAll();
+//            seriesX4.getData().removeAll();
+//        }
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
             if(i < currentWeekOfYear){
-                dataLcsX[i] = (int) lcsX;
-                dataLciX[i] = (int) lciX;
-                dataXm[i] = (int) Xm;
+                seriesX1.getData().add(new XYChart.Data(Integer.toString(i), lcsX));
+                seriesX3.getData().add(new XYChart.Data(Integer.toString(i), Xm));
+                seriesX4.getData().add(new XYChart.Data(Integer.toString(i), lciX));
 
-                dataLcsR[i] = (int) lcsR;
-                dataLciR[i] = (int) lciR;
-                dataRm[i] = (int) Rm;
+                seriesR1.getData().add(new XYChart.Data(Integer.toString(i), lcsR));
+                seriesR3.getData().add(new XYChart.Data(Integer.toString(i), Rm));
+                seriesR4.getData().add(new XYChart.Data(Integer.toString(i), lciR));
+                
+                switch (i){
+                    case 1:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem01()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem01()));
+                        break;
+                    case 2:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem02()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem02()));
+                        break;
+                    case 3:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem03()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem03()));
+                        break;
+                    case 4:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem04()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem04()));
+                        break;
+                    case 5:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem05()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem05()));
+                        break;
+                    case 6:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem06()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem06()));
+                        break;
+                    case 7:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem07()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem07()));
+                        break;
+                    case 8:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem08()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem08()));
+                        break;
+                    case 9:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem09()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem09()));
+                        break;
+                    case 10:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem10()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem10()));
+                        break;
+                    case 11:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem11()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem11()));
+                        break;
+                    case 12:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem12()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem12()));
+                        break;
+                    case 13:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem13()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem13()));
+                        break;
+                    case 14:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem14()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem14()));
+                        break;
+                    case 15:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem15()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem15()));
+                        break;
+                    case 16:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem16()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem16()));
+                        break;
+                    case 17:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem17()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem17()));
+                        break;
+                    case 18:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem18()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem18()));
+                        break;
+                    case 19:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem19()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem19()));
+                        break;
+                    case 20:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem20()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem20()));
+                        break;
+                    case 21:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem21()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem21()));
+                        break;
+                    case 22:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem22()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem22()));
+                        break;
+                    case 23:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem23()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem23()));
+                        break;
+                    case 24:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem24()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem24()));
+                        break;
+                    case 25:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem25()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem25()));
+                        break;
+                    case 26:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem26()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem26()));
+                        break;
+                    case 27:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem27()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem27()));
+                        break;
+                    case 28:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem28()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem28()));
+                        break;
+                    case 29:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem29()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem29()));
+                        break;
+                    case 30:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem30()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem30()));
+                        break;
+                    case 31:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem31()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem31()));
+                        break;
+                    case 32:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem32()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem32()));
+                        break;
+                    case 33:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem33()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem33()));
+                        break;
+                    case 34:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem34()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem34()));
+                        break;
+                    case 35:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem35()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem35()));
+                        break;
+                    case 36:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem36()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem36()));
+                        break;
+                    case 37:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem37()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem37()));
+                        break;
+                    case 38:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem38()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem38()));
+                        break;
+                    case 39:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem39()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem39()));
+                        break;
+                    case 40:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem40()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem40()));
+                        break;
+                    case 41:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem41()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem41()));
+                        break;
+                    case 42:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem42()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem42()));
+                        break;
+                    case 43:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem43()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem43()));
+                        break;
+                    case 44:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem44()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem44()));
+                        break;
+                    case 45:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem45()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem45()));
+                        break;
+                    case 46:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem46()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem46()));
+                        break;
+                    case 47:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem47()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem47()));
+                        break;
+                    case 48:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem48()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem48()));
+                        break;
+                    case 49:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem49()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem49()));
+                        break;
+                    case 50:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem50()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem50()));
+                        break;
+                    case 51:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem51()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem51()));
+                        break;
+                    case 52:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem52()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem52()));
+                        break;
+                    case 53:
+                        seriesX2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_avg[0].getSem53()));
+                        seriesR2.getData().add(new XYChart.Data(Integer.toString(i), zsi_nros_sem_r[0].getSem53()));
+                        break;
+                }
             }
             else{
                 break;
             }
         }
-        
-        int[] dataX = Ln.getInstance().find_Zsi_nros_sem_int(year, Datos.getIdScreen(), "X");
 
-        final LineChart lc_grax;
-
-        ObservableList<XYChart.Series> lc_graxData = FXCollections.observableArrayList(
-            new LineChart.Series<>("LCS", FXCollections.observableArrayList(
-                plot(dataLcsX))),
-            new LineChart.Series<>("X", FXCollections.observableArrayList(
-                plot(dataX))),
-            new LineChart.Series<>("Xm", FXCollections.observableArrayList(
-                plot(dataXm))),
-            new LineChart.Series<>("LCI", FXCollections.observableArrayList(
-                plot(dataLciX)))
-        );
-        
-        lc_grax = new LineChart(new NumberAxis(), new NumberAxis(), lc_graxData);
-        
+//        lc_grax.getData().removeAll();
+        lc_grax.getData().addAll(seriesX1, seriesX2, seriesX3, seriesX4);
         lc_grax.setCursor(Cursor.CROSSHAIR);
-        lc_grax.setHorizontalGridLinesVisible(false);
-        lc_grax.setVerticalGridLinesVisible(true);
-        lc_grax.setLegendVisible(false);
-        lc_grax.setLegendSide(Side.RIGHT);
-        lc_grax.setPrefSize(740, 260);
-        lc_grax.getStylesheets().add("GUI/Screens/Indicators/LineChart.css");
 
-        if (hb_X.getChildren().isEmpty()){
-            hb_X.getChildren().add(lc_grax);
-        }
-        else{
-            hb_X.getChildren().remove(lc_grax);
-        }
-       
-        
-        int[] dataR = Ln.getInstance().find_Zsi_nros_sem_int(year, Datos.getIdScreen(), "R");
-
-        final LineChart lc_grar;
-
-        ObservableList<XYChart.Series> lc_grarData = FXCollections.observableArrayList(
-            new LineChart.Series<>("LCS", FXCollections.observableArrayList(
-                plot(dataLcsR))),
-            new LineChart.Series<>("X", FXCollections.observableArrayList(
-                plot(dataR))),
-            new LineChart.Series<>("Xm", FXCollections.observableArrayList(
-                plot(dataRm))),
-            new LineChart.Series<>("LCI", FXCollections.observableArrayList(
-                plot(dataLciR)))
-        );
-        
-        lc_grar = new LineChart(new NumberAxis(), new NumberAxis(), lc_grarData);
-        
-        lc_grar.setCursor(Cursor.CROSSHAIR);
-        lc_grar.setHorizontalGridLinesVisible(false);
-        lc_grar.setVerticalGridLinesVisible(true);
-        lc_grar.setLegendVisible(false);
-        lc_grar.setLegendSide(Side.RIGHT);
-        lc_grar.setPrefSize(740, 260);
-        lc_grar.getStylesheets().add("GUI/Screens/Indicators/LineChart.css");
-
-        if (hb_R.getChildren().isEmpty()){
-            hb_R.getChildren().add(lc_grar);
-        }
-        else{
-            hb_R.getChildren().remove(lc_grar);
-        }
+//        lc_grar.getData().removeAll();
+        lc_grar.getData().addAll(seriesR1, seriesR2, seriesR3, seriesR4);
     }
     /**
      * 
@@ -1291,7 +1488,7 @@ public class Fxml_GuidependingController implements Initializable {
         JRDs = new JRBeanCollectionDataSource(data, true);
 
         JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-        JrxmlParam.put("p_titulo", "Diferencia = Guias Emitidas - Guias Despachadas");
+        JrxmlParam.put("p_titulo", "Vehiculos Cargados");
         JrxmlParam.put("p_subtitulo", "Año: " + cb_ano.getValue());
  
         try{ 
@@ -1311,7 +1508,7 @@ public class Fxml_GuidependingController implements Initializable {
      */
     private void init_buttons(){
         /**
-         * BOTON IMPRIMIR
+         * BOTON GRAFICO
          */
         im_tool1.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
@@ -1365,10 +1562,7 @@ public class Fxml_GuidependingController implements Initializable {
         col.setMinWidth(min);   //Establece el valor minimo
         col.setMaxWidth(max);   //Establece el valor maximo
     }
-    /** 
-     * @return plotted y values for monotonically increasing 
-     * integer x values, starting from x=1 
-     */
+    /** @return plotted y values for monotonically increasing integer x values, starting from x=1 */
     public ObservableList<XYChart.Data<Integer, Integer>> plot(int... y) {
         final ObservableList<XYChart.Data<Integer, Integer>> dataset = FXCollections.observableArrayList();
         int i = 0;
@@ -1387,9 +1581,7 @@ public class Fxml_GuidependingController implements Initializable {
 
         return dataset;
     }
-    /** 
-     * a node which displays a value on hover, but is otherwise empty 
-     */
+    /** a node which displays a value on hover, but is otherwise empty */
     class HoveredThresholdNode extends StackPane {
         HoveredThresholdNode(int priorValue, int value) {
             setPrefSize(12, 12);
@@ -1417,9 +1609,12 @@ public class Fxml_GuidependingController implements Initializable {
         private Label createDataThresholdLabel(int priorValue, int value) {
             final Label label = new Label(value + "");
             label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
-            label.setStyle("-fx-font-size: 14; -fx-font-weight: bold;");
-            
-            if (value > Xm) {
+            label.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+
+            if (priorValue == 0) {
+                label.setTextFill(Color.DARKGRAY);
+            } 
+            else if (value > priorValue) {
                 label.setTextFill(Color.FORESTGREEN);
             } 
             else {

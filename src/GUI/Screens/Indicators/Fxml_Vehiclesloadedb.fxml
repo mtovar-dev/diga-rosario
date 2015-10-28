@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Indicators.Fxml_GuidependingController">
+<AnchorPane id="AnchorPane" fx:id="ap_root" prefHeight="600.0" prefWidth="774.0" styleClass="Pane" stylesheets="@../Screens.css,@../../Css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Screens.Indicators.Fxml_VehiclesloadedController">
   <children>
     <Label fx:id="lb_Title" alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="110.0" prefHeight="32.0" prefWidth="120.0" rotate="270.0" styleClass="lb-title" textAlignment="CENTER">
       <stylesheets>
@@ -261,8 +261,30 @@
 <Insets left="7.0" />
 </padding>
                      <children>
-                        <HBox fx:id="hb_X" prefHeight="260.0" />
-                        <HBox fx:id="hb_R" layoutX="17.0" layoutY="38.0" prefHeight="260.0" />
+                        <HBox prefHeight="260.0">
+                           <children>
+                              <LineChart fx:id="lc_grax" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="17.0" layoutY="38.0" prefHeight="260.0">
+                           <children>
+                              <LineChart fx:id="lc_grar" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </HBox>
                      </children>
 </VBox>
 </children></HBox>

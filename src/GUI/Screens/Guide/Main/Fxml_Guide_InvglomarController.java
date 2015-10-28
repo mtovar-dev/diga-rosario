@@ -13,7 +13,6 @@ import Objects.log_CGuias_Glomar_price;
 import Tools.Datos;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;

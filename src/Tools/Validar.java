@@ -166,7 +166,7 @@ import Objects.log_Vehiculos;
      * @return 
      */
     private static boolean validarPasswordNew(String param,String conf){        
-        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+-*=])(?=\\S+$).{6,10}";
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+-*=/])(?=\\S+$).{6,10}";
         if(param.equals(conf)){
             return conf.matches(pattern);                        
         }else{

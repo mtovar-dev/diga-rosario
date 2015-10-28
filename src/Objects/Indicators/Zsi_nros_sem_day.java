@@ -178,5 +178,5 @@ public class Zsi_nros_sem_day {
     public void setDay7(int day7) {
         this.day7 = day7;
     }
-    
+
 }

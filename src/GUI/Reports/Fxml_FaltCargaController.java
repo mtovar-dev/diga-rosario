@@ -972,13 +972,6 @@ public class Fxml_FaltCargaController implements Initializable {
      */
     private void setFormVisible(boolean value){
         vb_form.setVisible(value);  //Establece el estado grafico del formulario
-//        if(value){  //Si el estado es visible entonces 
-//            vb_table.relocate(30, 439);
-//            vb_table.setPrefHeight(133);
-//        }else{
-//            vb_table.relocate(30, 64);
-//            vb_table.setPrefHeight(508);
-//        }
     }           
     /**
      * Metodo que establece el valor maximo y minimo de cada columna una tabla

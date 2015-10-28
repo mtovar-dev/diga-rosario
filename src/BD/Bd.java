@@ -4,6 +4,7 @@
  */
 package BD;
 
+import GUI.Gui;
 import Objects.Fxp_Archguid;
 import Objects.Fxp_Archguid_cli;
 import Objects.Fxp_Archguid_cp;
@@ -125,7 +126,7 @@ public class Bd implements BdInterface{
                 connection.close();
             }
         }else {
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
         }
         
         return null;
@@ -148,7 +149,7 @@ public class Bd implements BdInterface{
                 connection.close();
             }
         }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
         }               
     }
     /**
@@ -170,7 +171,7 @@ public class Bd implements BdInterface{
                 connection.close();
             }
         }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
         }               
     }    
     /**
@@ -195,7 +196,7 @@ public class Bd implements BdInterface{
                cstmt.setString("@mensaje", mnsj);
                cstmt.execute();             
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(Exception e){
            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -263,7 +264,7 @@ public class Bd implements BdInterface{
                   return result;
                }    
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){  
             e.printStackTrace();
@@ -311,7 +312,7 @@ public class Bd implements BdInterface{
                }
                return menus;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){          
             e.printStackTrace();
@@ -359,7 +360,7 @@ public class Bd implements BdInterface{
                
                return users;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){              
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -389,7 +390,7 @@ public class Bd implements BdInterface{
                cstmt.execute();
                if(cstmt.getInt("result") == 1) return true;               
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -430,7 +431,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -513,7 +514,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -559,7 +560,7 @@ public class Bd implements BdInterface{
                
                return users;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -604,7 +605,7 @@ public class Bd implements BdInterface{
                }
                return rols;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -650,7 +651,7 @@ public class Bd implements BdInterface{
                }
                return role;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -692,7 +693,7 @@ public class Bd implements BdInterface{
                
                return role;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -751,7 +752,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -785,7 +786,7 @@ public class Bd implements BdInterface{
                cstmt.execute();
                if(cstmt.getInt("result") == 1) return true;               
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -827,7 +828,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -875,7 +876,7 @@ public class Bd implements BdInterface{
                }
                return branch;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -917,7 +918,7 @@ public class Bd implements BdInterface{
                
                return branch;
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -976,7 +977,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -1010,7 +1011,7 @@ public class Bd implements BdInterface{
                cstmt.execute();
                if(cstmt.getInt("result") == 1) return true;               
             }else{
-                System.out.println("Error: Connexion no activa");
+                Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             }
         }catch(SQLException e){            
             StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
@@ -1052,7 +1053,7 @@ public class Bd implements BdInterface{
             
             return true;
          }else{
-            System.out.println("Error: Connexion no activa");
+            Gui.getInstance().showMessage("Error: Conexion no activa", "E");
             throw new Exception("Error de Conexion con la BD");
          }
         }catch(Exception e){            
@@ -3069,35 +3070,12 @@ public class Bd implements BdInterface{
             cstmt.setString("@direccion"        , log_personal.getDireccion().toLowerCase());
             cstmt.setString("@telefonos"        , log_personal.getTelefonos());
             cstmt.setString("@celular"          , log_personal.getCelular());
-            if (log_personal.getCorreo() != null)
-                cstmt.setString("@correo"       , log_personal.getCorreo().toLowerCase());
-            else
-                cstmt.setString("@correo"       , log_personal.getCorreo());
-
-            if (log_personal.getRuta_ci() != null)
-                cstmt.setString("@ruta_ci"          , log_personal.getRuta_ci().toLowerCase());
-            else
-                cstmt.setString("@ruta_ci"          , log_personal.getRuta_ci());
-                
-            if (log_personal.getRuta_lc() != null)
-                cstmt.setString("@ruta_lc"          , log_personal.getRuta_lc().toLowerCase());
-            else
-                cstmt.setString("@ruta_lc"          , log_personal.getRuta_lc());
-                
-            if (log_personal.getRuta_cm() != null)
-                cstmt.setString("@ruta_cm"          , log_personal.getRuta_cm().toLowerCase());
-            else
-                cstmt.setString("@ruta_cm"          , log_personal.getRuta_cm());
-                
-            if (log_personal.getRuta_cs() != null)
-                cstmt.setString("@ruta_cs"          , log_personal.getRuta_cs().toLowerCase());
-            else
-                cstmt.setString("@ruta_cs"          , log_personal.getRuta_cs());
-
-            if (log_personal.getRuta_ma() != null)
-                cstmt.setString("@ruta_ma"          , log_personal.getRuta_ma().toLowerCase());
-            else
-                cstmt.setString("@ruta_ma"          , log_personal.getRuta_ma());
+            cstmt.setString("@correo"           , log_personal.getCorreo());
+            cstmt.setString("@ruta_ci"          , log_personal.getRuta_ci());
+            cstmt.setString("@ruta_lc"          , log_personal.getRuta_lc());
+            cstmt.setString("@ruta_cm"          , log_personal.getRuta_cm());
+            cstmt.setString("@ruta_cs"          , log_personal.getRuta_cs());
+            cstmt.setString("@ruta_ma"          , log_personal.getRuta_ma());
             
             if(log_personal.getFec_lc().toString().equals(LocalDate.now().toString())) 
                 cstmt.setDate("@fec_lc"         , null);
@@ -3605,8 +3583,14 @@ public class Bd implements BdInterface{
             cstmt.setInt("@tmarca"                 , log_vehiculos.getTmarca().getIdTMarca());
             cstmt.setInt("@tproced"                , log_vehiculos.getTproced().getIdTProced());
             cstmt.setInt("@ttransp"                , log_vehiculos.getTtransp().getIdTTransp());
-            cstmt.setInt("@tseguro"                , log_vehiculos.getTseguro().getIdTSeguro());
-            cstmt.setInt("@tdispflota"             , log_vehiculos.getTdispflota().getIdTDispflota());
+            if (log_vehiculos.getTseguro() != null)
+                cstmt.setInt("@tseguro"            , log_vehiculos.getTseguro().getIdTSeguro());
+            else
+                cstmt.setInt("@tseguro"            , 0);
+            if (log_vehiculos.getTseguro() != null)
+                cstmt.setInt("@tdispflota"         , log_vehiculos.getTdispflota().getIdTDispflota());
+            else
+                cstmt.setInt("@tdispflota"         , 0);
             cstmt.setString("@modelo"              , log_vehiculos.getModelo());
             cstmt.setInt("@tara"                   , log_vehiculos.getPeso_bveh());
             cstmt.setInt("@capcargakgrs"           , log_vehiculos.getCap_cargkgrs());
@@ -3615,47 +3599,14 @@ public class Bd implements BdInterface{
             cstmt.setInt("@clasificacion"          , log_vehiculos.getClasif());
             cstmt.setString("@telefonos"           , log_vehiculos.getTelefonos());
             cstmt.setString("@celular"             , log_vehiculos.getCelular());
-
-            if (log_vehiculos.getEmpresa() != null)
-                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa());
-            else
-                cstmt.setString("@empresa"         , log_vehiculos.getEmpresa());
-
-            if (log_vehiculos.getRif_empresa()!= null)
-                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa());
-            else
-                cstmt.setString("@rif_empresa"     , log_vehiculos.getRif_empresa());
-
-            if (log_vehiculos.getCorreo() != null)
-                cstmt.setString("@correo"          , log_vehiculos.getCorreo());
-            else
-                cstmt.setString("@correo"          , log_vehiculos.getCorreo());
-
-            if (log_vehiculos.getRuta_cc() != null)
-                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc());
-            else
-                cstmt.setString("@ruta_cc"         , log_vehiculos.getRuta_cc());
-                
-            if (log_vehiculos.getRuta_tt() != null)
-                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt());
-            else
-                cstmt.setString("@ruta_tt"         , log_vehiculos.getRuta_tt());
-                
-            if (log_vehiculos.getRuta_rcv() != null)
-                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv());
-            else
-                cstmt.setString("@ruta_rcv"        , log_vehiculos.getRuta_rcv());
-                
-            if (log_vehiculos.getRuta_ps() != null)
-                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps());
-            else
-                cstmt.setString("@ruta_ps"         , log_vehiculos.getRuta_ps());
-
-            if (log_vehiculos.getRuta_rgt() != null)
-                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt());
-            else
-                cstmt.setString("@ruta_rgt"        , log_vehiculos.getRuta_rgt());
-            
+            cstmt.setString("@empresa"             , log_vehiculos.getEmpresa());
+            cstmt.setString("@rif_empresa"         , log_vehiculos.getRif_empresa());
+            cstmt.setString("@correo"              , log_vehiculos.getCorreo());
+            cstmt.setString("@ruta_cc"             , log_vehiculos.getRuta_cc());
+            cstmt.setString("@ruta_tt"             , log_vehiculos.getRuta_tt());
+            cstmt.setString("@ruta_rcv"            , log_vehiculos.getRuta_rcv());
+            cstmt.setString("@ruta_ps"             , log_vehiculos.getRuta_ps());
+            cstmt.setString("@ruta_rgt"            , log_vehiculos.getRuta_rgt());
             cstmt.setDate("@fec_rcv"               , log_vehiculos.getFec_rcv());
             cstmt.setDate("@fec_ps"                , log_vehiculos.getFec_ps());
             cstmt.setDate("@fec_rgt"               , log_vehiculos.getFec_rgt());
@@ -7028,6 +6979,48 @@ public class Bd implements BdInterface{
      * @return 
      * @throws java.sql.SQLException 
      */
+    public Orders[] find_orders_print(String id) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_ord_orden_compra_print(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@idorden"  , id );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<Orders> vector = new Vector<>();
+               
+               while(result.next()) {
+                   Orders orders = new Orders(result);
+                   vector.add(orders);
+               }
+               
+               Orders[] orders = new Orders[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   orders[i] = vector.elementAt(i);                    
+               }
+               
+               return orders;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param id
+     * @return 
+     * @throws java.sql.SQLException 
+     */
     public Orders[] find_orders_id(String id) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
@@ -7546,16 +7539,36 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Zsi_nros_sem[] find_Zsi_nros_sem(int year) throws SQLException {
+    public Zsi_nros_sem[] find_Zsi_nros_sem(int year, int IdScreen) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
+            switch(Datos.getIdScreen()){
+                case 2006010:
+                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi](?)}");
+                    break;
+                case 2006020:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
+                    break;
+                case 2006030:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi](?)}");
+                    break;
+                case 2006040:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_des](?)}");
+                    break;
+                case 2006050:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
+                    break;
+                case 2006060:
+                    sqlProc.append("{call [sp_get_zsi_nros_vehi_ct](?)}");
+                    break;
+            }
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
@@ -7588,16 +7601,259 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
+     * @param grafico
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year) throws SQLException {
+    public int[] find_Zsi_nros_sem_int(int year, int IdScreen, String grafico) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+            switch(Datos.getIdScreen()){
+                case 2006010:
+                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi_avg](?)}");
+                    break;
+                case 2006020:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                    break;
+                case 2006030:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi_avg](?)}");
+                    break;
+                case 2006040:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_des_avg](?)}");
+                    break;
+                case 2006050:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                    break;
+                case 2006060:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_r](?)}");
+                    }
+                    break;
+            }
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@ano"         , year );
+               ResultSet result = cstmt.executeQuery();            
+               
+               if(result.next()){                          
+                    int[] sqlQuery = new int[53];
+                    for (int i = 0; i < sqlQuery.length; i++) {
+                        switch(i){
+                            case 0:
+                                sqlQuery[i] = result.getInt(2);
+                                break;
+                            case 1:
+                                sqlQuery[i] = result.getInt(13);
+                                break;
+                            case 2:
+                                sqlQuery[i] = result.getInt(24);
+                                break;
+                            case 3:
+                                sqlQuery[i] = result.getInt(35);
+                                break;
+                            case 4:
+                                sqlQuery[i] = result.getInt(46);
+                                break;
+                            case 5:
+                                sqlQuery[i] = result.getInt(51);
+                                break;
+                            case 6:
+                                sqlQuery[i] = result.getInt(52);
+                                break;
+                            case 7:
+                                sqlQuery[i] = result.getInt(53);
+                                break;
+                            case 8:
+                                sqlQuery[i] = result.getInt(54);
+                                break;
+                            case 9:
+                                sqlQuery[i] = result.getInt(3);
+                                break;
+                            case 10:
+                                sqlQuery[i] = result.getInt(4);
+                                break;
+                            case 11:
+                                sqlQuery[i] = result.getInt(5);
+                                break;
+                            case 12:
+                                sqlQuery[i] = result.getInt(6);
+                                break;
+                            case 13:
+                                sqlQuery[i] = result.getInt(7);
+                                break;
+                            case 14:
+                                sqlQuery[i] = result.getInt(8);
+                                break;
+                            case 15:
+                                sqlQuery[i] = result.getInt(9);
+                                break;
+                            case 16:
+                                sqlQuery[i] = result.getInt(10);
+                                break;
+                            case 17:
+                                sqlQuery[i] = result.getInt(11);
+                                break;
+                            case 18:
+                                sqlQuery[i] = result.getInt(12);
+                                break;
+                            case 19:
+                                sqlQuery[i] = result.getInt(14);
+                                break;
+                            case 20:
+                                sqlQuery[i] = result.getInt(15);
+                                break;
+                            case 21:
+                                sqlQuery[i] = result.getInt(16);
+                                break;
+                            case 22:
+                                sqlQuery[i] = result.getInt(17);
+                                break;
+                            case 23:
+                                sqlQuery[i] = result.getInt(18);
+                                break;
+                            case 24:
+                                sqlQuery[i] = result.getInt(19);
+                                break;
+                            case 25:
+                                sqlQuery[i] = result.getInt(20);
+                                break;
+                            case 26:
+                                sqlQuery[i] = result.getInt(21);
+                                break;
+                            case 27:
+                                sqlQuery[i] = result.getInt(22);
+                                break;
+                            case 28:
+                                sqlQuery[i] = result.getInt(23);
+                                break;
+                            case 29:
+                                sqlQuery[i] = result.getInt(25);
+                                break;
+                            case 30:
+                                sqlQuery[i] = result.getInt(26);
+                                break;
+                            case 31:
+                                sqlQuery[i] = result.getInt(27);
+                                break;
+                            case 32:
+                                sqlQuery[i] = result.getInt(28);
+                                break;
+                            case 33:
+                                sqlQuery[i] = result.getInt(29);
+                                break;
+                            case 34:
+                                sqlQuery[i] = result.getInt(30);
+                                break;
+                            case 35:
+                                sqlQuery[i] = result.getInt(31);
+                                break;
+                            case 36:
+                                sqlQuery[i] = result.getInt(32);
+                                break;
+                            case 37:
+                                sqlQuery[i] = result.getInt(33);
+                                break;
+                            case 38:
+                                sqlQuery[i] = result.getInt(34);
+                                break;
+                            case 39:
+                                sqlQuery[i] = result.getInt(36);
+                                break;
+                            case 40:
+                                sqlQuery[i] = result.getInt(37);
+                                break;
+                            case 41:
+                                sqlQuery[i] = result.getInt(38);
+                                break;
+                            case 42:
+                                sqlQuery[i] = result.getInt(39);
+                                break;
+                            case 43:
+                                sqlQuery[i] = result.getInt(40);
+                                break;
+                            case 44:
+                                sqlQuery[i] = result.getInt(41);
+                                break;
+                            case 45:
+                                sqlQuery[i] = result.getInt(42);
+                                break;
+                            case 46:
+                                sqlQuery[i] = result.getInt(43);
+                                break;
+                            case 47:
+                                sqlQuery[i] = result.getInt(44);
+                                break;
+                            case 48:
+                                sqlQuery[i] = result.getInt(45);
+                                break;
+                            case 49:
+                                sqlQuery[i] = result.getInt(47);
+                                break;
+                            case 50:
+                                sqlQuery[i] = result.getInt(48);
+                                break;
+                            case 51:
+                                sqlQuery[i] = result.getInt(49);
+                                break;
+                            case 52:
+                                sqlQuery[i] = result.getInt(50);
+                                break;
+                        }
+                    }
+                    return sqlQuery;
+                }    
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param year
+     * @param IdScreen
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year, int IdScreen) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            switch(Datos.getIdScreen()){
+                case 2006010:
+                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi_avg](?)}");
+                    break;
+                case 2006020:
+                    sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
+                    break;
+                case 2006030:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi_avg](?)}");
+                    break;
+                case 2006040:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_des_avg](?)}");
+                    break;
+                case 2006050:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                    break;
+                case 2006060:
+                    sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
+                    break;
+            }
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
@@ -7630,16 +7886,36 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year) throws SQLException {
+    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year, int IdScreen) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
+            switch(Datos.getIdScreen()){
+                case 2006010:
+                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi_day](?)}");
+                    break;
+                case 2006020:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
+                    break;
+                case 2006030:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi_day](?)}");
+                    break;
+                case 2006040:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_des_day](?)}");
+                    break;
+                case 2006050:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
+                    break;
+                case 2006060:
+                    sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_day](?)}");
+                    break;
+            }
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
@@ -7672,16 +7948,36 @@ public class Bd implements BdInterface{
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      * @throws java.sql.SQLException 
      */
-    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year) throws SQLException {
+    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year, int IdScreen) throws SQLException {
         try{
             BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
             connection = bd.open();
         
             StringBuilder sqlProc = new StringBuilder();
-            sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+            switch(Datos.getIdScreen()){
+                case 2006010:
+                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi_r](?)}");
+                    break;
+                case 2006020:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+                    break;
+                case 2006030:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi_r](?)}");
+                    break;
+                case 2006040:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_des_r](?)}");
+                    break;
+                case 2006050:
+                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+                    break;
+                case 2006060:
+                    sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_r](?)}");
+                    break;
+            }
             
             if (connection != null){
                CallableStatement cstmt = connection.prepareCall(sqlProc.toString());

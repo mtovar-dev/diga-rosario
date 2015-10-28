@@ -2884,6 +2884,20 @@ public class Ln {
      * @param find
      * @return 
      */
+    public Orders[] find_orders_print(String find) {
+        try{
+            Orders[] orders = Bd.getInstance().find_orders_print(find);      
+            return orders;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Grupo de Proveedor: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
     public Orders[] find_orders_id(String find) {
         try{
             Orders[] orders = Bd.getInstance().find_orders_id(find);      
@@ -3054,11 +3068,12 @@ public class Ln {
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      */
-    public Zsi_nros_sem[] find_Zsi_nros_sem(int year) {
+    public Zsi_nros_sem[] find_Zsi_nros_sem(int year, int IdScreen) {
         try{
-            Zsi_nros_sem[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem(year);      
+            Zsi_nros_sem[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem(year, IdScreen);      
             return sqlQuery;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
@@ -3068,11 +3083,29 @@ public class Ln {
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
+     * @param grafico
      * @return 
      */
-    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year) {
+    public int[] find_Zsi_nros_sem_int(int year, int IdScreen, String grafico) {
         try{
-            Zsi_nros_sem_avg[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_avg(year);      
+            int[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_int(year, IdScreen, grafico);                         
+            return sqlQuery;
+        }catch(SQLException e){
+            Gui.getInstance().showMessage("Por favor contactar a Sistemas: \n" + e.getMessage(), "I");
+        }
+        return null;
+    }
+
+    /**
+     * @author MITM
+     * @param year
+     * @param IdScreen
+     * @return 
+     */
+    public Zsi_nros_sem_avg[] find_Zsi_nros_sem_avg(int year, int IdScreen) {
+        try{
+            Zsi_nros_sem_avg[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_avg(year, IdScreen);      
             return sqlQuery;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
@@ -3082,11 +3115,12 @@ public class Ln {
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      */
-    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year) {
+    public Zsi_nros_sem_day[] find_Zsi_nros_sem_day(int year, int IdScreen) {
         try{
-            Zsi_nros_sem_day[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_day(year);      
+            Zsi_nros_sem_day[] sqlQuery = Bd.getInstance().find_Zsi_nros_sem_day(year, IdScreen);      
             return sqlQuery;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Consulta: \n"+e.getMessage()); 
@@ -3096,11 +3130,12 @@ public class Ln {
     /**
      * @author MITM
      * @param year
+     * @param IdScreen
      * @return 
      */
-    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year) {
+    public Zsi_nros_sem_r[] find_Zsi_nros_sem_r(int year, int IdScreen) {
         try{
-            Zsi_nros_sem_r[] cguias_falt = Bd.getInstance().find_Zsi_nros_sem_r(year);      
+            Zsi_nros_sem_r[] cguias_falt = Bd.getInstance().find_Zsi_nros_sem_r(year, IdScreen);      
             return cguias_falt;
         }catch(SQLException e){
             Gui.getInstance().ventanaError("Error Cargando Cargas: \n"+e.getMessage()); 

@@ -233,16 +233,22 @@ public class LeftBar {
                 break;
 
             case "Fact. Emitidas":
-                Screens.getInstance().startReport_Invoicebranch();
+                Screens.getInstance().startIndicators_Invoicemade();
+                break;
+            case "Fact. Despachadas":
+                Screens.getInstance().startIndicators_Invoiceloaded();
                 break;
             case "Guias Emitidas":
-                Screens.getInstance().startReport_Invoicebranch();
+                Screens.getInstance().startIndicators_Guidemade();
                 break;
             case "Guias Despachadas":
-                Screens.getInstance().startReport_Invoicebranch();
+                Screens.getInstance().startIndicators_Guideloaded();
                 break;
             case "Guias Pendientes":
                 Screens.getInstance().startIndicators_Guidepending();
+                break;
+            case "Vehiculos Cargados":
+                Screens.getInstance().startIndicators_Vehiclesloaded();
                 break;
 
             case "Caja":

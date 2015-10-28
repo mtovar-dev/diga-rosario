@@ -36,7 +36,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -74,7 +73,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author MITM
  */
-public class Fxml_GuidependingController implements Initializable {
+public class Fxml_VehiclesloadedController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
@@ -86,7 +85,7 @@ public class Fxml_GuidependingController implements Initializable {
     private ComboBox<Integer> cb_ano;
 
     @FXML
-    private HBox hb_1;    
+    private HBox hb_1;
     
     @FXML
     private HBox hb_X;
@@ -160,12 +159,6 @@ public class Fxml_GuidependingController implements Initializable {
     @FXML
     private Label lb_Rm;
 
-    @FXML
-    private LineChart<String,Number> lc_grax;
-    
-    @FXML
-    private LineChart<?, ?> lc_grar;
-    
     @FXML
     private Slider sl_semi;
     
@@ -1151,7 +1144,7 @@ public class Fxml_GuidependingController implements Initializable {
         loadTableQueryR(Datos.getInd_zsi_nros_sem_r());
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
-            if(i <= currentWeekOfYear){
+            if(i < currentWeekOfYear){
                 if(zsi_nros_sem_avgv[i].getXm() != 0){
                     sem += 1;
                     Xm += zsi_nros_sem_avgv[i].getXm();
@@ -1175,7 +1168,7 @@ public class Fxml_GuidependingController implements Initializable {
         lb_Rm.setText(df.format(Double.parseDouble(rm)));
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
-            if(i <= currentWeekOfYear){
+            if(i < currentWeekOfYear){
                 if(zsi_nros_sem_avgv[i].getXm() != 0){
                     lcsX = Xm + (A2 * Rm);
                     lciX = Xm - (A2 * Rm);
@@ -1198,7 +1191,6 @@ public class Fxml_GuidependingController implements Initializable {
         lb_lcsr.setText(df.format(Double.parseDouble(lcsr)));
         String lcir = Double.toString(lciR);
         lb_lcir.setText(df.format(Double.parseDouble(lcir)));
-
 
         for (int i = 0; i < zsi_nros_sem_avgv.length; i++) {
             if(i < currentWeekOfYear){
@@ -1291,7 +1283,7 @@ public class Fxml_GuidependingController implements Initializable {
         JRDs = new JRBeanCollectionDataSource(data, true);
 
         JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-        JrxmlParam.put("p_titulo", "Diferencia = Guias Emitidas - Guias Despachadas");
+        JrxmlParam.put("p_titulo", "Vehiculos Cargados");
         JrxmlParam.put("p_subtitulo", "Año: " + cb_ano.getValue());
  
         try{ 
@@ -1311,7 +1303,7 @@ public class Fxml_GuidependingController implements Initializable {
      */
     private void init_buttons(){
         /**
-         * BOTON IMPRIMIR
+         * BOTON GRAFICO
          */
         im_tool1.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){

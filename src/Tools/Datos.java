@@ -135,6 +135,7 @@ public class Datos {
     private static Dev_FaltCarga[]              rep_dev_faltcarga;
 
     private static Zsi_nros_sem_avg[]           ind_zsi_nros_sem_avg;
+    private static Zsi_nros_sem_day[]           ind_zsi_nros_sem_day;
     private static Zsi_nros_sem_r[]             ind_zsi_nros_sem_r;
     
     private static GroupSupplier[]              rep_grp_supplier;
@@ -1102,6 +1103,20 @@ public class Datos {
      */
     public static void setInd_zsi_nros_sem_avg(Zsi_nros_sem_avg[] aInd_zsi_nros_sem_avg) {
         ind_zsi_nros_sem_avg = aInd_zsi_nros_sem_avg;
+    }
+
+    /**
+     * @return the ind_zsi_nros_sem_day
+     */
+    public static Zsi_nros_sem_day[] getInd_zsi_nros_sem_day() {
+        return ind_zsi_nros_sem_day;
+    }
+
+    /**
+     * @param aInd_zsi_nros_sem_day the ind_zsi_nros_sem_day to set
+     */
+    public static void setInd_zsi_nros_sem_day(Zsi_nros_sem_day[] aInd_zsi_nros_sem_day) {
+        ind_zsi_nros_sem_day = aInd_zsi_nros_sem_day;
     }
 
     /**
