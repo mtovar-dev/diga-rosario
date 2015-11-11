@@ -261,30 +261,8 @@
 <Insets left="7.0" />
 </padding>
                      <children>
-                        <HBox prefHeight="260.0">
-                           <children>
-                              <LineChart fx:id="lc_grax" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                              </LineChart>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="17.0" layoutY="38.0" prefHeight="260.0">
-                           <children>
-                              <LineChart fx:id="lc_grar" createSymbols="false" horizontalGridLinesVisible="false" legendSide="RIGHT" prefWidth="740.0">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </LineChart>
-                           </children>
-                        </HBox>
+                        <HBox fx:id="hb_X" prefHeight="260.0" />
+                        <HBox fx:id="hb_R" layoutX="17.0" layoutY="38.0" prefHeight="260.0" />
                      </children>
 </VBox>
 </children></HBox>

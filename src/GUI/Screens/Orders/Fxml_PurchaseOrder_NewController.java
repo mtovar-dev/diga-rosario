@@ -175,7 +175,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
     private TextField tf_orden;
 
     @FXML
-    private TextField tf_rif;
+    private TextField tf_prov;
 
     @FXML
     private TextField tf_nombre;
@@ -234,7 +234,6 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
 
     private static int numItems         = 0; 
     private static int numStatDet       = 0; 
-    private static int numIdProv        = 0; 
 
     private static String codelpro      = ""; 
     
@@ -278,7 +277,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
         assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
         assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
         assert tf_orden != null : "fx:id=\"tf_orden\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
-        assert tf_rif != null : "fx:id=\"tf_rif\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
+        assert tf_prov != null : "fx:id=\"tf_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
         assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
         assert tf_prod != null : "fx:id=\"tf_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
         assert tf_descrip != null : "fx:id=\"tf_descrip\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
@@ -336,12 +335,12 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
     */
     private void createTable(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn col_orden       = new TableColumn("#");        
-        TableColumn col_status      = new TableColumn("Act");
-        TableColumn col_producto    = new TableColumn("Código");                
-        TableColumn col_descrip     = new TableColumn("Descripción");        
-        TableColumn col_cant        = new TableColumn("Cant.");        
-        TableColumn col_unidad      = new TableColumn("Unidad");
+        TableColumn col_orden       = new TableColumn<>("#");
+        TableColumn col_status      = new TableColumn<>("Act");
+        TableColumn col_producto    = new TableColumn<>("Código");
+        TableColumn col_descrip     = new TableColumn<>("Descripción");
+        TableColumn col_cant        = new TableColumn<>("Cant.");
+        TableColumn col_unidad      = new TableColumn<>("Unidad");
         
         //Se establece el ancho de cada columna
         this.objectWidth(col_orden          , 25,  25);
@@ -565,7 +564,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
         int proceso = tipoOperacion;    
         
         //Se obtiene el rif y nombre del proveedor
-        String supplierrif = tf_rif.getText();
+        String supplierrif = tf_prov.getText();
         int orderrows = orders_new.size();
                 
         //Si el nombre de usuario no esta en blanco
@@ -648,7 +647,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
         switch(tipoOperacion){
             case 0:  //SOLO LECTURA                    
                 tf_orden.setEditable(true);
-                tf_rif.setEditable(false);
+                tf_prov.setEditable(false);
                 tf_prod.setEditable(false);
                 tf_cant.setEditable(false);
 
@@ -665,7 +664,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             case 1:  //NUEVO
                 lb_Title.setText("NUEVO");
                 tf_orden.setEditable(false);
-                tf_rif.setEditable(true);
+                tf_prov.setEditable(true);
                 tf_prod.setEditable(true);
                 tf_cant.setEditable(true);
 
@@ -682,7 +681,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             case 2:  //EDITAR
                 lb_Title.setText("EDITAR");
                 tf_orden.setEditable(false);
-                tf_rif.setEditable(true);
+                tf_prov.setEditable(true);
                 tf_prod.setEditable(true);
                 tf_cant.setEditable(true);
 
@@ -698,7 +697,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                 break;
             case 3:  //GUARDAR
                 tf_orden.setEditable(true);
-                tf_rif.setEditable(false);
+                tf_prov.setEditable(false);
                 tf_prod.setEditable(false);
                 tf_cant.setEditable(false);
 
@@ -714,7 +713,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                 break;
             case 4:  //CAMBIAR STATUS 
                 tf_orden.setEditable(true);
-                tf_rif.setEditable(false);
+                tf_prov.setEditable(false);
                 tf_prod.setEditable(false);
                 tf_cant.setEditable(false);
 
@@ -794,6 +793,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
      */
     private void loadUSupervisa(){        
         final ObservableList<String> data = FXCollections.observableArrayList();
+        data.add("enarvaez");
         data.add("ydeoliveira");
         cb_usupervisa.setItems(data);    
         cb_usupervisa.getSelectionModel().selectFirst();
@@ -824,7 +824,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             orders_new.clear();
 
             tf_orden.setText(String.valueOf(order[0].getIdOrden()));
-            tf_rif.setText(order[0].getRif());
+            tf_prov.setText(order[0].getRif());
             tf_nombre.setText(order[0].getNombre());
             tf_fdespacho.setText(order[0].getFdespacho());
             tf_ldespacho.setText(order[0].getLdespacho());
@@ -901,19 +901,19 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    tf_orden, tf_rif, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
+                    tf_orden, tf_prov, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
                     cb_usupervisa, tf_ldespacho, ta_nota
                     };
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    tf_orden, tf_rif, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
+                    tf_orden, tf_prov, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
                     cb_usupervisa, tf_ldespacho, ta_nota
                     };
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    tf_orden, tf_rif, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
+                    tf_orden, tf_prov, tf_prod, tf_descrip, tf_cant, cb_unidad, tf_fdespacho, 
                     cb_usupervisa, tf_ldespacho, ta_nota
                     };
                 break;
@@ -1096,7 +1096,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
         //tf_orden.setText("");
-        tf_rif.setText("");
+        tf_prov.setText("");
         tf_nombre.setText("");
         tf_prod.setText("");
         tf_descrip.setText("");
@@ -1141,7 +1141,7 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
 
             tf_orden.setText("");
-            tf_rif.requestFocus();
+            tf_prov.requestFocus();
         }
     }
     /**
@@ -1404,21 +1404,21 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
          * metodo para mostrar buscar el nro de RIF
          * param: ENTER O TAB
          */
-        tf_rif.setOnKeyReleased((KeyEvent ke) -> {
+        tf_prov.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
-                if (!tf_rif.getText().isEmpty()){
-                    if(((Node)ke.getSource()).getId().equals("tf_rif") &&
-                            (tf_rif.getText().length() > 0)){
+                if (!tf_prov.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_prov") &&
+                            (tf_prov.getText().length() > 0)){
                         //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                        boolean boo = Ln.getInstance().check_Supplier(tf_rif.getText());
+                        boolean boo = Ln.getInstance().check_Supplier(tf_prov.getText());
                         //Si el resultado el rif del proveedor ya Existe
                         if(Datos.getStSeniat() != 200)
                             boo = false;
 
                         if(boo){
-                            List<Supplier> data = Ln.getList_Supplier(Ln.getInstance().find_Supplier(tf_rif.getText()));
+                            List<Supplier> data = Ln.getList_Supplier(Ln.getInstance().find_Supplier(tf_prov.getText()));
                             Datos.setSupplier(data.get(0));
-                            tf_rif.setText(Datos.getSupplier().getRif());
+                            tf_prov.setText(Datos.getSupplier().getRif());
                             tf_nombre.setText(Datos.getSupplier().getNombre());
 
                             if (Datos.getSupplier().getSen_areten() == 1){
@@ -1441,13 +1441,13 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
                         }else{                                  
                         //    change_im_val(0, im_checkg); 
                             Gui.getInstance().showMessage("El Proveedor indicado NO existe!", "A");
-                            tf_rif.requestFocus();
+                            tf_prov.requestFocus();
                         }
                     }
                 }
                 else{
                     Gui.getInstance().showMessage("Indicar el ID / Rif del Proveedor!", "A");
-                    tf_rif.requestFocus();
+                    tf_prov.requestFocus();
                 }
             }
         });
@@ -1468,73 +1468,67 @@ public class Fxml_PurchaseOrder_NewController implements Initializable {
          */
         tf_prod.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
-//                if (!tf_prod.getText().isEmpty()){
-                    if(((Node)ke.getSource()).getId().equals("tf_prod") &&
-                            (tf_prod.getText().length() > 1)){
+                if(((Node)ke.getSource()).getId().equals("tf_prod") &&
+                        (tf_prod.getText().length() > 1)){
 
-                        boolean boo = true;
-                        if(numStatDet == 0){
-                            for (int i = 0; i < orders_new.size(); i++) {
-                                if(tf_prod.getText().equals(tb_table.getItems().get(i).getIdProducto())){
-                                    boo = false;
-                                    Gui.getInstance().showMessage("Este Producto ya esta relacionado!", "A");
-                                    tf_prod.requestFocus();
+                    boolean boo = true;
+                    if(numStatDet == 0){
+                        for (int i = 0; i < orders_new.size(); i++) {
+                            if(tf_prod.getText().equals(tb_table.getItems().get(i).getIdProducto())){
+                                boo = false;
+                                Gui.getInstance().showMessage("Este Producto ya esta relacionado!", "A");
+                                tf_prod.requestFocus();
+                                break;
+                            }
+                        } 
+                    }
+
+                    if(boo){
+                        //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                        Fxp_Inventa[] inventa = 
+                            Ln.getInstance().find_inventa_prod_prov(tf_prod.getText(), String.valueOf(Datos.getSupplier().getIdSupplier()));
+
+                        cb_unidad.getItems().clear();
+                        if (inventa != null && inventa.length > 0){
+                            switch(inventa[0].getEstado()){  
+                                case "A":     //HABILITADO
+                                    change_im_val(200, im_checkp);
                                     break;
-                                }
-                            } 
-                        }
+                                case "I":     //DESHABILITADO
+                                    change_im_val(0, im_checkp);
+                                    break;   
+                            }
 
-                        if(boo){
-                            //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                            Fxp_Inventa[] inventa = 
-                                Ln.getInstance().find_inventa_prod_prov(tf_prod.getText(), String.valueOf(Datos.getSupplier().getIdSupplier()));
+                            tf_descrip.setText(inventa[0].getDescri());
+                            codelpro = inventa[0].getCodelpro();
 
-                            cb_unidad.getItems().clear();
-                            if (inventa != null && inventa.length > 0){
-                                switch(inventa[0].getEstado()){  
-                                    case "A":     //HABILITADO
-                                        change_im_val(200, im_checkp);
-                                        break;
-                                    case "I":     //DESHABILITADO
-                                        change_im_val(0, im_checkp);
-                                        break;   
-                                }
+                            final ObservableList<Unit> data = FXCollections.observableArrayList();
 
-                                tf_descrip.setText(inventa[0].getDescri());
-                                codelpro = inventa[0].getCodelpro();
+                            if (inventa[0].getTipoemba().getAbrev() == null){
+                                Unit[] unitUnida = Ln.getInstance().find_Unit(inventa[0].getTipounida().getAbrev());        
+                                data.addAll(Arrays.asList(unitUnida)); 
+                            }
+                            else {
+                                Unit[] unitEmb = Ln.getInstance().find_Unit(inventa[0].getTipoemba().getAbrev());        
+                                data.addAll(Arrays.asList(unitEmb)); 
 
-                                final ObservableList<Unit> data = FXCollections.observableArrayList();
-
-                                if (inventa[0].getTipoemba().getAbrev() == null){
+                                if (!inventa[0].getTipoemba().getAbrev().equals(inventa[0].getTipounida().getAbrev())){
                                     Unit[] unitUnida = Ln.getInstance().find_Unit(inventa[0].getTipounida().getAbrev());        
                                     data.addAll(Arrays.asList(unitUnida)); 
                                 }
-                                else {
-                                    Unit[] unitEmb = Ln.getInstance().find_Unit(inventa[0].getTipoemba().getAbrev());        
-                                    data.addAll(Arrays.asList(unitEmb)); 
-
-                                    if (!inventa[0].getTipoemba().getAbrev().equals(inventa[0].getTipounida().getAbrev())){
-                                        Unit[] unitUnida = Ln.getInstance().find_Unit(inventa[0].getTipounida().getAbrev());        
-                                        data.addAll(Arrays.asList(unitUnida)); 
-                                    }
-                                }
-
-                                cb_unidad.setItems(data); 
-                                cb_unidad.getSelectionModel().selectFirst();        
-
-                                tf_cant.requestFocus();
                             }
-                            else{
-                                Gui.getInstance().showMessage("Indicar el Código del Producto!", "A");
-                                tf_prod.requestFocus();
-                            }
+
+                            cb_unidad.setItems(data); 
+                            cb_unidad.getSelectionModel().selectFirst();        
+
+                            tf_cant.requestFocus();
+                        }
+                        else{
+                            Gui.getInstance().showMessage("Indicar el Código del Producto para el Proveedor Seleccionado!", "A");
+                            tf_prod.requestFocus();
                         }
                     }
-//                }
-//                else{
-//                    Gui.getInstance().showMessage("Indicar el Código del Producto!", "A");
-//                    tf_prod.requestFocus();
-//                }
+                }
             }
         });
         /**

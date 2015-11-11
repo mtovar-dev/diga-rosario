@@ -319,14 +319,6 @@ public class Fxml_PrintController implements Initializable {
                 ObservableList<log_CGuias_falt_dv> data_fdev = FXCollections.observableArrayList();
                 data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(Datos.getNumRela(), numHyperlink)));   
 
-//                if (numHyperlink == 9){
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(dp_fecha.getValue().format(formatter), numHyperlink)));   
-//                }
-//                else{
-//                    data_fdev.addAll(Arrays.asList(Ln.getInstance().print_log_CGuias_fdev(Datos.getNumRela(), numHyperlink)));   
-//                }
-
                 JRDs = new JRBeanCollectionDataSource(data_fdev, true);
 
                 print = false;

@@ -470,6 +470,112 @@ public class Screens {
      * 
      * @author MITM
      */
+    public void startInventory_block(){
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("inventory_block");
+        Datos.setIdScreen(Integer.parseInt(id));
+        
+        Stage stage = new Stage();
+        //GENERAL
+        BorderPane root = new BorderPane();       
+        Scene scene = new Scene(root, 1024, 700,Color.BEIGE);
+        scene.getStylesheets().addAll("GUI/Css.css");
+        
+        //TOP BAR                
+        root.setTop(Gui.getAp_topbar());       
+
+        //LEFT BAR                     
+        root.setLeft(Gui.getAp_leftbar());
+        
+        //RIGHT BAR
+        root.setRight(null);
+        
+        // CENTER
+        Gui.setAp_center(gui.loadFxml("Screens/Inventory/Fxml_Inven_Blockprod.fxml"));
+        root.setCenter(Gui.getAp_center());
+        
+        //GENERAL   
+        Stage aux = gui.getStage();
+        gui.setStage(stage);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();    
+        aux.close();
+
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = stage.getX() - event.getScreenX();
+                yOffset = stage.getY() - event.getScreenY();
+            }
+        });
+
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() + xOffset);
+                stage.setY(event.getScreenY() + yOffset);
+            }
+        });
+    }
+    /**
+     * 
+     * @author MITM
+     */
+    public void startInventory_sync(){
+        String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("inventory_sync");
+        Datos.setIdScreen(Integer.parseInt(id));
+        
+        Stage stage = new Stage();
+        //GENERAL
+        BorderPane root = new BorderPane();       
+        Scene scene = new Scene(root, 1024, 700,Color.BEIGE);
+        scene.getStylesheets().addAll("GUI/Css.css");
+        
+        //TOP BAR                
+        root.setTop(Gui.getAp_topbar());       
+
+        //LEFT BAR                     
+        root.setLeft(Gui.getAp_leftbar());
+        
+        //RIGHT BAR
+        root.setRight(null);
+        
+        // CENTER
+        Gui.setAp_center(gui.loadFxml("Screens/Inventory/Fxml_Vehiculos.fxml"));
+        root.setCenter(Gui.getAp_center());
+        
+        //GENERAL   
+        Stage aux = gui.getStage();
+        gui.setStage(stage);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();    
+        aux.close();
+
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = stage.getX() - event.getScreenX();
+                yOffset = stage.getY() - event.getScreenY();
+            }
+        });
+
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() + xOffset);
+                stage.setY(event.getScreenY() + yOffset);
+            }
+        });
+    }
+
+    
+    /**
+     * 
+     * @author MITM
+     */
     public void startFleet_staff(){
         String id =  java.util.ResourceBundle.getBundle("GUI/Screens/Screens").getString("fleet_staff");
         Datos.setIdScreen(Integer.parseInt(id));

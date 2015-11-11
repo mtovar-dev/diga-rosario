@@ -8,11 +8,13 @@ package GUI.Dialogs;
 
 import GUI.Gui;
 import LN.Ln;
+import Objects.Inventory.InventoryBlockProd;
 import Objects.Orders.Orders;
 import Objects.System.Email;
 import Tools.Datos;
 import Tools.Mail;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,6 +105,7 @@ public class Fxml_EmailSendController implements Initializable{
     final ToggleGroup rb_group = new ToggleGroup();
     
     private static final ObservableList<Orders> orders = FXCollections.observableArrayList();
+    private static final ObservableList<InventoryBlockProd> invenblockprod = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -116,10 +119,9 @@ public class Fxml_EmailSendController implements Initializable{
         init_bt_enviar();
         init_bt_cancelar();
         
-        orders.addAll(Arrays.asList(Datos.getRep_orders()));   
-        
         switch (Datos.getIdButton()){
             case 1002012: // button orden
+                orders.addAll(Arrays.asList(Datos.getRep_orders()));   
                 ObservableList<Orders> data = FXCollections.observableArrayList();
                 Datos.setRep_orders(Ln.getInstance().find_orders(Datos.getNumOrd_comp()));
                 data.addAll(Datos.getRep_orders());   
@@ -127,7 +129,7 @@ public class Fxml_EmailSendController implements Initializable{
                 ta_para.setText(data.get(0).getCorreo());
                 tf_asunto.setText("Orden de Compra (Diga) - " + Datos.getNumOrd_comp());
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
-                    ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com");
+                    ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com");
                     ta_mensaje.setText(
                         "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
                         "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
@@ -143,7 +145,7 @@ public class Fxml_EmailSendController implements Initializable{
                     );
                 }
                 else{
-                    ta_cc.setText("descalante@grupodiga.com, armgarces@gmail.com");
+                    ta_cc.setText(Datos.getSesion().getEmail() + ", armgarces@gmail.com");
                     ta_mensaje.setText(
                         "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
                         "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
@@ -160,10 +162,11 @@ public class Fxml_EmailSendController implements Initializable{
                 }
                 break;
             case 1002013: // button agenda
-                ta_para.setText("descargas@grupodiga.com, morita@grupodiga.com, emontero@grupodiga.com");
+                orders.addAll(Arrays.asList(Datos.getRep_orders()));   
+                ta_para.setText("descargas@grupodiga.com, morita@grupodiga.com, emontero@grupodiga.com, glezama@grupodiga.com");
                 tf_asunto.setText("Agenda de Recepcion");
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
-                    ta_cc.setText("enarvaez@grupodiga.com, ydeoliveira@grupodiga.com, fmanzano@grupodiga.com");
+                    ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com, fmanzano@grupodiga.com");
                     ta_mensaje.setText(
                         "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
                         "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
@@ -178,7 +181,7 @@ public class Fxml_EmailSendController implements Initializable{
                     );
                 }
                 else{
-                    ta_cc.setText("descalante@grupodiga.com, armgarces@gmail.com, fmanzano@grupodiga.com");
+                    ta_cc.setText(Datos.getSesion().getEmail() + ", armgarces@gmail.com, fmanzano@grupodiga.com");
                     ta_mensaje.setText(
                         "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
                         "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
@@ -192,6 +195,42 @@ public class Fxml_EmailSendController implements Initializable{
                         "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
                     );
                 }
+                break;
+            case 2004011: // button bloqueo de productos
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Set your date format
+
+                invenblockprod.addAll(Arrays.asList(Datos.getRep_invenblockprod()));   
+
+                ta_para.setText("fmanzano@grupodiga.com, emontero@grupodiga.com, aortega@grupodiga.com, jrodriguez@grupodiga.com, bpestana@grupodiga.com, gneumaier@grupodiga.com, armgarces@grupodiga.com");
+                tf_asunto.setText("Productos Bloqueados para Inventario al - " + sdf.format(invenblockprod.get(0).getFecha()));
+                ta_cc.setText(Datos.getSesion().getEmail() + ", cpaez@grupodiga.com, mtorres@grupodiga.com");
+                ta_mensaje.setText(
+                    "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Productos Bloqueados en el Dpto. de Inventario;n a la fecha.</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                    "<p><span style=\"font-size: small;\"><strong>Genny Lezama</strong></span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Dpto. de Inventario</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Cel: +58 412 000.00.00</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                );
+                break;
+            case 2005021: // button fact anuladas
+                ta_para.setText("gerentes@grupodiga.com, supervisoresnacionales@grupodiga.com, supervisoresregionales@grupodiga.com");
+                tf_asunto.setText("Relación de Facturas Anuladas");
+                ta_cc.setText(Datos.getSesion().getEmail() + ", fmanzano@grupodiga.com, jrodriguez@grupodiga.com, bpestana@grupodiga.com, gneumaier@grupodiga.com, armgarces@grupodiga.com");
+                ta_mensaje.setText(
+                    "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Factutas Anuladas por Sucursdal en el Dpto. de Devoluci&oacute;n a la fecha.</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                    "<p><span style=\"font-size: small;\"><strong>Oswaldo Serrano</strong></span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Dpto. Devolución</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Cel: +58 414 297.51.17</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                );
                 break;
         }
                 
@@ -271,14 +310,14 @@ public class Fxml_EmailSendController implements Initializable{
     private void EmailSend() throws JRException{
         Email email = new Email();
 
-        ObservableList<Orders> data = FXCollections.observableArrayList();
-        data.addAll(Datos.getRep_orders());   
-        JRDs = new JRBeanCollectionDataSource(data, true);
-
         switch (Datos.getIdButton()){
             case 1002012: // button orden
+                ObservableList<Orders> datao = FXCollections.observableArrayList();
+                datao.addAll(Datos.getRep_orders());   
+                JRDs = new JRBeanCollectionDataSource(datao, true);
+
                 JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-                JrxmlParam.put("p_orden", "ORDEN DE COMPRA:  " + data.get(0).getIdOrden());
+                JrxmlParam.put("p_orden", "ORDEN DE COMPRA:  " + datao.get(0).getIdOrden());
                 
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
                     jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_ord_nac.jasper");
@@ -294,6 +333,10 @@ public class Fxml_EmailSendController implements Initializable{
                 email.setAttachFile(path + path_exp + "/orden_compra-" + Datos.getNumOrd_comp() + ".pdf");
                 break;
             case 1002013: // button agenda
+                ObservableList<Orders> dataa = FXCollections.observableArrayList();
+                dataa.addAll(Datos.getRep_orders());   
+                JRDs = new JRBeanCollectionDataSource(dataa, true);
+
                 JrxmlParam.put("p_user", Datos.getSesion().getUsername());
                 JrxmlParam.put("p_orden", "Agenda de Recepción ");
 
@@ -304,6 +347,14 @@ public class Fxml_EmailSendController implements Initializable{
 
                 email.setPathFile(path + path_exp + "/agenda_recep.pdf");
                 email.setAttachFile(path + path_exp + "/agenda_recep.pdf");
+                break;
+            case 2004011: // button bloqueo de productos
+                email.setPathFile(path + path_exp + "/bloq_productos-" + Datos.getNumOrd_toma() + ".pdf");
+                email.setAttachFile(path + path_exp + "/bloq_productos-" + Datos.getNumOrd_toma() + ".pdf");
+                break;
+            case 2005021: // button fact anuladas
+                email.setPathFile(path + path_exp + "/fact_anuladas.pdf");
+                email.setAttachFile(path + path_exp + "/fact_anuladas.pdf");
                 break;
         }
 

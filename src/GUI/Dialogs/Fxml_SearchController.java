@@ -11,6 +11,7 @@ import LN.Ln;
 import Objects.Fxp_Archguid_cli;
 import Objects.Fxp_Archguip_det;
 import Objects.Infocent.Empleado;
+import Objects.Inventory.InventoryBlockProd;
 import Objects.Orders.Orders;
 import Objects.Orders.Supplier;
 import Objects.log_CGuias;
@@ -1028,7 +1029,115 @@ public class Fxml_SearchController implements Initializable {
                     return row ;  
                 });
                 break;
-            case 2005011: // screen Cliente 
+            case 2004011: // button toma de productos
+                TableColumn<Object, Object> col_ordent      = new TableColumn<>("#");        
+                TableColumn<Object, Object> col_fechat      = new TableColumn<>("Fecha");        
+                TableColumn<Object, Object> col_numtoma     = new TableColumn<>("Nro Toma");                
+                TableColumn<Object, Object> col_cantt       = new TableColumn<>("Cant");        
+
+                //Se establece el ancho de cada columna
+                this.objectWidth(col_ordent       , 34,  34); 
+                this.objectWidth(col_fechat       , 66,  66);
+                this.objectWidth(col_numtoma      , 66,  66);
+                this.objectWidth(col_cantt        , 60,  60);
+                
+                col_fechat.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                        return new TableCell<Object, Object>() {
+                            @Override
+                            public void updateItem(Object item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(empty ? null : getString());
+                                setAlignment(Pos.CENTER);
+                            }
+
+                            private String getString() {
+                                String ret = "";
+                                if (getItem() != null) {
+                                    ret = getItem().toString();
+                                    if (ret.equals("0"))
+                                        ret = "";
+                                } else {
+                                    ret = "";
+                                }
+                                return ret;
+                            }                
+                        };
+                    }
+                });        
+
+                col_numtoma.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                        return new TableCell<Object, Object>() {
+                            @Override
+                            public void updateItem(Object item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(empty ? null : getString());
+                                setAlignment(Pos.CENTER);
+                            }
+
+                            private String getString() {
+                                String ret = "";
+                                if (getItem() != null) {
+                                    ret = getItem().toString();
+                                    if (ret.equals("0"))
+                                        ret = "";
+                                } else {
+                                    ret = "";
+                                }
+                                return ret;
+                            }                
+                        };
+                    }
+                });        
+
+                col_cantt.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell call(TableColumn<Object, Object> param) {
+                        return new TableCell<Orders, Integer>() {
+                            @Override
+                            public void updateItem(Integer item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(empty ? null : getString());
+                                setAlignment(Pos.CENTER_RIGHT);
+                            }
+
+                            private String getString() {
+                                String ret = "";
+                                if (getItem() != null) {
+                                    String gi = getItem().toString();
+                                    NumberFormat df = DecimalFormat.getInstance();
+                                    df.setMinimumFractionDigits(0);
+                                    df.setRoundingMode(RoundingMode.DOWN);
+
+                                    ret = df.format(Double.parseDouble(gi));
+                                } else {
+                                    ret = "0,00";
+                                }
+                                return ret;
+                            }                
+                        };
+                    }
+                });        
+
+                //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
+                col_ordent.setCellValueFactory( 
+                        new PropertyValueFactory<>("numorden") );
+                col_fechat.setCellValueFactory( 
+                        new PropertyValueFactory<>("fecha") );
+                col_numtoma.setCellValueFactory( 
+                        new PropertyValueFactory<>("numtoma") );
+                col_cantt.setCellValueFactory( 
+                        new PropertyValueFactory<>("cantProd") );
+
+                //Se Asigna ordenadamente las columnas de la tabla
+                tb_table.getColumns().addAll(
+                    col_ordent, col_fechat, col_numtoma, col_cantt
+                    );   
+                break;
+            case 2005011: // screen Aseguradora 
                 TableColumn<Object, Object> col_statseg      = new TableColumn<>("Act");
                 TableColumn<Object, Object> col_codigos      = new TableColumn<>("Código");                
                 TableColumn<Object, Object> col_seguro       = new TableColumn<>("Empresa de Seguro");        
@@ -1307,8 +1416,12 @@ public class Fxml_SearchController implements Initializable {
                         case 2003041: // screen Guia Avanzada
                             Gui.setIdBusqueda(((log_CGuias) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumrela());
                             break;
+                        case 2004011: // screen Aseguradora
+                            Gui.setIdBusqueda(String.valueOf(((InventoryBlockProd) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumtoma()));
+                            break;
                         case 2005011: // screen Aseguradora
                             Gui.setIdBusqueda(String.valueOf(((log_TSeguros) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getIdTSeguro()));
+                            break;
                         case 7001021: // screen Guia Avanzada
                             Gui.setIdBusqueda(((Empleado) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getCedula());
                             break;
@@ -1564,6 +1677,9 @@ public class Fxml_SearchController implements Initializable {
             case 2003042: // button sup de ruta
                 loadTablePer( Ln.getInstance().find_log_Personal_tp(tf_buscar.getText(), 7, 7));  
                 break;
+            case 2004011: // button toma de productos
+                loadTableTomaFisica( Ln.getInstance().find_invenblockprod_all(Integer.parseInt(tf_rows.getText())));  
+                break;
             case 2005011: // screen Aseguradora
                 loadTableEmpSeg( Ln.getInstance().find_log_TSeguros(tf_buscar.getText()));  
                 break;
@@ -1651,6 +1767,10 @@ public class Fxml_SearchController implements Initializable {
                 
                 tf_producto.setVisible(true);
                 break;
+            case 2004011: // button toma de productos
+                lb_b.setText("Buscar Nro. de Toma:");
+                imprimir(Datos.getIdButton());
+                break;
             case 2005011: // screen Aseguradora
                 lb_b.setText("Buscar Seguro:");
                 break;
@@ -1736,6 +1856,16 @@ public class Fxml_SearchController implements Initializable {
         if(empleado != null){
             ObservableList<Object> data = FXCollections.observableArrayList();        
             data.addAll(Arrays.asList(empleado));   
+            tb_table.setItems(data);        
+        }
+    } 
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadTableTomaFisica(InventoryBlockProd[] invenblockprod){  
+        if(invenblockprod != null){
+            ObservableList<Object> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(invenblockprod));   
             tb_table.setItems(data);        
         }
     } 

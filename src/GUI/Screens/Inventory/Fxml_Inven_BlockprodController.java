@@ -3,36 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Screens.Orders;
+package GUI.Screens.Inventory;
 
 import GUI.Gui;
 import LN.Ln;
 import Listeners.FocusPropertyChangeListener;
-import Objects.Orders.Orders;
+import Objects.Inventory.InventoryBlockProd;
+import Objects.Orders.Fxp_Inventa;
 import Objects.Orders.Supplier;
 import Tools.Datos;
-import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -49,6 +55,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -56,18 +63,26 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-
 /**
  *
  * @author MITM
  */
-public class Fxml_PurchaseOrder_OpenController implements Initializable {
+public class Fxml_Inven_BlockprodController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
 
     @FXML 
     private Button bt_aceptar; 
+
+    @FXML 
+    private Button bt_toma; 
+
+    @FXML 
+    private Button bt_prov; 
+
+    @FXML 
+    private Button bt_prod; 
 
     @FXML
     private DatePicker dp_fecha;
@@ -130,22 +145,22 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private Label lb_Title;
 
     @FXML 
-    private TableView<Orders> tb_table; 
-
-    @FXML 
-    private TableView<Orders> tb_view; 
+    private TableView<InventoryBlockProd> tb_table; 
 
     @FXML
     private TextField tf_buscar;
 
     @FXML
-    private TextField tf_orden1;
+    private TextField tf_toma;
 
     @FXML
-    private TextField tf_orden2;
+    private TextField tf_prov;
 
     @FXML
-    private TextField tf_proveedor;
+    private TextField tf_nombre;
+
+    @FXML
+    private TextField tf_prod;
 
     @FXML
     private VBox vb_form;
@@ -166,6 +181,9 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private static final String path_rep = 
             java.util.ResourceBundle.getBundle("BD/DBcon").getString("path_rep");
 
+    private static final String path_exp = 
+            java.util.ResourceBundle.getBundle("BD/DBcon").getString("path_exp");
+
     private static final String path = System.getProperty("user.dir");
     
     Map<String, Object> JrxmlParam = new HashMap<String, Object>();
@@ -181,14 +199,12 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private static Integer[] toolsConfig;    
     private static String[] tooltips;
 
-    private static int numGuias         = 0; 
+    private static int numItems         = 0; 
     private static int numStatDet       = 0; 
-    private static int numIdProv        = 0; 
     
-    private static final ObservableList<Orders> orders_hea = FXCollections.observableArrayList();
-    private static final ObservableList<Orders> orders_det = FXCollections.observableArrayList();
+    private static final ObservableList<InventoryBlockProd> invenblockprod = FXCollections.observableArrayList();
 
-    private static final String ScreenName = "Ord. de Compra";
+    private static final String ScreenName = "Bloq. de Productos";
     
     /**
      * Initializes the controller class.
@@ -199,6 +215,9 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert bt_aceptar != null : "fx:id=\"bt_aceptar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert bt_toma != null : "fx:id=\"bt_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert bt_prov != null : "fx:id=\"bt_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert bt_prod != null : "fx:id=\"bt_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert dp_fecha != null : "fx:id=\"dp_fecha\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'."; 
         assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
@@ -221,9 +240,10 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_orden1 != null : "fx:id=\"tf_orden1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_orden2 != null : "fx:id=\"tf_orden2\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_proveedor != null : "fx:id=\"tf_proveedor\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_toma != null : "fx:id=\"tf_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_prov != null : "fx:id=\"tf_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert tf_prod != null : "fx:id=\"tf_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
         assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
 
@@ -234,10 +254,7 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         botonInicio();  //Se imprime la pantalla Inicio
 
         createTable();
-        createDetail();
         
-        loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
-
         //Capturador de eventos de Teclado en toda la pantalla 
         ap_root.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)){
@@ -275,210 +292,21 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     */
     private void createTable(){
         //Se crean y definen las columnas de la Tabla
-        TableColumn col_ordenc        = new TableColumn("#");        
-        TableColumn col_fechac        = new TableColumn<>("Fecha");        
-        TableColumn col_numorden      = new TableColumn<>("Nro Orden");                
-        TableColumn col_idprovc       = new TableColumn<>("ID");                
-        TableColumn col_rifprovc      = new TableColumn<>("Rif");        
-        TableColumn col_nfiscalc      = new TableColumn<>("Nombre Fiscal");        
-        TableColumn col_fpersonalc    = new TableColumn<>("Firma Personal");        
-        TableColumn col_cantsol       = new TableColumn<>("Cant");        
+        TableColumn col_orden       = new TableColumn<>("#");        
+        TableColumn col_status      = new TableColumn<>("Act");
+        TableColumn col_fecha       = new TableColumn<>("Fecha");        
+        TableColumn col_numtoma     = new TableColumn<>("Nro Toma");                
+        TableColumn col_idprov      = new TableColumn<>("ID Prov.");                
+        TableColumn col_codigo      = new TableColumn<>("Código");                
+        TableColumn col_descrip     = new TableColumn<>("Descripción");        
 
         //Se establece el ancho de cada columna
-        this.objectWidth(col_ordenc       , 34,  34); 
-        this.objectWidth(col_fechac       , 66,  66);
-        this.objectWidth(col_numorden     , 66,  66);
-        this.objectWidth(col_idprovc      , 45,  45);
-        this.objectWidth(col_rifprovc     , 75,  75);
-        this.objectWidth(col_nfiscalc     , 330, 350); //270
-        this.objectWidth(col_fpersonalc   , 200, 350);
-        this.objectWidth(col_cantsol      , 60,  60);
-
-        col_numorden.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
-            @Override
-            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
-                return new TableCell<Object, Object>() {
-                    @Override
-                    public void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_fechac.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
-            @Override
-            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
-                return new TableCell<Object, Object>() {
-                    @Override
-                    public void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_idprovc.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
-            @Override
-            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
-                return new TableCell<Object, Object>() {
-                    @Override
-                    public void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem().toString();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_cantsol.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
-            @Override
-            public TableCell call(TableColumn<Object, Object> param) {
-                return new TableCell<Orders, Integer>() {
-                    @Override
-                    public void updateItem(Integer item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
-                        } else {
-                            ret = "0,00";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
-        col_ordenc.setCellValueFactory( 
-                new PropertyValueFactory<>("numorden") );
-        col_fechac.setCellValueFactory( 
-                new PropertyValueFactory<>("fecha") );
-        col_numorden.setCellValueFactory( 
-                new PropertyValueFactory<>("idOrden") );
-        col_idprovc.setCellValueFactory( 
-                new PropertyValueFactory<>("idSupplier") );
-        col_rifprovc.setCellValueFactory( 
-                new PropertyValueFactory<>("rif") );
-        col_nfiscalc.setCellValueFactory( 
-                new PropertyValueFactory<>("nombre") );
-        col_fpersonalc.setCellValueFactory( 
-                new PropertyValueFactory<>("firma") );
-        col_cantsol.setCellValueFactory( 
-                new PropertyValueFactory<>("cant_sol") );
-
-        //Se Asigna ordenadamente las columnas de la tabla
-        tb_table.getColumns().addAll(
-            col_ordenc, col_fechac, col_numorden, col_idprovc, col_nfiscalc
-            );   
-
-        //Se Asigna menu contextual 
-
-        //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
-        EventHandler eh = new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent ke){
-                //Si fue presionado la tecla ARRIBA o ABAJO
-                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
-                    //Selecciona la FILA enfocada
-                    selectedRow();
-                }
-            }
-        };
-        //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_table.setOnKeyReleased(eh);
-    }  
-    /**
-    * Metodo encargado de Crear e inicializar la Tabla de Datos
-    */
-    private void createDetail(){
-        //Se crean y definen las columnas de la Tabla
-        TableColumn col_orden       = new TableColumn("#");
-        TableColumn col_status      = new TableColumn("Act");
-        TableColumn col_producto    = new TableColumn("Código");                
-        TableColumn col_descrip     = new TableColumn("Descripción");        
-        TableColumn col_unidped     = new TableColumn("Unid");
-        TableColumn col_empaque     = new TableColumn("Empaque");
-        
-        TableColumn col_cantped      = new TableColumn("Pedida");        
-        TableColumn col_cantrec      = new TableColumn("Recibida");        
-        TableColumn col_cantpen      = new TableColumn("Faltante");        
-        TableColumn col_cantidades   = new TableColumn("Cantidades");
-        col_cantidades.getColumns().addAll(
-                col_cantrec, col_cantpen);//col_cantped, 
-
-        TableColumn col_precio       = new TableColumn<>("P. Marcado");        
-        TableColumn col_fecha1       = new TableColumn<>("F. Vcto 1");        
-        TableColumn col_fecha2       = new TableColumn<>("F. Vcto 2");        
-        TableColumn col_cbarra       = new TableColumn<>("Cod. de Barra");        
-
-        //Se establece el ancho de cada columna
-        this.objectWidth(col_orden          , 25,  25);
-        this.objectWidth(col_status         , 30 , 30);
-        this.objectWidth(col_producto       , 52 , 52);   
-        this.objectWidth(col_descrip        , 220, 300);
-        this.objectWidth(col_unidped        , 45,  45);
-        this.objectWidth(col_empaque        , 60,  60);
-        this.objectWidth(col_cantped        , 55 , 65);
-        this.objectWidth(col_cantrec        , 62 , 62);
-        this.objectWidth(col_cantpen        , 62 , 62);
-        this.objectWidth(col_precio         , 75,  75);
-        this.objectWidth(col_fecha1         , 65,  65);
-        this.objectWidth(col_fecha2         , 65,  65);
-        this.objectWidth(col_cbarra         , 115,  115);
-
+        this.objectWidth(col_orden        , 34,  34); 
+        this.objectWidth(col_status       , 30 , 30);
+        this.objectWidth(col_numtoma      , 66,  66);
+        this.objectWidth(col_idprov       , 55,  55);
+        this.objectWidth(col_codigo       , 65,  65);
+        this.objectWidth(col_descrip      , 300, 350); 
         /**
          * Sobreescritura de un metodo de la Columna, para sustituir el valor numerico 
          * del STATUS del usuario por una Imagen segun el valor
@@ -488,7 +316,7 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         col_status.setCellFactory(new Callback<TableColumn, TableCell>() {
             @Override
             public TableCell call(TableColumn param) {
-                return new TableCell<Orders, String>() {
+                return new TableCell<InventoryBlockProd, String>() {
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -517,67 +345,12 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
             }
         });        
 
-        col_producto.setCellFactory(new Callback<TableColumn, TableCell>() {
+        col_fecha.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
             @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Orders, String>() {
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
                     @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            ret = getItem();
-                            if (ret.equals("0"))
-                                ret = "";
-                        } else {
-                            ret = "";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_cantped.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Orders, Integer>() {
-                    @Override
-                    public void updateItem(Integer item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(empty ? null : getString());
-                        setAlignment(Pos.CENTER_RIGHT);
-                    }
-
-                    private String getString() {
-                        String ret = "";
-                        if (getItem() != null) {
-                            String gi = getItem().toString();
-                            NumberFormat df = DecimalFormat.getInstance();
-                            df.setMinimumFractionDigits(0);
-                            df.setRoundingMode(RoundingMode.DOWN);
-
-                            ret = df.format(Double.parseDouble(gi));
-                        } else {
-                            ret = "0,00";
-                        }
-                        return ret;
-                    }                
-                };
-            }
-        });        
-
-        col_unidped.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-                return new TableCell<Orders, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
+                    public void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(empty ? null : getString());
                         setAlignment(Pos.CENTER);
@@ -598,30 +371,164 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
             }
         });        
 
-        
+        col_numtoma.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+            @Override
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
+                    @Override
+                    public void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_fecha.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+            @Override
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
+                    @Override
+                    public void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_idprov.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+            @Override
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
+                    @Override
+                    public void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
+
+        col_codigo.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+            @Override
+            public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                return new TableCell<Object, Object>() {
+                    @Override
+                    public void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? null : getString());
+                        setAlignment(Pos.CENTER);
+                    }
+
+                    private String getString() {
+                        String ret = "";
+                        if (getItem() != null) {
+                            ret = getItem().toString();
+                            if (ret.equals("0"))
+                                ret = "";
+                        } else {
+                            ret = "";
+                        }
+                        return ret;
+                    }                
+                };
+            }
+        });        
 
         //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
         col_orden.setCellValueFactory( 
                 new PropertyValueFactory<>("numorden") );
         col_status.setCellValueFactory( 
-                new PropertyValueFactory<>("statdet") );
-        col_producto.setCellValueFactory( 
+                new PropertyValueFactory<>("status") );
+        col_fecha.setCellValueFactory( 
+                new PropertyValueFactory<>("fecha") );
+        col_numtoma.setCellValueFactory( 
+                new PropertyValueFactory<>("numtoma") );
+        col_idprov.setCellValueFactory( 
+                new PropertyValueFactory<>("idSupplier") );
+        col_codigo.setCellValueFactory( 
                 new PropertyValueFactory<>("idProducto") );
         col_descrip.setCellValueFactory( 
                 new PropertyValueFactory<>("descrip") );
-        col_cantped.setCellValueFactory( 
-                new PropertyValueFactory<>("cant_sol") );
-        col_unidped.setCellValueFactory( 
-                new PropertyValueFactory<>("unidsol") );
-        
+
         //Se Asigna ordenadamente las columnas de la tabla
-        tb_view.getColumns().addAll(
-                col_orden, col_producto, col_descrip, col_unidped, col_empaque,
-                col_cantidades, col_precio, col_fecha1, col_fecha2
-                );                
-        
+        tb_table.getColumns().addAll(
+            col_orden, col_status, col_idprov, col_codigo, col_descrip
+            );   
+
         //Se Asigna menu contextual 
+        tb_table.setRowFactory((TableView<InventoryBlockProd> tableView) -> {
+            final TableRow<InventoryBlockProd> row = new TableRow<>();
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem removeMenuItem = new MenuItem("Eliminar");
+
+            contextMenu.getItems().add(removeMenuItem);
+            removeMenuItem.setOnAction((ActionEvent event) -> {
+                switch (tipoOperacion){
+                    case 1:
+                        tb_table.getItems().remove(row.getItem());
+                        break;
+                    case 2:
+                        tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex()).setStatus("A");
+
+                        numStatDet = Integer.parseInt(( tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumorden());
+                        col_status.setVisible(false);
+                        col_status.setVisible(true);
+                        break;
+                }
+            });
+
+            // Set context menu on row, but use a binding to make it only show for non-empty rows:
+            row.contextMenuProperty().bind(
+                Bindings.when(row.emptyProperty())
+                    .then((ContextMenu)null)
+                    .otherwise(contextMenu)
+            );
+            return row ;  
+        });
         
+        
+
         //Se define el comportamiento de las teclas ARRIBA y ABAJO en la tabla
         EventHandler eh = new EventHandler<KeyEvent>(){
             @Override
@@ -629,14 +536,68 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
                 //Si fue presionado la tecla ARRIBA o ABAJO
                 if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)){     
                     //Selecciona la FILA enfocada
-                    //selectedRow();
+                    selectedRow();
                 }
             }
         };
         //Se Asigna el comportamiento para que se ejecute cuando se suelta una tecla
-        tb_view.setOnKeyReleased(eh);
+        tb_table.setOnKeyReleased(eh);
     }  
+    /**
+     * Metodo encargado de guardar los datos de un nuevo usuario o de un 
+     * usuario modificado
+     */
+    private boolean saveToma() {
+        //Se asigna el valor del tipo de procedimiento que viene de ser ejecutado,
+        // 1 si es un NUEVO proveedor 
+        // 2 si es un proveedor MODIFICADO
+        int proceso = tipoOperacion;    
+        
+        //Se obtiene el rif y nombre del proveedor
+        String supplierrif = tf_prov.getText();
+        int orderrows = invenblockprod.size();
+                
+        //Si el nombre de usuario no esta en blanco
+        if((supplierrif != null && !supplierrif.equals("")) &&
+           (orderrows > 0)){
+            //Ejecuta los procesos predeterminados para el guardado del proveedor
+            setCurrentOperation();
+            //Se asignan los valores del objeto 
+            boolean result = false;
+            InventoryBlockProd invenblockprods = new InventoryBlockProd();
+            
+            for (int i = 0; i < invenblockprod.size(); i++) {
+                invenblockprods.setFecha(Date.valueOf(dp_fecha.getValue()));
+                invenblockprods.setIdSupplier(invenblockprod.get(i).getIdSupplier());
+                invenblockprods.setRif(invenblockprod.get(i).getRif());
+                invenblockprods.setNombre(invenblockprod.get(i).getNombre());
+                invenblockprods.setIdProducto(invenblockprod.get(i).getIdProducto());
+                invenblockprods.setDescrip(invenblockprod.get(i).getDescrip());
+                invenblockprods.setObserv(invenblockprod.get(i).getObserv());
+                invenblockprods.setAnulada(invenblockprod.get(i).getAnulada());
+                invenblockprods.setStatus(invenblockprod.get(i).getStatus());
+                invenblockprods.setSql(invenblockprod.get(i).getSql());
+                invenblockprods.setCantProd(invenblockprod.get(i).getCantProd());
 
+                if (i == numItems)
+                    proceso = 1;
+
+                result = 
+                        Ln.getInstance().save_invenblockprod(invenblockprods, proceso, i, ScreenName);
+            }
+            
+            //Si el Resultado es correcto
+            if(result){
+                //Se Notifica al usuario
+                tf_toma.setText(Datos.getNumOrd_toma());
+                Gui.getInstance().showMessage("La " + ScreenName + " se ha Guardado Correctamente!", "I");
+                return true;
+            }     
+        }else{                            
+            Gui.getInstance().showMessage("No Existe ninguna " + ScreenName + " para ser Guardado!", "A");
+        }
+        return false;
+    }
     /**
      * Procedimiento encargado de refrescar el formulario de la pantalla,
      * establece nuevos valores a cada campo de Texto
@@ -659,8 +620,16 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         //Se evalua el tipo de Operacion
         switch(tipoOperacion){
             case 0:  //SOLO LECTURA                    
-                tf_orden1.setEditable(true);
-                tf_orden2.setEditable(true);
+                tf_toma.setEditable(true);
+                tf_prov.setEditable(false);
+                tf_nombre.setEditable(false);
+                tf_prod.setEditable(false);
+
+                dp_fecha.setDisable(true);
+                
+                bt_toma.setDisable(false);
+                bt_prov.setDisable(true);
+                bt_prod.setDisable(true);
 
                 //SE PERMITE: NUEVO, CANCELAR Y BUSCAR
                 disables = new Integer[]{2,5,6,9,10};
@@ -668,8 +637,16 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
                 break;
             case 1:  //NUEVO
                 lb_Title.setText("NUEVO");
-                tf_orden1.setEditable(false);
-                tf_orden2.setEditable(false);
+                tf_toma.setEditable(false);
+                tf_prov.setEditable(true);
+                tf_nombre.setEditable(true);
+                tf_prod.setEditable(true);
+
+                dp_fecha.setDisable(false);
+                
+                bt_toma.setDisable(true);
+                bt_prov.setDisable(false);
+                bt_prod.setDisable(false);
 
                 //SE PERMITE: NUEVO,GUARDAR Y CANCELAR             
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
@@ -677,24 +654,48 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
                 break;
             case 2:  //EDITAR
                 lb_Title.setText("EDITAR");
-                tf_orden1.setEditable(false);
-                tf_orden2.setEditable(false);
+                tf_toma.setEditable(false);
+                tf_prov.setEditable(true);
+                tf_nombre.setEditable(true);
+                tf_prod.setEditable(true);
+
+                dp_fecha.setDisable(false);
+                
+                bt_toma.setDisable(true);
+                bt_prov.setDisable(false);
+                bt_prod.setDisable(false);
 
                 //SE PERMITE: EDITAR,GUARDAR Y CANCELAR
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
                 disableAllToolBar(disables);            
                 break;
             case 3:  //GUARDAR
-                tf_orden1.setEditable(true);
-                tf_orden2.setEditable(true);
+                tf_toma.setEditable(true);
+                tf_prov.setEditable(false);
+                tf_nombre.setEditable(false);
+                tf_prod.setEditable(false);
+
+                dp_fecha.setDisable(true);
+                
+                bt_toma.setDisable(false);
+                bt_prov.setDisable(true);
+                bt_prod.setDisable(true);
 
                 //SE PERMITE: GUARDAR Y CANCELAR
                 disables = new Integer[]{0,1,3,4,6,7,8,9,10,11};
                 disableAllToolBar(disables);   
                 break;
             case 4:  //CAMBIAR STATUS 
-                tf_orden1.setEditable(true);
-                tf_orden2.setEditable(true);
+                tf_toma.setEditable(true);
+                tf_prov.setEditable(false);
+                tf_nombre.setEditable(false);
+                tf_prod.setEditable(false);
+
+                dp_fecha.setDisable(true);
+                
+                bt_toma.setDisable(false);
+                bt_prov.setDisable(true);
+                bt_prod.setDisable(true);
 
                 //SE PERMITE: GUARDAR,CAMBIO STATUS Y CANCELAR
                 disables = new Integer[]{0,1,2,4,6,7,8,9,10,11};
@@ -707,10 +708,28 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     /**
      * Procedimiento de llenado de datos en la tabla de datos
      */
-    private void loadTable(Orders[] orders){    
-        if(orders != null){
-            ObservableList<Orders> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(orders));   
+    private void loadTable(){    
+        if (tipoOperacion == 0){
+            invenblockprod.clear();
+            tb_table.setItems(invenblockprod);
+        }else{
+            tb_table.setItems(invenblockprod);
+            tb_table.scrollTo(invenblockprod.size());
+        }
+    } 
+    /**
+     * Procedimiento de llenado de datos en la tabla de datos
+     */
+    private void loadBlockProd(InventoryBlockProd[] invenblockprods){    
+        if(invenblockprod != null){
+            Datos.setNumOrd_comp(String.valueOf(invenblockprods[0].getNumtoma()));
+
+            ObservableList<InventoryBlockProd> data = FXCollections.observableArrayList();        
+            data.addAll(Arrays.asList(invenblockprods));   
+
+            numItems = data.size();
+            invenblockprod.clear();
+
             tb_table.setItems(data);        
         }
     } 
@@ -719,22 +738,12 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
      * seleccionado en la tabla
      */
     private void selectedRow(){
-        tipoOperacion = 0;      //SOLO LECTURA
-        Datos.setRep_orders(Ln.getInstance().find_orders(String.valueOf(tb_table.getSelectionModel().getSelectedItem().getIdOrden())));
-        if(Datos.getRep_orders() != null){
-            loadTableView(Datos.getRep_orders()); 
-        }
+//        tipoOperacion = 0;      //SOLO LECTURA
+//        Datos.setRep_orders(Ln.getInstance().find_orders(String.valueOf(tb_table.getSelectionModel().getSelectedItem().getIdOrden())));
+//        if(Datos.getRep_orders() != null){
+//            loadTableView(Datos.getRep_orders()); 
+//        }
     }
-    /**
-     * Procedimiento de llenado de datos en la tabla de datos
-     */
-    private void loadTableView(Orders[] order){    
-        if(order != null){
-            ObservableList<Orders> data = FXCollections.observableArrayList();        
-            data.addAll(Arrays.asList(order));   
-            tb_view.setItems(data);        
-        }
-    }    
 
     /***************************************************************************/
     /************************ METODOS DE ACCESO RAPIDO *************************/
@@ -753,17 +762,17 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
                     };
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
                     };
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    tf_orden1, tf_orden2, tf_proveedor, dp_fecha, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
                     };
                 break;
         }             
@@ -833,7 +842,6 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         }
         
         im_tool7.setVisible(false);
-        im_tool8.setVisible(false);
         im_tool9.setVisible(false);
         im_tool10.setVisible(false);
         im_tool11.setVisible(false);
@@ -915,13 +923,15 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
                     //Valida que el evento se haya generado en el campo de busqueda
                     if(((Node)ke.getSource()).getId().equals("tf_buscar")){                        
                         //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
-                        Datos.setOrders(new Orders());                           
-                        boolean boo = Ln.getInstance().check_orders(tf_buscar.getText());                
+                        Datos.setInvenblockprod(new InventoryBlockProd());                           
+                        boolean boo = Ln.getInstance().check_invenblockprod(tf_toma.getText());                
                         if(boo){
-                            Datos.setRep_orders(Ln.getInstance().find_orders(tf_buscar.getText()));
+                            Datos.setNumOrd_toma(tf_toma.getText());
+                            Datos.setRep_invenblockprod(Ln.getInstance().find_invenblockprod(tf_toma.getText()));
+                            loadBlockProd(Ln.getInstance().find_invenblockprod(tf_toma.getText()));     
                         }
                         else{
-                            Gui.getInstance().showMessage("El Nro de Orden de Compra NO existe!", "A");
+                            Gui.getInstance().showMessage("El Nro. de " + ScreenName + " NO existe!", "A");
                         }
                         tf_buscar.setVisible(false);    //establece el textField como oculto al finalizar
                     }
@@ -937,24 +947,30 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
      */
     private void botonInicio() {
         tipoOperacion = 0;                  //OPERACION SOLO LECTURA
-        numGuias = 0;
         
         loadToolBar();
         //SE LIMPIA EL FORMULARIO
-        tf_orden1.setText("");
-        tf_orden2.setText("");
-        tf_proveedor.setText("");
+        tf_toma.setText("");
+        tf_prov.setText("");
+        tf_nombre.setText("");
+        tf_prod.setText("");
 
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
         
-        Datos.setOrders(new Orders());                           
+        dp_fecha.setValue(LocalDate.now());
+
+        Datos.setInvenblockprod(new InventoryBlockProd());                           
         refreshForm();                      
         Datos.setLog_cguias(null);                  //RESET DE LA VARIABLE
         setFormVisible(true);                      //OCULTA EL FORMULARIO
         //RECARGA LA TABLA ORIGINAL
         
-        tf_orden1.requestFocus();
+        tf_nombre.setDisable(true);
+
+        loadTable();
+
+        tf_toma.requestFocus();
     }
     /**
      * 
@@ -962,21 +978,23 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private void botonNuevo(){
         if(toolsConfig[2]==1){
             tipoOperacion = 1;
-            Datos.setOrders(new Orders());                           
+            Datos.setInvenblockprod(new InventoryBlockProd());                           
             refreshForm();
             setFormVisible(true);
             Gui.getFields()[Gui.getFieldFocused()].requestFocus();
 
-            tf_orden1.setText("");
-            tf_orden2.setText("");
-            tf_orden1.requestFocus();
+            tf_toma.setText("");
+            tf_prov.setText("");
+            tf_nombre.setText("");
+            tf_prod.setText("");
+            dp_fecha.requestFocus();
         }
     }
     /**
      * 
      */
     private void botonEditar(){
-        if(Datos.getOrders() != null && toolsConfig[3]==1){
+        if(Datos.getInvenblockprod()!= null && toolsConfig[3]==1){
             tipoOperacion = 2;
             refreshForm();
             setFormVisible(true);     
@@ -987,27 +1005,27 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
      * 
      */
     private void botonGuardar(){   
-        if(Datos.getOrders() != null){
-//            boolean result = saveOrder();
-//            if (result)
-//                botonInicio();
+        if(Datos.getInvenblockprod() != null){
+            boolean result = saveToma();
+            if (result)
+                botonInicio();
         }
     }
     /**
      * 
      */
     private void botonEliminar() {
-        if(Datos.getOrders() != null && toolsConfig[5]==1){
+        if(Datos.getInvenblockprod() != null && toolsConfig[5]==1){
             tipoOperacion = 4;      //OPERACION DE BORRADO
             change_im_check(true);       //SE CAMBIA EL ICONO DE VERIFICACION DEL SUPPLIER                   
             refreshForm();         
             setFormVisible(true);  
             String verbo = "desactivar";
-            if(Datos.getOrders().getStatenc()== 1){
+            if(Datos.getInvenblockprod().getAnulada()== 1){
                 verbo = "activar";
             }
             String mensj = 
-                "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getOrders().getIdOrden()+"?";
+                "¿Seguro que desea " + verbo + " el " + ScreenName + Datos.getInvenblockprod().getNumtoma()+"?";
             Gui.getInstance().showConfirmar(mensj);  
         }
     }
@@ -1017,12 +1035,12 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private void botonBuscar(){
         if(toolsConfig[13]==1){
             //tipoOperacion = 0;                          //OPERACION SOLO LECTURA
-            tf_orden1.setText("");
+            tf_buscar.setText("");
             //SE LIMPIA EL FORMULARIO
             tf_buscar.setVisible(true);
-            Datos.setOrders(new Orders());                           
+            Datos.setInvenblockprod(new InventoryBlockProd());                           
             refreshForm();                      
-            Datos.setOrders(null);                //RESET DE LA VARIABLE
+            Datos.setInvenblockprod(null);                //RESET DE LA VARIABLE
             //setFormVisible(false);                      //OCULTA EL FORMULARIO     
             tf_buscar.requestFocus();
         }
@@ -1033,8 +1051,8 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     private void botonImprimir(){
         tipoOperacion = 5;                  //OPERACION SOLO LECTURA
 
-        ObservableList<Orders> data = FXCollections.observableArrayList();
-        data.addAll(Datos.getRep_orders());   
+        ObservableList<InventoryBlockProd> data = FXCollections.observableArrayList();
+        data.addAll(Datos.getRep_invenblockprod());   
 
         List<Supplier> datas = Ln.getList_Supplier(Ln.getInstance().find_Supplier(data.get(0).getRif()));
         Datos.setSupplier(datas.get(0));
@@ -1042,19 +1060,17 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         if(!data.isEmpty()){
             JRDs = new JRBeanCollectionDataSource(data, true);
 
-            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-            JrxmlParam.put("p_orden", "RECEPCION SEGUN O/C NRO.:  " + data.get(0).getIdOrden());
-            try{ 
-                if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
-                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec_nac.jasper");
-                }
-                else{
-                    jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/compras/ord_com_port_rec_imp.jasper");
-                }
-                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Set your date format
 
+            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+            JrxmlParam.put("p_titulo", "BLOQUEO DE PRODUCTOS NRO.:  " + Datos.getNumOrd_toma());
+            JrxmlParam.put("p_subtitulo", "para Inventario al - " + sdf.format(data.get(0).getFecha()));
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/inventario/inv_port_blockprod.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
                 jview = new JasperViewer(jPrint, false);
-                jview.setTitle("DIGA - Recepción de Compra (Compras) ");
+                jview.setTitle("DIGA - Bloqueo de Productos (Inventario) ");
             } catch (JRException ee){
                 Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
             }
@@ -1062,27 +1078,44 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
             jview.setResizable(false);
         }
         else{
-            Gui.getInstance().showMessage("Debe indicar un Nro. de Orden!", "A");
-            tf_orden1.requestFocus();
+            Gui.getInstance().showMessage("Debe indicar un Nro. de Bloqueo de Productos!", "A");
+            tf_toma.requestFocus();
         }
     }
     /**
      * 
      */
-    private void botonCorreoOrden(){
+    private void botonCorreo(){
         tipoOperacion = 8;                  //OPERACION SOLO LECTURA
 
-        Datos.setIdButton(1002012);
-        Gui.getInstance().showEmailSend();  
-    }
-    /**
-     * 
-     */
-    private void botonCorreoAgenda(){
-        tipoOperacion = 9;                  //OPERACION SOLO LECTURA
+        ObservableList<InventoryBlockProd> data = FXCollections.observableArrayList();
+        data.addAll(Datos.getRep_invenblockprod());   
 
-        Datos.setIdButton(1002013);
-        Gui.getInstance().showEmail(ScreenName);  
+        if(!data.isEmpty()){
+            JRDs = new JRBeanCollectionDataSource(data, true);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Set your date format
+
+            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+            JrxmlParam.put("p_titulo", "BLOQUEO DE PRODUCTOS NRO.:  " + Datos.getNumOrd_toma());
+            JrxmlParam.put("p_subtitulo", "para Inventario al - " + sdf.format(data.get(0).getFecha()));
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/inventario/inv_port_blockprod.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                JasperExportManager.exportReportToPdfFile(jPrint, path + path_exp + "/bloq_productos-" + Datos.getNumOrd_toma() + ".pdf");
+
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+
+            Datos.setIdButton(2004011);
+            Gui.getInstance().showEmailSend();  
+        }
+        else{
+            Gui.getInstance().showMessage("Debe indicar un Nro. de Bloqueo de Productos!", "A");
+            tf_toma.requestFocus();
+        }
     }
     /**
      * Procedimiento que define los comportamientos en diversos Eventos 
@@ -1166,17 +1199,7 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
         im_tool8.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){
-                    botonCorreoOrden();
-                }
-            }
-        });
-        /**
-         * BOTON POR ASIGNAR
-         */
-        im_tool9.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    botonCorreoAgenda();
+                    botonCorreo();
                 }
             }
         });
@@ -1203,59 +1226,165 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
          * metodo para mostrar buscar el nro de RIF
          * param: ENTER O TAB
          */
-        tf_orden1.setOnKeyReleased((KeyEvent ke) -> {
+        tf_toma.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
-                if (!tf_orden1.getText().isEmpty()){
-                }
-            }
-        });
-        /**
-         * 
-         */
-        bt_aceptar.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() > 0){
-                    if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty() && dp_fecha.getValue() == null){
-                        loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
-                    }
-                    else{
-                        if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            loadTable( Ln.getInstance().find_orders_date(dp_fecha.getValue().format(formatter)));  
+                if (!tf_toma.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_toma") ){
+                        //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                        Datos.setInvenblockprod(new InventoryBlockProd());                           
+                        boolean boo = Ln.getInstance().check_invenblockprod(tf_toma.getText());                
+                        if(boo){
+                            Datos.setNumOrd_toma(tf_toma.getText());
+                            Datos.setRep_invenblockprod(Ln.getInstance().find_invenblockprod(tf_toma.getText()));
+                            loadBlockProd(Ln.getInstance().find_invenblockprod(tf_toma.getText()));     
                         }
                         else{
-                            if(!tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
-                                loadTable( Ln.getInstance().find_orders_id(tf_orden1.getText()));  
-                            }
-                            if(!tf_orden1.getText().isEmpty() && !tf_orden2.getText().isEmpty()){
-                                loadTable( Ln.getInstance().find_orders_ids(tf_orden1.getText(), tf_orden2.getText()));  
-                            }
+                            Gui.getInstance().showMessage("El Nro. de " + ScreenName + " NO existe!", "A");
+                            bt_toma.requestFocus();
                         }
+                    }
+                }
+                else{
+                    botonInicio();
+                    botonNuevo();
+                }
+            }
+        });
+        /**
+         * BOTON TOMA FISICA
+         */
+        bt_toma.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    botonInicio();
+                    Datos.setIdButton(2004011);
+                    Gui.getInstance().showBusqueda("Bloqueo de Productos");  
+                }
+            }
+        });
+        /**
+         * metodo para mostrar buscar el nro de RIF
+         * param: ENTER O TAB
+         */
+        tf_prov.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if (!tf_prov.getText().isEmpty()){
+                    if(((Node)ke.getSource()).getId().equals("tf_prov") &&
+                            (tf_prov.getText().length() > 0)){
+                        //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                        boolean boo = Ln.getInstance().check_Supplier(tf_prov.getText());
+                        //Si el resultado el rif del proveedor ya Existe
+                        if(Datos.getStSeniat() != 200)
+                            boo = false;
+
+                        if(boo){
+                            List<Supplier> data = Ln.getList_Supplier(Ln.getInstance().find_Supplier(tf_prov.getText()));
+                            Datos.setSupplier(data.get(0));
+                            tf_prov.setText(Datos.getSupplier().getRif());
+                            tf_nombre.setText(Datos.getSupplier().getNombre());
+                        }else{                                  
+                        //    change_im_val(0, im_checkg); 
+                            Gui.getInstance().showMessage("El Proveedor indicado NO existe!", "A");
+                            tf_prov.requestFocus();
+                        }
+                    }
+                }
+                else{
+                    Gui.getInstance().showMessage("Indicar el ID / Rif del Proveedor!", "A");
+                    tf_prov.requestFocus();
+                }
+            }
+        });
+        /**
+         * BOTON PROVEEDOR
+         */
+        bt_prov.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(1002012);
+                    Gui.getInstance().showBusqueda("Proveedores");  
+                }
+            }
+        });
+        /**
+         * metodo para mostrar buscar el nro de RIF
+         * param: ENTER O TAB
+         */
+        tf_prod.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.TAB)){
+                if(((Node)ke.getSource()).getId().equals("tf_prod") &&
+                        (tf_prod.getText().length() > 1)){
+
+                    boolean boo = true;
+                    if(numStatDet == 0){
+                        for (int i = 0; i < invenblockprod.size(); i++) {
+                            if(tf_prod.getText().equals(tb_table.getItems().get(i).getIdProducto())){
+                                boo = false;
+                                Gui.getInstance().showMessage("Este Producto ya esta relacionado!", "A");
+                                tf_prod.requestFocus();
+                                break;
+                            }
+                        } 
+                    }
+
+                    if(boo){
+                        //Solicita los datos y envia la Respuesta a imprimirse en la Pantalla
+                        Fxp_Inventa[] inventa = 
+                            Ln.getInstance().find_inventa_prod_prov(tf_prod.getText(), String.valueOf(Datos.getSupplier().getIdSupplier()));
+
+                        if (inventa != null && inventa.length > 0){
+                            InventoryBlockProd invenblockprods = new InventoryBlockProd();
+
+                            invenblockprods.setNumtoma("0");
+                            invenblockprods.setFecha(Date.valueOf(LocalDate.now()));
+                            invenblockprods.setIdSupplier(Datos.getSupplier().getIdSupplier());
+                            invenblockprods.setRif(Datos.getSupplier().getRif());
+                            invenblockprods.setNombre(Datos.getSupplier().getNombre());
+
+                            invenblockprods.setIdProducto(tf_prod.getText().toUpperCase());
+                            invenblockprods.setDescrip(inventa[0].getDescri());
+                            invenblockprods.setObserv(null);
+                            invenblockprods.setSql(21);
+                            invenblockprods.setCantProd(0);
+
+
+                            if (numStatDet == 0){
+                                invenblockprods.setStatus(null);
+                                invenblockprods.setNumorden(String.valueOf(invenblockprod.size() + 1));
+                                invenblockprod.add(invenblockprods);
+                            }
+                            else{
+                                invenblockprods.setStatus("C");
+                                invenblockprods.setNumorden(String.valueOf(numStatDet));
+                                if (numStatDet == 1){
+                                    invenblockprod.remove(0);
+                                    invenblockprod.add(0, invenblockprods);
+                                }
+                                else{
+                                    invenblockprod.remove(numStatDet - 1);
+                                    invenblockprod.add(numStatDet - 1, invenblockprods);
+                                }
+                            }
+                            loadTable();
+
+                            tf_prod.setText("");
+                        }
+                        else{
+                            Gui.getInstance().showMessage("Indicar el Código del Producto para el Proveedor Seleccionado!", "A");
+                        }
+                        tf_prod.requestFocus();
                     }
                 }
             }
         });
         /**
-         * 
+         * BOTON PRODUCTO
          */
-        bt_aceptar.setOnKeyReleased((KeyEvent ke) -> {
-            if (ke.getCode().equals(KeyCode.ENTER)){
-                if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty() && dp_fecha.getValue() == null){
-                    loadTable( Ln.getInstance().find_orders_open(Integer.parseInt(rows), ""));  
-                }
-                else{
-                    if(tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        loadTable( Ln.getInstance().find_orders_date(dp_fecha.getValue().format(formatter)));  
-                    }
-                    else{
-                        if(!tf_orden1.getText().isEmpty() && tf_orden2.getText().isEmpty()){
-                            loadTable( Ln.getInstance().find_orders_id(tf_orden1.getText()));  
-                        }
-                        if(!tf_orden1.getText().isEmpty() && !tf_orden2.getText().isEmpty()){
-                            loadTable( Ln.getInstance().find_orders_ids(tf_orden1.getText(), tf_orden2.getText()));  
-                        }
-                    }
+        bt_prod.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){
+                    Datos.setIdButton(2003039);
+                    Gui.getInstance().showBusqueda("Productos");  
                 }
             }
         });
@@ -1349,5 +1478,5 @@ public class Fxml_PurchaseOrder_OpenController implements Initializable {
     public static void refreshIdBusqueda(){
         //tf_chofer.setText(Gui.getIdBusqueda());
     }
-
+    
 }

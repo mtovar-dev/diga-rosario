@@ -21,6 +21,7 @@ import Objects.Indicators.Zsi_nros_sem_avg;
 import Objects.Indicators.Zsi_nros_sem;
 import Objects.Indicators.Zsi_nros_sem_day;
 import Objects.Indicators.Zsi_nros_sem_r;
+import Objects.Inventory.InventoryBlockProd;
 import Objects.Orders.Fxp_Inventa;
 import Objects.Orders.Orders;
 import Objects.Seniat.UploadExcelFile;
@@ -7550,22 +7551,22 @@ public class Bd implements BdInterface{
         
             StringBuilder sqlProc = new StringBuilder();
             switch(Datos.getIdScreen()){
-                case 2006010:
+                case 2007010:
                     sqlProc.append("{call [sp_get_zsi_nros_fact_emi](?)}");
                     break;
-                case 2006020:
+                case 2007020:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
                     break;
-                case 2006030:
+                case 2007030:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_emi](?)}");
                     break;
-                case 2006040:
+                case 2007040:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_des](?)}");
                     break;
-                case 2006050:
+                case 2007050:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen](?)}");
                     break;
-                case 2006060:
+                case 2007060:
                     sqlProc.append("{call [sp_get_zsi_nros_vehi_ct](?)}");
                     break;
             }
@@ -7613,22 +7614,47 @@ public class Bd implements BdInterface{
         
             StringBuilder sqlProc = new StringBuilder();
             switch(Datos.getIdScreen()){
-                case 2006010:
-                    sqlProc.append("{call [sp_get_zsi_nros_fact_emi_avg](?)}");
+                case 2007010:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_fact_emi_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_fact_emi_r](?)}");
+                    }
                     break;
-                case 2006020:
-                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                case 2007020:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+                    }
                     break;
-                case 2006030:
-                    sqlProc.append("{call [sp_get_zsi_nros_guia_emi_avg](?)}");
+                case 2007030:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_emi_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_emi_r](?)}");
+                    }
                     break;
-                case 2006040:
-                    sqlProc.append("{call [sp_get_zsi_nros_guia_des_avg](?)}");
+                case 2007040:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_des_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_des_r](?)}");
+                    }
                     break;
-                case 2006050:
-                    sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                case 2007050:
+                    if(grafico.equals("X")){
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
+                    }
+                    else{
+                        sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
+                    }
                     break;
-                case 2006060:
+                case 2007060:
                     if(grafico.equals("X")){
                         sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
                     }
@@ -7835,22 +7861,22 @@ public class Bd implements BdInterface{
         
             StringBuilder sqlProc = new StringBuilder();
             switch(Datos.getIdScreen()){
-                case 2006010:
+                case 2007010:
                     sqlProc.append("{call [sp_get_zsi_nros_fact_emi_avg](?)}");
                     break;
-                case 2006020:
+                case 2007020:
                     sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
                     break;
-                case 2006030:
+                case 2007030:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_emi_avg](?)}");
                     break;
-                case 2006040:
+                case 2007040:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_des_avg](?)}");
                     break;
-                case 2006050:
+                case 2007050:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen_avg](?)}");
                     break;
-                case 2006060:
+                case 2007060:
                     sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_avg](?)}");
                     break;
             }
@@ -7897,22 +7923,22 @@ public class Bd implements BdInterface{
         
             StringBuilder sqlProc = new StringBuilder();
             switch(Datos.getIdScreen()){
-                case 2006010:
+                case 2007010:
                     sqlProc.append("{call [sp_get_zsi_nros_fact_emi_day](?)}");
                     break;
-                case 2006020:
+                case 2007020:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
                     break;
-                case 2006030:
+                case 2007030:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_emi_day](?)}");
                     break;
-                case 2006040:
+                case 2007040:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_des_day](?)}");
                     break;
-                case 2006050:
+                case 2007050:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen_day](?)}");
                     break;
-                case 2006060:
+                case 2007060:
                     sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_day](?)}");
                     break;
             }
@@ -7959,22 +7985,22 @@ public class Bd implements BdInterface{
         
             StringBuilder sqlProc = new StringBuilder();
             switch(Datos.getIdScreen()){
-                case 2006010:
+                case 2007010:
                     sqlProc.append("{call [sp_get_zsi_nros_fact_emi_r](?)}");
                     break;
-                case 2006020:
+                case 2007020:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
                     break;
-                case 2006030:
+                case 2007030:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_emi_r](?)}");
                     break;
-                case 2006040:
+                case 2007040:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_des_r](?)}");
                     break;
-                case 2006050:
+                case 2007050:
                     sqlProc.append("{call [sp_get_zsi_nros_guia_pen_r](?)}");
                     break;
-                case 2006060:
+                case 2007060:
                     sqlProc.append("{call [sp_get_zsi_nros_vehi_ct_r](?)}");
                     break;
             }
@@ -8006,6 +8032,295 @@ public class Bd implements BdInterface{
             connection.close();
         }
         return null;
+    }
+    /***************************************************************************/
+    /******************************* INVENTORY *********************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @param producto
+     * @param proveedor
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public InventoryBlockProd[] find_invenblockprod_prod_prov(String producto, String proveedor) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_fxp_inventa_find(?, ?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@producto"    , producto );
+               cstmt.setString("@proveedor"    , proveedor );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<InventoryBlockProd> vector = new Vector<>();
+               
+               while(result.next()) {
+                   InventoryBlockProd invenblockprod = new InventoryBlockProd(result);
+                   vector.add(invenblockprod);
+               }
+               
+               InventoryBlockProd[] invenblockprod = new InventoryBlockProd[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   invenblockprod[i] = vector.elementAt(i);                    
+               }
+               
+               return invenblockprod;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param id
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public InventoryBlockProd[] find_invenblockprod(String id) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_inv_nro_toma(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setString("@idtoma"  , id );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<InventoryBlockProd> vector = new Vector<>();
+               
+               while(result.next()) {
+                   InventoryBlockProd invenblockprod = new InventoryBlockProd(result);
+                   vector.add(invenblockprod);
+               }
+               
+               InventoryBlockProd[] invenblockprod = new InventoryBlockProd[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   invenblockprod[i] = vector.elementAt(i);                    
+               }
+               
+               return invenblockprod;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * @param rows
+     * @return 
+     * @throws java.sql.SQLException 
+     */
+    public InventoryBlockProd[] find_invenblockprod_all(int rows) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_inv_nro_toma_all(?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());
+               cstmt.setInt("@rows"  , rows );
+               ResultSet result = cstmt.executeQuery();            
+               Vector<InventoryBlockProd> vector = new Vector<>();
+               
+               while(result.next()) {
+                   InventoryBlockProd invenblockprod = new InventoryBlockProd(result);
+                   vector.add(invenblockprod);
+               }
+               
+               InventoryBlockProd[] invenblockprod = new InventoryBlockProd[vector.size()];
+               for (int i = 0; i < vector.size(); i++) {
+                   invenblockprod[i] = vector.elementAt(i);                    
+               }
+               
+               return invenblockprod;
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return null;
+    }
+    /**
+     * @author MITM
+     * Valida si el groupsuppliername generado ya se encuentra asignado a un grupo en la BD
+     * @param idtoma valor a ser chequeado en la BD
+     * @return true si el groupsupplier esta en uso, false si esta disponible el grupo
+     * @throws java.sql.SQLException
+     */
+    public boolean check_invenblockprod(String idtoma) throws SQLException {
+        try{
+            BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+            connection = bd.open();
+        
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_get_inv_nro_toma_check(?,?)}");
+            
+            if (connection != null){
+               CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                           
+               cstmt.setString("@idtoma", idtoma);
+               cstmt.registerOutParameter("result", java.sql.Types.INTEGER);               
+               cstmt.execute();
+               if(cstmt.getInt("result") == 1) return true;               
+            }else{
+                System.out.println("Error: Connexion no activa");
+            }
+        }catch(SQLException e){            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e); 
+        }finally{
+            connection.close();
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param operacion Determina el Proceso que se va a ejecutar 1 INSERT, 2 UPDATE
+     * @param invenblockprod
+     * @param pos
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
+    public boolean save_invenblockprod(
+            InventoryBlockProd invenblockprod, int operacion, int pos) throws SQLException, Exception {
+        
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();        
+        try{
+            if (connection != null){
+                //Inicia Transaccion 
+                connection.setAutoCommit(false);
+                StringBuilder sql_rela = new StringBuilder();            
+                StringBuilder sql_data = new StringBuilder();            
+                String mensj = "";
+
+                switch(operacion){
+                    case 1:
+                        sql_rela.append("{call sp_ins_inv_numtoma(?)}");
+                        sql_data.append("{call sp_ins_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        mensj = "Nueva toma_productos:";
+                        break;
+                    case 2:
+                        invenblockprod.setNumtoma(Datos.getNumOrd_toma());
+
+                        sql_data.append("{call sp_upd_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        mensj = "Actualizando toma_productos:";
+                        break;
+                }
+                CallableStatement cstmt = null;
+                if (pos == 0){
+                    /**
+                     * Busqueda numtoma
+                     */
+                    if (operacion == 1){
+                        cstmt = connection.prepareCall(sql_rela.toString());
+                        cstmt.registerOutParameter("idtoma"    , java.sql.Types.VARCHAR);
+                        cstmt.execute();            
+                        invenblockprod.setNumtoma(cstmt.getString("idtoma"));
+                        Datos.setNumOrd_comp(cstmt.getString("idtoma"));
+                    }
+                }
+
+                cstmt = connection.prepareCall(sql_data.toString());
+                cstmt.setString("@numtoma"              , invenblockprod.getNumtoma());
+                cstmt.setDate("@fecha"                  , invenblockprod.getFecha());
+                cstmt.setInt("@id_prov"                 , invenblockprod.getIdSupplier());
+                cstmt.setString("@rif_prov"             , invenblockprod.getRif());
+                cstmt.setInt("@numorden"                , pos + 1);
+                cstmt.setString("@producto"             , invenblockprod.getIdProducto());
+                cstmt.setString("@observ"               , invenblockprod.getObserv());
+                cstmt.setInt("@anulada"                 , invenblockprod.getAnulada());
+                cstmt.setString("@status"               , invenblockprod.getStatus());
+                cstmt.setInt("@sql"                     , invenblockprod.getSql());
+                cstmt.execute();            
+
+                // Auditar el proceso
+                auditar(invenblockprod.getNumtoma()+ "",mensj);
+
+                connection.commit();
+
+                return true;
+            }else{
+                System.out.println("Error: Connexion no activa");
+                throw new Exception("Error de Conexion con la BD");
+            }
+        }catch(Exception e){            
+            connection.rollback();   
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
+    }
+    /**
+     * @author MITM
+     * @param invenblockprod
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public boolean change_invenblockprod(InventoryBlockProd invenblockprod) throws Exception {
+        BdInterface bd = ConnBdType.open(ConnBdType.SqlServer);
+        connection = bd.open();
+        
+        try{
+         if (connection != null){
+            //Inicia Transaccion 
+            connection.setAutoCommit(false);
+            
+            StringBuilder sqlProc = new StringBuilder();
+            sqlProc.append("{call sp_upd_prov_status(?,?)}");
+            CallableStatement cstmt = connection.prepareCall(sqlProc.toString());                 
+            cstmt.setString("@idorden", invenblockprod.getNumtoma());
+            int value = 0;
+            if(invenblockprod.getAnulada()== 0){
+                value = 1;
+            }            
+            cstmt.setInt("@status", value );
+            cstmt.execute();            
+            // Auditar el proceso
+            auditar(invenblockprod.getNumtoma()+ "","deleteOrdenCompra:");
+            
+            connection.commit();
+            
+            return true;
+         }else{
+            System.out.println("Error: Connexion no activa");
+            throw new Exception("Error de Conexion con la BD");
+         }
+        }catch(Exception e){            
+            connection.rollback();            
+            StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+            Tools.getErrorMessage(stacktrace,"Error = " + e);    
+            throw e;
+        }finally{
+            connection.close();
+        }
     }
     
     /***************************************************************************/

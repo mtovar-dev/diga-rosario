@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ord_com_port_ord_nac" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ord_com_port_ord_nac_ydo" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d0ed545-175f-46de-8442-bbfd04d6f357">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -211,20 +211,20 @@
 					<textFieldExpression><![CDATA[$F{usr_nsupervisa}]]></textFieldExpression>
 				</textField>
 				<image>
-					<reportElement x="214" y="57" width="128" height="96" uuid="3672e94c-7524-4267-8dc6-f0d434cf24c3"/>
+					<reportElement x="14" y="54" width="128" height="96" uuid="3672e94c-7524-4267-8dc6-f0d434cf24c3"/>
 					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_elvi.gif"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="218" y="46" width="128" height="96" uuid="d57f8630-8639-4b16-9937-caaf8234e1b2"/>
+					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_yeni.gif"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="444" y="40" width="128" height="96" uuid="edf3ab8e-ca79-4942-9cd2-35961e6341ee"/>
+					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_yeni.gif"]]></imageExpression>
 				</image>
 				<image>
 					<reportElement x="206" y="154" width="181" height="66" uuid="6303d636-b451-4b77-95b2-ae0841f1dec9"/>
 					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_diga.gif"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="435" y="57" width="128" height="96" uuid="e71e3755-765b-4464-90e0-7ccf2f7385a6"/>
-					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_elvi.gif"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="14" y="53" width="128" height="96" uuid="bd26c5d9-3655-4076-9bd2-5f3aa4cd2ad3"/>
-					<imageExpression><![CDATA["C:\\diga_sys\\images\\firma_erik.gif"]]></imageExpression>
 				</image>
 			</band>
 		</groupFooter>

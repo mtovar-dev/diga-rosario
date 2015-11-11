@@ -117,7 +117,7 @@ public class log_CGuias extends xy {
             cheq_pq             = rs.getString(38);
             scheq_pq            = rs.getString(39);
             odometro            = rs.getString(40);
-            turno               = rs.getInt(20);
+            turno               = rs.getInt(41);
             
             super.setNumorden(numorden);
             super.setGuias(numguia);

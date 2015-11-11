@@ -4432,6 +4432,7 @@ public class Fxml_Guide_MainController implements Initializable {
                 log_cguias_dev.setPre_fact(tb_almr.getItems().get(j).getPre_fact());
                 log_cguias_dev.setId_almacen(tb_almr.getItems().get(j).getIdAlmacen());
                 log_cguias_dev.setObserv(tb_almr.getItems().get(j).getObserv());
+//8266
                 log_cguias_dev.setStat_reg(tb_almr.getItems().get(j).getStat_reg());
 
                 if (j == numFaltDev){
@@ -4559,7 +4560,7 @@ public class Fxml_Guide_MainController implements Initializable {
 //                lb_Title.setText(Tools.verticalText("NUEVO"));
                 lb_Title.setText("NUEVO");
                 tf_nroguia.setEditable(false);
-                tf_nrorguia.setEditable(true);
+                  tf_nrorguia.setEditable(true);
                 tf_pcarga.setEditable(true);
                 tf_turno.setEditable(true);
                 tf_odometro.setEditable(true);

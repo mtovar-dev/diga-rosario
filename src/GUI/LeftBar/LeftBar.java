@@ -218,6 +218,13 @@ public class LeftBar {
                 Screens.getInstance().startGuide_recovery();
                 break;
 
+            case "Bloqueo de Productos":
+                Screens.getInstance().startInventory_block();
+                break;
+            case "Sincronizar Dispositivo":
+                Screens.getInstance().startInventory_sync();
+                break;
+
             case "Personal":
                 Screens.getInstance().startFleet_staff();
                 break;

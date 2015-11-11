@@ -55,6 +55,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -164,6 +165,9 @@ public class Fxml_FanulSucursalesController implements Initializable {
 
     private static final String path_rep = 
             java.util.ResourceBundle.getBundle("BD/DBcon").getString("path_rep");
+
+    private static final String path_exp = 
+            java.util.ResourceBundle.getBundle("BD/DBcon").getString("path_exp");
 
     private static final String path = System.getProperty("user.dir");
     
@@ -589,7 +593,6 @@ public class Fxml_FanulSucursalesController implements Initializable {
         im_tool4.setVisible(false);
         im_tool6.setVisible(false);
         im_tool7.setVisible(false);
-        im_tool8.setVisible(false);
         im_tool9.setVisible(false);
         im_tool10.setVisible(false);
         im_tool11.setVisible(false);
@@ -689,21 +692,56 @@ public class Fxml_FanulSucursalesController implements Initializable {
 
         ObservableList<Dev_FanulSucursales> data = FXCollections.observableArrayList();
         data.addAll(Datos.getRep_dev_fanulaucursales());   
-        JRDs = new JRBeanCollectionDataSource(data, true);
+        if(!data.isEmpty()){
+            JRDs = new JRBeanCollectionDataSource(data, true);
 
-        JrxmlParam.put("p_user", Datos.getSesion().getUsername());
-        JrxmlParam.put("p_subtitulo", "del " + dp_fecha1.getValue().format(dtf_dd) + "  al " + dp_fecha2.getValue().format(dtf_dd));
+            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+            JrxmlParam.put("p_subtitulo", "del " + dp_fecha1.getValue().format(dtf_dd) + "  al " + dp_fecha2.getValue().format(dtf_dd));
 
-        try{ 
-            jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_rep_fanulsucursales.jasper");
-            jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
-            jview = new JasperViewer(jPrint, false);
-            jview.setTitle("DIGA - Fact. Anuladas por Sucursale (Logistica) ");
-        } catch (JRException ee){
-            Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_rep_fanulsucursales.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                jview = new JasperViewer(jPrint, false);
+                jview.setTitle("DIGA - Fact. Anuladas por Sucursale (Logistica) ");
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+            jview.setVisible(true);
+            jview.setResizable(false);
         }
-        jview.setVisible(true);
-        jview.setResizable(false);
+        else{
+            Gui.getInstance().showMessage("Debe indicar los Parametros de Busqueda!", "A");
+        }
+    }
+    /**
+     * 
+     */
+    private void botonCorreo(){
+        tipoOperacion = 8;                  //OPERACION SOLO LECTURA
+
+        ObservableList<Dev_FanulSucursales> data = FXCollections.observableArrayList();
+        data.addAll(Datos.getRep_dev_fanulaucursales());   
+        if(!data.isEmpty()){
+            JRDs = new JRBeanCollectionDataSource(data, true);
+
+            JrxmlParam.put("p_user", Datos.getSesion().getUsername());
+            JrxmlParam.put("p_subtitulo", "del " + dp_fecha1.getValue().format(dtf_dd) + "  al " + dp_fecha2.getValue().format(dtf_dd));
+
+            try{ 
+                jReport = (JasperReport) JRLoader.loadObjectFromFile(path + path_rep + "/logistica/log_dev_port_rep_fanulsucursales.jasper");
+                jPrint = JasperFillManager.fillReport(jReport, JrxmlParam, JRDs);
+                JasperExportManager.exportReportToPdfFile(jPrint, path + path_exp + "/fact_anuladas.pdf");
+
+            } catch (JRException ee){
+                Gui.getInstance().showMessage("Error Cargando Reporte: \n" + ee.getMessage(), "E");
+            }
+
+            Datos.setIdButton(2005021);
+            Gui.getInstance().showEmailSend();  
+        }
+        else{
+            Gui.getInstance().showMessage("Debe indicar los Parametros de Busqueda!", "A");
+        }
     }
     /**
      * Procedimiento que define los comportamientos en diversos Eventos 
@@ -717,6 +755,16 @@ public class Fxml_FanulSucursalesController implements Initializable {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() > 0){   
                     botonImprimir();
+                }
+            }
+        });
+        /**
+         * BOTON CORREO
+         */
+        im_tool8.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() > 0){   
+                    botonCorreo();
                 }
             }
         });

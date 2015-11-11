@@ -11,6 +11,7 @@ import Objects.Indicators.Zsi_nros_sem;
 import Objects.Indicators.Zsi_nros_sem_avg;
 import Objects.Indicators.Zsi_nros_sem_day;
 import Objects.Indicators.Zsi_nros_sem_r;
+import Objects.Inventory.InventoryBlockProd;
 import Objects.Orders.Orders;
 import Objects.Seniat.UploadExcelFile;
 import Objects.Setup.City;
@@ -68,6 +69,7 @@ public class Datos {
     private static String numRel_Dev;
     private static String numRel_Caj;
     private static String numOrd_comp;
+    private static String numOrd_toma;
     private static String path_im_view;
 
     
@@ -96,6 +98,7 @@ public class Datos {
     private static City                         city;
     private static Country                      country;
     private static GroupSupplier                groupSupplier;
+    private static InventoryBlockProd           invenblockprod;
     private static Measure                      measure;
     private static Municipality                 municipality;
     private static Orders                       orders;
@@ -139,6 +142,7 @@ public class Datos {
     private static Zsi_nros_sem_r[]             ind_zsi_nros_sem_r;
     
     private static GroupSupplier[]              rep_grp_supplier;
+    private static InventoryBlockProd[]         rep_invenblockprod;
     private static Measure[]                    rep_measure;
     private static Orders[]                     rep_orders;
     private static Rol[]                        rep_role;
@@ -322,6 +326,20 @@ public class Datos {
      */
     public static void setNumOrd_comp(String aNumOrd_comp) {
         numOrd_comp = aNumOrd_comp;
+    }
+
+    /**
+     * @return the numOrd_toma
+     */
+    public static String getNumOrd_toma() {
+        return numOrd_toma;
+    }
+
+    /**
+     * @param aNumOrd_toma the numOrd_toma to set
+     */
+    public static void setNumOrd_toma(String aNumOrd_toma) {
+        numOrd_toma = aNumOrd_toma;
     }
 
     /**
@@ -651,6 +669,20 @@ public class Datos {
      */
     public static void setGroupSupplier(GroupSupplier aGroupSupplier) {
         groupSupplier = aGroupSupplier;
+    }
+
+    /**
+     * @return the invenblockprod
+     */
+    public static InventoryBlockProd getInvenblockprod() {
+        return invenblockprod;
+    }
+
+    /**
+     * @param aInventoryblockprod the invenblockprod to set
+     */
+    public static void setInvenblockprod(InventoryBlockProd aInventoryblockprod) {
+        invenblockprod = aInventoryblockprod;
     }
 
     /**
@@ -1078,20 +1110,6 @@ public class Datos {
     }
 
     /**
-     * @return the rep_grp_supplier
-     */
-    public static GroupSupplier[] getRep_grp_supplier() {
-        return rep_grp_supplier;
-    }
-
-    /**
-     * @param aRep_grp_supplier the rep_grp_supplier to set
-     */
-    public static void setRep_grp_supplier(GroupSupplier[] aRep_grp_supplier) {
-        rep_grp_supplier = aRep_grp_supplier;
-    }
-
-    /**
      * @return the ind_zsi_nros_sem_avg
      */
     public static Zsi_nros_sem_avg[] getInd_zsi_nros_sem_avg() {
@@ -1131,6 +1149,34 @@ public class Datos {
      */
     public static void setInd_zsi_nros_sem_r(Zsi_nros_sem_r[] aInd_zsi_nros_sem_rh) {
         ind_zsi_nros_sem_r = aInd_zsi_nros_sem_rh;
+    }
+
+    /**
+     * @return the rep_grp_supplier
+     */
+    public static GroupSupplier[] getRep_grp_supplier() {
+        return rep_grp_supplier;
+    }
+
+    /**
+     * @param aRep_grp_supplier the rep_grp_supplier to set
+     */
+    public static void setRep_grp_supplier(GroupSupplier[] aRep_grp_supplier) {
+        rep_grp_supplier = aRep_grp_supplier;
+    }
+
+    /**
+     * @return the rep_invenblockprod
+     */
+    public static InventoryBlockProd[] getRep_invenblockprod() {
+        return rep_invenblockprod;
+    }
+
+    /**
+     * @param aRep_invenblockprod the rep_invenblockprod to set
+     */
+    public static void setRep_invenblockprod(InventoryBlockProd[] aRep_invenblockprod) {
+        rep_invenblockprod = aRep_invenblockprod;
     }
 
     /**

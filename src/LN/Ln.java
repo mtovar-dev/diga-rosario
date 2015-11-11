@@ -31,6 +31,7 @@ import Objects.Infocent.Concepto;
 import Objects.Infocent.Deduccion;
 import Objects.Infocent.Empleado;
 import Objects.Infocent.Empresa;
+import Objects.Inventory.InventoryBlockProd;
 import Objects.Orders.Fxp_Inventa;
 import Objects.Orders.Orders;
 import Objects.Seniat.UploadExcelFile;
@@ -3142,6 +3143,110 @@ public class Ln {
         }
         return null;
     }    
+    /***************************************************************************/
+    /******************************* INVENTORY *********************************/
+    /***************************************************************************/
+    
+    /**
+     * @author MITM
+     * @lista para generar el reporte
+     * @param invenblockprod
+     * @return 
+     */
+    public static List<InventoryBlockProd> getList_invenblockprod(InventoryBlockProd[] invenblockprod){
+        List<InventoryBlockProd> list = new ArrayList<>();        
+        list.addAll(Arrays.asList(invenblockprod));        
+        return list;
+    }
+    /**
+     * @author MITM
+     * @param producto
+     * @param proveedor
+     * @return 
+     */
+    public InventoryBlockProd[] find_invenblockprod_prod_prov(String producto, String proveedor) {
+        try{
+            InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod_prod_prov(producto, proveedor);      
+            return invenblockprod;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param find
+     * @return 
+     */
+    public InventoryBlockProd[] find_invenblockprod(String find) {
+        try{
+            InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod(find);      
+            return invenblockprod;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param rows
+     * @return 
+     */
+    public InventoryBlockProd[] find_invenblockprod_all(int rows) {
+        try{
+            InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod_all(rows);      
+            return invenblockprod;
+        }catch(SQLException e){
+            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+        }
+        return null;
+    }    
+    /**
+     * @author MITM
+     * @param idtoma
+     * @return 
+     */
+    public boolean check_invenblockprod(String idtoma) {
+        try{
+            return Bd.getInstance().check_invenblockprod(idtoma);                
+        }catch(SQLException e){             
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param invenblockprod
+     * @param operacion
+     * @param pos
+     * @param ScreenName
+     * @return 
+     */
+    public boolean save_invenblockprod(InventoryBlockProd invenblockprod, int operacion, int pos, String ScreenName) {
+        boolean boo = true;
+        if (boo){
+            try{                
+                boolean result = Bd.getInstance().save_invenblockprod(invenblockprod, operacion, pos);
+
+                return result;
+            }catch(Exception e){
+                Gui.getInstance().showMessage("Error guardando " + ScreenName +": \n" + e.getMessage(), "E");
+            }
+        }
+        return false;
+    }
+    /**
+     * @author MITM
+     * @param invenblockprod
+     * @return 
+     */
+    public boolean change_invenblockprod(InventoryBlockProd invenblockprod) {
+        try{
+            return Bd.getInstance().change_invenblockprod(invenblockprod);                
+        }catch(Exception e){       
+            Gui.getInstance().ventanaError("Error Deshabilitando Toma de Inventario: \n"+e.getMessage()); 
+        }
+        return false;
+    }  
 
 
     

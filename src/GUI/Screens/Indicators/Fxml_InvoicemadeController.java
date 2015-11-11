@@ -1255,9 +1255,9 @@ public class Fxml_InvoicemadeController implements Initializable {
         ObservableList<XYChart.Series> lc_grarData = FXCollections.observableArrayList(
             new LineChart.Series<>("LCS", FXCollections.observableArrayList(
                 plot(dataLcsR))),
-            new LineChart.Series<>("X", FXCollections.observableArrayList(
+            new LineChart.Series<>("R", FXCollections.observableArrayList(
                 plot(dataR))),
-            new LineChart.Series<>("Xm", FXCollections.observableArrayList(
+            new LineChart.Series<>("Rm", FXCollections.observableArrayList(
                 plot(dataRm))),
             new LineChart.Series<>("LCI", FXCollections.observableArrayList(
                 plot(dataLciR)))
