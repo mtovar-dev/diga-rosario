@@ -117,35 +117,35 @@
 					<text><![CDATA[Descripción del Producto]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="18" width="56" height="15" uuid="e3049a0c-a87b-4759-958d-0c5dc671c785"/>
+					<reportElement x="0" y="25" width="56" height="15" uuid="e3049a0c-a87b-4759-958d-0c5dc671c785"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="9" isBold="false"/>
 					</textElement>
 					<text><![CDATA[ID / RIF:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="0" width="286" height="18" uuid="da7ef31f-e3f7-415a-961e-06cf6f940475"/>
+					<reportElement x="0" y="7" width="286" height="18" uuid="da7ef31f-e3f7-415a-961e-06cf6f940475"/>
 					<textElement textAlignment="Center">
 						<font fontName="Monospaced" size="10" isBold="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Datos del Proveedor]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="59" y="18" width="21" height="15" uuid="236728ee-e595-4f1c-b1f0-a4ca351c44c8"/>
+					<reportElement x="59" y="25" width="21" height="15" uuid="236728ee-e595-4f1c-b1f0-a4ca351c44c8"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{idSupplier}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="88" y="18" width="100" height="15" uuid="541e0fea-7bed-493f-a38e-2c75132c7fd1"/>
+					<reportElement x="88" y="25" width="100" height="15" uuid="541e0fea-7bed-493f-a38e-2c75132c7fd1"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{rif}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="79" y="18" width="10" height="15" uuid="8d57cfee-2677-4e5f-acc7-9e080f62c7c7"/>
+					<reportElement x="79" y="25" width="10" height="15" uuid="8d57cfee-2677-4e5f-acc7-9e080f62c7c7"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced" size="10" isBold="false"/>
 					</textElement>
@@ -166,14 +166,14 @@
 					<text><![CDATA[Diga]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="59" y="33" width="202" height="15" uuid="48a5fe4b-776d-4716-89ae-92a187e9b466"/>
+					<reportElement x="59" y="40" width="223" height="15" uuid="48a5fe4b-776d-4716-89ae-92a187e9b466"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Monospaced"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="33" width="56" height="15" uuid="dbd62787-9c6d-4e57-b4c5-38ce937ceacd"/>
+					<reportElement x="0" y="40" width="56" height="15" uuid="dbd62787-9c6d-4e57-b4c5-38ce937ceacd"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Monospaced" size="9" isBold="false"/>
 					</textElement>

@@ -16,7 +16,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +39,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,9 +71,6 @@ public class Fxml_Inven_BlockprodController implements Initializable {
 
     @FXML
     private AnchorPane ap_root;
-
-    @FXML 
-    private Button bt_aceptar; 
 
     @FXML 
     private Button bt_toma; 
@@ -148,6 +145,9 @@ public class Fxml_Inven_BlockprodController implements Initializable {
     private TableView<InventoryBlockProd> tb_table; 
 
     @FXML
+    private TextArea ta_nota;
+
+    @FXML
     private TextField tf_buscar;
 
     @FXML
@@ -213,39 +213,39 @@ public class Fxml_Inven_BlockprodController implements Initializable {
      */     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert bt_aceptar != null : "fx:id=\"bt_aceptar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert bt_toma != null : "fx:id=\"bt_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert bt_prov != null : "fx:id=\"bt_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert bt_prod != null : "fx:id=\"bt_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert dp_fecha != null : "fx:id=\"dp_fecha\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'."; 
-        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_checkr != null : "fx:id=\"im_checkr\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_checkp != null : "fx:id=\"im_checkp\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert lb_mensj != null : "fx:id=\"lb_mensj\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_toma != null : "fx:id=\"tf_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_prov != null : "fx:id=\"tf_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert tf_prod != null : "fx:id=\"tf_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
-        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrderOpenController.fxml'.";
+        assert ap_root != null : "fx:id=\"ap_root\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert bt_toma != null : "fx:id=\"bt_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert bt_prov != null : "fx:id=\"bt_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert bt_prod != null : "fx:id=\"bt_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert dp_fecha != null : "fx:id=\"dp_fecha\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'."; 
+        assert hb_1 != null : "fx:id=\"hb_1\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert hbox_toolbar != null : "fx:id=\"hbox_toolbar\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_checkr != null : "fx:id=\"im_checkr\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_checkp != null : "fx:id=\"im_checkp\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool1 != null : "fx:id=\"im_tool1\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool10 != null : "fx:id=\"im_tool10\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool11 != null : "fx:id=\"im_tool11\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool12 != null : "fx:id=\"im_tool12\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool2 != null : "fx:id=\"im_tool2\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool3 != null : "fx:id=\"im_tool3\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool4 != null : "fx:id=\"im_tool4\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool5 != null : "fx:id=\"im_tool5\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool6 != null : "fx:id=\"im_tool6\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool7 != null : "fx:id=\"im_tool7\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool8 != null : "fx:id=\"im_tool8\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert im_tool9 != null : "fx:id=\"im_tool9\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert lb_mensj != null : "fx:id=\"lb_mensj\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert lb_screen != null : "fx:id=\"lb_screen\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert lb_Title != null : "fx:id=\"lb_Title\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tb_table != null : "fx:id=\"tb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tf_buscar != null : "fx:id=\"tf_buscar\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tf_toma != null : "fx:id=\"tf_toma\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tf_prov != null : "fx:id=\"tf_prov\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert tf_prod != null : "fx:id=\"tf_prod\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert ta_nota != null : "fx:id=\"ta_nota\" was not injected: check your FXML file 'Fxml_PurchaseOrderNewController.fxml'.";
+        assert vb_form != null : "fx:id=\"vb_form\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
+        assert vb_table != null : "fx:id=\"vb_table\" was not injected: check your FXML file 'Fxml_PurchaseOrder_NewController.fxml'.";
 
         //Inicializa la Barra de Herramientas y comportamiento del Boton de Busqueda
         defineToolBar();         
@@ -578,6 +578,7 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 invenblockprods.setStatus(invenblockprod.get(i).getStatus());
                 invenblockprods.setSql(invenblockprod.get(i).getSql());
                 invenblockprods.setCantProd(invenblockprod.get(i).getCantProd());
+                invenblockprods.setUsr_creacion(invenblockprod.get(i).getUsr_creacion());
 
                 if (i == numItems)
                     proceso = 1;
@@ -625,6 +626,8 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 tf_nombre.setEditable(false);
                 tf_prod.setEditable(false);
 
+                ta_nota.setEditable(false);
+
                 dp_fecha.setDisable(true);
                 
                 bt_toma.setDisable(false);
@@ -642,6 +645,8 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 tf_nombre.setEditable(true);
                 tf_prod.setEditable(true);
 
+                ta_nota.setEditable(true);
+                
                 dp_fecha.setDisable(false);
                 
                 bt_toma.setDisable(true);
@@ -659,6 +664,8 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 tf_nombre.setEditable(true);
                 tf_prod.setEditable(true);
 
+                ta_nota.setEditable(true);
+
                 dp_fecha.setDisable(false);
                 
                 bt_toma.setDisable(true);
@@ -675,6 +682,8 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 tf_nombre.setEditable(false);
                 tf_prod.setEditable(false);
 
+                ta_nota.setEditable(false);
+
                 dp_fecha.setDisable(true);
                 
                 bt_toma.setDisable(false);
@@ -690,6 +699,8 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 tf_prov.setEditable(false);
                 tf_nombre.setEditable(false);
                 tf_prod.setEditable(false);
+
+                ta_nota.setEditable(false);
 
                 dp_fecha.setDisable(true);
                 
@@ -762,17 +773,17 @@ public class Fxml_Inven_BlockprodController implements Initializable {
         switch(opc){
             case 0:     //SOLO LECTURA
                 nodos = new Node[]{
-                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod
                     };
                 break;
             case 1:     //NUEVO
                 nodos = new Node[]{
-                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod
                     };
                 break;
             case 2:     //EDITAR
                 nodos = new Node[]{
-                    tf_toma, dp_fecha, tf_prov, tf_prod, bt_aceptar
+                    tf_toma, dp_fecha, tf_prov, tf_prod
                     };
                 break;
         }             
@@ -954,6 +965,7 @@ public class Fxml_Inven_BlockprodController implements Initializable {
         tf_prov.setText("");
         tf_nombre.setText("");
         tf_prod.setText("");
+        ta_nota.setText("");
 
         tf_buscar.setText("");
         tf_buscar.setVisible(false);
@@ -987,6 +999,7 @@ public class Fxml_Inven_BlockprodController implements Initializable {
             tf_prov.setText("");
             tf_nombre.setText("");
             tf_prod.setText("");
+            ta_nota.setText("");
             dp_fecha.requestFocus();
         }
     }
@@ -1343,9 +1356,10 @@ public class Fxml_Inven_BlockprodController implements Initializable {
 
                             invenblockprods.setIdProducto(tf_prod.getText().toUpperCase());
                             invenblockprods.setDescrip(inventa[0].getDescri());
-                            invenblockprods.setObserv(null);
+                            invenblockprods.setObserv(ta_nota.getText());
                             invenblockprods.setSql(21);
                             invenblockprods.setCantProd(0);
+                            invenblockprods.setUsr_creacion(Datos.getSesion().getUsername());
 
 
                             if (numStatDet == 0){

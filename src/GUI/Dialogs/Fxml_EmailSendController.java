@@ -211,7 +211,7 @@ public class Fxml_EmailSendController implements Initializable{
                     "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
                     "<p><span style=\"font-size: small;\"><strong>Genny Lezama</strong></span></p>" +
                     "<p><span style=\"font-size: x-small;\">Dpto. de Inventario</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Cel: +58 412 000.00.00</span></p>" +
+                    "<p><span style=\"font-size: x-small;\">Cel: +58 412 143.46.74</span></p>" +
                     "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
                     "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
                 );

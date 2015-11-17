@@ -28,6 +28,7 @@ public class InventoryBlockProd {
     private String status;
     private int sql;
     private int cantProd;
+    private String usr_creacion;
     
     /**
      * 
@@ -55,6 +56,7 @@ public class InventoryBlockProd {
             status          = rs.getString(11);
             sql             = rs.getInt(12);
             cantProd        = rs.getInt(13);
+            usr_creacion    = rs.getString(14);
 
                     
         }catch(SQLException e){
@@ -242,6 +244,20 @@ public class InventoryBlockProd {
      */
     public void setCantProd(int cantProd) {
         this.cantProd = cantProd;
+    }
+
+    /**
+     * @return the usr_creacion
+     */
+    public String getUsr_creacion() {
+        return usr_creacion;
+    }
+
+    /**
+     * @param usr_creacion the usr_creacion to set
+     */
+    public void setUsr_creacion(String usr_creacion) {
+        this.usr_creacion = usr_creacion;
     }
 
 

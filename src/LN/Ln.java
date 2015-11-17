@@ -3169,7 +3169,7 @@ public class Ln {
             InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod_prod_prov(producto, proveedor);      
             return invenblockprod;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Bloqueo de Productos: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -3183,7 +3183,7 @@ public class Ln {
             InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod(find);      
             return invenblockprod;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Bloqueo de Productos: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -3197,7 +3197,7 @@ public class Ln {
             InventoryBlockProd[] invenblockprod = Bd.getInstance().find_invenblockprod_all(rows);      
             return invenblockprod;
         }catch(SQLException e){
-            Gui.getInstance().ventanaError("Error Cargando Toma de Inventario: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Cargando Bloqueo de Productos: \n"+e.getMessage()); 
         }
         return null;
     }    
@@ -3243,7 +3243,7 @@ public class Ln {
         try{
             return Bd.getInstance().change_invenblockprod(invenblockprod);                
         }catch(Exception e){       
-            Gui.getInstance().ventanaError("Error Deshabilitando Toma de Inventario: \n"+e.getMessage()); 
+            Gui.getInstance().ventanaError("Error Deshabilitando Bloqueo de Productos: \n"+e.getMessage()); 
         }
         return false;
     }  

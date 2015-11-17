@@ -1030,16 +1030,20 @@ public class Fxml_SearchController implements Initializable {
                 });
                 break;
             case 2004011: // button toma de productos
-                TableColumn<Object, Object> col_ordent      = new TableColumn<>("#");        
-                TableColumn<Object, Object> col_fechat      = new TableColumn<>("Fecha");        
-                TableColumn<Object, Object> col_numtoma     = new TableColumn<>("Nro Toma");                
-                TableColumn<Object, Object> col_cantt       = new TableColumn<>("Cant");        
+                TableColumn<Object, Object> col_ordent      = new TableColumn<>("#");
+                TableColumn<Object, Object> col_fechat      = new TableColumn<>("Fecha");
+                TableColumn<Object, Object> col_numtoma     = new TableColumn<>("Nro Toma");
+                TableColumn<Object, Object> col_cantt       = new TableColumn<>("Cant");
+                TableColumn<Object, Object> col_usuario     = new TableColumn<>("Usuario");
+                TableColumn<Object, Object> col_observ      = new TableColumn<>("Motivo del Bloqueo");
 
                 //Se establece el ancho de cada columna
-                this.objectWidth(col_ordent       , 34,  34); 
-                this.objectWidth(col_fechat       , 66,  66);
-                this.objectWidth(col_numtoma      , 66,  66);
-                this.objectWidth(col_cantt        , 60,  60);
+                this.objectWidth(col_ordent       , 34,   34); 
+                this.objectWidth(col_fechat       , 70,   70);
+                this.objectWidth(col_numtoma      , 65,   65);
+                this.objectWidth(col_cantt        , 58,   58);
+                this.objectWidth(col_usuario      , 90,   90);
+                this.objectWidth(col_observ       , 230,  300);
                 
                 col_fechat.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
                     @Override
@@ -1101,7 +1105,7 @@ public class Fxml_SearchController implements Initializable {
                             public void updateItem(Integer item, boolean empty) {
                                 super.updateItem(item, empty);
                                 setText(empty ? null : getString());
-                                setAlignment(Pos.CENTER_RIGHT);
+                                setAlignment(Pos.CENTER);
                             }
 
                             private String getString() {
@@ -1122,6 +1126,32 @@ public class Fxml_SearchController implements Initializable {
                     }
                 });        
 
+                col_usuario.setCellFactory(new Callback<TableColumn<Object, Object>, TableCell<Object, Object>>() {
+                    @Override
+                    public TableCell<Object, Object> call(TableColumn<Object, Object> param) {
+                        return new TableCell<Object, Object>() {
+                            @Override
+                            public void updateItem(Object item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(empty ? null : getString());
+                                setAlignment(Pos.CENTER);
+                            }
+
+                            private String getString() {
+                                String ret = "";
+                                if (getItem() != null) {
+                                    ret = getItem().toString();
+                                    if (ret.equals("0"))
+                                        ret = "";
+                                } else {
+                                    ret = "";
+                                }
+                                return ret;
+                            }                
+                        };
+                    }
+                });        
+
                 //Se define la columna de la tabla con el nombre del atributo del objeto USUARIO correspondiente
                 col_ordent.setCellValueFactory( 
                         new PropertyValueFactory<>("numorden") );
@@ -1131,10 +1161,15 @@ public class Fxml_SearchController implements Initializable {
                         new PropertyValueFactory<>("numtoma") );
                 col_cantt.setCellValueFactory( 
                         new PropertyValueFactory<>("cantProd") );
+                col_usuario.setCellValueFactory( 
+                        new PropertyValueFactory<>("usr_creacion") );
+                col_observ.setCellValueFactory( 
+                        new PropertyValueFactory<>("observ") );
 
                 //Se Asigna ordenadamente las columnas de la tabla
                 tb_table.getColumns().addAll(
-                    col_ordent, col_fechat, col_numtoma, col_cantt
+                    col_ordent, col_fechat, col_numtoma, col_cantt, col_usuario,
+                    col_observ    
                     );   
                 break;
             case 2005011: // screen Aseguradora 
