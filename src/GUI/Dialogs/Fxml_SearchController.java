@@ -1451,7 +1451,7 @@ public class Fxml_SearchController implements Initializable {
                         case 2003041: // screen Guia Avanzada
                             Gui.setIdBusqueda(((log_CGuias) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumrela());
                             break;
-                        case 2004011: // screen Aseguradora
+                        case 2004011: // screen Toma de productos
                             Gui.setIdBusqueda(String.valueOf(((InventoryBlockProd) tb_table.getItems().get(tb_table.getSelectionModel().getSelectedIndex())).getNumtoma()));
                             break;
                         case 2005011: // screen Aseguradora

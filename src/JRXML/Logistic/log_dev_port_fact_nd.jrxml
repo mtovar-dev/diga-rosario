@@ -230,35 +230,35 @@
 				<text><![CDATA[Rif:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="192" width="28" height="15" uuid="d59d12f5-10df-4485-a8c9-6edb6b5317c5"/>
+				<reportElement x="4" y="192" width="28" height="15" uuid="d59d12f5-10df-4485-a8c9-6edb6b5317c5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Zona]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="36" y="192" width="50" height="15" uuid="18f828c3-f089-4607-9c64-16f3d6435370"/>
+				<reportElement x="35" y="192" width="50" height="15" uuid="18f828c3-f089-4607-9c64-16f3d6435370"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="192" width="44" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
+				<reportElement x="90" y="192" width="46" height="15" uuid="1be6bdef-3cac-4729-a6f3-d7c73af05f3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cant.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="137" y="192" width="210" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
+				<reportElement x="139" y="192" width="206" height="15" uuid="eedbec05-4a0f-42ce-87e5-377b9aeef650"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descripción del Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="192" width="40" height="15" uuid="50742351-5a32-472b-9b2b-837787d8501f"/>
+				<reportElement x="348" y="192" width="44" height="15" uuid="50742351-5a32-472b-9b2b-837787d8501f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" isBold="false"/>
 				</textElement>
@@ -400,35 +400,35 @@ RIF: J075455525]]></text>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="36" y="0" width="50" height="15" uuid="c21c801a-86d9-4dc6-9873-b01f595a5dcb"/>
+				<reportElement x="34" y="0" width="50" height="15" uuid="c21c801a-86d9-4dc6-9873-b01f595a5dcb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="0" width="21" height="15" uuid="843a3ecf-74a6-44f4-ba8b-223c25280df1"/>
+				<reportElement x="86" y="0" width="25" height="15" uuid="843a3ecf-74a6-44f4-ba8b-223c25280df1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cantdev}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="108" y="0" width="25" height="15" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
+				<reportElement x="112" y="0" width="25" height="15" uuid="911d77ff-1d78-4b47-be80-b06b08b7c67f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="0" width="214" height="15" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
+				<reportElement x="139" y="0" width="206" height="15" uuid="7ac13f13-fb44-4a3f-9b37-32fcec6a8a4f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descrip}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement x="352" y="0" width="40" height="15" uuid="3119c1fd-240b-4713-9abb-55f9bf76dff6"/>
+				<reportElement x="346" y="0" width="48" height="15" uuid="3119c1fd-240b-4713-9abb-55f9bf76dff6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>

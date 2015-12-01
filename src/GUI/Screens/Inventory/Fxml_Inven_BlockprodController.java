@@ -742,6 +742,7 @@ public class Fxml_Inven_BlockprodController implements Initializable {
             invenblockprod.clear();
 
             tb_table.setItems(data);        
+            ta_nota.setText(data.get(0).getObserv());
         }
     } 
     /**
@@ -1293,10 +1294,10 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                         if(boo){
                             List<Supplier> data = Ln.getList_Supplier(Ln.getInstance().find_Supplier(tf_prov.getText()));
                             Datos.setSupplier(data.get(0));
-                            tf_prov.setText(Datos.getSupplier().getRif());
+//                            tf_prov.setText(Datos.getSupplier().getRif());
                             tf_nombre.setText(Datos.getSupplier().getNombre());
                         }else{                                  
-                        //    change_im_val(0, im_checkg); 
+//                            change_im_val(0, im_checkg); 
                             Gui.getInstance().showMessage("El Proveedor indicado NO existe!", "A");
                             tf_prov.requestFocus();
                         }

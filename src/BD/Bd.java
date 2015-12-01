@@ -8222,13 +8222,13 @@ public class Bd implements BdInterface{
                 switch(operacion){
                     case 1:
                         sql_rela.append("{call sp_ins_inv_numtoma(?)}");
-                        sql_data.append("{call sp_ins_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_ins_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Nueva toma_productos:";
                         break;
                     case 2:
                         invenblockprod.setNumtoma(Datos.getNumOrd_toma());
 
-                        sql_data.append("{call sp_upd_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+                        sql_data.append("{call sp_upd_inv_toma_prod(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
                         mensj = "Actualizando toma_productos:";
                         break;
                 }
@@ -8257,6 +8257,7 @@ public class Bd implements BdInterface{
                 cstmt.setInt("@anulada"                 , invenblockprod.getAnulada());
                 cstmt.setString("@status"               , invenblockprod.getStatus());
                 cstmt.setInt("@sql"                     , invenblockprod.getSql());
+                cstmt.setString("@ucreacion"               , invenblockprod.getUsr_creacion());
                 cstmt.execute();            
 
                 // Auditar el proceso

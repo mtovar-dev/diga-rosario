@@ -78,6 +78,12 @@
 	<field name="nombsucursal" class="java.lang.String"/>
 	<field name="cantfact" class="java.lang.Integer"/>
 	<field name="mtofact" class="java.lang.Double"/>
+	<variable name="v_tcant" class="java.lang.Integer" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantfact}]]></variableExpression>
+	</variable>
+	<variable name="v_tfact" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{mtofact}]]></variableExpression>
+	</variable>
 	<group name="producto">
 		<groupExpression><![CDATA[]]></groupExpression>
 	</group>
@@ -98,7 +104,7 @@
 				<text><![CDATA[Sucursal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="401" y="130" width="80" height="15" uuid="19d293cc-773f-4d83-939c-548360fff22b"/>
+				<reportElement x="401" y="130" width="84" height="15" uuid="19d293cc-773f-4d83-939c-548360fff22b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10"/>
 				</textElement>
@@ -220,7 +226,7 @@ RIF: J075455525]]></text>
 				<textFieldExpression><![CDATA[$F{cantfact}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="401" y="0" width="80" height="15" uuid="77f8bd68-dcbc-401a-9501-06478de7e2da"/>
+				<reportElement x="401" y="0" width="84" height="15" uuid="77f8bd68-dcbc-401a-9501-06478de7e2da"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced"/>
 				</textElement>
@@ -228,4 +234,32 @@ RIF: J075455525]]></text>
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="322" y="2" width="75" height="17" uuid="ffd424a9-4a86-4649-a042-97bb259f9d73"/>
+				<box>
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineStyle="Solid"/>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tcant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="2" width="84" height="17" uuid="ad9a9e5d-b72d-4a9c-81ee-5e6dad1a08d6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tfact}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>

@@ -585,7 +585,7 @@ RIF: J075455525]]></text>
 			<textField>
 				<reportElement x="212" y="54" width="150" height="15" uuid="188da40c-bf46-4b07-bbd4-b92ce8cff949"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="6"/>
+					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{chofer}]]></textFieldExpression>
 			</textField>
