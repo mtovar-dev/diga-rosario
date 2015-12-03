@@ -573,7 +573,7 @@ public class Fxml_Inven_BlockprodController implements Initializable {
                 invenblockprods.setNombre(invenblockprod.get(i).getNombre());
                 invenblockprods.setIdProducto(invenblockprod.get(i).getIdProducto());
                 invenblockprods.setDescrip(invenblockprod.get(i).getDescrip());
-                invenblockprods.setObserv(invenblockprod.get(i).getObserv());
+                invenblockprods.setObserv(ta_nota.getText());
                 invenblockprods.setAnulada(invenblockprod.get(i).getAnulada());
                 invenblockprods.setStatus(invenblockprod.get(i).getStatus());
                 invenblockprods.setSql(invenblockprod.get(i).getSql());

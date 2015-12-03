@@ -129,20 +129,39 @@ public class Fxml_EmailSendController implements Initializable{
                 ta_para.setText(data.get(0).getCorreo());
                 tf_asunto.setText("Orden de Compra (Diga) - " + Datos.getNumOrd_comp());
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
-                    ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com");
-                    ta_mensaje.setText(
-                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                        "<p><span style=\"font-size: small;\">Anexo envi&oacute; una nueva orden de compra para ser despachada en la fecha requerida.</span></p>" +
-                        "<p><span style=\"font-size: small;\">Favor confirmar la recepci&oacute;n de este correo</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                        "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
-                    );
+                    switch (Datos.getSesion().getEmail()){
+                        case "enarvaez@grupodiga.com":
+                            ta_cc.setText(Datos.getSesion().getEmail() + ", efernandes@grupodiga.com");
+                            ta_mensaje.setText(
+                                "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\">Anexo envi&oacute; una nueva orden de compra para ser despachada en la fecha requerida.</span></p>" +
+                                "<p><span style=\"font-size: small;\">Favor confirmar la recepci&oacute;n de este correo</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                            );
+                            break;
+                        case "efernandes@grupodiga.com":
+                            ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com");
+                            ta_mensaje.setText(
+                                "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\"><strong>LIC. Erika Fernades</strong></span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Cel: +58 424 380.29.10</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                            );
+                            break;
+                    }
                 }
                 else{
                     ta_cc.setText(Datos.getSesion().getEmail() + ", armgarces@gmail.com");
@@ -166,19 +185,38 @@ public class Fxml_EmailSendController implements Initializable{
                 ta_para.setText("descargas@grupodiga.com, morita@grupodiga.com, emontero@grupodiga.com, glezama@grupodiga.com");
                 tf_asunto.setText("Agenda de Recepcion");
                 if(Datos.getSupplier().getCountry().getAbrev().equals("VE")){
-                    ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com, fmanzano@grupodiga.com");
-                    ta_mensaje.setText(
-                        "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                        "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                        "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
-                        "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
-                    );
+                    switch (Datos.getSesion().getEmail()){
+                        case "enarvaez@grupodiga.com":
+                            ta_cc.setText(Datos.getSesion().getEmail() + ", efernandes@grupodiga.com, fmanzano@grupodiga.com");
+                            ta_mensaje.setText(
+                                "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                            );
+                            break;
+                        case "efernandes@grupodiga.com":
+                            ta_cc.setText(Datos.getSesion().getEmail() + ", enarvaez@grupodiga.com, fmanzano@grupodiga.com");
+                            ta_mensaje.setText(
+                                "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la agenda de recepci&oacute;n de las siguientes &oacute;rdenes de compra para ser recibidas en la fecha requerida.</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                                "<p><span style=\"font-size: small;\"><strong>LIC. Erika Fernades</strong></span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Cel: +58 424 380.29.10</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                                "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                            );
+                            break;
+                    }
                 }
                 else{
                     ta_cc.setText(Datos.getSesion().getEmail() + ", armgarces@gmail.com, fmanzano@grupodiga.com");
@@ -201,29 +239,67 @@ public class Fxml_EmailSendController implements Initializable{
 
                 invenblockprod.addAll(Arrays.asList(Datos.getRep_invenblockprod()));   
 
-                ta_para.setText("fmanzano@grupodiga.com, emontero@grupodiga.com, aortega@grupodiga.com, jrodriguez@grupodiga.com, bpestana@grupodiga.com, gneumaier@grupodiga.com, armgarces@grupodiga.com");
-                tf_asunto.setText("Productos Bloqueados para Inventario al - " + sdf.format(invenblockprod.get(0).getFecha()));
-                ta_cc.setText(Datos.getSesion().getEmail() + ", cpaez@grupodiga.com, mtorres@grupodiga.com");
-                ta_mensaje.setText(
-                    "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Productos Bloqueados en el Dpto. de Inventario;n a la fecha.</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\"><strong>Genny Lezama</strong></span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Dpto. de Inventario</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Cel: +58 412 143.46.74</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
-                    "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
-                );
+                switch (Datos.getSesion().getEmail()){
+                    case "enarvaez@grupodiga.com":
+                        ta_para.setText("fmanzano@grupodiga.com, emontero@grupodiga.com, aortega@grupodiga.com");
+                        tf_asunto.setText("Productos Bloqueados por presidencia al - " + sdf.format(invenblockprod.get(0).getFecha()));
+                        ta_cc.setText(Datos.getSesion().getEmail() + ", mtorres@grupodiga.com, efernandes@grupodiga.com, glezama@grupodiga.com");
+                        ta_mensaje.setText(
+                            "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Productos Bloqueados en el Dpto. de Presidencia a la fecha.</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Cel: +58 414 477.75.11</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                        );
+                        break;
+                    case "efernandes@grupodiga.com":
+                        ta_para.setText("fmanzano@grupodiga.com, emontero@grupodiga.com, aortega@grupodiga.com");
+                        tf_asunto.setText("Productos Bloqueados por presidencia al - " + sdf.format(invenblockprod.get(0).getFecha()));
+                        ta_cc.setText(Datos.getSesion().getEmail() + ", mtorres@grupodiga.com, enarvaez@grupodiga.com, glezama@grupodiga.com");
+                        ta_mensaje.setText(
+                            "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Productos Bloqueados en el Dpto. de Presidencia a la fecha.</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\"><strong>TSU. Elvimar Narvaez</strong></span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Asistente Presidencia</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Cel: +58 424 380.29.10</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Fax: +58 243 269.20.04</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                        );
+                        break;
+                    case "glezama@grupodiga.com":
+                        ta_para.setText("fmanzano@grupodiga.com, emontero@grupodiga.com, aortega@grupodiga.com, armgarces@grupodiga.com");
+                        tf_asunto.setText("Productos Bloqueados para Inventario al - " + sdf.format(invenblockprod.get(0).getFecha()));
+                        ta_cc.setText(Datos.getSesion().getEmail() + ", cpaez@grupodiga.com, mtorres@grupodiga.com, enarvaez@grupodiga.com");
+                        ta_mensaje.setText(
+                            "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Productos Bloqueados en el Dpto. de Inventario;n a la fecha.</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
+                            "<p><span style=\"font-size: small;\"><strong>Genny Lezama</strong></span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Dpto. de Inventario</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Cel: +58 412 143.46.74</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">Ofi: +58 243 217.34.10 al 15</span></p>" +
+                            "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" 
+                        );
+                        break;
+                }
                 break;
             case 2005021: // button fact anuladas
                 ta_para.setText("gerentes@grupodiga.com, supervisoresnacionales@grupodiga.com, supervisoresregionales@grupodiga.com");
                 tf_asunto.setText("Relación de Facturas Anuladas");
-                ta_cc.setText(Datos.getSesion().getEmail() + ", fmanzano@grupodiga.com, jrodriguez@grupodiga.com, bpestana@grupodiga.com, gneumaier@grupodiga.com, armgarces@grupodiga.com");
+                ta_cc.setText(Datos.getSesion().getEmail() + ", mzamora@grupodiga.com");
                 ta_mensaje.setText(
                     "<p><span style=\"font-size: small;\">Buenas,</span></p>" +
                     "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
-                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Factutas Anuladas por Sucursdal en el Dpto. de Devoluci&oacute;n a la fecha.</span></p>" +
+                    "<p><span style=\"font-size: small;\">A continuaci&oacute;n detallo la Relaci&oacute;n de Facturas Anuladas por Sucursal en el Dpto. de Devoluci&oacute;n a la fecha.</span></p>" +
                     "<p><span style=\"font-size: x-small;\">&nbsp;</span></p>" +
                     "<p><span style=\"font-size: small;\"><strong>Oswaldo Serrano</strong></span></p>" +
                     "<p><span style=\"font-size: x-small;\">Dpto. Devolución</span></p>" +
