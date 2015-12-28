@@ -1266,7 +1266,7 @@ public class Fxml_Guide_InvglomarController implements Initializable {
                     case "Diciembre":
                         imonth = 12;
                         idayf = 31;
-                        iyear = iyear - 1;
+//                        iyear = iyear - 1;
                         break;
                 }
                 dp_fecha1.setValue(LocalDate.of(iyear, imonth, idayi));
